@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>meteoWindow</class>
+ <widget class="QMainWindow" name="meteoWindow">
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
@@ -9,646 +9,644 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>764</width>
-    <height>984</height>
+    <width>613</width>
+    <height>901</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout_15">
-    <item>
-     <widget class="QSplitter" name="splitter">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <widget class="QGroupBox" name="mTimeGrB">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="baseSize">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="tabletTracking">
-        <bool>false</bool>
-       </property>
-       <property name="contextMenuPolicy">
-        <enum>Qt::NoContextMenu</enum>
-       </property>
-       <property name="acceptDrops">
-        <bool>false</bool>
-       </property>
-       <property name="title">
-        <string>Время</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_5">
-        <item>
-         <widget class="QSplitter" name="splitter_7">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <widget class="QWidget" name="">
-           <layout class="QHBoxLayout" name="horizontalLayout_5">
-            <item>
-             <widget class="QPushButton" name="mSummerPushB">
-              <property name="text">
-               <string>Лето</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="mWinterPushB">
-              <property name="text">
-               <string>Зима</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="mSpringPushB">
-              <property name="text">
-               <string>Весна</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="mAutumnPushB">
-              <property name="text">
-               <string>Осень</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="">
-           <layout class="QHBoxLayout" name="horizontalLayout_7">
-            <item>
-             <widget class="QPushButton" name="mDayPushB">
-              <property name="text">
-               <string>День</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="mNightPushB">
-              <property name="text">
-               <string>Ночь</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="">
-           <layout class="QHBoxLayout" name="horizontalLayout">
-            <item>
-             <widget class="QLabel" name="label_11">
-              <property name="text">
-               <string>Число</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QSpinBox" name="spinBox">
-              <property name="minimum">
-               <number>1</number>
-              </property>
-              <property name="maximum">
-               <number>31</number>
-              </property>
-              <property name="displayIntegerBase">
-               <number>31</number>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_12">
-              <property name="text">
-               <string>Месяц</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="comboBox">
-              <property name="insertPolicy">
-               <enum>QComboBox::InsertBeforeCurrent</enum>
-              </property>
-              <item>
-               <property name="text">
-                <string>январь</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>февраль</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>март</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>апрель</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>май</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>июнь</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>июль</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>август</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>сентябрь</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>октябрь</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>ноябрь</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>декабрь</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_13">
-              <property name="text">
-               <string>Время</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QTimeEdit" name="timeEdit"/>
-            </item>
-           </layout>
-          </widget>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QGroupBox" name="mCloudGrB">
-       <property name="title">
-        <string>Облачность</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_16">
-        <item>
-         <widget class="QSplitter" name="splitter_3">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <widget class="QWidget" name="">
-           <layout class="QGridLayout" name="gridLayout">
-            <item row="0" column="0">
-             <layout class="QVBoxLayout" name="verticalLayout_8">
-              <item>
-               <widget class="QLabel" name="label_3">
-                <property name="minimumSize">
-                 <size>
-                  <width>271</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>Высота нижней кромки облаков, [м]</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_4">
-                <property name="text">
-                 <string>Толщина слоя облаков, [м]</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_5">
-                <property name="text">
-                 <string>Бальность облаков,1...10 ед</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_9">
-                <property name="text">
-                 <string>Наличие второго слоя облаков</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_6">
-                <property name="text">
-                 <string>Тип облаков (обычные, грозовые)</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_8">
-                <property name="text">
-                 <string>Высота второго слоя облаков, [м]</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item row="0" column="1">
-             <layout class="QVBoxLayout" name="verticalLayout_10">
-              <item>
-               <widget class="QScrollBar" name="horizontalScrollBar">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QScrollBar" name="horizontalScrollBar_2">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>3</height>
-                 </size>
-                </property>
-                <property name="cursor">
-                 <cursorShape>UpArrowCursor</cursorShape>
-                </property>
-                <property name="singleStep">
-                 <number>5</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="verticalSpacer">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>17</width>
-                  <height>88</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QScrollBar" name="horizontalScrollBar_3">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="">
-           <layout class="QVBoxLayout" name="verticalLayout_11">
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_19">
-              <item>
-               <widget class="QLineEdit" name="lineEdit_2"/>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="lineEdit"/>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_9">
-              <item>
-               <widget class="QSpinBox" name="spinBox_3">
-                <property name="tabletTracking">
-                 <bool>false</bool>
-                </property>
-                <property name="toolTipDuration">
-                 <number>0</number>
-                </property>
-                <property name="minimum">
-                 <number>1</number>
-                </property>
-                <property name="maximum">
-                 <number>10</number>
-                </property>
-                <property name="singleStep">
-                 <number>0</number>
-                </property>
-                <property name="value">
-                 <number>1</number>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QComboBox" name="comboBox_2">
-                <item>
-                 <property name="text">
-                  <string>да</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>нет</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item>
-               <widget class="QComboBox" name="comboBox_3">
-                <item>
-                 <property name="text">
-                  <string>обычные</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>грозовые</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSpinBox" name="spinBox_6"/>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </widget>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QGroupBox" name="mPrecipationGrB">
-       <property name="title">
-        <string>Осадки</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_17">
-        <item>
-         <widget class="QSplitter" name="splitter_2">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <widget class="QWidget" name="">
-           <layout class="QHBoxLayout" name="horizontalLayout_6">
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_2">
-              <item>
-               <widget class="QLabel" name="label_10">
-                <property name="text">
-                 <string>Локальная дальность видимости, [м]</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_2">
-                <property name="text">
-                 <string>Интенсивность дождя, %</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label">
-                <property name="text">
-                 <string>Интенсивность снега, %</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_7">
-                <property name="text">
-                 <string>Высота дымки тумана, [м]</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_4">
-              <item>
-               <widget class="QScrollBar" name="horizontalScrollBar_4">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QScrollBar" name="horizontalScrollBar_5">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QScrollBar" name="horizontalScrollBar_6">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QScrollBar" name="horizontalScrollBar_7">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="">
-           <layout class="QVBoxLayout" name="verticalLayout_7">
-            <item>
-             <widget class="QLineEdit" name="lineEdit_7"/>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="lineEdit_8"/>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="lineEdit_9"/>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="lineEdit_10"/>
-            </item>
-           </layout>
-          </widget>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QGroupBox" name="mWindGrB">
-       <property name="title">
-        <string>Ветер</string>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayout_14">
+   <widget class="QSplitter" name="splitter">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>30</y>
+      <width>580</width>
+      <height>808</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+    <widget class="QGroupBox" name="mTimeGrB">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="baseSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="tabletTracking">
+      <bool>false</bool>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::NoContextMenu</enum>
+     </property>
+     <property name="acceptDrops">
+      <bool>false</bool>
+     </property>
+     <property name="title">
+      <string>Время</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_5">
+      <item>
+       <widget class="QSplitter" name="splitter_7">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <widget class="QWidget" name="layoutWidget">
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
-            <item>
-             <widget class="QLabel" name="label_21">
-              <property name="text">
-               <string>Скорость ветра, м/с</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>108</width>
-                <height>17</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
+           <widget class="QPushButton" name="mWinterPushB">
+            <property name="text">
+             <string>Зима</string>
+            </property>
+           </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_22">
+           <widget class="QPushButton" name="mSpringPushB">
             <property name="text">
-             <string>Направление ветра, 0...360 град</string>
+             <string>Весна</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="mSummerPushB">
+            <property name="text">
+             <string>Лето</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="mAutumnPushB">
+            <property name="text">
+             <string>Осень</string>
             </property>
            </widget>
           </item>
          </layout>
+        </widget>
+        <widget class="QWidget" name="layoutWidget">
+         <layout class="QHBoxLayout" name="horizontalLayout_7">
+          <item>
+           <widget class="QPushButton" name="mDayPushB">
+            <property name="text">
+             <string>День</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="mNightPushB">
+            <property name="text">
+             <string>Ночь</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="layoutWidget">
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QLabel" name="label_11">
+            <property name="text">
+             <string>Число</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="day_spnb">
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>31</number>
+            </property>
+            <property name="displayIntegerBase">
+             <number>31</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_12">
+            <property name="text">
+             <string>Месяц</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="month_cmbB">
+            <property name="insertPolicy">
+             <enum>QComboBox::InsertBeforeCurrent</enum>
+            </property>
+            <item>
+             <property name="text">
+              <string>январь</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>февраль</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>март</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>апрель</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>май</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>июнь</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>июль</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>август</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>сентябрь</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>октябрь</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>ноябрь</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>декабрь</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_13">
+            <property name="text">
+             <string>Время</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTimeEdit" name="time_spnB"/>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QGroupBox" name="mCloudGrB">
+     <property name="title">
+      <string>Облачность</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_8">
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_8">
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="minimumSize">
+           <size>
+            <width>271</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Высота нижней кромки облаков, [м]</string>
+          </property>
+         </widget>
         </item>
         <item>
-         <widget class="QSplitter" name="splitter_4">
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>Толщина слоя облаков, [м]</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>Бальность облаков,1...10 ед</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_9">
+          <property name="text">
+           <string>Наличие второго слоя облаков</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>Тип облаков (обычные, грозовые)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_8">
+          <property name="text">
+           <string>Высота второго слоя облаков, [м]</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_9">
+        <item>
+         <widget class="QScrollBar" name="cloudHeightScroll">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
-          <widget class="QWidget" name="">
-           <layout class="QVBoxLayout" name="verticalLayout_6">
+         </widget>
+        </item>
+        <item>
+         <widget class="QScrollBar" name="cloudThickScroll">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>3</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>UpArrowCursor</cursorShape>
+          </property>
+          <property name="singleStep">
+           <number>5</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>17</width>
+            <height>68</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QScrollBar" name="cloudSecLvlScroll">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_10">
+        <item>
+         <widget class="QLineEdit" name="cloudBase_inp"/>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="cloudUpper_inp"/>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="cloudSize_spnB">
+          <property name="tabletTracking">
+           <bool>false</bool>
+          </property>
+          <property name="toolTipDuration">
+           <number>0</number>
+          </property>
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>10</number>
+          </property>
+          <property name="singleStep">
+           <number>0</number>
+          </property>
+          <property name="value">
+           <number>1</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="cloudsSecLay_cmbB">
+          <item>
+           <property name="text">
+            <string>да</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>нет</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="cloudsType_cmbB">
+          <item>
+           <property name="text">
+            <string>обычные</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>грозовые</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="secLayHeight_spnB"/>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QGroupBox" name="mPrecipationGrB">
+     <property name="title">
+      <string>Осадки</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_17">
+      <item>
+       <widget class="QSplitter" name="splitter_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <widget class="QWidget" name="layoutWidget">
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_2">
             <item>
-             <widget class="QScrollBar" name="horizontalScrollBar_15">
+             <widget class="QLabel" name="label_10">
+              <property name="text">
+               <string>Локальная дальность видимости, [м]</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="text">
+               <string>Интенсивность дождя, %</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>Интенсивность снега, %</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_7">
+              <property name="text">
+               <string>Высота дымки тумана, [м]</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_4">
+            <item>
+             <widget class="QScrollBar" name="localVisScroll">
+              <property name="singleStep">
+               <number>1</number>
+              </property>
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QScrollBar" name="horizontalScrollBar_16">
+             <widget class="QScrollBar" name="rainScroll">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QScrollBar" name="snowScroll">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QScrollBar" name="mistScroll">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
              </widget>
             </item>
            </layout>
-          </widget>
-          <widget class="QWidget" name="">
-           <layout class="QVBoxLayout" name="verticalLayout_13">
-            <item>
-             <widget class="QLineEdit" name="lineEdit_4"/>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="lineEdit_3"/>
-            </item>
-           </layout>
-          </widget>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QGroupBox" name="mSightGrB">
-       <property name="title">
-        <string>Видимость</string>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_9">
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="layoutWidget">
+         <layout class="QVBoxLayout" name="verticalLayout_7">
+          <item>
+           <widget class="QLineEdit" name="localVis_inp"/>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="rain_inp"/>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="snow_inp"/>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="hmist_inp"/>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QGroupBox" name="mWindGrB">
+     <property name="title">
+      <string>Ветер</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_14">
         <item>
-         <widget class="QSplitter" name="splitter_6">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QLabel" name="label_21">
+            <property name="text">
+             <string>Скорость ветра, м/с</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>108</width>
+              <height>17</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_22">
+          <property name="text">
+           <string>Направление ветра, 0...360 град</string>
           </property>
-          <widget class="QWidget" name="">
-           <layout class="QHBoxLayout" name="horizontalLayout_3">
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout">
-              <item>
-               <widget class="QLabel" name="label_25">
-                <property name="text">
-                 <string>Глобальная дальность видимости, [м]</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_26">
-                <property name="text">
-                 <string>Яркость звезд, %</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_3">
-              <item>
-               <widget class="QScrollBar" name="horizontalScrollBar_19">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QScrollBar" name="horizontalScrollBar_20">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="">
-           <layout class="QVBoxLayout" name="verticalLayout_12">
-            <item>
-             <widget class="QLineEdit" name="lineEdit_5"/>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="lineEdit_6"/>
-            </item>
-           </layout>
-          </widget>
          </widget>
         </item>
        </layout>
-      </widget>
-     </widget>
-    </item>
-   </layout>
+      </item>
+      <item>
+       <widget class="QSplitter" name="splitter_4">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <widget class="QWidget" name="layoutWidget">
+         <layout class="QVBoxLayout" name="verticalLayout_6">
+          <item>
+           <widget class="QScrollBar" name="windSpeedScroll">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QScrollBar" name="windPsiScroll">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="layoutWidget">
+         <layout class="QVBoxLayout" name="verticalLayout_13">
+          <item>
+           <widget class="QLineEdit" name="windSpeed_inp"/>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="windSpeedPsi_inp"/>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QGroupBox" name="mSightGrB">
+     <property name="title">
+      <string>Видимость</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_9">
+      <item>
+       <widget class="QSplitter" name="splitter_6">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <widget class="QWidget" name="layoutWidget">
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+             <widget class="QLabel" name="label_25">
+              <property name="text">
+               <string>Глобальная дальность видимости, [м]</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_26">
+              <property name="text">
+               <string>Яркость звезд, %</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <widget class="QScrollBar" name="visScroll">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QScrollBar" name="starsBrightScroll">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="layoutWidget">
+         <layout class="QVBoxLayout" name="verticalLayout_12">
+          <item>
+           <widget class="QLineEdit" name="visibility_inp">
+            <property name="baseSize">
+             <size>
+              <width>0</width>
+              <height>3</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="starsBright_inp"/>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QMenuBar" name="menuBar">
@@ -656,7 +654,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>764</width>
+     <width>613</width>
      <height>31</height>
     </rect>
    </property>

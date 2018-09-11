@@ -27,7 +27,9 @@ SOURCES += \
         mainwindow.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    meteo_struct.h \
+    ../build-untitled-Desktop_Qt_5_11_1_MSVC2017_64bit-Debug/ui_mainwindow.h
 
 FORMS += \
         mainwindow.ui
