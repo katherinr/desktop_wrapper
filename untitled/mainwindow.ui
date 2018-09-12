@@ -67,6 +67,12 @@
             <property name="text">
              <string>Зима</string>
             </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
            </widget>
           </item>
           <item>
@@ -99,12 +105,27 @@
             <property name="text">
              <string>День</string>
             </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
           <item>
            <widget class="QPushButton" name="mNightPushB">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
             <property name="text">
              <string>Ночь</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+            <property name="default">
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -126,6 +147,9 @@
             </property>
             <property name="maximum">
              <number>31</number>
+            </property>
+            <property name="singleStep">
+             <number>1</number>
             </property>
             <property name="displayIntegerBase">
              <number>31</number>
@@ -214,7 +238,23 @@
            </widget>
           </item>
           <item>
-           <widget class="QTimeEdit" name="time_spnB"/>
+           <widget class="QTimeEdit" name="time_spnB">
+            <property name="focusPolicy">
+             <enum>Qt::ClickFocus</enum>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::UpDownArrows</enum>
+            </property>
+            <property name="currentSection">
+             <enum>QDateTimeEdit::HourSection</enum>
+            </property>
+            <property name="calendarPopup">
+             <bool>false</bool>
+            </property>
+            <property name="currentSectionIndex">
+             <number>0</number>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -335,29 +375,10 @@
          <widget class="QLineEdit" name="cloudBase_inp"/>
         </item>
         <item>
-         <widget class="QLineEdit" name="cloudUpper_inp"/>
+         <widget class="QLineEdit" name="cloudThick_inp"/>
         </item>
         <item>
-         <widget class="QSpinBox" name="cloudSize_spnB">
-          <property name="tabletTracking">
-           <bool>false</bool>
-          </property>
-          <property name="toolTipDuration">
-           <number>0</number>
-          </property>
-          <property name="minimum">
-           <number>1</number>
-          </property>
-          <property name="maximum">
-           <number>10</number>
-          </property>
-          <property name="singleStep">
-           <number>0</number>
-          </property>
-          <property name="value">
-           <number>1</number>
-          </property>
-         </widget>
+         <widget class="QLineEdit" name="cloudSize_inp"/>
         </item>
         <item>
          <widget class="QComboBox" name="cloudsSecLay_cmbB">
@@ -388,7 +409,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="secLayHeight_spnB"/>
+         <widget class="QLineEdit" name="cloudSecLayer_inp"/>
         </item>
        </layout>
       </item>

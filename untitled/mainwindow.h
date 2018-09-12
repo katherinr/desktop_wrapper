@@ -30,6 +30,14 @@ private slots:
     void on_windSpeedPsi_inp_editingFinished();
     void on_visibility_inp_editingFinished();
     void on_starsBright_inp_editingFinished();
+    void on_cloudSize_spnB_valueChanged(int arg1);
+    void on_month_cmbB_editTextChanged(const QString &arg1);
+    void on_cloudSecLayer_inp_editingFinished();
+    void on_cloudThick_inp_editingFinished();
+    void on_mWinterPushB_pressed();
+    void on_mDayPushB_pressed();
+    void on_mNightPushB_pressed();
+    void on_time_spnB_timeChanged(const QTime &time);
 };
 
 #endif // METEO_WINDOW_H

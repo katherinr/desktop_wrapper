@@ -24,7 +24,7 @@ void meteoWindow::on_cloudBase_inp_editingFinished()
 
 void meteoWindow::on_cloudUpper_inp_editingFinished()
 {
-     data->CloudUpper = ui->cloudUpper_inp->text().toShort();
+     data->CloudUpper = ui->cloudThick_inp->text().toShort();
      qDebug()<<"data->CloudUpper" <<data->CloudUpper<<"\n";
 }
 
@@ -74,4 +74,57 @@ void meteoWindow::on_starsBright_inp_editingFinished()
 {
     data->StarBright = ui->starsBright_inp->text().toFloat();
     qDebug()<<"data->StarBright" <<data->StarBright<<"\n";
+}
+
+void meteoWindow::on_cloudSize_spnB_valueChanged(int arg1)
+{
+    data->CloudSize = ui->cloudSize_inp->text().toShort();
+    qDebug()<<"data->CloudSize" <<data->CloudSize<<"\n";
+}
+
+void meteoWindow::on_month_cmbB_editTextChanged(const QString &arg1)
+{
+    data->Month = ui->month_cmbB->currentText().toShort();
+    qDebug()<<"data->Month" <<data->Month<<"\n";
+}
+
+void meteoWindow::on_cloudSecLayer_inp_editingFinished()
+{
+    data->cloudsSecondLay = ui->cloudSecLayer_inp->text().toInt();
+    qDebug()<<"data->cloudsSecondLay" <<data->cloudsSecondLay<<"\n";
+}
+
+void meteoWindow::on_cloudThick_inp_editingFinished()
+{
+    data->CloudUpper = ui->cloudThick_inp->text().toShort();
+    qDebug()<<"data->CloudUpper" <<data->CloudUpper<<"\n";
+}
+
+void meteoWindow::on_mWinterPushB_pressed()
+{
+    ui->month_cmbB->setAutoCompletion(1);
+
+}
+
+void meteoWindow::on_mDayPushB_pressed()
+{
+    if (ui->mNightPushB->pressed())
+        ui->mNightPushB->released();
+    ui->time_spnB->setTimeRange(QTime(7,0,0,0),QTime(23,59,0,0));
+    ui->time_spnB->update();
+}
+
+void meteoWindow::on_mNightPushB_pressed()
+{
+    //if (ui->mDayPushB->toggled())
+   //  ui->mDayPushB->setFlat();
+     ui->time_spnB->setTimeRange(QTime(0,0,0,0),QTime(6,59,0,0));
+     ui->time_spnB->update();
+}
+
+void meteoWindow::on_time_spnB_timeChanged(const QTime &time)
+{
+    data->Hours = time.hour();
+    data->Minutes = time.minute();
+    qDebug()<<"ddata->Hours " << data->Hours<<"ddata->Minutes " << data->Minutes<<"\n";
 }

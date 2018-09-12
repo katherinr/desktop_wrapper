@@ -13,7 +13,6 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QComboBox>
-#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
@@ -40,7 +39,6 @@ public:
     QAction *action_2;
     QAction *action_4;
     QWidget *centralWidget;
-    QVBoxLayout *verticalLayout_15;
     QSplitter *splitter;
     QGroupBox *mTimeGrB;
     QVBoxLayout *verticalLayout_5;
@@ -64,10 +62,7 @@ public:
     QLabel *label_13;
     QTimeEdit *time_spnB;
     QGroupBox *mCloudGrB;
-    QVBoxLayout *verticalLayout_16;
-    QSplitter *splitter_3;
-    QWidget *layoutWidget3;
-    QGridLayout *gridLayout;
+    QHBoxLayout *horizontalLayout_8;
     QVBoxLayout *verticalLayout_8;
     QLabel *label_3;
     QLabel *label_4;
@@ -75,25 +70,22 @@ public:
     QLabel *label_9;
     QLabel *label_6;
     QLabel *label_8;
-    QVBoxLayout *verticalLayout_10;
+    QVBoxLayout *verticalLayout_9;
     QScrollBar *cloudHeightScroll;
     QScrollBar *cloudThickScroll;
     QSpacerItem *verticalSpacer;
     QScrollBar *cloudSecLvlScroll;
-    QWidget *layoutWidget4;
-    QVBoxLayout *verticalLayout_11;
-    QVBoxLayout *verticalLayout_19;
+    QVBoxLayout *verticalLayout_10;
     QLineEdit *cloudBase_inp;
-    QLineEdit *cloudUpper_inp;
-    QVBoxLayout *verticalLayout_9;
-    QSpinBox *cloudSize_spnB;
+    QLineEdit *cloudThick_inp;
+    QLineEdit *cloudSize_inp;
     QComboBox *cloudsSecLay_cmbB;
     QComboBox *cloudsType_cmbB;
-    QSpinBox *secLayHeight_spnB;
+    QLineEdit *cloudSecLayer_inp;
     QGroupBox *mPrecipationGrB;
     QVBoxLayout *verticalLayout_17;
     QSplitter *splitter_2;
-    QWidget *layoutWidget5;
+    QWidget *layoutWidget3;
     QHBoxLayout *horizontalLayout_6;
     QVBoxLayout *verticalLayout_2;
     QLabel *label_10;
@@ -105,7 +97,7 @@ public:
     QScrollBar *rainScroll;
     QScrollBar *snowScroll;
     QScrollBar *mistScroll;
-    QWidget *layoutWidget6;
+    QWidget *layoutWidget4;
     QVBoxLayout *verticalLayout_7;
     QLineEdit *localVis_inp;
     QLineEdit *rain_inp;
@@ -119,18 +111,18 @@ public:
     QSpacerItem *horizontalSpacer;
     QLabel *label_22;
     QSplitter *splitter_4;
-    QWidget *layoutWidget7;
+    QWidget *layoutWidget5;
     QVBoxLayout *verticalLayout_6;
     QScrollBar *windSpeedScroll;
     QScrollBar *windPsiScroll;
-    QWidget *layoutWidget8;
+    QWidget *layoutWidget6;
     QVBoxLayout *verticalLayout_13;
     QLineEdit *windSpeed_inp;
     QLineEdit *windSpeedPsi_inp;
     QGroupBox *mSightGrB;
     QHBoxLayout *horizontalLayout_9;
     QSplitter *splitter_6;
-    QWidget *layoutWidget9;
+    QWidget *layoutWidget7;
     QHBoxLayout *horizontalLayout_3;
     QVBoxLayout *verticalLayout;
     QLabel *label_25;
@@ -138,7 +130,7 @@ public:
     QVBoxLayout *verticalLayout_3;
     QScrollBar *visScroll;
     QScrollBar *starsBrightScroll;
-    QWidget *layoutWidget10;
+    QWidget *layoutWidget8;
     QVBoxLayout *verticalLayout_12;
     QLineEdit *visibility_inp;
     QLineEdit *starsBright_inp;
@@ -151,7 +143,7 @@ public:
         if (meteoWindow->objectName().isEmpty())
             meteoWindow->setObjectName(QStringLiteral("meteoWindow"));
         meteoWindow->setWindowModality(Qt::ApplicationModal);
-        meteoWindow->resize(764, 984);
+        meteoWindow->resize(613, 901);
         action = new QAction(meteoWindow);
         action->setObjectName(QStringLiteral("action"));
         action_2 = new QAction(meteoWindow);
@@ -160,12 +152,9 @@ public:
         action_4->setObjectName(QStringLiteral("action_4"));
         centralWidget = new QWidget(meteoWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        verticalLayout_15 = new QVBoxLayout(centralWidget);
-        verticalLayout_15->setSpacing(6);
-        verticalLayout_15->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_15->setObjectName(QStringLiteral("verticalLayout_15"));
         splitter = new QSplitter(centralWidget);
         splitter->setObjectName(QStringLiteral("splitter"));
+        splitter->setGeometry(QRect(20, 30, 580, 808));
         splitter->setOrientation(Qt::Vertical);
         mTimeGrB = new QGroupBox(splitter);
         mTimeGrB->setObjectName(QStringLiteral("mTimeGrB"));
@@ -190,6 +179,8 @@ public:
         horizontalLayout_5->setContentsMargins(0, 0, 0, 0);
         mWinterPushB = new QPushButton(layoutWidget);
         mWinterPushB->setObjectName(QStringLiteral("mWinterPushB"));
+        mWinterPushB->setCheckable(true);
+        mWinterPushB->setChecked(false);
 
         horizontalLayout_5->addWidget(mWinterPushB);
 
@@ -218,11 +209,15 @@ public:
         horizontalLayout_7->setContentsMargins(0, 0, 0, 0);
         mDayPushB = new QPushButton(layoutWidget1);
         mDayPushB->setObjectName(QStringLiteral("mDayPushB"));
+        mDayPushB->setCheckable(true);
 
         horizontalLayout_7->addWidget(mDayPushB);
 
         mNightPushB = new QPushButton(layoutWidget1);
         mNightPushB->setObjectName(QStringLiteral("mNightPushB"));
+        mNightPushB->setEnabled(true);
+        mNightPushB->setCheckable(true);
+        mNightPushB->setChecked(false);
 
         horizontalLayout_7->addWidget(mNightPushB);
 
@@ -243,6 +238,7 @@ public:
         day_spnb->setObjectName(QStringLiteral("day_spnb"));
         day_spnb->setMinimum(1);
         day_spnb->setMaximum(31);
+        day_spnb->setSingleStep(1);
         day_spnb->setDisplayIntegerBase(31);
 
         horizontalLayout->addWidget(day_spnb);
@@ -277,6 +273,11 @@ public:
 
         time_spnB = new QTimeEdit(layoutWidget2);
         time_spnB->setObjectName(QStringLiteral("time_spnB"));
+        time_spnB->setFocusPolicy(Qt::ClickFocus);
+        time_spnB->setButtonSymbols(QAbstractSpinBox::UpDownArrows);
+        time_spnB->setCurrentSection(QDateTimeEdit::HourSection);
+        time_spnB->setCalendarPopup(false);
+        time_spnB->setCurrentSectionIndex(0);
 
         horizontalLayout->addWidget(time_spnB);
 
@@ -287,151 +288,117 @@ public:
         splitter->addWidget(mTimeGrB);
         mCloudGrB = new QGroupBox(splitter);
         mCloudGrB->setObjectName(QStringLiteral("mCloudGrB"));
-        verticalLayout_16 = new QVBoxLayout(mCloudGrB);
-        verticalLayout_16->setSpacing(6);
-        verticalLayout_16->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_16->setObjectName(QStringLiteral("verticalLayout_16"));
-        splitter_3 = new QSplitter(mCloudGrB);
-        splitter_3->setObjectName(QStringLiteral("splitter_3"));
-        splitter_3->setOrientation(Qt::Horizontal);
-        layoutWidget3 = new QWidget(splitter_3);
-        layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
-        gridLayout = new QGridLayout(layoutWidget3);
-        gridLayout->setSpacing(6);
-        gridLayout->setContentsMargins(11, 11, 11, 11);
-        gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        gridLayout->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout_8 = new QHBoxLayout(mCloudGrB);
+        horizontalLayout_8->setSpacing(6);
+        horizontalLayout_8->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
         verticalLayout_8 = new QVBoxLayout();
         verticalLayout_8->setSpacing(6);
         verticalLayout_8->setObjectName(QStringLiteral("verticalLayout_8"));
-        label_3 = new QLabel(layoutWidget3);
+        label_3 = new QLabel(mCloudGrB);
         label_3->setObjectName(QStringLiteral("label_3"));
         label_3->setMinimumSize(QSize(271, 0));
 
         verticalLayout_8->addWidget(label_3);
 
-        label_4 = new QLabel(layoutWidget3);
+        label_4 = new QLabel(mCloudGrB);
         label_4->setObjectName(QStringLiteral("label_4"));
 
         verticalLayout_8->addWidget(label_4);
 
-        label_5 = new QLabel(layoutWidget3);
+        label_5 = new QLabel(mCloudGrB);
         label_5->setObjectName(QStringLiteral("label_5"));
 
         verticalLayout_8->addWidget(label_5);
 
-        label_9 = new QLabel(layoutWidget3);
+        label_9 = new QLabel(mCloudGrB);
         label_9->setObjectName(QStringLiteral("label_9"));
 
         verticalLayout_8->addWidget(label_9);
 
-        label_6 = new QLabel(layoutWidget3);
+        label_6 = new QLabel(mCloudGrB);
         label_6->setObjectName(QStringLiteral("label_6"));
 
         verticalLayout_8->addWidget(label_6);
 
-        label_8 = new QLabel(layoutWidget3);
+        label_8 = new QLabel(mCloudGrB);
         label_8->setObjectName(QStringLiteral("label_8"));
 
         verticalLayout_8->addWidget(label_8);
 
 
-        gridLayout->addLayout(verticalLayout_8, 0, 0, 1, 1);
+        horizontalLayout_8->addLayout(verticalLayout_8);
 
-        verticalLayout_10 = new QVBoxLayout();
-        verticalLayout_10->setSpacing(6);
-        verticalLayout_10->setObjectName(QStringLiteral("verticalLayout_10"));
-        cloudHeightScroll = new QScrollBar(layoutWidget3);
+        verticalLayout_9 = new QVBoxLayout();
+        verticalLayout_9->setSpacing(6);
+        verticalLayout_9->setObjectName(QStringLiteral("verticalLayout_9"));
+        cloudHeightScroll = new QScrollBar(mCloudGrB);
         cloudHeightScroll->setObjectName(QStringLiteral("cloudHeightScroll"));
         cloudHeightScroll->setOrientation(Qt::Horizontal);
 
-        verticalLayout_10->addWidget(cloudHeightScroll);
+        verticalLayout_9->addWidget(cloudHeightScroll);
 
-        cloudThickScroll = new QScrollBar(layoutWidget3);
+        cloudThickScroll = new QScrollBar(mCloudGrB);
         cloudThickScroll->setObjectName(QStringLiteral("cloudThickScroll"));
         cloudThickScroll->setMinimumSize(QSize(0, 3));
         cloudThickScroll->setCursor(QCursor(Qt::UpArrowCursor));
         cloudThickScroll->setSingleStep(5);
         cloudThickScroll->setOrientation(Qt::Horizontal);
 
-        verticalLayout_10->addWidget(cloudThickScroll);
+        verticalLayout_9->addWidget(cloudThickScroll);
 
-        verticalSpacer = new QSpacerItem(17, 88, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        verticalSpacer = new QSpacerItem(17, 68, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        verticalLayout_10->addItem(verticalSpacer);
+        verticalLayout_9->addItem(verticalSpacer);
 
-        cloudSecLvlScroll = new QScrollBar(layoutWidget3);
+        cloudSecLvlScroll = new QScrollBar(mCloudGrB);
         cloudSecLvlScroll->setObjectName(QStringLiteral("cloudSecLvlScroll"));
         cloudSecLvlScroll->setOrientation(Qt::Horizontal);
 
-        verticalLayout_10->addWidget(cloudSecLvlScroll);
+        verticalLayout_9->addWidget(cloudSecLvlScroll);
 
 
-        gridLayout->addLayout(verticalLayout_10, 0, 1, 1, 1);
+        horizontalLayout_8->addLayout(verticalLayout_9);
 
-        splitter_3->addWidget(layoutWidget3);
-        layoutWidget4 = new QWidget(splitter_3);
-        layoutWidget4->setObjectName(QStringLiteral("layoutWidget4"));
-        verticalLayout_11 = new QVBoxLayout(layoutWidget4);
-        verticalLayout_11->setSpacing(6);
-        verticalLayout_11->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_11->setObjectName(QStringLiteral("verticalLayout_11"));
-        verticalLayout_11->setContentsMargins(0, 0, 0, 0);
-        verticalLayout_19 = new QVBoxLayout();
-        verticalLayout_19->setSpacing(6);
-        verticalLayout_19->setObjectName(QStringLiteral("verticalLayout_19"));
-        cloudBase_inp = new QLineEdit(layoutWidget4);
+        verticalLayout_10 = new QVBoxLayout();
+        verticalLayout_10->setSpacing(6);
+        verticalLayout_10->setObjectName(QStringLiteral("verticalLayout_10"));
+        cloudBase_inp = new QLineEdit(mCloudGrB);
         cloudBase_inp->setObjectName(QStringLiteral("cloudBase_inp"));
 
-        verticalLayout_19->addWidget(cloudBase_inp);
+        verticalLayout_10->addWidget(cloudBase_inp);
 
-        cloudUpper_inp = new QLineEdit(layoutWidget4);
-        cloudUpper_inp->setObjectName(QStringLiteral("cloudUpper_inp"));
+        cloudThick_inp = new QLineEdit(mCloudGrB);
+        cloudThick_inp->setObjectName(QStringLiteral("cloudThick_inp"));
 
-        verticalLayout_19->addWidget(cloudUpper_inp);
+        verticalLayout_10->addWidget(cloudThick_inp);
 
+        cloudSize_inp = new QLineEdit(mCloudGrB);
+        cloudSize_inp->setObjectName(QStringLiteral("cloudSize_inp"));
 
-        verticalLayout_11->addLayout(verticalLayout_19);
+        verticalLayout_10->addWidget(cloudSize_inp);
 
-        verticalLayout_9 = new QVBoxLayout();
-        verticalLayout_9->setSpacing(6);
-        verticalLayout_9->setObjectName(QStringLiteral("verticalLayout_9"));
-        cloudSize_spnB = new QSpinBox(layoutWidget4);
-        cloudSize_spnB->setObjectName(QStringLiteral("cloudSize_spnB"));
-        cloudSize_spnB->setTabletTracking(false);
-        cloudSize_spnB->setToolTipDuration(0);
-        cloudSize_spnB->setMinimum(1);
-        cloudSize_spnB->setMaximum(10);
-        cloudSize_spnB->setSingleStep(0);
-        cloudSize_spnB->setValue(1);
-
-        verticalLayout_9->addWidget(cloudSize_spnB);
-
-        cloudsSecLay_cmbB = new QComboBox(layoutWidget4);
+        cloudsSecLay_cmbB = new QComboBox(mCloudGrB);
         cloudsSecLay_cmbB->addItem(QString());
         cloudsSecLay_cmbB->addItem(QString());
         cloudsSecLay_cmbB->setObjectName(QStringLiteral("cloudsSecLay_cmbB"));
 
-        verticalLayout_9->addWidget(cloudsSecLay_cmbB);
+        verticalLayout_10->addWidget(cloudsSecLay_cmbB);
 
-        cloudsType_cmbB = new QComboBox(layoutWidget4);
+        cloudsType_cmbB = new QComboBox(mCloudGrB);
         cloudsType_cmbB->addItem(QString());
         cloudsType_cmbB->addItem(QString());
         cloudsType_cmbB->setObjectName(QStringLiteral("cloudsType_cmbB"));
 
-        verticalLayout_9->addWidget(cloudsType_cmbB);
+        verticalLayout_10->addWidget(cloudsType_cmbB);
 
-        secLayHeight_spnB = new QSpinBox(layoutWidget4);
-        secLayHeight_spnB->setObjectName(QStringLiteral("secLayHeight_spnB"));
+        cloudSecLayer_inp = new QLineEdit(mCloudGrB);
+        cloudSecLayer_inp->setObjectName(QStringLiteral("cloudSecLayer_inp"));
 
-        verticalLayout_9->addWidget(secLayHeight_spnB);
+        verticalLayout_10->addWidget(cloudSecLayer_inp);
 
 
-        verticalLayout_11->addLayout(verticalLayout_9);
-
-        splitter_3->addWidget(layoutWidget4);
-
-        verticalLayout_16->addWidget(splitter_3);
+        horizontalLayout_8->addLayout(verticalLayout_10);
 
         splitter->addWidget(mCloudGrB);
         mPrecipationGrB = new QGroupBox(splitter);
@@ -443,9 +410,9 @@ public:
         splitter_2 = new QSplitter(mPrecipationGrB);
         splitter_2->setObjectName(QStringLiteral("splitter_2"));
         splitter_2->setOrientation(Qt::Horizontal);
-        layoutWidget5 = new QWidget(splitter_2);
-        layoutWidget5->setObjectName(QStringLiteral("layoutWidget5"));
-        horizontalLayout_6 = new QHBoxLayout(layoutWidget5);
+        layoutWidget3 = new QWidget(splitter_2);
+        layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
+        horizontalLayout_6 = new QHBoxLayout(layoutWidget3);
         horizontalLayout_6->setSpacing(6);
         horizontalLayout_6->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
@@ -453,22 +420,22 @@ public:
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
-        label_10 = new QLabel(layoutWidget5);
+        label_10 = new QLabel(layoutWidget3);
         label_10->setObjectName(QStringLiteral("label_10"));
 
         verticalLayout_2->addWidget(label_10);
 
-        label_2 = new QLabel(layoutWidget5);
+        label_2 = new QLabel(layoutWidget3);
         label_2->setObjectName(QStringLiteral("label_2"));
 
         verticalLayout_2->addWidget(label_2);
 
-        label = new QLabel(layoutWidget5);
+        label = new QLabel(layoutWidget3);
         label->setObjectName(QStringLiteral("label"));
 
         verticalLayout_2->addWidget(label);
 
-        label_7 = new QLabel(layoutWidget5);
+        label_7 = new QLabel(layoutWidget3);
         label_7->setObjectName(QStringLiteral("label_7"));
 
         verticalLayout_2->addWidget(label_7);
@@ -479,26 +446,26 @@ public:
         verticalLayout_4 = new QVBoxLayout();
         verticalLayout_4->setSpacing(6);
         verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
-        localVisScroll = new QScrollBar(layoutWidget5);
+        localVisScroll = new QScrollBar(layoutWidget3);
         localVisScroll->setObjectName(QStringLiteral("localVisScroll"));
         localVisScroll->setSingleStep(1);
         localVisScroll->setOrientation(Qt::Horizontal);
 
         verticalLayout_4->addWidget(localVisScroll);
 
-        rainScroll = new QScrollBar(layoutWidget5);
+        rainScroll = new QScrollBar(layoutWidget3);
         rainScroll->setObjectName(QStringLiteral("rainScroll"));
         rainScroll->setOrientation(Qt::Horizontal);
 
         verticalLayout_4->addWidget(rainScroll);
 
-        snowScroll = new QScrollBar(layoutWidget5);
+        snowScroll = new QScrollBar(layoutWidget3);
         snowScroll->setObjectName(QStringLiteral("snowScroll"));
         snowScroll->setOrientation(Qt::Horizontal);
 
         verticalLayout_4->addWidget(snowScroll);
 
-        mistScroll = new QScrollBar(layoutWidget5);
+        mistScroll = new QScrollBar(layoutWidget3);
         mistScroll->setObjectName(QStringLiteral("mistScroll"));
         mistScroll->setOrientation(Qt::Horizontal);
 
@@ -507,35 +474,35 @@ public:
 
         horizontalLayout_6->addLayout(verticalLayout_4);
 
-        splitter_2->addWidget(layoutWidget5);
-        layoutWidget6 = new QWidget(splitter_2);
-        layoutWidget6->setObjectName(QStringLiteral("layoutWidget6"));
-        verticalLayout_7 = new QVBoxLayout(layoutWidget6);
+        splitter_2->addWidget(layoutWidget3);
+        layoutWidget4 = new QWidget(splitter_2);
+        layoutWidget4->setObjectName(QStringLiteral("layoutWidget4"));
+        verticalLayout_7 = new QVBoxLayout(layoutWidget4);
         verticalLayout_7->setSpacing(6);
         verticalLayout_7->setContentsMargins(11, 11, 11, 11);
         verticalLayout_7->setObjectName(QStringLiteral("verticalLayout_7"));
         verticalLayout_7->setContentsMargins(0, 0, 0, 0);
-        localVis_inp = new QLineEdit(layoutWidget6);
+        localVis_inp = new QLineEdit(layoutWidget4);
         localVis_inp->setObjectName(QStringLiteral("localVis_inp"));
 
         verticalLayout_7->addWidget(localVis_inp);
 
-        rain_inp = new QLineEdit(layoutWidget6);
+        rain_inp = new QLineEdit(layoutWidget4);
         rain_inp->setObjectName(QStringLiteral("rain_inp"));
 
         verticalLayout_7->addWidget(rain_inp);
 
-        snow_inp = new QLineEdit(layoutWidget6);
+        snow_inp = new QLineEdit(layoutWidget4);
         snow_inp->setObjectName(QStringLiteral("snow_inp"));
 
         verticalLayout_7->addWidget(snow_inp);
 
-        hmist_inp = new QLineEdit(layoutWidget6);
+        hmist_inp = new QLineEdit(layoutWidget4);
         hmist_inp->setObjectName(QStringLiteral("hmist_inp"));
 
         verticalLayout_7->addWidget(hmist_inp);
 
-        splitter_2->addWidget(layoutWidget6);
+        splitter_2->addWidget(layoutWidget4);
 
         verticalLayout_17->addWidget(splitter_2);
 
@@ -575,44 +542,44 @@ public:
         splitter_4 = new QSplitter(mWindGrB);
         splitter_4->setObjectName(QStringLiteral("splitter_4"));
         splitter_4->setOrientation(Qt::Horizontal);
-        layoutWidget7 = new QWidget(splitter_4);
-        layoutWidget7->setObjectName(QStringLiteral("layoutWidget7"));
-        verticalLayout_6 = new QVBoxLayout(layoutWidget7);
+        layoutWidget5 = new QWidget(splitter_4);
+        layoutWidget5->setObjectName(QStringLiteral("layoutWidget5"));
+        verticalLayout_6 = new QVBoxLayout(layoutWidget5);
         verticalLayout_6->setSpacing(6);
         verticalLayout_6->setContentsMargins(11, 11, 11, 11);
         verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
         verticalLayout_6->setContentsMargins(0, 0, 0, 0);
-        windSpeedScroll = new QScrollBar(layoutWidget7);
+        windSpeedScroll = new QScrollBar(layoutWidget5);
         windSpeedScroll->setObjectName(QStringLiteral("windSpeedScroll"));
         windSpeedScroll->setOrientation(Qt::Horizontal);
 
         verticalLayout_6->addWidget(windSpeedScroll);
 
-        windPsiScroll = new QScrollBar(layoutWidget7);
+        windPsiScroll = new QScrollBar(layoutWidget5);
         windPsiScroll->setObjectName(QStringLiteral("windPsiScroll"));
         windPsiScroll->setOrientation(Qt::Horizontal);
 
         verticalLayout_6->addWidget(windPsiScroll);
 
-        splitter_4->addWidget(layoutWidget7);
-        layoutWidget8 = new QWidget(splitter_4);
-        layoutWidget8->setObjectName(QStringLiteral("layoutWidget8"));
-        verticalLayout_13 = new QVBoxLayout(layoutWidget8);
+        splitter_4->addWidget(layoutWidget5);
+        layoutWidget6 = new QWidget(splitter_4);
+        layoutWidget6->setObjectName(QStringLiteral("layoutWidget6"));
+        verticalLayout_13 = new QVBoxLayout(layoutWidget6);
         verticalLayout_13->setSpacing(6);
         verticalLayout_13->setContentsMargins(11, 11, 11, 11);
         verticalLayout_13->setObjectName(QStringLiteral("verticalLayout_13"));
         verticalLayout_13->setContentsMargins(0, 0, 0, 0);
-        windSpeed_inp = new QLineEdit(layoutWidget8);
+        windSpeed_inp = new QLineEdit(layoutWidget6);
         windSpeed_inp->setObjectName(QStringLiteral("windSpeed_inp"));
 
         verticalLayout_13->addWidget(windSpeed_inp);
 
-        windSpeedPsi_inp = new QLineEdit(layoutWidget8);
+        windSpeedPsi_inp = new QLineEdit(layoutWidget6);
         windSpeedPsi_inp->setObjectName(QStringLiteral("windSpeedPsi_inp"));
 
         verticalLayout_13->addWidget(windSpeedPsi_inp);
 
-        splitter_4->addWidget(layoutWidget8);
+        splitter_4->addWidget(layoutWidget6);
 
         horizontalLayout_4->addWidget(splitter_4);
 
@@ -626,9 +593,9 @@ public:
         splitter_6 = new QSplitter(mSightGrB);
         splitter_6->setObjectName(QStringLiteral("splitter_6"));
         splitter_6->setOrientation(Qt::Horizontal);
-        layoutWidget9 = new QWidget(splitter_6);
-        layoutWidget9->setObjectName(QStringLiteral("layoutWidget9"));
-        horizontalLayout_3 = new QHBoxLayout(layoutWidget9);
+        layoutWidget7 = new QWidget(splitter_6);
+        layoutWidget7->setObjectName(QStringLiteral("layoutWidget7"));
+        horizontalLayout_3 = new QHBoxLayout(layoutWidget7);
         horizontalLayout_3->setSpacing(6);
         horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
@@ -636,12 +603,12 @@ public:
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        label_25 = new QLabel(layoutWidget9);
+        label_25 = new QLabel(layoutWidget7);
         label_25->setObjectName(QStringLiteral("label_25"));
 
         verticalLayout->addWidget(label_25);
 
-        label_26 = new QLabel(layoutWidget9);
+        label_26 = new QLabel(layoutWidget7);
         label_26->setObjectName(QStringLiteral("label_26"));
 
         verticalLayout->addWidget(label_26);
@@ -652,13 +619,13 @@ public:
         verticalLayout_3 = new QVBoxLayout();
         verticalLayout_3->setSpacing(6);
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
-        visScroll = new QScrollBar(layoutWidget9);
+        visScroll = new QScrollBar(layoutWidget7);
         visScroll->setObjectName(QStringLiteral("visScroll"));
         visScroll->setOrientation(Qt::Horizontal);
 
         verticalLayout_3->addWidget(visScroll);
 
-        starsBrightScroll = new QScrollBar(layoutWidget9);
+        starsBrightScroll = new QScrollBar(layoutWidget7);
         starsBrightScroll->setObjectName(QStringLiteral("starsBrightScroll"));
         starsBrightScroll->setOrientation(Qt::Horizontal);
 
@@ -667,40 +634,37 @@ public:
 
         horizontalLayout_3->addLayout(verticalLayout_3);
 
-        splitter_6->addWidget(layoutWidget9);
-        layoutWidget10 = new QWidget(splitter_6);
-        layoutWidget10->setObjectName(QStringLiteral("layoutWidget10"));
-        verticalLayout_12 = new QVBoxLayout(layoutWidget10);
+        splitter_6->addWidget(layoutWidget7);
+        layoutWidget8 = new QWidget(splitter_6);
+        layoutWidget8->setObjectName(QStringLiteral("layoutWidget8"));
+        verticalLayout_12 = new QVBoxLayout(layoutWidget8);
         verticalLayout_12->setSpacing(6);
         verticalLayout_12->setContentsMargins(11, 11, 11, 11);
         verticalLayout_12->setObjectName(QStringLiteral("verticalLayout_12"));
         verticalLayout_12->setContentsMargins(0, 0, 0, 0);
-        visibility_inp = new QLineEdit(layoutWidget10);
+        visibility_inp = new QLineEdit(layoutWidget8);
         visibility_inp->setObjectName(QStringLiteral("visibility_inp"));
         visibility_inp->setBaseSize(QSize(0, 3));
 
         verticalLayout_12->addWidget(visibility_inp);
 
-        starsBright_inp = new QLineEdit(layoutWidget10);
+        starsBright_inp = new QLineEdit(layoutWidget8);
         starsBright_inp->setObjectName(QStringLiteral("starsBright_inp"));
 
         verticalLayout_12->addWidget(starsBright_inp);
 
-        splitter_6->addWidget(layoutWidget10);
+        splitter_6->addWidget(layoutWidget8);
 
         horizontalLayout_9->addWidget(splitter_6);
 
         splitter->addWidget(mSightGrB);
-
-        verticalLayout_15->addWidget(splitter);
-
         meteoWindow->setCentralWidget(centralWidget);
         statusBar = new QStatusBar(meteoWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         meteoWindow->setStatusBar(statusBar);
         menuBar = new QMenuBar(meteoWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 764, 31));
+        menuBar->setGeometry(QRect(0, 0, 613, 31));
         menu = new QMenu(menuBar);
         menu->setObjectName(QStringLiteral("menu"));
         meteoWindow->setMenuBar(menuBar);
@@ -712,6 +676,9 @@ public:
         menu->addAction(action_4);
 
         retranslateUi(meteoWindow);
+
+        mNightPushB->setDefault(false);
+
 
         QMetaObject::connectSlotsByName(meteoWindow);
     } // setupUi
