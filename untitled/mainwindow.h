@@ -2,7 +2,7 @@
 #define METEO_WINDOW_H
 #include <meteo_struct.h>
 #include <QMainWindow>
-
+#include "file_meteo_io.h"
 
 namespace Ui {
 class meteoWindow;
@@ -20,7 +20,7 @@ public:
 private:
     Ui::meteoWindow *ui;
     METEO_DATA *data;
-
+    FileMeteoIO file_io;
 private slots:
     void on_cloudBase_inp_editingFinished();
     void on_cloudUpper_inp_editingFinished();
@@ -47,6 +47,7 @@ private slots:
     void on_mAutumnPushB_clicked();
     void on_mSpringPushB_pressed();
     void on_cloudHeightScroll_valueChanged(int value);
+    void on_action_triggered();
 };
 
 #endif // METEO_WINDOW_H

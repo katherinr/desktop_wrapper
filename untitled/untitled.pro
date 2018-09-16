@@ -24,12 +24,14 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    file_meteo_io.cpp
 
 HEADERS += \
         mainwindow.h \
     meteo_struct.h \
-    ../build-untitled-Desktop_Qt_5_11_1_MSVC2017_64bit-Debug/ui_mainwindow.h
+    ../build-untitled-Desktop_Qt_5_11_1_MSVC2017_64bit-Debug/ui_mainwindow.h \
+    file_meteo_io.h
 
 FORMS += \
         mainwindow.ui

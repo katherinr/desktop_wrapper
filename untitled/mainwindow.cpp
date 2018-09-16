@@ -225,3 +225,11 @@ void meteoWindow::on_cloudHeightScroll_valueChanged(int value)
     ui->cloudBase_inp->setText(QString(new_val));
     data->CloudBase = new_val;
 }
+
+void meteoWindow::on_action_triggered()
+{
+    //read meteo from file
+    auto meteo_data = file_io.loadFile();
+
+
+}
