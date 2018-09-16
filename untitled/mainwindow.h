@@ -3,6 +3,7 @@
 #include <meteo_struct.h>
 #include <QMainWindow>
 
+
 namespace Ui {
 class meteoWindow;
 }
@@ -13,6 +14,7 @@ class meteoWindow : public QMainWindow
 
 public:
     explicit meteoWindow(QWidget *parent = nullptr);
+
     ~meteoWindow();
 
 private:
@@ -38,6 +40,13 @@ private slots:
     void on_mDayPushB_pressed();
     void on_mNightPushB_pressed();
     void on_time_spnB_timeChanged(const QTime &time);
+   // void on_mWinterPushB_clicked(bool checked);
+    void on_month_cmbB_currentIndexChanged(int index);
+   // void on_mSpringPushB_clicked();
+    void on_mSummerPushB_clicked();
+    void on_mAutumnPushB_clicked();
+    void on_mSpringPushB_pressed();
+    void on_cloudHeightScroll_valueChanged(int value);
 };
 
 #endif // METEO_WINDOW_H
