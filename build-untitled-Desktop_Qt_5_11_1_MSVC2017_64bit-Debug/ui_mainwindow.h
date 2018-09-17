@@ -185,16 +185,19 @@ public:
 
         mSpringPushB = new QPushButton(layoutWidget);
         mSpringPushB->setObjectName(QStringLiteral("mSpringPushB"));
+        mSpringPushB->setCheckable(true);
 
         horizontalLayout_5->addWidget(mSpringPushB);
 
         mSummerPushB = new QPushButton(layoutWidget);
         mSummerPushB->setObjectName(QStringLiteral("mSummerPushB"));
+        mSummerPushB->setCheckable(true);
 
         horizontalLayout_5->addWidget(mSummerPushB);
 
         mAutumnPushB = new QPushButton(layoutWidget);
         mAutumnPushB->setObjectName(QStringLiteral("mAutumnPushB"));
+        mAutumnPushB->setCheckable(true);
 
         horizontalLayout_5->addWidget(mAutumnPushB);
 
@@ -262,6 +265,7 @@ public:
         month_cmbB->addItem(QString());
         month_cmbB->addItem(QString());
         month_cmbB->setObjectName(QStringLiteral("month_cmbB"));
+        month_cmbB->setCurrentText(QString::fromUtf8("\321\217\320\275\320\262\320\260\321\200\321\214"));
         month_cmbB->setInsertPolicy(QComboBox::InsertBeforeCurrent);
 
         horizontalLayout->addWidget(month_cmbB);
@@ -704,6 +708,7 @@ public:
         retranslateUi(meteoWindow);
 
         mNightPushB->setDefault(false);
+        month_cmbB->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(meteoWindow);
@@ -733,18 +738,18 @@ public:
         mNightPushB->setText(QApplication::translate("meteoWindow", "\320\235\320\276\321\207\321\214", nullptr));
         label_11->setText(QApplication::translate("meteoWindow", "\320\247\320\270\321\201\320\273\320\276", nullptr));
         label_12->setText(QApplication::translate("meteoWindow", "\320\234\320\265\321\201\321\217\321\206", nullptr));
-        month_cmbB->setItemText(0, QApplication::translate("meteoWindow", "\321\217\320\275\320\262\320\260\321\200\321\214", nullptr));
-        month_cmbB->setItemText(1, QApplication::translate("meteoWindow", "\321\204\320\265\320\262\321\200\320\260\320\273\321\214", nullptr));
-        month_cmbB->setItemText(2, QApplication::translate("meteoWindow", "\320\274\320\260\321\200\321\202", nullptr));
-        month_cmbB->setItemText(3, QApplication::translate("meteoWindow", "\320\260\320\277\321\200\320\265\320\273\321\214", nullptr));
-        month_cmbB->setItemText(4, QApplication::translate("meteoWindow", "\320\274\320\260\320\271", nullptr));
-        month_cmbB->setItemText(5, QApplication::translate("meteoWindow", "\320\270\321\216\320\275\321\214", nullptr));
-        month_cmbB->setItemText(6, QApplication::translate("meteoWindow", "\320\270\321\216\320\273\321\214", nullptr));
-        month_cmbB->setItemText(7, QApplication::translate("meteoWindow", "\320\260\320\262\320\263\321\203\321\201\321\202", nullptr));
-        month_cmbB->setItemText(8, QApplication::translate("meteoWindow", "\321\201\320\265\320\275\321\202\321\217\320\261\321\200\321\214", nullptr));
-        month_cmbB->setItemText(9, QApplication::translate("meteoWindow", "\320\276\320\272\321\202\321\217\320\261\321\200\321\214", nullptr));
-        month_cmbB->setItemText(10, QApplication::translate("meteoWindow", "\320\275\320\276\321\217\320\261\321\200\321\214", nullptr));
-        month_cmbB->setItemText(11, QApplication::translate("meteoWindow", "\320\264\320\265\320\272\320\260\320\261\321\200\321\214", nullptr));
+        month_cmbB->setItemText(0, QApplication::translate("meteoWindow", "\320\264\320\265\320\272\320\260\320\261\321\200\321\214", nullptr));
+        month_cmbB->setItemText(1, QApplication::translate("meteoWindow", "\321\217\320\275\320\262\320\260\321\200\321\214", nullptr));
+        month_cmbB->setItemText(2, QApplication::translate("meteoWindow", "\321\204\320\265\320\262\321\200\320\260\320\273\321\214", nullptr));
+        month_cmbB->setItemText(3, QApplication::translate("meteoWindow", "\320\274\320\260\321\200\321\202", nullptr));
+        month_cmbB->setItemText(4, QApplication::translate("meteoWindow", "\320\260\320\277\321\200\320\265\320\273\321\214", nullptr));
+        month_cmbB->setItemText(5, QApplication::translate("meteoWindow", "\320\274\320\260\320\271", nullptr));
+        month_cmbB->setItemText(6, QApplication::translate("meteoWindow", "\320\270\321\216\320\275\321\214", nullptr));
+        month_cmbB->setItemText(7, QApplication::translate("meteoWindow", "\320\270\321\216\320\273\321\214", nullptr));
+        month_cmbB->setItemText(8, QApplication::translate("meteoWindow", "\320\260\320\262\320\263\321\203\321\201\321\202", nullptr));
+        month_cmbB->setItemText(9, QApplication::translate("meteoWindow", "\321\201\320\265\320\275\321\202\321\217\320\261\321\200\321\214", nullptr));
+        month_cmbB->setItemText(10, QApplication::translate("meteoWindow", "\320\276\320\272\321\202\321\217\320\261\321\200\321\214", nullptr));
+        month_cmbB->setItemText(11, QApplication::translate("meteoWindow", "\320\275\320\276\321\217\320\261\321\200\321\214", nullptr));
 
         label_13->setText(QApplication::translate("meteoWindow", "\320\222\321\200\320\265\320\274\321\217", nullptr));
         mCloudGrB->setTitle(QApplication::translate("meteoWindow", "\320\236\320\261\320\273\320\260\321\207\320\275\320\276\321\201\321\202\321\214", nullptr));

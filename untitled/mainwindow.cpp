@@ -106,11 +106,6 @@ meteoWindow::~meteoWindow()
 
 /*----------------------------------------------------*/
 /*----time----*/
-void meteoWindow::on_month_cmbB_editTextChanged(const QString &arg1)
-{
-    data->Month = ui->month_cmbB->currentText().toShort();
-    qDebug()<<"data->Month" <<data->Month<<"\n";
-}
 
 void meteoWindow::on_mDayPushB_pressed()
 {
@@ -119,6 +114,10 @@ void meteoWindow::on_mDayPushB_pressed()
     ui->time_spnB->update();
 }
 
+void meteoWindow::on_day_spnb_editingFinished()
+{
+    //data->Day = ui->mDayPushB->cont;
+}
 void meteoWindow::on_mNightPushB_pressed()
 {
     ui->mDayPushB->setChecked(false);
@@ -135,107 +134,109 @@ void meteoWindow::on_time_spnB_timeChanged(const QTime &time)
 
 void meteoWindow::on_mWinterPushB_pressed()
 {
-    ui->month_cmbB->setAutoCompletion(11);
+    ui->month_cmbB->setValidator(new QIntValidator(0,2));
+ //    ui->month_cmbB->setCurrentIndex(0);
     ui->mAutumnPushB->setChecked(false);
     ui->mSpringPushB->setChecked(false);
     ui->mSummerPushB->setChecked(false);
-    data->Month = 1+short(ui->month_cmbB->currentIndex());
+    if (ui->month_cmbB->currentIndex() == 0)
+    {
+          data->Month = 12;
+    }
+    else
+    {
+        data->Month = short(ui->month_cmbB->currentIndex());
+    }
+     ui->month_cmbB->update();
     qDebug()<<"data->month_cmbB"<<data->Month;
 }
 
-/*void meteoWindow::on_mWinterPushB_clicked(bool checked)
+void meteoWindow::on_mAutumnPushB_pressed()
 {
-  ui->mWinterPushB->setChecked(true);
-  ui->mAutumnPushB->setChecked(false);
-  ui->mSpringPushB->setChecked(false);
-  ui->mSummerPushB->setChecked(false);
-  ui->month_cmbB->setCurrentIndex(11);
-}*/
+     ui->month_cmbB->setValidator(new QIntValidator(9,11));
+     ui->mWinterPushB->setChecked(false);
+     ui->mSpringPushB->setChecked(false);
+     ui->mSummerPushB->setChecked(false);
+    // ui->month_cmbB->setCurrentIndex(9);
+     data->Month = short(ui->month_cmbB->currentIndex());
+     ui->month_cmbB->update();
+     qDebug()<<"data->month_cmbB"<<data->Month;
+}
 
 void meteoWindow::on_month_cmbB_currentIndexChanged(int index)
 {
-    if(ui->mSummerPushB->isDown() )
-        if (index<5 ||
+   qDebug()<<"sIndex(5) " << index;
+    if(ui->mSummerPushB->isChecked() )
+        if (index<6 ||
                 index>8)
         {
-            return;
+            ui->month_cmbB->setCurrentIndex(6);
+
         }
-    if(ui->mSpringPushB->isDown() )
-        if (ui->month_cmbB->currentIndex()<2 ||
-                ui->month_cmbB->currentIndex()>4)
-            return;
-    if(ui->mWinterPushB->isDown() )
-        if (ui->month_cmbB->currentIndex()!=11 ||
-                ui->month_cmbB->currentIndex()!=1 ||  ui->month_cmbB->currentIndex()!=0 )
-            return;
-
-    data->Month =  ui->month_cmbB->currentIndex();
-    qDebug()<<"data->Month " << data->Month;
+    if(ui->mSpringPushB->isChecked() )
+    {
+        if (ui->month_cmbB->currentIndex()<3 ||
+                ui->month_cmbB->currentIndex()>5)
+         {
+            ui->month_cmbB->setCurrentIndex(3);
+             qDebug()<<"setCurrentIndex(2) " << data->Month;
+         }
+    }
+    if(ui->mWinterPushB->isChecked() )
+    {
+        if (index>2 )
+           {
+            qDebug()<<"sindex)11) " << index;
+            ui->month_cmbB->setCurrentIndex(0);
+            //qDebug()<<"setCurrentIndex((2)11) " << data->Month;
+           }
+    }
+    if(ui->mAutumnPushB->isChecked() )
+    {
+        if (index<9 ||
+                index>11)
+        {
+            ui->month_cmbB->setCurrentIndex(9);
+            qDebug()<<"setCurrentIndex(9) " << data->Month;
+        }
+    }
+    ui->month_cmbB->update();
+    if (index==0)
+        data->Month = 12;
+    else
+        data->Month = ui->month_cmbB->currentIndex();
+    qDebug()<<"data->Month " <<  ui->month_cmbB->currentIndex();
 }
 
-/*void meteoWindow::on_mSpringPushB_clicked()
+void meteoWindow::on_mSummerPushB_pressed()
 {
-    ui->mSpringPushB->setChecked(true);
-    ui->day_spnb->setMinimum(1);
-    ui->day_spnb->setMaximum(31);
-    ui->day_spnb->update();
-
-    ui->mAutumnPushB->setChecked(false);
-    ui->mWinterPushB->setChecked(false);
-    ui->mSummerPushB->setChecked(false);
-
-    ui->month_cmbB->setCurrentIndex(2);
-    qDebug()<<"data->Month " << data->Month;
-}*/
-
-void meteoWindow::on_mSummerPushB_clicked()
-{
-    ui->mSummerPushB->setChecked(true);
+    ui->month_cmbB->setValidator(new QIntValidator(6,8));
+  //  ui->month_cmbB->setCurrentIndex(6);
     ui->mAutumnPushB->setChecked(false);
     ui->mSpringPushB->setChecked(false);
     ui->mWinterPushB->setChecked(false);
-    ui->month_cmbB->setCurrentIndex(5);
-    qDebug()<<"data->Month " << data->Month;
-}
-
-void meteoWindow::on_mAutumnPushB_clicked()
-{
-    ui->mAutumnPushB->setChecked(true);
-    ui->mSummerPushB->setChecked(false);
-    ui->mSpringPushB->setChecked(false);
-    ui->mWinterPushB->setChecked(false);
-    ui->month_cmbB->setCurrentIndex(8);
+     data->Month = short(ui->month_cmbB->currentIndex());
+     ui->month_cmbB->update();
     qDebug()<<"data->Month " << data->Month;
 }
 
 void meteoWindow::on_mSpringPushB_pressed()
 {
-    ui->mSpringPushB->setChecked(true);
-    ui->day_spnb->setMinimum(1);
-    ui->day_spnb->setMaximum(31);
-    ui->day_spnb->update();
-
+    ui->month_cmbB->setValidator(new QIntValidator(3,5));
+   // ui->month_cmbB->setCurrentIndex(3);
     ui->mAutumnPushB->setChecked(false);
     ui->mWinterPushB->setChecked(false);
     ui->mSummerPushB->setChecked(false);
-
-    ui->month_cmbB->setCurrentIndex(2);
+    data->Month = short(ui->month_cmbB->currentIndex());
+    ui->month_cmbB->update();
 }
-
+/*----------------------------------------------------*/
+/*----cloudness----*/
 void meteoWindow::on_cloudSize_spnB_valueChanged(int arg1)
 {
     data->CloudSize = ui->cloudSize_inp->text().toShort();
     qDebug()<<"data->CloudSize" <<data->CloudSize<<"\n";
 }
-
-void meteoWindow::on_mSpringPushB_clicked(bool checked)
-{
-
-}
-/*----------------------------------------------------*/
-/*----cloudness----*/
-
-
 
 void meteoWindow::on_cloudThick_inp_editingFinished()
 {
@@ -438,3 +439,12 @@ void meteoWindow::on_starsBrightScroll_valueChanged(int value)
     ui->starsBright_inp->setText(QString::number(starsBr));
     data->StarBright = starsBr;
 }
+
+void meteoWindow::on_action_4_triggered()
+{
+    QApplication::quit();
+}
+
+
+
+

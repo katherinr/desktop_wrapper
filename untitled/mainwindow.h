@@ -34,21 +34,18 @@ private slots:
     void on_visibility_inp_editingFinished();
     void on_starsBright_inp_editingFinished();
     void on_cloudSize_spnB_valueChanged(int arg1);
-    void on_month_cmbB_editTextChanged(const QString &arg1);
     void on_cloudSecLayer_inp_editingFinished();
     void on_cloudThick_inp_editingFinished();
     void on_mWinterPushB_pressed();
+    void on_mSummerPushB_pressed();
+    void on_mSpringPushB_pressed();
+    void on_mAutumnPushB_pressed();
     void on_mDayPushB_pressed();
     void on_mNightPushB_pressed();
     void on_time_spnB_timeChanged(const QTime &time);
-   // void on_mWinterPushB_clicked(bool checked);
     void on_month_cmbB_currentIndexChanged(int index);
-   // void on_mSpringPushB_clicked();
-    void on_mSummerPushB_clicked();
-    void on_mAutumnPushB_clicked();
-    void on_mSpringPushB_pressed();
+
     void on_cloudHeightScroll_valueChanged(int value);
-    void on_mSpringPushB_clicked(bool checked);
     void on_cloudHeightScroll_sliderPressed();
     void on_cloudThickScroll_valueChanged(int value);
     void on_cloudSecLvlScroll_valueChanged(int value);
@@ -62,6 +59,9 @@ private slots:
     void on_windPsiScroll_valueChanged(int value);
     void on_visScroll_valueChanged(int value);
     void on_starsBrightScroll_valueChanged(int value);
+    void on_action_4_triggered();
+
+    void on_day_spnb_editingFinished();
 };
 
 #endif // METEO_WINDOW_H
