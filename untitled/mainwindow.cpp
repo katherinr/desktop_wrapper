@@ -3,7 +3,7 @@
 #include <QValidator>
 #include <qdebug.h>
 #include <QDate>
-
+#include <file_meteo_io.h>
 meteoWindow::meteoWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::meteoWindow),
@@ -11,13 +11,59 @@ meteoWindow::meteoWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     qDebug()<<"constructor";
-
-  }
+}
 
 meteoWindow::~meteoWindow()
 {
     delete ui;
     qDebug()<<"destructor";
+}
+
+void meteoWindow::writeToFields(std::shared_ptr<METEO_DATA> meteo_data )
+{
+    data->message = meteo_data->message;
+    data->CloudBase = meteo_data->message;
+    data->CloudSize = meteo_data->message;
+    data->CloudUpper = meteo_data->message;
+    data->Day = meteo_data->message;
+    data->Hours = meteo_data->message;
+    data->Minutes = meteo_data->message;
+    data->Month = meteo_data->message;
+    data->SecLayHeight = meteo_data->message;
+    data->StarBright = meteo_data->message;
+    data->Visibility = meteo_data->message
+    data->cloudsSecondLay = meteo_data->message
+    data->cloudsType = meteo_data->message
+    data->hmist = meteo_data->message
+    data->local_visibility
+    data->rain
+    data->snow
+    data->wind_psi
+    data->wind_speed
+    //ui-> data->message;
+    //ui->visibility_inp(QString(data->Visibility));
+    ui->cloudBase_inp->setText(QString(data->CloudBase));
+    ui->cloudThick_inp->setText(QString( data->CloudUpper));
+    ui->cloudSize_inp->setText(QString(data->CloudSize));
+    ui->cloudsType_cmbB->setCurrentIndex( data->cloudsType);
+    ui->cloudsSecLay_cmbB->setCurrentIndex( data->cloudsSecondLay);
+   // ui->cloudSecLayer_inp->setText(QString( data->SecLayHeight));
+    ui->day_spnb->setValue( data->Day);
+
+    if (meteo_data->Month == 12)
+        ui->month_cmbB->setCurrentIndex(0);
+    else
+        ui->month_cmbB->setCurrentIndex( meteo_data->Month);
+
+    ui->time_spnB->setDateTime(QTime(data->Hours,data->Minutes));
+   // ui->time_spnB->MinuteSection =  meteo_data->Minutes;
+    ui->localVis_inp->setText(QString(data->local_visibility));
+    ui->rain_inp->setText(QString(data->rain));
+    ui->snow_inp->setText(QString(data->snow));
+    ui->hmist_inp->setText(QString(data->hmist));
+    ui->windSpeed_inp->setText(QString(data->wind_speed));
+    ui->windSpeedPsi_inp->setText(QString( data->wind_psi));
+    ui->starsBright_inp->setText(QString(data->StarBright));
 }
 
 void meteoWindow::on_cloudBase_inp_editingFinished()
@@ -28,8 +74,8 @@ void meteoWindow::on_cloudBase_inp_editingFinished()
 
 void meteoWindow::on_cloudUpper_inp_editingFinished()
 {
-     data->CloudUpper = ui->cloudThick_inp->text().toShort();
-     qDebug()<<"data->CloudUpper" <<data->CloudUpper<<"\n";
+    data->CloudUpper = ui->cloudThick_inp->text().toShort();
+    qDebug()<<"data->CloudUpper" <<data->CloudUpper<<"\n";
 }
 
 void meteoWindow::on_localVis_inp_editingFinished()
@@ -64,8 +110,8 @@ void meteoWindow::on_windSpeed_inp_editingFinished()
 
 void meteoWindow::on_windSpeedPsi_inp_editingFinished()
 {
-     data->wind_psi = ui->windSpeedPsi_inp->text().toFloat();
-     qDebug()<<"data->wind_psi" <<data->wind_psi<<"\n";
+    data->wind_psi = ui->windSpeedPsi_inp->text().toFloat();
+    qDebug()<<"data->wind_psi" <<data->wind_psi<<"\n";
 }
 
 void meteoWindow::on_visibility_inp_editingFinished()
@@ -152,18 +198,18 @@ void meteoWindow::on_month_cmbB_currentIndexChanged(int index)
 {
     if(ui->mSummerPushB->isDown() )
         if (index<5 ||
-            index>8)
+                index>8)
         {
             return;
         }
     if(ui->mSpringPushB->isDown() )
         if (ui->month_cmbB->currentIndex()<2 ||
-                    ui->month_cmbB->currentIndex()>4)
+                ui->month_cmbB->currentIndex()>4)
             return;
     if(ui->mWinterPushB->isDown() )
         if (ui->month_cmbB->currentIndex()!=11 ||
-            ui->month_cmbB->currentIndex()!=1 ||  ui->month_cmbB->currentIndex()!=0 )
-             return;
+                ui->month_cmbB->currentIndex()!=1 ||  ui->month_cmbB->currentIndex()!=0 )
+            return;
 
     data->Month =  ui->month_cmbB->currentIndex();
     qDebug()<<"data->Month " << data->Month;
@@ -230,9 +276,10 @@ void meteoWindow::on_action_triggered()
 {
     //read meteo from file
     auto meteo_data = file_io.loadFile();
-
     if(!meteo_data)
         return;
+    writeToFields(data);
+
     qDebug() << meteo_data->message;
     qDebug() << meteo_data->Visibility;
     qDebug() << meteo_data->CloudBase;
@@ -253,6 +300,7 @@ void meteoWindow::on_action_triggered()
     qDebug() << meteo_data->wind_psi;
     qDebug() << meteo_data->StarBright;
 }
+
 
 void meteoWindow::on_action_2_triggered()
 {

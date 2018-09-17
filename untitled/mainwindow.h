@@ -16,7 +16,7 @@ public:
     explicit meteoWindow(QWidget *parent = nullptr);
 
     ~meteoWindow();
-
+    void writeToFields(std::shared_ptr<METEO_DATA> meteo_data );
 private:
     Ui::meteoWindow *ui;
     METEO_DATA *data;
