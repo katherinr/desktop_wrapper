@@ -48,6 +48,7 @@ private slots:
     void on_mSpringPushB_pressed();
     void on_cloudHeightScroll_valueChanged(int value);
     void on_action_triggered();
+    void on_action_2_triggered();
 };
 
 #endif // METEO_WINDOW_H

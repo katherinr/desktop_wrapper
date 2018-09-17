@@ -231,5 +231,31 @@ void meteoWindow::on_action_triggered()
     //read meteo from file
     auto meteo_data = file_io.loadFile();
 
+    if(!meteo_data)
+        return;
+    qDebug() << meteo_data->message;
+    qDebug() << meteo_data->Visibility;
+    qDebug() << meteo_data->CloudBase;
+    qDebug() << meteo_data->CloudUpper;
+    qDebug() << meteo_data->CloudSize;
+    qDebug() << meteo_data->cloudsType;
+    qDebug() << meteo_data->cloudsSecondLay;
+    qDebug() << meteo_data->SecLayHeight;
+    qDebug() << meteo_data->Day;
+    qDebug() << meteo_data->Month;
+    qDebug() << meteo_data->Hours;
+    qDebug() << meteo_data->Minutes;
+    qDebug() << meteo_data->local_visibility;
+    qDebug() << meteo_data->rain;
+    qDebug() << meteo_data->snow;
+    qDebug() << meteo_data->hmist;
+    qDebug() << meteo_data->wind_speed;
+    qDebug() << meteo_data->wind_psi;
+    qDebug() << meteo_data->StarBright;
+}
 
+void meteoWindow::on_action_2_triggered()
+{
+    //save meteo to file
+    file_io.saveFile(data);
 }
