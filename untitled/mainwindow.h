@@ -14,7 +14,8 @@ class meteoWindow : public QMainWindow
 
 public:
     explicit meteoWindow(QWidget *parent = nullptr);
-
+    void setLimitsToScrolls();
+    void setLimitsToLines();
     ~meteoWindow();
 
 private:
@@ -47,6 +48,20 @@ private slots:
     void on_mAutumnPushB_clicked();
     void on_mSpringPushB_pressed();
     void on_cloudHeightScroll_valueChanged(int value);
+    void on_mSpringPushB_clicked(bool checked);
+    void on_cloudHeightScroll_sliderPressed();
+    void on_cloudThickScroll_valueChanged(int value);
+    void on_cloudSecLvlScroll_valueChanged(int value);
+    void on_cloudsSecLay_cmbB_currentIndexChanged(int index);
+    void on_cloudsType_cmbB_currentIndexChanged(int index);
+    void on_localVisScroll_valueChanged(int value);
+    void on_rainScroll_valueChanged(int value);
+    void on_snowScroll_valueChanged(int value);
+    void on_mistScroll_valueChanged(int value);
+    void on_windSpeedScroll_valueChanged(int value);
+    void on_windPsiScroll_valueChanged(int value);
+    void on_visScroll_valueChanged(int value);
+    void on_starsBrightScroll_valueChanged(int value);
 };
 
 #endif // METEO_WINDOW_H

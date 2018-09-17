@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>646</width>
-    <height>1011</height>
+    <height>1021</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
@@ -293,7 +293,7 @@
          <item>
           <widget class="QLabel" name="label_5">
            <property name="text">
-            <string>Бальность облаков,1...10 ед</string>
+            <string>Бальность облаков,1...10 [ед]</string>
            </property>
           </widget>
          </item>
@@ -345,6 +345,9 @@
              <width>10</width>
              <height>0</height>
             </size>
+           </property>
+           <property name="cursor">
+            <cursorShape>UpArrowCursor</cursorShape>
            </property>
            <property name="autoFillBackground">
             <bool>false</bool>
@@ -403,6 +406,15 @@
          </item>
          <item>
           <widget class="QScrollBar" name="cloudSecLvlScroll">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="cursor">
+            <cursorShape>UpArrowCursor</cursorShape>
+           </property>
+           <property name="maximum">
+            <number>100</number>
+           </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -413,24 +425,36 @@
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_10">
          <item>
-          <widget class="QLineEdit" name="cloudBase_inp"/>
+          <widget class="QLineEdit" name="cloudBase_inp">
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="cloudThick_inp"/>
+          <widget class="QLineEdit" name="cloudThick_inp">
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="cloudSize_inp"/>
+          <widget class="QLineEdit" name="cloudSize_inp">
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
          </item>
          <item>
           <widget class="QComboBox" name="cloudsSecLay_cmbB">
            <item>
             <property name="text">
-             <string>да</string>
+             <string>нет</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>нет</string>
+             <string>да</string>
             </property>
            </item>
           </widget>
@@ -466,7 +490,14 @@
           </spacer>
          </item>
          <item>
-          <widget class="QLineEdit" name="cloudSecLayer_inp"/>
+          <widget class="QLineEdit" name="cloudSecLayer_inp">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -549,6 +580,9 @@
              <height>0</height>
             </size>
            </property>
+           <property name="cursor">
+            <cursorShape>UpArrowCursor</cursorShape>
+           </property>
            <property name="singleStep">
             <number>1</number>
            </property>
@@ -559,6 +593,9 @@
          </item>
          <item>
           <widget class="QScrollBar" name="rainScroll">
+           <property name="cursor">
+            <cursorShape>UpArrowCursor</cursorShape>
+           </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -566,6 +603,9 @@
          </item>
          <item>
           <widget class="QScrollBar" name="snowScroll">
+           <property name="cursor">
+            <cursorShape>UpArrowCursor</cursorShape>
+           </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -573,6 +613,9 @@
          </item>
          <item>
           <widget class="QScrollBar" name="mistScroll">
+           <property name="cursor">
+            <cursorShape>UpArrowCursor</cursorShape>
+           </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -599,16 +642,38 @@
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_4">
          <item>
-          <widget class="QLineEdit" name="localVis_inp"/>
+          <widget class="QLineEdit" name="localVis_inp">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="rain_inp"/>
+          <widget class="QLineEdit" name="rain_inp">
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="snow_inp"/>
+          <widget class="QLineEdit" name="snow_inp">
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="hmist_inp"/>
+          <widget class="QLineEdit" name="hmist_inp">
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
          </item>
          <item>
           <spacer name="horizontalSpacer_13">
@@ -640,16 +705,16 @@
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_6">
          <item>
-          <widget class="QLabel" name="label_22">
+          <widget class="QLabel" name="label_21">
            <property name="text">
-            <string>Направление ветра, 0...360 град</string>
+            <string>Скорость ветра, [м/с]</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_21">
+          <widget class="QLabel" name="label_22">
            <property name="text">
-            <string>Скорость ветра, м/с</string>
+            <string>Направление ветра, 0...360 [град]</string>
            </property>
           </widget>
          </item>
@@ -675,6 +740,9 @@
         <layout class="QVBoxLayout" name="verticalLayout_11">
          <item>
           <widget class="QScrollBar" name="windSpeedScroll">
+           <property name="cursor">
+            <cursorShape>UpArrowCursor</cursorShape>
+           </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -682,6 +750,9 @@
          </item>
          <item>
           <widget class="QScrollBar" name="windPsiScroll">
+           <property name="cursor">
+            <cursorShape>UpArrowCursor</cursorShape>
+           </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -708,10 +779,18 @@
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_13">
          <item>
-          <widget class="QLineEdit" name="windSpeed_inp"/>
+          <widget class="QLineEdit" name="windSpeed_inp">
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="windSpeedPsi_inp"/>
+          <widget class="QLineEdit" name="windSpeedPsi_inp">
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
          </item>
          <item>
           <spacer name="horizontalSpacer_11">
@@ -778,6 +857,9 @@
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
           <widget class="QScrollBar" name="visScroll">
+           <property name="cursor">
+            <cursorShape>UpArrowCursor</cursorShape>
+           </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -785,6 +867,9 @@
          </item>
          <item>
           <widget class="QScrollBar" name="starsBrightScroll">
+           <property name="cursor">
+            <cursorShape>UpArrowCursor</cursorShape>
+           </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -822,12 +907,16 @@
             </size>
            </property>
            <property name="text">
-            <string/>
+            <string>0</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="starsBright_inp"/>
+          <widget class="QLineEdit" name="starsBright_inp">
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
          </item>
          <item>
           <spacer name="horizontalSpacer_10">

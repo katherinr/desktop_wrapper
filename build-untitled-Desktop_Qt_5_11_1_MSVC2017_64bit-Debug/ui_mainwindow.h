@@ -107,8 +107,8 @@ public:
     QGroupBox *mWindGrB;
     QHBoxLayout *horizontalLayout_4;
     QVBoxLayout *verticalLayout_6;
-    QLabel *label_22;
     QLabel *label_21;
+    QLabel *label_22;
     QSpacerItem *horizontalSpacer_6;
     QVBoxLayout *verticalLayout_11;
     QScrollBar *windSpeedScroll;
@@ -141,7 +141,7 @@ public:
         if (meteoWindow->objectName().isEmpty())
             meteoWindow->setObjectName(QStringLiteral("meteoWindow"));
         meteoWindow->setWindowModality(Qt::WindowModal);
-        meteoWindow->resize(646, 1011);
+        meteoWindow->resize(646, 1021);
         meteoWindow->setContextMenuPolicy(Qt::NoContextMenu);
         action = new QAction(meteoWindow);
         action->setObjectName(QStringLiteral("action"));
@@ -341,6 +341,7 @@ public:
         cloudHeightScroll = new QScrollBar(mCloudGrB);
         cloudHeightScroll->setObjectName(QStringLiteral("cloudHeightScroll"));
         cloudHeightScroll->setBaseSize(QSize(10, 0));
+        cloudHeightScroll->setCursor(QCursor(Qt::UpArrowCursor));
         cloudHeightScroll->setAutoFillBackground(false);
         cloudHeightScroll->setMaximum(2000);
         cloudHeightScroll->setSingleStep(10);
@@ -365,6 +366,9 @@ public:
 
         cloudSecLvlScroll = new QScrollBar(mCloudGrB);
         cloudSecLvlScroll->setObjectName(QStringLiteral("cloudSecLvlScroll"));
+        cloudSecLvlScroll->setEnabled(false);
+        cloudSecLvlScroll->setCursor(QCursor(Qt::UpArrowCursor));
+        cloudSecLvlScroll->setMaximum(100);
         cloudSecLvlScroll->setOrientation(Qt::Horizontal);
 
         verticalLayout_9->addWidget(cloudSecLvlScroll);
@@ -410,6 +414,7 @@ public:
 
         cloudSecLayer_inp = new QLineEdit(mCloudGrB);
         cloudSecLayer_inp->setObjectName(QStringLiteral("cloudSecLayer_inp"));
+        cloudSecLayer_inp->setEnabled(false);
 
         verticalLayout_10->addWidget(cloudSecLayer_inp);
 
@@ -463,6 +468,7 @@ public:
         localVisScroll = new QScrollBar(mPrecipationGrB);
         localVisScroll->setObjectName(QStringLiteral("localVisScroll"));
         localVisScroll->setBaseSize(QSize(271, 0));
+        localVisScroll->setCursor(QCursor(Qt::UpArrowCursor));
         localVisScroll->setSingleStep(1);
         localVisScroll->setOrientation(Qt::Horizontal);
 
@@ -470,18 +476,21 @@ public:
 
         rainScroll = new QScrollBar(mPrecipationGrB);
         rainScroll->setObjectName(QStringLiteral("rainScroll"));
+        rainScroll->setCursor(QCursor(Qt::UpArrowCursor));
         rainScroll->setOrientation(Qt::Horizontal);
 
         verticalLayout_7->addWidget(rainScroll);
 
         snowScroll = new QScrollBar(mPrecipationGrB);
         snowScroll->setObjectName(QStringLiteral("snowScroll"));
+        snowScroll->setCursor(QCursor(Qt::UpArrowCursor));
         snowScroll->setOrientation(Qt::Horizontal);
 
         verticalLayout_7->addWidget(snowScroll);
 
         mistScroll = new QScrollBar(mPrecipationGrB);
         mistScroll->setObjectName(QStringLiteral("mistScroll"));
+        mistScroll->setCursor(QCursor(Qt::UpArrowCursor));
         mistScroll->setOrientation(Qt::Horizontal);
 
         verticalLayout_7->addWidget(mistScroll);
@@ -498,6 +507,7 @@ public:
         verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
         localVis_inp = new QLineEdit(mPrecipationGrB);
         localVis_inp->setObjectName(QStringLiteral("localVis_inp"));
+        localVis_inp->setMinimumSize(QSize(0, 0));
 
         verticalLayout_4->addWidget(localVis_inp);
 
@@ -535,15 +545,15 @@ public:
         verticalLayout_6 = new QVBoxLayout();
         verticalLayout_6->setSpacing(6);
         verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
-        label_22 = new QLabel(mWindGrB);
-        label_22->setObjectName(QStringLiteral("label_22"));
-
-        verticalLayout_6->addWidget(label_22);
-
         label_21 = new QLabel(mWindGrB);
         label_21->setObjectName(QStringLiteral("label_21"));
 
         verticalLayout_6->addWidget(label_21);
+
+        label_22 = new QLabel(mWindGrB);
+        label_22->setObjectName(QStringLiteral("label_22"));
+
+        verticalLayout_6->addWidget(label_22);
 
         horizontalSpacer_6 = new QSpacerItem(278, 17, QSizePolicy::Fixed, QSizePolicy::Minimum);
 
@@ -557,12 +567,14 @@ public:
         verticalLayout_11->setObjectName(QStringLiteral("verticalLayout_11"));
         windSpeedScroll = new QScrollBar(mWindGrB);
         windSpeedScroll->setObjectName(QStringLiteral("windSpeedScroll"));
+        windSpeedScroll->setCursor(QCursor(Qt::UpArrowCursor));
         windSpeedScroll->setOrientation(Qt::Horizontal);
 
         verticalLayout_11->addWidget(windSpeedScroll);
 
         windPsiScroll = new QScrollBar(mWindGrB);
         windPsiScroll->setObjectName(QStringLiteral("windPsiScroll"));
+        windPsiScroll->setCursor(QCursor(Qt::UpArrowCursor));
         windPsiScroll->setOrientation(Qt::Horizontal);
 
         verticalLayout_11->addWidget(windPsiScroll);
@@ -628,12 +640,14 @@ public:
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         visScroll = new QScrollBar(mSightGrB);
         visScroll->setObjectName(QStringLiteral("visScroll"));
+        visScroll->setCursor(QCursor(Qt::UpArrowCursor));
         visScroll->setOrientation(Qt::Horizontal);
 
         verticalLayout_3->addWidget(visScroll);
 
         starsBrightScroll = new QScrollBar(mSightGrB);
         starsBrightScroll->setObjectName(QStringLiteral("starsBrightScroll"));
+        starsBrightScroll->setCursor(QCursor(Qt::UpArrowCursor));
         starsBrightScroll->setOrientation(Qt::Horizontal);
 
         verticalLayout_3->addWidget(starsBrightScroll);
@@ -736,28 +750,39 @@ public:
         mCloudGrB->setTitle(QApplication::translate("meteoWindow", "\320\236\320\261\320\273\320\260\321\207\320\275\320\276\321\201\321\202\321\214", nullptr));
         label_3->setText(QApplication::translate("meteoWindow", "\320\222\321\213\321\201\320\276\321\202\320\260 \320\275\320\270\320\266\320\275\320\265\320\271 \320\272\321\200\320\276\320\274\320\272\320\270 \320\276\320\261\320\273\320\260\320\272\320\276\320\262, [\320\274]", nullptr));
         label_4->setText(QApplication::translate("meteoWindow", "\320\242\320\276\320\273\321\211\320\270\320\275\320\260 \321\201\320\273\320\276\321\217 \320\276\320\261\320\273\320\260\320\272\320\276\320\262, [\320\274]", nullptr));
-        label_5->setText(QApplication::translate("meteoWindow", "\320\221\320\260\320\273\321\214\320\275\320\276\321\201\321\202\321\214 \320\276\320\261\320\273\320\260\320\272\320\276\320\262,1...10 \320\265\320\264", nullptr));
+        label_5->setText(QApplication::translate("meteoWindow", "\320\221\320\260\320\273\321\214\320\275\320\276\321\201\321\202\321\214 \320\276\320\261\320\273\320\260\320\272\320\276\320\262,1...10 [\320\265\320\264]", nullptr));
         label_9->setText(QApplication::translate("meteoWindow", "\320\235\320\260\320\273\320\270\321\207\320\270\320\265 \320\262\321\202\320\276\321\200\320\276\320\263\320\276 \321\201\320\273\320\276\321\217 \320\276\320\261\320\273\320\260\320\272\320\276\320\262", nullptr));
         label_6->setText(QApplication::translate("meteoWindow", "\320\242\320\270\320\277 \320\276\320\261\320\273\320\260\320\272\320\276\320\262 (\320\276\320\261\321\213\321\207\320\275\321\213\320\265, \320\263\321\200\320\276\320\267\320\276\320\262\321\213\320\265)", nullptr));
         label_8->setText(QApplication::translate("meteoWindow", "\320\222\321\213\321\201\320\276\321\202\320\260 \320\262\321\202\320\276\321\200\320\276\320\263\320\276 \321\201\320\273\320\276\321\217 \320\276\320\261\320\273\320\260\320\272\320\276\320\262, [\320\274]", nullptr));
-        cloudsSecLay_cmbB->setItemText(0, QApplication::translate("meteoWindow", "\320\264\320\260", nullptr));
-        cloudsSecLay_cmbB->setItemText(1, QApplication::translate("meteoWindow", "\320\275\320\265\321\202", nullptr));
+        cloudBase_inp->setText(QApplication::translate("meteoWindow", "0", nullptr));
+        cloudThick_inp->setText(QApplication::translate("meteoWindow", "0", nullptr));
+        cloudSize_inp->setText(QApplication::translate("meteoWindow", "0", nullptr));
+        cloudsSecLay_cmbB->setItemText(0, QApplication::translate("meteoWindow", "\320\275\320\265\321\202", nullptr));
+        cloudsSecLay_cmbB->setItemText(1, QApplication::translate("meteoWindow", "\320\264\320\260", nullptr));
 
         cloudsType_cmbB->setItemText(0, QApplication::translate("meteoWindow", "\320\276\320\261\321\213\321\207\320\275\321\213\320\265", nullptr));
         cloudsType_cmbB->setItemText(1, QApplication::translate("meteoWindow", "\320\263\321\200\320\276\320\267\320\276\320\262\321\213\320\265", nullptr));
 
+        cloudSecLayer_inp->setText(QApplication::translate("meteoWindow", "0", nullptr));
         mPrecipationGrB->setTitle(QApplication::translate("meteoWindow", "\320\236\321\201\320\260\320\264\320\272\320\270", nullptr));
         label_10->setText(QApplication::translate("meteoWindow", "\320\233\320\276\320\272\320\260\320\273\321\214\320\275\320\260\321\217 \320\264\320\260\320\273\321\214\320\275\320\276\321\201\321\202\321\214 \320\262\320\270\320\264\320\270\320\274\320\276\321\201\321\202\320\270, [\320\274]", nullptr));
         label_2->setText(QApplication::translate("meteoWindow", "\320\230\320\275\321\202\320\265\320\275\321\201\320\270\320\262\320\275\320\276\321\201\321\202\321\214 \320\264\320\276\320\266\320\264\321\217, %", nullptr));
         label->setText(QApplication::translate("meteoWindow", "\320\230\320\275\321\202\320\265\320\275\321\201\320\270\320\262\320\275\320\276\321\201\321\202\321\214 \321\201\320\275\320\265\320\263\320\260, %", nullptr));
         label_7->setText(QApplication::translate("meteoWindow", "\320\222\321\213\321\201\320\276\321\202\320\260 \320\264\321\213\320\274\320\272\320\270 \321\202\321\203\320\274\320\260\320\275\320\260, [\320\274]", nullptr));
+        localVis_inp->setText(QApplication::translate("meteoWindow", "0", nullptr));
+        rain_inp->setText(QApplication::translate("meteoWindow", "0", nullptr));
+        snow_inp->setText(QApplication::translate("meteoWindow", "0", nullptr));
+        hmist_inp->setText(QApplication::translate("meteoWindow", "0", nullptr));
         mWindGrB->setTitle(QApplication::translate("meteoWindow", "\320\222\320\265\321\202\320\265\321\200", nullptr));
-        label_22->setText(QApplication::translate("meteoWindow", "\320\235\320\260\320\277\321\200\320\260\320\262\320\273\320\265\320\275\320\270\320\265 \320\262\320\265\321\202\321\200\320\260, 0...360 \320\263\321\200\320\260\320\264", nullptr));
-        label_21->setText(QApplication::translate("meteoWindow", "\320\241\320\272\320\276\321\200\320\276\321\201\321\202\321\214 \320\262\320\265\321\202\321\200\320\260, \320\274/\321\201", nullptr));
+        label_21->setText(QApplication::translate("meteoWindow", "\320\241\320\272\320\276\321\200\320\276\321\201\321\202\321\214 \320\262\320\265\321\202\321\200\320\260, [\320\274/\321\201]", nullptr));
+        label_22->setText(QApplication::translate("meteoWindow", "\320\235\320\260\320\277\321\200\320\260\320\262\320\273\320\265\320\275\320\270\320\265 \320\262\320\265\321\202\321\200\320\260, 0...360 [\320\263\321\200\320\260\320\264]", nullptr));
+        windSpeed_inp->setText(QApplication::translate("meteoWindow", "0", nullptr));
+        windSpeedPsi_inp->setText(QApplication::translate("meteoWindow", "0", nullptr));
         mSightGrB->setTitle(QApplication::translate("meteoWindow", "\320\222\320\270\320\264\320\270\320\274\320\276\321\201\321\202\321\214", nullptr));
         label_25->setText(QApplication::translate("meteoWindow", "\320\223\320\273\320\276\320\261\320\260\320\273\321\214\320\275\320\260\321\217 \320\264\320\260\320\273\321\214\320\275\320\276\321\201\321\202\321\214 \320\262\320\270\320\264\320\270\320\274\320\276\321\201\321\202\320\270, [\320\274]", nullptr));
         label_26->setText(QApplication::translate("meteoWindow", "\320\257\321\200\320\272\320\276\321\201\321\202\321\214 \320\267\320\262\320\265\320\267\320\264, %", nullptr));
-        visibility_inp->setText(QString());
+        visibility_inp->setText(QApplication::translate("meteoWindow", "0", nullptr));
+        starsBright_inp->setText(QApplication::translate("meteoWindow", "0", nullptr));
         menu->setTitle(QApplication::translate("meteoWindow", "\320\244\320\260\320\271\320\273", nullptr));
     } // retranslateUi
 
