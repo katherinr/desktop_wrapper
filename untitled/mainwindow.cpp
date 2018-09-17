@@ -22,24 +22,24 @@ meteoWindow::~meteoWindow()
 void meteoWindow::writeToFields(std::shared_ptr<METEO_DATA> meteo_data )
 {
     data->message = meteo_data->message;
-    data->CloudBase = meteo_data->message;
-    data->CloudSize = meteo_data->message;
-    data->CloudUpper = meteo_data->message;
-    data->Day = meteo_data->message;
-    data->Hours = meteo_data->message;
-    data->Minutes = meteo_data->message;
-    data->Month = meteo_data->message;
-    data->SecLayHeight = meteo_data->message;
-    data->StarBright = meteo_data->message;
-    data->Visibility = meteo_data->message
-    data->cloudsSecondLay = meteo_data->message
-    data->cloudsType = meteo_data->message
-    data->hmist = meteo_data->message
-    data->local_visibility
-    data->rain
-    data->snow
-    data->wind_psi
-    data->wind_speed
+    data->CloudBase = meteo_data->CloudBase;
+    data->CloudSize = meteo_data->CloudSize;
+    data->CloudUpper = meteo_data->CloudUpper;
+    data->Day = meteo_data->Day;
+    data->Hours = meteo_data->Hours;
+    data->Minutes = meteo_data->Minutes;
+    data->Month = meteo_data->Month;
+    data->SecLayHeight = meteo_data->SecLayHeight;
+    data->StarBright = meteo_data->StarBright;
+    data->Visibility = meteo_data->Visibility;
+    data->cloudsSecondLay = meteo_data->cloudsSecondLay;
+    data->cloudsType = meteo_data->cloudsType;
+    data->hmist = meteo_data->hmist;
+    data->local_visibility = meteo_data->local_visibility;
+    data->rain = meteo_data->rain;
+    data->snow = meteo_data->snow;
+    data->wind_psi = meteo_data->wind_psi;
+    data->wind_speed = meteo_data->wind_speed;
     //ui-> data->message;
     //ui->visibility_inp(QString(data->Visibility));
     ui->cloudBase_inp->setText(QString(data->CloudBase));
@@ -55,15 +55,15 @@ void meteoWindow::writeToFields(std::shared_ptr<METEO_DATA> meteo_data )
     else
         ui->month_cmbB->setCurrentIndex( meteo_data->Month);
 
-    ui->time_spnB->setDateTime(QTime(data->Hours,data->Minutes));
+    ui->time_spnB->setDateTime(QDateTime(QDate(2018, data->Month, data->Day),QTime(data->Hours,data->Minutes)));
    // ui->time_spnB->MinuteSection =  meteo_data->Minutes;
-    ui->localVis_inp->setText(QString(data->local_visibility));
-    ui->rain_inp->setText(QString(data->rain));
-    ui->snow_inp->setText(QString(data->snow));
-    ui->hmist_inp->setText(QString(data->hmist));
-    ui->windSpeed_inp->setText(QString(data->wind_speed));
-    ui->windSpeedPsi_inp->setText(QString( data->wind_psi));
-    ui->starsBright_inp->setText(QString(data->StarBright));
+    ui->localVis_inp->setText(QString::number(data->local_visibility));
+    ui->rain_inp->setText(QString::number(data->rain));
+    ui->snow_inp->setText(QString::number(data->snow));
+    ui->hmist_inp->setText(QString::number(data->hmist));
+    ui->windSpeed_inp->setText(QString::number(data->wind_speed));
+    ui->windSpeedPsi_inp->setText(QString::number( data->wind_psi));
+    ui->starsBright_inp->setText(QString::number(data->StarBright));
 }
 
 void meteoWindow::on_cloudBase_inp_editingFinished()
@@ -278,7 +278,7 @@ void meteoWindow::on_action_triggered()
     auto meteo_data = file_io.loadFile();
     if(!meteo_data)
         return;
-    writeToFields(data);
+    writeToFields(meteo_data);
 
     qDebug() << meteo_data->message;
     qDebug() << meteo_data->Visibility;
