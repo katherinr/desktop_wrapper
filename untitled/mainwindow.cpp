@@ -96,6 +96,12 @@ void meteoWindow::setLimitsToLines()
     //stars
     ui->starsBright_inp->setValidator(new QIntValidator(0, 100));
     ui->visibility_inp->setValidator(new QIntValidator(0, 200000));
+    //time
+   // ui->day_spnB->setf
+    //ui->time_spnB_2->setMinimum(1);
+    //ui->day_spnB->setMaximum(31);
+    //ui->day_spnb->setSingleStep(1);
+    //ui->day_spnb->setRange(1,31);
 }
 
 meteoWindow::~meteoWindow()
@@ -103,65 +109,18 @@ meteoWindow::~meteoWindow()
     delete ui;
     qDebug()<<"destructor";
 }
-void meteoWindow::writeToFields(std::shared_ptr<METEO_DATA> meteo_data )
-{
-    data->message = meteo_data->message;
-    data->CloudBase = meteo_data->CloudBase;
-    data->CloudSize = meteo_data->CloudSize;
-    data->CloudUpper = meteo_data->CloudUpper;
-    data->Day = meteo_data->Day;
-    data->Hours = meteo_data->Hours;
-    data->Minutes = meteo_data->Minutes;
-    data->Month = meteo_data->Month;
-    data->SecLayHeight = meteo_data->SecLayHeight;
-    data->StarBright = meteo_data->StarBright;
-    data->Visibility = meteo_data->Visibility;
-    data->cloudsSecondLay = meteo_data->cloudsSecondLay;
-    data->cloudsType = meteo_data->cloudsType;
-    data->hmist = meteo_data->hmist;
-    data->local_visibility = meteo_data->local_visibility;
-    data->rain = meteo_data->rain;
-    data->snow = meteo_data->snow;
-    data->wind_psi = meteo_data->wind_psi;
-    data->wind_speed = meteo_data->wind_speed;
-    //ui-> data->message;
-    //ui->visibility_inp(QString(data->Visibility));
-    ui->cloudBase_inp->setText(QString(data->CloudBase));
-    ui->cloudThick_inp->setText(QString( data->CloudUpper));
-    ui->cloudSize_inp->setText(QString(data->CloudSize));
-    ui->cloudsType_cmbB->setCurrentIndex( data->cloudsType);
-    ui->cloudsSecLay_cmbB->setCurrentIndex( data->cloudsSecondLay);
-   // ui->cloudSecLayer_inp->setText(QString( data->SecLayHeight));
-    ui->day_spnb->setValue( data->Day);
 
-    if (meteo_data->Month == 12)
-        ui->month_cmbB->setCurrentIndex(0);
-    else
-        ui->month_cmbB->setCurrentIndex( meteo_data->Month);
+/*----------------------------------------------------*/
+/*----time----*/
 
-    ui->time_spnB->setDateTime(QDateTime(QDate(2018, data->Month, data->Day),QTime(data->Hours,data->Minutes)));
-   // ui->time_spnB->MinuteSection =  meteo_data->Minutes;
-    ui->localVis_inp->setText(QString::number(data->local_visibility));
-    ui->rain_inp->setText(QString::number(data->rain));
-    ui->snow_inp->setText(QString::number(data->snow));
-    ui->hmist_inp->setText(QString::number(data->hmist));
-    ui->windSpeed_inp->setText(QString::number(data->wind_speed));
-    ui->windSpeedPsi_inp->setText(QString::number( data->wind_psi));
-    ui->starsBright_inp->setText(QString::number(data->StarBright));
-}
-
-void meteoWindow::on_cloudBase_inp_editingFinished()
+void meteoWindow::on_mDayPushB_pressed()
 {
     ui->mNightPushB->setChecked(false);
     ui->time_spnB->setTimeRange(QTime(7,0,0,0),QTime(23,59,0,0));
     ui->time_spnB->update();
 }
 
-void meteoWindow::on_day_spnb_editingFinished()
-{
-    data->CloudUpper = ui->cloudThick_inp->text().toShort();
-    qDebug()<<"data->CloudUpper" <<data->CloudUpper<<"\n";
-}
+
 void meteoWindow::on_mNightPushB_pressed()
 {
     ui->mDayPushB->setChecked(false);
@@ -273,6 +232,10 @@ void meteoWindow::on_mSpringPushB_pressed()
     ui->mSummerPushB->setChecked(false);
     data->Month = short(ui->month_cmbB->currentIndex());
     ui->month_cmbB->update();
+}
+void meteoWindow::on_day_spnb_editingFinished()
+{
+
 }
 /*----------------------------------------------------*/
 /*----cloudness----*/
@@ -400,20 +363,11 @@ void meteoWindow::on_snow_inp_editingFinished()
 
 void meteoWindow::on_snowScroll_valueChanged(int value)
 {
-    if(ui->mSummerPushB->isDown() )
-        if (index<5 ||
-                index>8)
-        {
-            return;
-        }
-    if(ui->mSpringPushB->isDown() )
-        if (ui->month_cmbB->currentIndex()<2 ||
-                ui->month_cmbB->currentIndex()>4)
-            return;
-    if(ui->mWinterPushB->isDown() )
-        if (ui->month_cmbB->currentIndex()!=11 ||
-                ui->month_cmbB->currentIndex()!=1 ||  ui->month_cmbB->currentIndex()!=0 )
-            return;
+    float snow=ui->snowScroll->value();
+    ui->snow_inp->setText(QString::number(snow));
+    data->snow = snow;
+}
+
 
 void meteoWindow::on_hmist_inp_editingFinished()
 {
@@ -533,4 +487,65 @@ void meteoWindow::on_action_2_triggered()
 {
     //save meteo to file
     file_io.saveFile(data);
+}
+
+void meteoWindow::writeToFields(std::shared_ptr<METEO_DATA> meteo_data )
+{
+    data->message = meteo_data->message;
+    data->CloudBase = meteo_data->CloudBase;
+    data->CloudSize = meteo_data->CloudSize;
+    data->CloudUpper = meteo_data->CloudUpper;
+    data->Day = meteo_data->Day;
+    data->Hours = meteo_data->Hours;
+    data->Minutes = meteo_data->Minutes;
+    data->Month = meteo_data->Month;
+    data->SecLayHeight = meteo_data->SecLayHeight;
+    data->StarBright = meteo_data->StarBright;
+    data->Visibility = meteo_data->Visibility;
+    data->cloudsSecondLay = meteo_data->cloudsSecondLay;
+    data->cloudsType = meteo_data->cloudsType;
+    data->hmist = meteo_data->hmist;
+    data->local_visibility = meteo_data->local_visibility;
+    data->rain = meteo_data->rain;
+    data->snow = meteo_data->snow;
+    data->wind_psi = meteo_data->wind_psi;
+    data->wind_speed = meteo_data->wind_speed;
+    //ui-> data->message;
+
+    ui->visibility_inp->setText(QString::number(data->Visibility));
+   // qDebug()<< ui->visibility_inp->text()<<
+    ui->cloudBase_inp->setText(QString::number(data->CloudBase));
+    ui->cloudThick_inp->setText(QString::number(data->CloudUpper));
+    ui->cloudSize_inp->setText(QString::number(data->CloudSize));
+    ui->cloudsType_cmbB->setCurrentIndex(data->cloudsType);
+    ui->cloudsSecLay_cmbB->setCurrentIndex( data->cloudsSecondLay);
+    ui->cloudSecLayer_inp->setText(QString::number(data->SecLayHeight));
+
+    if (meteo_data->Month == 12)
+        ui->month_cmbB->setCurrentIndex(0);
+    else
+        ui->month_cmbB->setCurrentIndex(meteo_data->Month);
+    ui->day_spnB->setValue( data->Day);
+    ui->time_spnB->setDateTime(QDateTime(QDate(2018, data->Month, data->Day),QTime(data->Hours,data->Minutes)));
+
+    ui->localVis_inp->setText(QString::number(data->local_visibility));
+    ui->rain_inp->setText(QString::number(data->rain));
+    ui->snow_inp->setText(QString::number(data->snow));
+    ui->hmist_inp->setText(QString::number(data->hmist));
+    ui->windSpeed_inp->setText(QString::number(data->wind_speed));
+    ui->windSpeedPsi_inp->setText(QString::number( data->wind_psi));
+    ui->starsBright_inp->setText(QString::number(data->StarBright));
+}
+
+void meteoWindow::on_day_spnB_dateChanged(const QDate &date)
+{
+    //QDate date = ui->day_spnB->date();
+    //data->Day = ui->day_spnB->date().day();
+    //qDebug()<<"data->Day" <<data->Day<<"\n";
+}
+
+void meteoWindow::on_day_spnB_valueChanged(int arg1)
+{
+    data->Day = ui->day_spnB->value();
+    qDebug()<<"data->Day" <<data->Day<<"\n";
 }

@@ -24,7 +24,6 @@
 #include <QtWidgets/QScrollBar>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QSpinBox>
-#include <QtWidgets/QSplitter>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTimeEdit>
 #include <QtWidgets/QVBoxLayout>
@@ -42,21 +41,17 @@ public:
     QVBoxLayout *verticalLayout_15;
     QGroupBox *mTimeGrB;
     QVBoxLayout *verticalLayout_5;
-    QSplitter *splitter_7;
-    QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout_5;
     QPushButton *mWinterPushB;
     QPushButton *mSpringPushB;
     QPushButton *mSummerPushB;
     QPushButton *mAutumnPushB;
-    QWidget *layoutWidget1;
     QHBoxLayout *horizontalLayout_7;
     QPushButton *mDayPushB;
     QPushButton *mNightPushB;
-    QWidget *layoutWidget2;
     QHBoxLayout *horizontalLayout;
     QLabel *label_11;
-    QSpinBox *day_spnb;
+    QSpinBox *day_spnB;
     QLabel *label_12;
     QComboBox *month_cmbB;
     QLabel *label_13;
@@ -166,56 +161,47 @@ public:
         verticalLayout_5->setSpacing(6);
         verticalLayout_5->setContentsMargins(11, 11, 11, 11);
         verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
-        splitter_7 = new QSplitter(mTimeGrB);
-        splitter_7->setObjectName(QStringLiteral("splitter_7"));
-        splitter_7->setOrientation(Qt::Vertical);
-        layoutWidget = new QWidget(splitter_7);
-        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        horizontalLayout_5 = new QHBoxLayout(layoutWidget);
+        horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setSpacing(6);
-        horizontalLayout_5->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
-        horizontalLayout_5->setContentsMargins(0, 0, 0, 0);
-        mWinterPushB = new QPushButton(layoutWidget);
+        mWinterPushB = new QPushButton(mTimeGrB);
         mWinterPushB->setObjectName(QStringLiteral("mWinterPushB"));
         mWinterPushB->setCheckable(true);
         mWinterPushB->setChecked(false);
 
         horizontalLayout_5->addWidget(mWinterPushB);
 
-        mSpringPushB = new QPushButton(layoutWidget);
+        mSpringPushB = new QPushButton(mTimeGrB);
         mSpringPushB->setObjectName(QStringLiteral("mSpringPushB"));
         mSpringPushB->setCheckable(true);
 
         horizontalLayout_5->addWidget(mSpringPushB);
 
-        mSummerPushB = new QPushButton(layoutWidget);
+        mSummerPushB = new QPushButton(mTimeGrB);
         mSummerPushB->setObjectName(QStringLiteral("mSummerPushB"));
         mSummerPushB->setCheckable(true);
 
         horizontalLayout_5->addWidget(mSummerPushB);
 
-        mAutumnPushB = new QPushButton(layoutWidget);
+        mAutumnPushB = new QPushButton(mTimeGrB);
         mAutumnPushB->setObjectName(QStringLiteral("mAutumnPushB"));
         mAutumnPushB->setCheckable(true);
 
         horizontalLayout_5->addWidget(mAutumnPushB);
 
-        splitter_7->addWidget(layoutWidget);
-        layoutWidget1 = new QWidget(splitter_7);
-        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        horizontalLayout_7 = new QHBoxLayout(layoutWidget1);
+
+        verticalLayout_5->addLayout(horizontalLayout_5);
+
+        horizontalLayout_7 = new QHBoxLayout();
         horizontalLayout_7->setSpacing(6);
-        horizontalLayout_7->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
-        horizontalLayout_7->setContentsMargins(0, 0, 0, 0);
-        mDayPushB = new QPushButton(layoutWidget1);
+        mDayPushB = new QPushButton(mTimeGrB);
         mDayPushB->setObjectName(QStringLiteral("mDayPushB"));
         mDayPushB->setCheckable(true);
 
         horizontalLayout_7->addWidget(mDayPushB);
 
-        mNightPushB = new QPushButton(layoutWidget1);
+        mNightPushB = new QPushButton(mTimeGrB);
         mNightPushB->setObjectName(QStringLiteral("mNightPushB"));
         mNightPushB->setEnabled(true);
         mNightPushB->setCheckable(true);
@@ -223,35 +209,31 @@ public:
 
         horizontalLayout_7->addWidget(mNightPushB);
 
-        splitter_7->addWidget(layoutWidget1);
-        layoutWidget2 = new QWidget(splitter_7);
-        layoutWidget2->setObjectName(QStringLiteral("layoutWidget2"));
-        horizontalLayout = new QHBoxLayout(layoutWidget2);
+
+        verticalLayout_5->addLayout(horizontalLayout_7);
+
+        horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
-        horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        label_11 = new QLabel(layoutWidget2);
+        label_11 = new QLabel(mTimeGrB);
         label_11->setObjectName(QStringLiteral("label_11"));
 
         horizontalLayout->addWidget(label_11);
 
-        day_spnb = new QSpinBox(layoutWidget2);
-        day_spnb->setObjectName(QStringLiteral("day_spnb"));
-        day_spnb->setMinimumSize(QSize(0, 0));
-        day_spnb->setMinimum(1);
-        day_spnb->setMaximum(31);
-        day_spnb->setSingleStep(1);
-        day_spnb->setDisplayIntegerBase(31);
+        day_spnB = new QSpinBox(mTimeGrB);
+        day_spnB->setObjectName(QStringLiteral("day_spnB"));
+        day_spnB->setCursor(QCursor(Qt::UpArrowCursor));
+        day_spnB->setMinimum(1);
+        day_spnB->setMaximum(31);
 
-        horizontalLayout->addWidget(day_spnb);
+        horizontalLayout->addWidget(day_spnB);
 
-        label_12 = new QLabel(layoutWidget2);
+        label_12 = new QLabel(mTimeGrB);
         label_12->setObjectName(QStringLiteral("label_12"));
 
         horizontalLayout->addWidget(label_12);
 
-        month_cmbB = new QComboBox(layoutWidget2);
+        month_cmbB = new QComboBox(mTimeGrB);
         month_cmbB->addItem(QString());
         month_cmbB->addItem(QString());
         month_cmbB->addItem(QString());
@@ -270,24 +252,23 @@ public:
 
         horizontalLayout->addWidget(month_cmbB);
 
-        label_13 = new QLabel(layoutWidget2);
+        label_13 = new QLabel(mTimeGrB);
         label_13->setObjectName(QStringLiteral("label_13"));
 
         horizontalLayout->addWidget(label_13);
 
-        time_spnB = new QTimeEdit(layoutWidget2);
+        time_spnB = new QTimeEdit(mTimeGrB);
         time_spnB->setObjectName(QStringLiteral("time_spnB"));
         time_spnB->setFocusPolicy(Qt::ClickFocus);
         time_spnB->setButtonSymbols(QAbstractSpinBox::UpDownArrows);
         time_spnB->setCurrentSection(QDateTimeEdit::HourSection);
-        time_spnB->setCalendarPopup(false);
+        time_spnB->setCalendarPopup(true);
         time_spnB->setCurrentSectionIndex(0);
 
         horizontalLayout->addWidget(time_spnB);
 
-        splitter_7->addWidget(layoutWidget2);
 
-        verticalLayout_5->addWidget(splitter_7);
+        verticalLayout_5->addLayout(horizontalLayout);
 
 
         verticalLayout_15->addWidget(mTimeGrB);

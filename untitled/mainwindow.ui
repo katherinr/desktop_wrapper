@@ -49,230 +49,214 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
-        <widget class="QSplitter" name="splitter_7">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <widget class="QWidget" name="layoutWidget">
-          <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QPushButton" name="mWinterPushB">
+           <property name="text">
+            <string>Зима</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="mSpringPushB">
+           <property name="text">
+            <string>Весна</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="mSummerPushB">
+           <property name="text">
+            <string>Лето</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="mAutumnPushB">
+           <property name="text">
+            <string>Осень</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <item>
+          <widget class="QPushButton" name="mDayPushB">
+           <property name="text">
+            <string>День</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="mNightPushB">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="text">
+            <string>Ночь</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+           <property name="default">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="label_11">
+           <property name="text">
+            <string>Число</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="day_spnB">
+           <property name="cursor">
+            <cursorShape>UpArrowCursor</cursorShape>
+           </property>
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>31</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_12">
+           <property name="text">
+            <string>Месяц</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="month_cmbB">
+           <property name="currentText">
+            <string notr="true">январь</string>
+           </property>
+           <property name="currentIndex">
+            <number>1</number>
+           </property>
+           <property name="insertPolicy">
+            <enum>QComboBox::InsertBeforeCurrent</enum>
+           </property>
            <item>
-            <widget class="QPushButton" name="mWinterPushB">
-             <property name="text">
-              <string>Зима</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="checked">
-              <bool>false</bool>
-             </property>
-            </widget>
+            <property name="text">
+             <string>декабрь</string>
+            </property>
            </item>
            <item>
-            <widget class="QPushButton" name="mSpringPushB">
-             <property name="text">
-              <string>Весна</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-            </widget>
+            <property name="text">
+             <string>январь</string>
+            </property>
            </item>
            <item>
-            <widget class="QPushButton" name="mSummerPushB">
-             <property name="text">
-              <string>Лето</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-            </widget>
+            <property name="text">
+             <string>февраль</string>
+            </property>
            </item>
            <item>
-            <widget class="QPushButton" name="mAutumnPushB">
-             <property name="text">
-              <string>Осень</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="layoutWidget">
-          <layout class="QHBoxLayout" name="horizontalLayout_7">
-           <item>
-            <widget class="QPushButton" name="mDayPushB">
-             <property name="text">
-              <string>День</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-            </widget>
+            <property name="text">
+             <string>март</string>
+            </property>
            </item>
            <item>
-            <widget class="QPushButton" name="mNightPushB">
-             <property name="enabled">
-              <bool>true</bool>
-             </property>
-             <property name="text">
-              <string>Ночь</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="checked">
-              <bool>false</bool>
-             </property>
-             <property name="default">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="layoutWidget">
-          <layout class="QHBoxLayout" name="horizontalLayout">
-           <item>
-            <widget class="QLabel" name="label_11">
-             <property name="text">
-              <string>Число</string>
-             </property>
-            </widget>
+            <property name="text">
+             <string>апрель</string>
+            </property>
            </item>
            <item>
-            <widget class="QSpinBox" name="day_spnb">
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="minimum">
-              <number>1</number>
-             </property>
-             <property name="maximum">
-              <number>31</number>
-             </property>
-             <property name="singleStep">
-              <number>1</number>
-             </property>
-             <property name="displayIntegerBase">
-              <number>31</number>
-             </property>
-            </widget>
+            <property name="text">
+             <string>май</string>
+            </property>
            </item>
            <item>
-            <widget class="QLabel" name="label_12">
-             <property name="text">
-              <string>Месяц</string>
-             </property>
-            </widget>
+            <property name="text">
+             <string>июнь</string>
+            </property>
            </item>
            <item>
-            <widget class="QComboBox" name="month_cmbB">
-             <property name="currentText">
-              <string notr="true">январь</string>
-             </property>
-             <property name="currentIndex">
-              <number>1</number>
-             </property>
-             <property name="insertPolicy">
-              <enum>QComboBox::InsertBeforeCurrent</enum>
-             </property>
-             <item>
-              <property name="text">
-               <string>декабрь</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>январь</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>февраль</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>март</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>апрель</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>май</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>июнь</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>июль</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>август</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>сентябрь</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>октябрь</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>ноябрь</string>
-              </property>
-             </item>
-            </widget>
+            <property name="text">
+             <string>июль</string>
+            </property>
            </item>
            <item>
-            <widget class="QLabel" name="label_13">
-             <property name="text">
-              <string>Время</string>
-             </property>
-            </widget>
+            <property name="text">
+             <string>август</string>
+            </property>
            </item>
            <item>
-            <widget class="QTimeEdit" name="time_spnB">
-             <property name="focusPolicy">
-              <enum>Qt::ClickFocus</enum>
-             </property>
-             <property name="buttonSymbols">
-              <enum>QAbstractSpinBox::UpDownArrows</enum>
-             </property>
-             <property name="currentSection">
-              <enum>QDateTimeEdit::HourSection</enum>
-             </property>
-             <property name="calendarPopup">
-              <bool>false</bool>
-             </property>
-             <property name="currentSectionIndex">
-              <number>0</number>
-             </property>
-            </widget>
+            <property name="text">
+             <string>сентябрь</string>
+            </property>
            </item>
-          </layout>
-         </widget>
-        </widget>
+           <item>
+            <property name="text">
+             <string>октябрь</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>ноябрь</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_13">
+           <property name="text">
+            <string>Время</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTimeEdit" name="time_spnB">
+           <property name="focusPolicy">
+            <enum>Qt::ClickFocus</enum>
+           </property>
+           <property name="buttonSymbols">
+            <enum>QAbstractSpinBox::UpDownArrows</enum>
+           </property>
+           <property name="currentSection">
+            <enum>QDateTimeEdit::HourSection</enum>
+           </property>
+           <property name="calendarPopup">
+            <bool>true</bool>
+           </property>
+           <property name="currentSectionIndex">
+            <number>0</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>

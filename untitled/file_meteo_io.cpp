@@ -1,4 +1,4 @@
-#include "file_meteo_io.h"
+﻿#include "file_meteo_io.h"
 
 #include <QFileDialog>
 #include <qdebug.h>
@@ -30,6 +30,8 @@ std::shared_ptr<METEO_DATA> FileMeteoIO::readFile(QFile& file_)
         str_val = line.last();
         auto delim_pos =  str_val.indexOf(';');
         p_meteo_data->Visibility = str_val.left(delim_pos).toFloat();
+        qDebug()<<"Visibility file "<< p_meteo_data->Visibility;
+        qDebug()<<"Visibility file str "<< str_val;
      }
 
      if(!in.atEnd())
@@ -38,6 +40,8 @@ std::shared_ptr<METEO_DATA> FileMeteoIO::readFile(QFile& file_)
         str_val = line.last();
         auto delim_pos =  str_val.indexOf(';');
         p_meteo_data->CloudBase = str_val.left(delim_pos).toShort();
+        qDebug()<<"cloud base file "<< p_meteo_data->CloudBase;
+        qDebug()<<"cloud base str val "<< str_val;
      }
 
      if(!in.atEnd())
@@ -54,6 +58,8 @@ std::shared_ptr<METEO_DATA> FileMeteoIO::readFile(QFile& file_)
         str_val = line.last();
         auto delim_pos =  str_val.indexOf(';');
         p_meteo_data->CloudSize = str_val.left(delim_pos).toShort();
+        qDebug()<<"cloud size file "<< p_meteo_data->CloudSize;
+        qDebug()<<"cloud size str val "<< str_val;
      }
 
      if(!in.atEnd())
@@ -69,7 +75,8 @@ std::shared_ptr<METEO_DATA> FileMeteoIO::readFile(QFile& file_)
         line = in.readLine().split(' ');
         str_val = line.last();
         auto delim_pos =  str_val.indexOf(';');
-        p_meteo_data->cloudsSecondLay = str_val.left(delim_pos).toInt();
+        p_meteo_data->cloudsSecondLay = str_val.left(delim_pos).toShort();
+
      }
 
      if(!in.atEnd())
@@ -78,6 +85,8 @@ std::shared_ptr<METEO_DATA> FileMeteoIO::readFile(QFile& file_)
         str_val = line.last();
         auto delim_pos =  str_val.indexOf(';');
         p_meteo_data->SecLayHeight = str_val.left(delim_pos).toFloat();
+        qDebug()<<"cSecLayHeight file "<< p_meteo_data->SecLayHeight;
+        qDebug()<<"SecLayHeight str val "<< str_val;
      }
 
      if(!in.atEnd())

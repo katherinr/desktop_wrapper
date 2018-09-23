@@ -24,7 +24,7 @@ private:
     FileMeteoIO file_io;
 private slots:
     void on_cloudHeightScroll_sliderPressed();
-    void meteoWindow::on_cloudThickScroll_valueChanged(int value);
+    void on_cloudThickScroll_valueChanged(int value);
     void on_cloudBase_inp_editingFinished();
     void on_cloudUpper_inp_editingFinished();
     void on_localVis_inp_editingFinished();
@@ -63,6 +63,8 @@ private slots:
     void on_action_4_triggered();
 
     void on_day_spnb_editingFinished();
+    void on_day_spnB_dateChanged(const QDate &date);
+    void on_day_spnB_valueChanged(int arg1);
 };
 
 #endif // METEO_WINDOW_H
