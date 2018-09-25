@@ -11,6 +11,8 @@ meteoWindow::meteoWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     data->message = 11;
+    data->Day = 1;
+    data->Month = 1;
     setLimitsToScrolls();
     setLimitsToLines();
     qDebug()<<"constructor";
