@@ -136,7 +136,7 @@ public:
         if (meteoWindow->objectName().isEmpty())
             meteoWindow->setObjectName(QStringLiteral("meteoWindow"));
         meteoWindow->setWindowModality(Qt::WindowModal);
-        meteoWindow->resize(646, 1021);
+        meteoWindow->resize(646, 1025);
         meteoWindow->setContextMenuPolicy(Qt::NoContextMenu);
         action = new QAction(meteoWindow);
         action->setObjectName(QStringLiteral("action"));
@@ -222,7 +222,9 @@ public:
 
         day_spnB = new QSpinBox(mTimeGrB);
         day_spnB->setObjectName(QStringLiteral("day_spnB"));
+        day_spnB->setBaseSize(QSize(0, 1));
         day_spnB->setCursor(QCursor(Qt::UpArrowCursor));
+        day_spnB->setButtonSymbols(QAbstractSpinBox::PlusMinus);
         day_spnB->setMinimum(1);
         day_spnB->setMaximum(31);
 
@@ -248,6 +250,7 @@ public:
         month_cmbB->addItem(QString());
         month_cmbB->setObjectName(QStringLiteral("month_cmbB"));
         month_cmbB->setCurrentText(QString::fromUtf8("\321\217\320\275\320\262\320\260\321\200\321\214"));
+        month_cmbB->setMaxCount(12);
         month_cmbB->setInsertPolicy(QComboBox::InsertBeforeCurrent);
 
         horizontalLayout->addWidget(month_cmbB);
@@ -400,6 +403,7 @@ public:
         cloudSecLayer_inp = new QLineEdit(mCloudGrB);
         cloudSecLayer_inp->setObjectName(QStringLiteral("cloudSecLayer_inp"));
         cloudSecLayer_inp->setEnabled(false);
+        cloudSecLayer_inp->setCursor(QCursor(Qt::UpArrowCursor));
 
         verticalLayout_10->addWidget(cloudSecLayer_inp);
 

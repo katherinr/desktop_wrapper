@@ -212,7 +212,7 @@ void FileMeteoIO::saveFile(METEO_DATA* meteo_data_)
             stream << "METEO_DATA.CloudUpper = " << meteo_data_->CloudUpper << ";\n";
             stream << "METEO_DATA.CloudSize = " << meteo_data_->CloudSize << ";\n";
             stream << "METEO_DATA.cloudsType = " << (int)meteo_data_->cloudsType << ";\n";
-            stream << "METEO_DATA.cloudsSecondLay = " << meteo_data_->cloudsSecondLay << ";\n";
+            stream << "METEO_DATA.cloudsSecondLay = " <<(int) meteo_data_->cloudsSecondLay << ";\n";
             stream << "METEO_DATA.SecLayHeight = " << meteo_data_->SecLayHeight << ";\n";
             stream << "METEO_DATA.Day = " << meteo_data_->Day << ";\n";
             stream << "METEO_DATA.Month = " << meteo_data_->Month << ";\n";

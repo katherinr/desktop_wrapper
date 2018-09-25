@@ -3,7 +3,7 @@
 #include <meteo_struct.h>
 #include <QMainWindow>
 #include "file_meteo_io.h"
-
+#include <QSignalBlocker>
 namespace Ui {
 class meteoWindow;
 }
@@ -22,8 +22,8 @@ private:
     Ui::meteoWindow *ui;
     METEO_DATA *data;
     FileMeteoIO file_io;
+
 private slots:
-    void on_cloudHeightScroll_sliderPressed();
     void on_cloudThickScroll_valueChanged(int value);
     void on_cloudBase_inp_editingFinished();
     void on_cloudUpper_inp_editingFinished();
@@ -35,7 +35,7 @@ private slots:
     void on_windSpeedPsi_inp_editingFinished();
     void on_visibility_inp_editingFinished();
     void on_starsBright_inp_editingFinished();
-    void on_cloudSize_spnB_valueChanged(int arg1);
+
     void on_cloudSecLayer_inp_editingFinished();
     void on_cloudThick_inp_editingFinished();
     void on_mWinterPushB_pressed();
@@ -61,10 +61,9 @@ private slots:
     void on_visScroll_valueChanged(int value);
     void on_starsBrightScroll_valueChanged(int value);
     void on_action_4_triggered();
-
-    void on_day_spnb_editingFinished();
-    void on_day_spnB_dateChanged(const QDate &date);
     void on_day_spnB_valueChanged(int arg1);
+    void lineDataToScrollValue();
+    void on_cloudSize_inp_editingFinished();
 };
 
 #endif // METEO_WINDOW_H
