@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'mainwindow.ui'
+** Form generated from reading UI file 'meteoform.ui'
 **
-** Created by: Qt User Interface Compiler version 5.11.1
+** Created by: Qt User Interface Compiler version 5.11.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef UI_MAINWINDOW_H
-#define UI_MAINWINDOW_H
+#ifndef UI_METEOFORM_H
+#define UI_METEOFORM_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -38,7 +38,7 @@ public:
     QAction *action_2;
     QAction *action_4;
     QWidget *centralWidget;
-    QVBoxLayout *verticalLayout_15;
+    QVBoxLayout *verticalLayout_14;
     QGroupBox *mTimeGrB;
     QVBoxLayout *verticalLayout_5;
     QHBoxLayout *horizontalLayout_5;
@@ -127,6 +127,10 @@ public:
     QLineEdit *visibility_inp;
     QLineEdit *starsBright_inp;
     QSpacerItem *horizontalSpacer_10;
+    QHBoxLayout *horizontalLayout_8;
+    QSpacerItem *horizontalSpacer_4;
+    QPushButton *ok_pushb;
+    QPushButton *CancelPB;
     QStatusBar *statusBar;
     QMenuBar *menuBar;
     QMenu *menu;
@@ -135,9 +139,10 @@ public:
     {
         if (meteoWindow->objectName().isEmpty())
             meteoWindow->setObjectName(QStringLiteral("meteoWindow"));
-        meteoWindow->setWindowModality(Qt::WindowModal);
-        meteoWindow->resize(646, 1025);
+        meteoWindow->setWindowModality(Qt::ApplicationModal);
+        meteoWindow->resize(678, 1080);
         meteoWindow->setContextMenuPolicy(Qt::NoContextMenu);
+        meteoWindow->setLayoutDirection(Qt::LeftToRight);
         action = new QAction(meteoWindow);
         action->setObjectName(QStringLiteral("action"));
         action_2 = new QAction(meteoWindow);
@@ -146,10 +151,10 @@ public:
         action_4->setObjectName(QStringLiteral("action_4"));
         centralWidget = new QWidget(meteoWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        verticalLayout_15 = new QVBoxLayout(centralWidget);
-        verticalLayout_15->setSpacing(6);
-        verticalLayout_15->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_15->setObjectName(QStringLiteral("verticalLayout_15"));
+        verticalLayout_14 = new QVBoxLayout(centralWidget);
+        verticalLayout_14->setSpacing(6);
+        verticalLayout_14->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_14->setObjectName(QStringLiteral("verticalLayout_14"));
         mTimeGrB = new QGroupBox(centralWidget);
         mTimeGrB->setObjectName(QStringLiteral("mTimeGrB"));
         mTimeGrB->setMinimumSize(QSize(0, 0));
@@ -274,7 +279,7 @@ public:
         verticalLayout_5->addLayout(horizontalLayout);
 
 
-        verticalLayout_15->addWidget(mTimeGrB);
+        verticalLayout_14->addWidget(mTimeGrB);
 
         mCloudGrB = new QGroupBox(centralWidget);
         mCloudGrB->setObjectName(QStringLiteral("mCloudGrB"));
@@ -411,7 +416,7 @@ public:
         horizontalLayout_6->addLayout(verticalLayout_10);
 
 
-        verticalLayout_15->addWidget(mCloudGrB);
+        verticalLayout_14->addWidget(mCloudGrB);
 
         mPrecipationGrB = new QGroupBox(centralWidget);
         mPrecipationGrB->setObjectName(QStringLiteral("mPrecipationGrB"));
@@ -515,7 +520,7 @@ public:
 
         verticalLayout_4->addWidget(hmist_inp);
 
-        horizontalSpacer_13 = new QSpacerItem(100, 17, QSizePolicy::Fixed, QSizePolicy::Minimum);
+        horizontalSpacer_13 = new QSpacerItem(118, 17, QSizePolicy::Fixed, QSizePolicy::Minimum);
 
         verticalLayout_4->addItem(horizontalSpacer_13);
 
@@ -523,7 +528,7 @@ public:
         horizontalLayout_3->addLayout(verticalLayout_4);
 
 
-        verticalLayout_15->addWidget(mPrecipationGrB);
+        verticalLayout_14->addWidget(mPrecipationGrB);
 
         mWindGrB = new QGroupBox(centralWidget);
         mWindGrB->setObjectName(QStringLiteral("mWindGrB"));
@@ -596,7 +601,7 @@ public:
         horizontalLayout_4->addLayout(verticalLayout_13);
 
 
-        verticalLayout_15->addWidget(mWindGrB);
+        verticalLayout_14->addWidget(mWindGrB);
 
         mSightGrB = new QGroupBox(centralWidget);
         mSightGrB->setObjectName(QStringLiteral("mSightGrB"));
@@ -651,7 +656,6 @@ public:
         verticalLayout_12 = new QVBoxLayout();
         verticalLayout_12->setSpacing(6);
         verticalLayout_12->setObjectName(QStringLiteral("verticalLayout_12"));
-        verticalLayout_12->setSizeConstraint(QLayout::SetFixedSize);
         visibility_inp = new QLineEdit(mSightGrB);
         visibility_inp->setObjectName(QStringLiteral("visibility_inp"));
         visibility_inp->setBaseSize(QSize(0, 3));
@@ -663,7 +667,7 @@ public:
 
         verticalLayout_12->addWidget(starsBright_inp);
 
-        horizontalSpacer_10 = new QSpacerItem(100, 17, QSizePolicy::Fixed, QSizePolicy::Minimum);
+        horizontalSpacer_10 = new QSpacerItem(128, 17, QSizePolicy::Fixed, QSizePolicy::Minimum);
 
         verticalLayout_12->addItem(horizontalSpacer_10);
 
@@ -671,7 +675,27 @@ public:
         horizontalLayout_2->addLayout(verticalLayout_12);
 
 
-        verticalLayout_15->addWidget(mSightGrB);
+        verticalLayout_14->addWidget(mSightGrB);
+
+        horizontalLayout_8 = new QHBoxLayout();
+        horizontalLayout_8->setSpacing(6);
+        horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
+        horizontalSpacer_4 = new QSpacerItem(408, 38, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_8->addItem(horizontalSpacer_4);
+
+        ok_pushb = new QPushButton(centralWidget);
+        ok_pushb->setObjectName(QStringLiteral("ok_pushb"));
+
+        horizontalLayout_8->addWidget(ok_pushb);
+
+        CancelPB = new QPushButton(centralWidget);
+        CancelPB->setObjectName(QStringLiteral("CancelPB"));
+
+        horizontalLayout_8->addWidget(CancelPB);
+
+
+        verticalLayout_14->addLayout(horizontalLayout_8);
 
         meteoWindow->setCentralWidget(centralWidget);
         statusBar = new QStatusBar(meteoWindow);
@@ -679,7 +703,7 @@ public:
         meteoWindow->setStatusBar(statusBar);
         menuBar = new QMenuBar(meteoWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 646, 31));
+        menuBar->setGeometry(QRect(0, 0, 678, 31));
         menu = new QMenu(menuBar);
         menu->setObjectName(QStringLiteral("menu"));
         meteoWindow->setMenuBar(menuBar);
@@ -773,6 +797,8 @@ public:
         label_26->setText(QApplication::translate("meteoWindow", "\320\257\321\200\320\272\320\276\321\201\321\202\321\214 \320\267\320\262\320\265\320\267\320\264, %", nullptr));
         visibility_inp->setText(QApplication::translate("meteoWindow", "0", nullptr));
         starsBright_inp->setText(QApplication::translate("meteoWindow", "0", nullptr));
+        ok_pushb->setText(QApplication::translate("meteoWindow", "OK", nullptr));
+        CancelPB->setText(QApplication::translate("meteoWindow", "Cancel", nullptr));
         menu->setTitle(QApplication::translate("meteoWindow", "\320\244\320\260\320\271\320\273", nullptr));
     } // retranslateUi
 
@@ -784,4 +810,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // UI_MAINWINDOW_H
+#endif // UI_METEOFORM_H

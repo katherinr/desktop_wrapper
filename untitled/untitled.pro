@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui widgets
+QT       += core gui widgets script network
 
 TARGET = untitled
 TEMPLATE = app
@@ -23,18 +23,34 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
-    file_meteo_io.cpp
+    file_meteo_io.cpp \
+    main.cpp \
+    meteo_form.cpp \
+    mainwindow.cpp \
+    airportsdialog.cpp \
+    udpserver.cpp \
+    backward.cpp
 
 HEADERS += \
-        mainwindow.h \
     meteo_struct.h \
+    file_meteo_io.h \
+    meteo_form.h \
+    ../build-untitled-Desktop_Qt_5_11_1_MSVC2017_64bit-Debug/ui_meteoform.h \
     ../build-untitled-Desktop_Qt_5_11_1_MSVC2017_64bit-Debug/ui_mainwindow.h \
-    file_meteo_io.h
+    mainwindow.h \
+    sfun_gss2kd_2017_visual_send_v22.h \
+    airportsdialog.h \
+    Protocol_templates(25.09.2018).h \
+    udpserver.h \
+    ../build-untitled-Desktop_Qt_5_11_1_MSVC2017_64bit-Debug/ui_airportsdialog.h \
+    backward.h
 
 FORMS += \
-        mainwindow.ui
+    meteoform.ui \
+    mainwindow.ui \
+    mainwindow.ui \
+    airportsdialog.ui \
+    backward.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

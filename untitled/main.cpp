@@ -1,16 +1,15 @@
-﻿#include "mainwindow.h"
+﻿#include "meteo_form.h"
 #include <QApplication>
-#include <meteo_struct.h>
+//#include <meteo_struct.h>
+#include "mainwindow.h"
 #include <qdebug.h>
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    meteoWindow w;
+    MainWindow w;
     w.setWindowFlags(Qt::WindowStaysOnTopHint);
     w.show();
-   // w.activateWindow();
 
-    qDebug()<<"wshow";
     return a.exec();
 }

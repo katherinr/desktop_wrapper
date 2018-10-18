@@ -44,3 +44,68 @@ struct METEO_DATA
     float StarBright;                                                       // Яркость звезд, 0...1  или 0...100 
     
 };
+
+struct _AirportData
+{
+
+    unsigned char 	packet_id;                              // Отличительный признак пакета (постоянное число = 203)
+
+    double  model_simulation_time;                  // Текущее время в модели,                  [мс]
+
+    // Аэропорт и ВВП взлета:
+    char 	DEPARTURE_AIRPORT_CODE[4];              // идентификатор аэропорта взлета           (4 символа - код аэропорта по ICAO, например "LIPZ")
+    char 	TAKEOFF_RUNWAY_CODE[4];                 // идентификатор полосы взлета              (например "16  ", "25L ", "01  ")
+    char 	TAKEOFF_RUNWAY_BORDER_LIGHTS;           // Боковые огни полосы,                     [0...100%]
+    char 	DEPARTURE_AIRPORT_LIGHTS_TAXIING;       // Рулежные огни аэродрома,                 [0...100%]
+    char 	DEPARTURE_AIRPORT_LIGHTS_ILLUMINATION;  // Огни подсвета стоянок аэродрома,         [0...100%]
+    char 	DEPARTURE_AIRPORT_OTHER_LIGHTS;         // Уровень яркости всех остальных огней,    [0...100%]
+
+    // Аэропорт и ВВП посадки:
+    char 	ARRIVAL_AIRPORT_CODE[4];                // идентификатор аэропорта посадки          4 символа - код аэропорта по ICAO, например "LIPZ")
+    char 	LANDING_RUNWAY_CODE[4];                 // идентификатор полосы посадки             (например "16  ", "25R ", "01  ")
+    char 	LANDING_RUNWAY_BORDER_LIGHTS;           // Боковые огни полосы,                     [0...100%]
+    char 	ARRIVAL_AIRPORT_LIGHTS_TAXIING;         // Рулежные огни аэродрома,                 [0...100%]
+    char 	ARRIVAL_AIRPORT_LIGHTS_ILLUMINATION;    // Огни подсвета стоянок аэродрома,         [0...100%]
+    char 	ARRIVAL_AIRPORT_OTHER_LIGHTS;           // Уровень яркости всех остальных огней,    [0...100%]
+
+    // Резерв:
+    char 	Reserved[16];
+     _AirportData(){}
+
+};
+
+struct DATA_FROM_KD {
+
+    char  message; // Признак пакета ЛА = 10
+    double lat;
+    double lon;
+    double H;
+    unsigned long surf;
+
+    unsigned long time;
+    float r_sign;
+
+    double h_gear[4];
+
+};
+
+struct D3_POINT
+{
+    double X;
+    double Z;
+    float  H;
+};
+
+struct _DataToModel
+{
+    unsigned char   	packet_id;                              // Признак пакета (постоянное число = 205)
+
+    // Для контроля обмена (запаздывания и т.д.):
+    double 	simulation_time;                        // Текущее время,                           [мс]
+
+    D3_POINT p_coord;								// Широта [град], Долгота [град], Высота подст. поверхности под ц.м. самолета [м]
+
+    // Резерв:
+    float	Reserved[8];
+
+};

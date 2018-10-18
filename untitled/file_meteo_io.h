@@ -1,8 +1,8 @@
-#ifndef FILE_METEO_IO_H
+﻿#ifndef FILE_METEO_IO_H
 #define FILE_METEO_IO_H
 
-#include "meteo_struct.h"
-
+//#include "sfun_gss2kd_2017_visual_send_v22.h"
+#include <meteo_struct.h>
 #include <memory>
 
 #include <QFile>
