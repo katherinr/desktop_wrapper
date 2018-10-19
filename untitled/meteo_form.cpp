@@ -558,7 +558,7 @@ void meteoWindow::lineDataToScrollValue()
 void meteoWindow::on_ok_pushb_pressed()
 {
 	qDebug() << "data->Day" << this->data->hmist << "\n";
-    //emit sendData(this->data);
+    emit sendData(this->data);
     this->close();
 }
 

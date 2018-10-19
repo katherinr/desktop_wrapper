@@ -38,5 +38,6 @@ void backwardW::on_h_le_editingFinished()
 
 void backwardW::on_buttonBox_accepted()
 {
-
+    emit sendData(this->backw_data);
+    this->close();
 }

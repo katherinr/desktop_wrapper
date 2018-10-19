@@ -19,7 +19,6 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
-#include <QtWidgets/QSplitter>
 #include <QtWidgets/QVBoxLayout>
 
 QT_BEGIN_NAMESPACE
@@ -29,7 +28,7 @@ class Ui_AirportsDialog
 public:
     QVBoxLayout *verticalLayout_5;
     QGroupBox *groupBox;
-    QHBoxLayout *horizontalLayout;
+    QHBoxLayout *horizontalLayout_2;
     QVBoxLayout *verticalLayout;
     QLabel *label;
     QLabel *label_2;
@@ -37,8 +36,8 @@ public:
     QLabel *label_4;
     QLabel *label_5;
     QLabel *label_6;
-    QVBoxLayout *verticalLayout_6;
-    QSplitter *splitter;
+    QVBoxLayout *verticalLayout_2;
+    QHBoxLayout *horizontalLayout;
     QComboBox *departureCity;
     QComboBox *departureCode;
     QLineEdit *departure_airport_code;
@@ -89,8 +88,8 @@ public:
         verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
         groupBox = new QGroupBox(AirportsDialog);
         groupBox->setObjectName(QStringLiteral("groupBox"));
-        horizontalLayout = new QHBoxLayout(groupBox);
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        horizontalLayout_2 = new QHBoxLayout(groupBox);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         label = new QLabel(groupBox);
@@ -124,14 +123,13 @@ public:
         verticalLayout->addWidget(label_6);
 
 
-        horizontalLayout->addLayout(verticalLayout);
+        horizontalLayout_2->addLayout(verticalLayout);
 
-        verticalLayout_6 = new QVBoxLayout();
-        verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
-        splitter = new QSplitter(groupBox);
-        splitter->setObjectName(QStringLiteral("splitter"));
-        splitter->setOrientation(Qt::Horizontal);
-        departureCity = new QComboBox(splitter);
+        verticalLayout_2 = new QVBoxLayout();
+        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        departureCity = new QComboBox(groupBox);
         departureCity->addItem(QString());
         departureCity->addItem(QString());
         departureCity->addItem(QString());
@@ -152,43 +150,59 @@ public:
         departureCity->addItem(QString());
         departureCity->setObjectName(QStringLiteral("departureCity"));
         departureCity->setMinimumSize(QSize(0, 0));
-        splitter->addWidget(departureCity);
-        departureCode = new QComboBox(splitter);
-        departureCode->setObjectName(QStringLiteral("departureCode"));
-        splitter->addWidget(departureCode);
-        departure_airport_code = new QLineEdit(splitter);
-        departure_airport_code->setObjectName(QStringLiteral("departure_airport_code"));
-        splitter->addWidget(departure_airport_code);
+        departureCity->setCursor(QCursor(Qt::UpArrowCursor));
+        departureCity->setFocusPolicy(Qt::WheelFocus);
+        departureCity->setContextMenuPolicy(Qt::DefaultContextMenu);
+        departureCity->setAutoFillBackground(false);
+        departureCity->setEditable(false);
+        departureCity->setCurrentText(QStringLiteral("Moscow DME"));
+        departureCity->setInsertPolicy(QComboBox::NoInsert);
+        departureCity->setSizeAdjustPolicy(QComboBox::AdjustToContentsOnFirstShow);
+        departureCity->setFrame(true);
 
-        verticalLayout_6->addWidget(splitter);
+        horizontalLayout->addWidget(departureCity);
+
+        departureCode = new QComboBox(groupBox);
+        departureCode->setObjectName(QStringLiteral("departureCode"));
+        departureCode->setSizeAdjustPolicy(QComboBox::AdjustToContents);
+
+        horizontalLayout->addWidget(departureCode);
+
+        departure_airport_code = new QLineEdit(groupBox);
+        departure_airport_code->setObjectName(QStringLiteral("departure_airport_code"));
+
+        horizontalLayout->addWidget(departure_airport_code);
+
+
+        verticalLayout_2->addLayout(horizontalLayout);
 
         takeoff_runway_code = new QLineEdit(groupBox);
         takeoff_runway_code->setObjectName(QStringLiteral("takeoff_runway_code"));
 
-        verticalLayout_6->addWidget(takeoff_runway_code);
+        verticalLayout_2->addWidget(takeoff_runway_code);
 
         takeoff_runway_border_lights = new QLineEdit(groupBox);
         takeoff_runway_border_lights->setObjectName(QStringLiteral("takeoff_runway_border_lights"));
 
-        verticalLayout_6->addWidget(takeoff_runway_border_lights);
+        verticalLayout_2->addWidget(takeoff_runway_border_lights);
 
         departure_airport_lights_taxiing = new QLineEdit(groupBox);
         departure_airport_lights_taxiing->setObjectName(QStringLiteral("departure_airport_lights_taxiing"));
 
-        verticalLayout_6->addWidget(departure_airport_lights_taxiing);
+        verticalLayout_2->addWidget(departure_airport_lights_taxiing);
 
         departure_airport_lights_illumination = new QLineEdit(groupBox);
         departure_airport_lights_illumination->setObjectName(QStringLiteral("departure_airport_lights_illumination"));
 
-        verticalLayout_6->addWidget(departure_airport_lights_illumination);
+        verticalLayout_2->addWidget(departure_airport_lights_illumination);
 
         departure_airport_other_lights = new QLineEdit(groupBox);
         departure_airport_other_lights->setObjectName(QStringLiteral("departure_airport_other_lights"));
 
-        verticalLayout_6->addWidget(departure_airport_other_lights);
+        verticalLayout_2->addWidget(departure_airport_other_lights);
 
 
-        horizontalLayout->addLayout(verticalLayout_6);
+        horizontalLayout_2->addLayout(verticalLayout_2);
 
 
         verticalLayout_5->addWidget(groupBox);
@@ -349,6 +363,9 @@ public:
 
 
         retranslateUi(AirportsDialog);
+
+        departureCode->setCurrentIndex(-1);
+
 
         QMetaObject::connectSlotsByName(AirportsDialog);
     } // setupUi

@@ -9,7 +9,7 @@ AirportsDialog::AirportsDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     data->packet_id = 203;
-     setWindowFlags(Qt::WindowStaysOnTopHint);
+    setWindowFlags(Qt::WindowStaysOnTopHint);
     fill_aeroport_codes();
    // setLimitsToLines();
 };
@@ -44,7 +44,7 @@ void AirportsDialog::on_cancel_pb_clicked()
     qstrcpy(data->DEPARTURE_AIRPORT_CODE, "0");
     qstrcpy(data->ARRIVAL_AIRPORT_CODE, "0");
     this->close();
-   // QApplication::quit();
+
 }
 
 void AirportsDialog::setLimitsToLines()

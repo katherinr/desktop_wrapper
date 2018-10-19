@@ -21,7 +21,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void receiveData(METEO_DATA * _data);
+
     void on_receivePortEdit_editingFinished();
     void on_startStopSendButton_toggled(bool checked);
 
@@ -42,15 +42,19 @@ private slots:
     void on_okPB_pressed();
 
     void on_CancelPB_clicked();
-    void on_sendOnceButton_clicked();
-void onCheckBoxChecked(bool state);
+
+    void receiveData(_AirportData*);
+    void receiveData(_DataToModel*);
+    void receiveData(METEO_DATA * _data);
 private:
     Ui::MainWindow *ui;
     meteoWindow* meteo_ui;
     backwardW *backward_ui;
     AirportsDialog *aerodrom_ui;
+
     METEO_DATA* meteo_data;
     _AirportData* airoports_lights_data;
+    _DataToModel *backward_data;
 
     UdpServer *m_server;
 };

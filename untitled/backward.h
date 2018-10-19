@@ -27,4 +27,6 @@ private slots:
 private:
     Ui::backwardW *ui;
     _DataToModel *backw_data;
+signals:
+    void  sendData(_DataToModel *data);
 };

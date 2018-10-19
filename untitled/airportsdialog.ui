@@ -28,7 +28,7 @@
      <property name="title">
       <string>Взлет</string>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
@@ -76,117 +76,153 @@
        </layout>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_6">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QSplitter" name="splitter">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <widget class="QComboBox" name="departureCity">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <item>
-            <property name="text">
-             <string>Moscow DME</string>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QComboBox" name="departureCity">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
             </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Moscow OST</string>
+            <property name="cursor">
+             <cursorShape>UpArrowCursor</cursorShape>
             </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>London</string>
+            <property name="focusPolicy">
+             <enum>Qt::WheelFocus</enum>
             </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>KarlovyVary</string>
+            <property name="contextMenuPolicy">
+             <enum>Qt::DefaultContextMenu</enum>
             </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Tivat</string>
+            <property name="autoFillBackground">
+             <bool>false</bool>
             </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Bruxelles</string>
+            <property name="editable">
+             <bool>false</bool>
             </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Venice</string>
+            <property name="currentText">
+             <string notr="true">Moscow DME</string>
             </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Dublin</string>
+            <property name="insertPolicy">
+             <enum>QComboBox::NoInsert</enum>
             </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Innsbruck</string>
+            <property name="sizeAdjustPolicy">
+             <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
             </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Keflavic</string>
+            <property name="frame">
+             <bool>true</bool>
             </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Komsomolsk</string>
+            <item>
+             <property name="text">
+              <string>Moscow DME</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Moscow OST</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>London</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>KarlovyVary</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Tivat</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Bruxelles</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Venice</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Dublin</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Innsbruck</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Keflavic</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Komsomolsk</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Pulkovo</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Sochi</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Toluca</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Moscow SVO</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Moscow VKO</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Moscow ZIA</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Helsinki</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="departureCode">
+            <property name="currentText">
+             <string/>
             </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Pulkovo</string>
+            <property name="currentIndex">
+             <number>-1</number>
             </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Sochi</string>
+            <property name="sizeAdjustPolicy">
+             <enum>QComboBox::AdjustToContents</enum>
             </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Toluca</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Moscow SVO</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Moscow VKO</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Moscow ZIA</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Helsinki</string>
-            </property>
-           </item>
-          </widget>
-          <widget class="QComboBox" name="departureCode">
-           <property name="currentText">
-            <string/>
-           </property>
-          </widget>
-          <widget class="QLineEdit" name="departure_airport_code"/>
-         </widget>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="departure_airport_code"/>
+          </item>
+         </layout>
         </item>
         <item>
          <widget class="QLineEdit" name="takeoff_runway_code">
