@@ -1,4 +1,5 @@
-#pragma once
+#ifndef METEO_STRUCT_H
+#define METEO_STRUCT_H
 
 #include <string.h>
 
@@ -44,6 +45,8 @@ struct METEO_DATA
     float StarBright;                                                       // яркость звезд, 0...1  или 0...100 
     
 };
+
+void deep_meteo_copy(METEO_DATA *_data,METEO_DATA *data );
 
 struct _AirportData
 {
@@ -109,3 +112,4 @@ struct _DataToModel
     float	Reserved[8];
 
 };
+#endif

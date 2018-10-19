@@ -2,11 +2,12 @@
 #define FILE_METEO_IO_H
 
 //#include "sfun_gss2kd_2017_visual_send_v22.h"
-#include <meteo_struct.h>
+
 #include <memory>
 
 #include <QFile>
 
+struct METEO_DATA;
 class FileMeteoIO
 {
     std::shared_ptr<METEO_DATA> readFile(QFile& file_);

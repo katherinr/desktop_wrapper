@@ -489,24 +489,7 @@ void meteoWindow::on_action_2_triggered()
 void meteoWindow::writeToFields(std::shared_ptr<METEO_DATA> meteo_data )
 {
     data->message = 11;//meteo_data->message;
-    data->CloudBase = meteo_data->CloudBase;
-    data->CloudSize = meteo_data->CloudSize;
-    data->CloudUpper = meteo_data->CloudUpper;
-    data->Day = meteo_data->Day;
-    data->Hours = meteo_data->Hours;
-    data->Minutes = meteo_data->Minutes;
-    data->Month = meteo_data->Month;
-    data->SecLayHeight = meteo_data->SecLayHeight;
-    data->StarBright = meteo_data->StarBright;
-    data->Visibility = meteo_data->Visibility;
-    data->cloudsSecondLay = meteo_data->cloudsSecondLay;
-    data->cloudsType = meteo_data->cloudsType;
-    data->hmist = meteo_data->hmist;
-    data->local_visibility = meteo_data->local_visibility;
-    data->rain = meteo_data->rain;
-    data->snow = meteo_data->snow;
-    data->wind_psi = meteo_data->wind_psi;
-    data->wind_speed = meteo_data->wind_speed;
+    deep_meteo_copy(meteo_data.get() ,data );
 
     ui->visibility_inp->setText(QString::number(data->Visibility));
     ui->cloudBase_inp->setText(QString::number(data->CloudBase));

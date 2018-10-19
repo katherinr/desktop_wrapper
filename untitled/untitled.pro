@@ -29,7 +29,8 @@ SOURCES += \
     mainwindow.cpp \
     airportsdialog.cpp \
     udpserver.cpp \
-    backward.cpp
+    backward.cpp \
+    meteo_struct.cpp
 
 HEADERS += \
     meteo_struct.h \

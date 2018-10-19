@@ -52,7 +52,7 @@ private:
     backwardW *backward_ui;
     AirportsDialog *aerodrom_ui;
 
-    METEO_DATA* meteo_data;
+    METEO_DATA meteo_data;
     _AirportData* airoports_lights_data;
     _DataToModel *backward_data;
 

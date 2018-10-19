@@ -21,7 +21,7 @@ public:
     void setLimitsToLines();
     ~meteoWindow();
     void writeToFields(std::shared_ptr<METEO_DATA> meteo_data );
-	METEO_DATA *data;
+    METEO_DATA* data;
 
 private:
     Ui::meteoWindow *ui;

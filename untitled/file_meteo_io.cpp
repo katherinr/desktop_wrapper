@@ -1,5 +1,5 @@
 ﻿#include "file_meteo_io.h"
-
+#include <meteo_struct.h>
 #include <QFileDialog>
 #include <qdebug.h>
 

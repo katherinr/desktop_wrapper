@@ -3,29 +3,6 @@
 
 #include <QDebug>
 
-void deep_meteo_copy(METEO_DATA *_data,METEO_DATA *data )
-{
-    data->message = _data->message;
-    data->Visibility = _data->Visibility;
-    data->CloudBase = _data->CloudBase;
-    data->CloudUpper = _data->CloudUpper;
-    data->CloudSize = _data->CloudSize;
-    data->cloudsType = _data->cloudsType;
-    data->cloudsSecondLay = _data->cloudsSecondLay;
-    data->SecLayHeight = _data->SecLayHeight;
-    data->Day = _data->Day;
-    data->Month = _data->Month;
-    data->Hours = _data->Hours;
-    data->Minutes = _data->Minutes;
-    data->local_visibility = _data->local_visibility;
-    data->rain = _data->rain;
-    data->snow = _data->snow;
-    data->hmist = _data->hmist;
-    data->wind_speed = _data->wind_speed;
-    data->wind_psi = _data->wind_psi;
-    data->StarBright = _data->StarBright;
-}
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(),
     ui(new Ui::MainWindow)
@@ -35,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_server = new UdpServer(this);
     backward_data = new _DataToModel();
-    meteo_data = new METEO_DATA();
+
     airoports_lights_data = new _AirportData();
 
     connect(ui->sendOnceButton, SIGNAL(clicked()), m_server, SLOT(m_server->sendOnce));
@@ -133,45 +110,27 @@ void MainWindow::receiveData(_DataToModel *_data)
 void MainWindow::receiveData(METEO_DATA * _data)
 {
     //auto data = m_dataProvider->getMeteoData();
+    deep_meteo_copy(_data, &meteo_data );
 
-    meteo_data->message = _data->message;
-    meteo_data->Visibility = _data->Visibility;
-    meteo_data->CloudBase = _data->CloudBase;
-    meteo_data->CloudUpper = _data->CloudUpper;
-    meteo_data->CloudSize = _data->CloudSize;
-    meteo_data->cloudsType = _data->cloudsType;
-    meteo_data->cloudsSecondLay = _data->cloudsSecondLay;
-    meteo_data->SecLayHeight = _data->SecLayHeight;
-    meteo_data->Day = _data->Day;
-    meteo_data->Month = _data->Month;
-    meteo_data->Hours = _data->Hours;
-    meteo_data->Minutes = _data->Minutes;
-    meteo_data->local_visibility = _data->local_visibility;
-    meteo_data->rain = _data->rain;
-    meteo_data->snow = _data->snow;
-    meteo_data->hmist = _data->hmist;
-    meteo_data->wind_speed = _data->wind_speed;
-    meteo_data->wind_psi = _data->wind_psi;
-    meteo_data->StarBright = _data->StarBright;
-    qDebug() << meteo_data->message;
-    qDebug() << meteo_data->Visibility;
-    qDebug() << meteo_data->CloudBase;
-    qDebug() << meteo_data->CloudUpper;
-    qDebug() << meteo_data->CloudSize;
-    qDebug() << meteo_data->cloudsType;
-    qDebug() << meteo_data->cloudsSecondLay;
-    qDebug() << meteo_data->SecLayHeight;
-    qDebug() << meteo_data->Day;
-    qDebug() << meteo_data->Month;
-    qDebug() << meteo_data->Hours;
-    qDebug() << meteo_data->Minutes;
-    qDebug() << meteo_data->local_visibility;
-    qDebug() << meteo_data->rain;
-    qDebug() << meteo_data->snow;
-    qDebug() << meteo_data->hmist;
-    qDebug() << meteo_data->wind_speed;
-    qDebug() << meteo_data->wind_psi;
-    qDebug() << meteo_data->StarBright;
+    qDebug() << meteo_data.message;
+    qDebug() << meteo_data.Visibility;
+    qDebug() << meteo_data.CloudBase;
+    qDebug() << meteo_data.CloudUpper;
+    qDebug() << meteo_data.CloudSize;
+    qDebug() << meteo_data.cloudsType;
+    qDebug() << meteo_data.cloudsSecondLay;
+    qDebug() << meteo_data.SecLayHeight;
+    qDebug() << meteo_data.Day;
+    qDebug() << meteo_data.Month;
+    qDebug() << meteo_data.Hours;
+    qDebug() << meteo_data.Minutes;
+    qDebug() << meteo_data.local_visibility;
+    qDebug() << meteo_data.rain;
+    qDebug() << meteo_data.snow;
+    qDebug() << meteo_data.hmist;
+    qDebug() << meteo_data.wind_speed;
+    qDebug() << meteo_data.wind_psi;
+    qDebug() << meteo_data.StarBright;
 }
 
 
@@ -218,7 +177,7 @@ void MainWindow::on_meteoCheckBox_clicked(bool checked)
     ui->meteoIntervalEdit->setEnabled(checked);
 
     if (checked)
-        m_server->setSendData_METEO(meteo_data);
+        m_server->setSendData_METEO(&meteo_data);
 }
 
 void MainWindow::on_lightsCheckBox_clicked(bool checked)
