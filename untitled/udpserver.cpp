@@ -238,7 +238,7 @@ void UdpServer::sendUDPOnce(const QByteArray& packet)
     qDebug()<<QHostAddress::LocalHost<<sender_port;
     qDebug()<<"send Once port"<<sender_port;
 
-    if (m_udp->writeDatagram(packet, QHostAddress::LocalHost, sender_port) == -1)
+    if (m_udp->writeDatagram(packet, address2send, sender_port) == -1)
     {
         qWarning() << m_udp->errorString();
     }
