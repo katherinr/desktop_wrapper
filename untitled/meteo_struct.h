@@ -4,7 +4,7 @@
 #include <string.h>
 
 #define NUMBER_OF_AC_IN_TRAFFIC  10
-
+#pragma pack ( push, 1 )
 //-------------------------------------------------------------------------
 // лерен:
 
@@ -112,4 +112,6 @@ struct _DataToModel
     float	Reserved[8];
 
 };
+
+#pragma pack ( pop )
 #endif

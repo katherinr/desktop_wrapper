@@ -21,6 +21,7 @@ public:
     ~MainWindow();
 
 private slots:
+    void onNewDatagramReceived(const QByteArray& datagram);
 
     void on_receivePortEdit_editingFinished();
     void on_startStopSendButton_toggled(bool checked);
@@ -46,6 +47,9 @@ private slots:
     void receiveData(_AirportData*);
     void receiveData(_DataToModel*);
     void receiveData(METEO_DATA * _data);
+    void on_recDatapB_clicked();
+
+    void on_recDatapB_2_pressed();
 private:
     Ui::MainWindow *ui;
     meteoWindow* meteo_ui;
@@ -57,6 +61,9 @@ private:
     _DataToModel *backward_data;
 
     UdpServer *m_server;
+
+    QUdpSocket *test_udp_socket;
+
 };
 
 #endif // MAINWINDOW_H

@@ -31,8 +31,9 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
-    QVBoxLayout *verticalLayout_5;
-    QHBoxLayout *horizontalLayout_11;
+    QHBoxLayout *horizontalLayout_14;
+    QVBoxLayout *verticalLayout_9;
+    QHBoxLayout *horizontalLayout_13;
     QGroupBox *groupBox_3;
     QHBoxLayout *horizontalLayout_12;
     QHBoxLayout *horizontalLayout_10;
@@ -55,7 +56,7 @@ public:
     QCheckBox *backw_rem_chb;
     QCheckBox *man_backw_chb;
     QGroupBox *groupBox;
-    QVBoxLayout *verticalLayout_10;
+    QVBoxLayout *verticalLayout_8;
     QHBoxLayout *horizontalLayout_4;
     QVBoxLayout *verticalLayout_4;
     QLabel *label_3;
@@ -79,15 +80,18 @@ public:
     QSpacerItem *horizontalSpacer_2;
     QPushButton *sendOnceButton;
     QPushButton *startStopSendButton;
+    QPlainTextEdit *SendInfoText;
     QGroupBox *groupBox_2;
-    QVBoxLayout *verticalLayout_8;
+    QVBoxLayout *verticalLayout_5;
     QHBoxLayout *horizontalLayout_2;
     QLabel *label_7;
     QSpacerItem *horizontalSpacer_4;
     QLineEdit *receivePortEdit;
-    QVBoxLayout *verticalLayout_9;
     QLabel *receivedLabel;
-    QPlainTextEdit *plainTextEdit;
+    QHBoxLayout *horizontalLayout_11;
+    QPushButton *recDatapB_2;
+    QPushButton *recDatapB;
+    QPlainTextEdit *ReceiveInfoText;
     QHBoxLayout *horizontalLayout_5;
     QSpacerItem *horizontalSpacer_3;
     QPushButton *okPB;
@@ -100,14 +104,16 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->setWindowModality(Qt::WindowModal);
-        MainWindow->resize(1297, 465);
+        MainWindow->resize(1337, 626);
         MainWindow->setContextMenuPolicy(Qt::PreventContextMenu);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
-        verticalLayout_5 = new QVBoxLayout(centralwidget);
-        verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
-        horizontalLayout_11 = new QHBoxLayout();
-        horizontalLayout_11->setObjectName(QStringLiteral("horizontalLayout_11"));
+        horizontalLayout_14 = new QHBoxLayout(centralwidget);
+        horizontalLayout_14->setObjectName(QStringLiteral("horizontalLayout_14"));
+        verticalLayout_9 = new QVBoxLayout();
+        verticalLayout_9->setObjectName(QStringLiteral("verticalLayout_9"));
+        horizontalLayout_13 = new QHBoxLayout();
+        horizontalLayout_13->setObjectName(QStringLiteral("horizontalLayout_13"));
         groupBox_3 = new QGroupBox(centralwidget);
         groupBox_3->setObjectName(QStringLiteral("groupBox_3"));
         horizontalLayout_12 = new QHBoxLayout(groupBox_3);
@@ -118,6 +124,7 @@ public:
         verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
         mainVisPushButton = new QPushButton(groupBox_3);
         mainVisPushButton->setObjectName(QStringLiteral("mainVisPushButton"));
+        mainVisPushButton->setEnabled(false);
 
         verticalLayout_6->addWidget(mainVisPushButton);
 
@@ -208,12 +215,12 @@ public:
         horizontalLayout_12->addLayout(horizontalLayout_10);
 
 
-        horizontalLayout_11->addWidget(groupBox_3);
+        horizontalLayout_13->addWidget(groupBox_3);
 
         groupBox = new QGroupBox(centralwidget);
         groupBox->setObjectName(QStringLiteral("groupBox"));
-        verticalLayout_10 = new QVBoxLayout(groupBox);
-        verticalLayout_10->setObjectName(QStringLiteral("verticalLayout_10"));
+        verticalLayout_8 = new QVBoxLayout(groupBox);
+        verticalLayout_8->setObjectName(QStringLiteral("verticalLayout_8"));
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
         verticalLayout_4 = new QVBoxLayout();
@@ -253,7 +260,7 @@ public:
         horizontalLayout_4->addLayout(verticalLayout_3);
 
 
-        verticalLayout_10->addLayout(horizontalLayout_4);
+        verticalLayout_8->addLayout(horizontalLayout_4);
 
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
@@ -319,7 +326,7 @@ public:
         horizontalLayout_3->addLayout(verticalLayout);
 
 
-        verticalLayout_10->addLayout(horizontalLayout_3);
+        verticalLayout_8->addLayout(horizontalLayout_3);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
@@ -336,6 +343,7 @@ public:
 
         startStopSendButton = new QPushButton(groupBox);
         startStopSendButton->setObjectName(QStringLiteral("startStopSendButton"));
+        startStopSendButton->setEnabled(false);
         startStopSendButton->setMinimumSize(QSize(84, 0));
         startStopSendButton->setMaximumSize(QSize(133, 16777215));
         startStopSendButton->setCheckable(true);
@@ -343,15 +351,20 @@ public:
         horizontalLayout->addWidget(startStopSendButton);
 
 
-        verticalLayout_10->addLayout(horizontalLayout);
+        verticalLayout_8->addLayout(horizontalLayout);
+
+        SendInfoText = new QPlainTextEdit(groupBox);
+        SendInfoText->setObjectName(QStringLiteral("SendInfoText"));
+
+        verticalLayout_8->addWidget(SendInfoText);
 
 
-        horizontalLayout_11->addWidget(groupBox);
+        horizontalLayout_13->addWidget(groupBox);
 
         groupBox_2 = new QGroupBox(centralwidget);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
-        verticalLayout_8 = new QVBoxLayout(groupBox_2);
-        verticalLayout_8->setObjectName(QStringLiteral("verticalLayout_8"));
+        verticalLayout_5 = new QVBoxLayout(groupBox_2);
+        verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         label_7 = new QLabel(groupBox_2);
@@ -370,28 +383,40 @@ public:
         horizontalLayout_2->addWidget(receivePortEdit);
 
 
-        verticalLayout_8->addLayout(horizontalLayout_2);
+        verticalLayout_5->addLayout(horizontalLayout_2);
 
-        verticalLayout_9 = new QVBoxLayout();
-        verticalLayout_9->setObjectName(QStringLiteral("verticalLayout_9"));
         receivedLabel = new QLabel(groupBox_2);
         receivedLabel->setObjectName(QStringLiteral("receivedLabel"));
 
-        verticalLayout_9->addWidget(receivedLabel);
+        verticalLayout_5->addWidget(receivedLabel);
 
-        plainTextEdit = new QPlainTextEdit(groupBox_2);
-        plainTextEdit->setObjectName(QStringLiteral("plainTextEdit"));
+        horizontalLayout_11 = new QHBoxLayout();
+        horizontalLayout_11->setObjectName(QStringLiteral("horizontalLayout_11"));
+        recDatapB_2 = new QPushButton(groupBox_2);
+        recDatapB_2->setObjectName(QStringLiteral("recDatapB_2"));
 
-        verticalLayout_9->addWidget(plainTextEdit);
+        horizontalLayout_11->addWidget(recDatapB_2);
 
+        recDatapB = new QPushButton(groupBox_2);
+        recDatapB->setObjectName(QStringLiteral("recDatapB"));
+        recDatapB->setEnabled(false);
+        recDatapB->setCheckable(false);
 
-        verticalLayout_8->addLayout(verticalLayout_9);
-
-
-        horizontalLayout_11->addWidget(groupBox_2);
+        horizontalLayout_11->addWidget(recDatapB);
 
 
         verticalLayout_5->addLayout(horizontalLayout_11);
+
+        ReceiveInfoText = new QPlainTextEdit(groupBox_2);
+        ReceiveInfoText->setObjectName(QStringLiteral("ReceiveInfoText"));
+
+        verticalLayout_5->addWidget(ReceiveInfoText);
+
+
+        horizontalLayout_13->addWidget(groupBox_2);
+
+
+        verticalLayout_9->addLayout(horizontalLayout_13);
 
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
@@ -410,12 +435,15 @@ public:
         horizontalLayout_5->addWidget(CancelPB);
 
 
-        verticalLayout_5->addLayout(horizontalLayout_5);
+        verticalLayout_9->addLayout(horizontalLayout_5);
+
+
+        horizontalLayout_14->addLayout(verticalLayout_9);
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 1297, 31));
+        menubar->setGeometry(QRect(0, 0, 1337, 31));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QStringLiteral("statusbar"));
@@ -428,7 +456,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QString());
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "BIRD WRAPPER", nullptr));
         groupBox_3->setTitle(QApplication::translate("MainWindow", "Edit Data", nullptr));
         mainVisPushButton->setText(QApplication::translate("MainWindow", "VISUAL DATA", nullptr));
         meteoPushButton->setText(QApplication::translate("MainWindow", "METEO", nullptr));
@@ -454,6 +482,8 @@ public:
         groupBox_2->setTitle(QApplication::translate("MainWindow", "Receive UDP", nullptr));
         label_7->setText(QApplication::translate("MainWindow", "Port", nullptr));
         receivedLabel->setText(QApplication::translate("MainWindow", "Received Data", nullptr));
+        recDatapB_2->setText(QApplication::translate("MainWindow", "Receive once", nullptr));
+        recDatapB->setText(QApplication::translate("MainWindow", "Start receive", nullptr));
         okPB->setText(QApplication::translate("MainWindow", "Ok", nullptr));
         CancelPB->setText(QApplication::translate("MainWindow", "Cancel", nullptr));
     } // retranslateUi

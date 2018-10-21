@@ -9,14 +9,15 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     /*//////////////////////////////////////////////*/
-
-    m_server = new UdpServer(this);
+    test_udp_socket = new QUdpSocket();
+    m_server = new UdpServer();
     backward_data = new _DataToModel();
-
     airoports_lights_data = new _AirportData();
 
-    connect(ui->sendOnceButton, SIGNAL(clicked()), m_server, SLOT(m_server->sendOnce));
-    connect(ui->startStopSendButton, SIGNAL(clicked()), m_server, SLOT(m_server->processDatagram()));
+
+
+  // connect(ui->startStopSendButton, SIGNAL(clicked()), m_server, SLOT(UdpServer::setSend()));
+  //  connect(ui->recDatapB, SIGNAL(clicked()), SIGNAL(readyRead()), SLOT(readDatagram()));
     /*/////////////////////////////////////////////*/
 
     meteo_ui = new meteoWindow;
@@ -35,9 +36,19 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(aerodrom_ui, SIGNAL(sendData(_AirportData*)), this, SLOT(receiveData(_AirportData*)));
     connect(backward_ui, SIGNAL(sendData(_DataToModel*)), this, SLOT(receiveData(_DataToModel*)));
     connect(meteo_ui, SIGNAL(sendData(METEO_DATA*)), this, SLOT(receiveData(METEO_DATA*)));
-
     /*/////////////////////////////////////////////*/
-    //receive data from UDP
+
+    //read and send data via UDP
+
+    connect(m_server->m_receiver_socket, SIGNAL(readyRead()), m_server, SLOT(readDatagram()));
+    connect(m_server, &UdpServer::newDatagram, this, &MainWindow::onNewDatagramReceived);
+    if (m_server->setReceivingPort(ui->receivePortEdit->text().toUInt()))
+    {
+        m_server->restartListening(ui->receivePortEdit->text().toUInt());
+    }
+    /*/////////////////////////////////////////////*/
+
+    //set data from UDP
     connect(m_server, SIGNAL(dataUpdated(_AirportData*)), this, SLOT(receiveData(_AirportData*)));
     connect(m_server, SIGNAL(dataUpdated(_DataToModel*)), this, SLOT(receiveData(_DataToModel*)));
     connect(m_server, SIGNAL(dataUpdated(METEO_DATA*)), this, SLOT(receiveData(METEO_DATA*)));
@@ -60,20 +71,6 @@ void MainWindow::receiveData(_AirportData *_data)
     qstrcpy(airoports_lights_data->LANDING_RUNWAY_CODE, _data->LANDING_RUNWAY_CODE);
     qstrcpy(airoports_lights_data->DEPARTURE_AIRPORT_CODE, _data->DEPARTURE_AIRPORT_CODE);
     qstrcpy(airoports_lights_data->ARRIVAL_AIRPORT_CODE, _data->ARRIVAL_AIRPORT_CODE);
-
-    qDebug() << "airoports_lights_data->ARRIVAL_AIRPORT_LIGHTS_ILLUMINATION"<<airoports_lights_data->ARRIVAL_AIRPORT_LIGHTS_ILLUMINATION;
-    qDebug() << airoports_lights_data->ARRIVAL_AIRPORT_LIGHTS_TAXIING;
-    qDebug() <<airoports_lights_data->ARRIVAL_AIRPORT_OTHER_LIGHTS;
-    qDebug() << airoports_lights_data->DEPARTURE_AIRPORT_LIGHTS_ILLUMINATION;
-    qDebug() << airoports_lights_data->DEPARTURE_AIRPORT_LIGHTS_TAXIING;
-    qDebug() << airoports_lights_data->DEPARTURE_AIRPORT_OTHER_LIGHTS;
-    qDebug() << airoports_lights_data->TAKEOFF_RUNWAY_BORDER_LIGHTS;
-    qDebug() << airoports_lights_data->LANDING_RUNWAY_BORDER_LIGHTS;
-    qDebug() << airoports_lights_data->LANDING_RUNWAY_CODE;
-    qDebug() << airoports_lights_data->TAKEOFF_RUNWAY_CODE;
-    qDebug() << airoports_lights_data->DEPARTURE_AIRPORT_CODE;
-    qDebug() << airoports_lights_data->ARRIVAL_AIRPORT_CODE;
-    qDebug() << airoports_lights_data->packet_id;
 
     qDebug() <<"airoports_lights_data->packet_id"<< _data->packet_id;
     qDebug() <<"ARRIVAL_AIRPORT_LIGHTS_ILLUMINATION" <<  _data->ARRIVAL_AIRPORT_LIGHTS_ILLUMINATION;
@@ -110,6 +107,7 @@ void MainWindow::receiveData(_DataToModel *_data)
 void MainWindow::receiveData(METEO_DATA * _data)
 {
     //auto data = m_dataProvider->getMeteoData();
+
     deep_meteo_copy(_data, &meteo_data );
 
     qDebug() << meteo_data.message;
@@ -142,10 +140,16 @@ MainWindow::~MainWindow()
     delete backward_ui;
 }
 
+void MainWindow::onNewDatagramReceived(const QByteArray& datagram)
+{
+    m_server->setDataFromReceived(datagram);
+}
+
 void MainWindow::on_receivePortEdit_editingFinished()
 {
     m_server->setReceivingPort(ui->receivePortEdit->text().toInt());
-    qDebug() << "osendPortEdit"<<ui->receivePortEdit->text().toInt();
+
+    qDebug() << "receivePortEdit"<<ui->receivePortEdit->text().toInt();
 }
 
 void MainWindow::on_startStopSendButton_toggled(bool checked)
@@ -174,6 +178,7 @@ void MainWindow::on_mainVisCheckBox_toggled(bool checked)
 
 void MainWindow::on_meteoCheckBox_clicked(bool checked)
 {
+    qDebug()<<"meteo checked";
     ui->meteoIntervalEdit->setEnabled(checked);
 
     if (checked)
@@ -198,8 +203,7 @@ void MainWindow::on_sendOnceButton_pressed()
 {
     qDebug() << "on_sendOnceButton_pressed start";
     m_server->setSendToAddress(QHostAddress(ui->sendIPEdit->text()), ui->sendPortEdit->text().toInt());
-    m_server->sendOnce();
-    qDebug() << "on_sendOnceButton_pressed finish";
+     m_server->sendOnce();
 }
 
 void MainWindow::on_sendIPEdit_editingFinished()
@@ -225,3 +229,17 @@ void MainWindow::on_CancelPB_clicked()
     //no saving
     this->close();
 }
+
+void MainWindow::on_recDatapB_clicked()
+{
+
+}
+
+void MainWindow::on_recDatapB_2_pressed()
+{
+    qDebug()<<"receive pushed";
+    m_server->restartListening(ui->receivePortEdit->text().toInt());
+
+}
+
+

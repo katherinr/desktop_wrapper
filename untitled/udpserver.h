@@ -13,41 +13,52 @@ public:
     explicit UdpServer(QObject *parent = nullptr);
     virtual    ~UdpServer();
 
-    void setReceivingPort(quint16 _port){receiving_port = _port;}
+    bool setReceivingPort(quint16 _port)
+    {
+        if (receiving_port != _port)
+        {
+            receiving_port = _port;
+            return true;
+        }
+
+        return false;
+
+    }
     void setSendingPort(quint16 _port){sender_port = _port;}
     void setAddress2Send(QHostAddress addr){address2send = addr;}
-
+    quint16 getReceivingPort(){return receiving_port;}
     void sendUDPOnce(const QByteArray &array);
-    void receiveData();
-
     void meteoTimerTimeout();
     void setSendData_AERODROMS(const _AirportData *data);
     void setSendData_BACKWARD(const _DataToModel *data);
     void setSendToAddress(const QHostAddress& address, quint16 port);
     void setSendData_METEO(const METEO_DATA* data);
     void setDataFromReceived(const QByteArray&);
-
+    void restartListening(quint16 _port);
 private slots:
     // void sendDatagram();
     void processDatagrams();
-    void readDatagram();
+    void receiveData();
 
 public slots:
     void startSending();
     void stopSending();
     void sendOnce();
+    void readDatagram();
 
 signals:
     void newDatagram(const QByteArray&);
     void dataUpdated( METEO_DATA*);
     void dataUpdated( _AirportData*);
     void dataUpdated( _DataToModel*);
+public:
+    QUdpSocket *m_receiver_socket;
 
 private:
     QList<QTimer*> m_timerList;
     QUdpSocket *m_udp;
     QUdpSocket *m_sender_socket;
-    QUdpSocket *m_receiver_socket;
+
     QHostAddress address2send;
     quint16 sender_port=0;
     quint16 receiving_port=0;
