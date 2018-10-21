@@ -50,11 +50,12 @@ void printAeroData(const _AirportData *_data)
 UdpServer::UdpServer(QObject *parent):
     QObject (parent)
 {
-    m_udp = new QUdpSocket(this);
+   // m_udp = new QUdpSocket(this);
     m_receiver_socket = new QUdpSocket(this);
 
     connect(m_receiver_socket, SIGNAL(readyRead()),this, SLOT(readDatagram()));
-
+    m_sender_socket =  new QUdpSocket(this);
+    connect(m_sender_socket, SIGNAL(readyRead()),this, SLOT(readDatagram()));
     // enabled/disable sending for each udp packet
     m_enabledPackets["VISUAL_DATA"] = false;
     m_enabledPackets["AERODROMS_DATA"] = false;
@@ -79,7 +80,7 @@ void UdpServer::meteoTimerTimeout()
 
 UdpServer::~UdpServer()
 {
-    delete m_udp;
+    //delete m_udp;
     delete m_receiver_socket;
     delete m_sender_socket;
 }
@@ -238,29 +239,13 @@ void UdpServer::sendUDPOnce(const QByteArray& packet)
     qDebug()<<QHostAddress::LocalHost<<sender_port;
     qDebug()<<"send Once port"<<sender_port;
 
-    if (m_udp->writeDatagram(packet, address2send, sender_port) == -1)
+    if (m_sender_socket->writeDatagram(packet, address2send, sender_port) == -1)
     {
-        qWarning() << m_udp->errorString();
+        qWarning() << m_sender_socket->errorString();
     }
 
 }
 
-
-void UdpServer::processDatagrams()
-{
-    QByteArray badatagram;
-    do
-    {
-        badatagram.resize(m_receiver_socket->pendingDatagramSize());
-        m_udp->readDatagram(badatagram.data(),badatagram.size());
-    }
-    while( m_udp->hasPendingDatagrams());
-
-    qDebug()<<"!!!!!!!!!!!!!!!Received";//<< dateTime.toString();
-
-    //receiveMeteo(badatagram);
-
-}
 
 void UdpServer::readDatagram()
 {
@@ -276,7 +261,7 @@ void UdpServer::readDatagram()
         {
             datagram.resize(m_receiver_socket->pendingDatagramSize());
 
-            m_udp->readDatagram(datagram.data(), datagram.size(),
+            m_receiver_socket->readDatagram(datagram.data(), datagram.size(),
                                 &sender, &senderPort);
               qDebug()<<"reading start"<<senderPort;
         }
@@ -284,7 +269,7 @@ void UdpServer::readDatagram()
 
     if (datagram.size() == 0)
     {
-        qWarning() << m_udp->errorString();
+        qWarning() << m_receiver_socket->errorString();
     }
     else
     {

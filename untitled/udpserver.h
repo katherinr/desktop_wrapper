@@ -37,7 +37,7 @@ public:
     void restartListening(quint16 _port);
 private slots:
     // void sendDatagram();
-    void processDatagrams();
+   // void processDatagrams();
     void receiveData();
 
 public slots:
@@ -52,11 +52,12 @@ signals:
     void dataUpdated( _AirportData*);
     void dataUpdated( _DataToModel*);
 public:
-    QUdpSocket *m_receiver_socket;
+
 
 private:
+    QUdpSocket *m_receiver_socket;
     QList<QTimer*> m_timerList;
-    QUdpSocket *m_udp;
+   // QUdpSocket *m_udp;
     QUdpSocket *m_sender_socket;
 
     QHostAddress address2send;

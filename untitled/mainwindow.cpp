@@ -14,11 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     backward_data = new _DataToModel();
     airoports_lights_data = new _AirportData();
 
-
-
-  // connect(ui->startStopSendButton, SIGNAL(clicked()), m_server, SLOT(UdpServer::setSend()));
-  //  connect(ui->recDatapB, SIGNAL(clicked()), SIGNAL(readyRead()), SLOT(readDatagram()));
-    /*/////////////////////////////////////////////*/
+    //*/////////////////////////////////////////////*/
 
     meteo_ui = new meteoWindow;
     aerodrom_ui = new AirportsDialog;
@@ -40,10 +36,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //read and send data via UDP
 
-    connect(m_server->m_receiver_socket, SIGNAL(readyRead()), m_server, SLOT(readDatagram()));
+    //connect(m_server->m_receiver_socket, SIGNAL(readyRead()), m_server, SLOT(readDatagram()));
     connect(m_server, &UdpServer::newDatagram, this, &MainWindow::onNewDatagramReceived);
-    if (m_server->setReceivingPort(ui->receivePortEdit->text().toUInt()))
+    connect(m_server, SIGNAL(readyRead()), m_server, SLOT(readDatagram()));
+
+    //connect(test_udp_socket, SIGNAL(readyRead()), test_udp_socket, SLOT(readDatagram()));
+
+
     {
+        qDebug()<<"rec port construct"<<ui->receivePortEdit->text().toUInt()<<ui->receivePortEdit->text().toInt();
         m_server->restartListening(ui->receivePortEdit->text().toUInt());
     }
     /*/////////////////////////////////////////////*/
@@ -96,7 +97,7 @@ void MainWindow::receiveData(_DataToModel *_data)
     backward_data->p_coord.X  = _data->p_coord.X ;
     backward_data->p_coord.Z  = _data->p_coord.Z;
     backward_data->simulation_time = _data->simulation_time;
-
+qDebug()<<"received backward";
     qDebug()<<"packet_id" << _data->packet_id;
     qDebug()<< "p_coord.H"<<  _data->p_coord.H ;
     qDebug()<<"p_coord.X"  << _data->p_coord.X ;
