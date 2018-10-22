@@ -23,7 +23,7 @@ private slots:
     void on_h_le_editingFinished();
 
     void on_buttonBox_accepted();
-
+void writeDataToFields(_DataToModel *data);
 private:
     Ui::backwardW *ui;
     _DataToModel *backw_data;

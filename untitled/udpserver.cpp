@@ -125,7 +125,7 @@ void UdpServer::setSendData_METEO(const METEO_DATA* data)
 
 void UdpServer::setDataFromReceived(const QByteArray &received)
 {
-    qDebug()<<"setting data from received";
+    qDebug()<<"setting data from received function";
     QDataStream stream(received);
 
     unsigned int message_type = received.at(0);
@@ -205,14 +205,6 @@ void UdpServer::setSendData_AERODROMS(const _AirportData* data)
     m_enabledPackets["AERODROMS_DATA"] = true;
     m_aerodromePacket = QByteArray::fromRawData(reinterpret_cast<const char*>(data), sizeof(_AirportData));
 
-}
-
-void UdpServer::receiveData()
-{
-    qDebug()<<"someone knocking"<<receiving_port;
-  //  m_receiver_socket->bind(QHostAddress::Any,receiving_port);
-
-   // setDataFromReceived();
 }
 
 void UdpServer::startSending()

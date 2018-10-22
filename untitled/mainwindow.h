@@ -19,7 +19,10 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
+signals:
+    void sendUpdatedData(METEO_DATA *data);
+    void sendUpdatedData(_AirportData *data);
+    void sendUpdatedData(_DataToModel *data);
 private slots:
     void onNewDatagramReceived(const QByteArray& datagram);
 
@@ -47,8 +50,6 @@ private slots:
     void receiveData(_AirportData*);
     void receiveData(_DataToModel*);
     void receiveData(METEO_DATA * _data);
-    void on_recDatapB_clicked();
-
     void on_recDatapB_2_pressed();
 private:
     Ui::MainWindow *ui;
@@ -57,13 +58,10 @@ private:
     AirportsDialog *aerodrom_ui;
 
     METEO_DATA meteo_data;
-    _AirportData* airoports_lights_data;
-    _DataToModel *backward_data;
+    _AirportData airoports_lights_data;
+    _DataToModel backward_data;
 
     UdpServer *m_server;
-
-    QUdpSocket *test_udp_socket;
-
 };
 
 #endif // MAINWINDOW_H

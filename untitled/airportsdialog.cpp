@@ -22,6 +22,11 @@ AirportsDialog::~AirportsDialog()
     qDebug()<<"destructor airp";
 }
 
+void AirportsDialog::writeToFields(_AirportData *_data)
+{
+
+}
+
 void AirportsDialog::on_ok_pb_clicked()
 {
     this->close();

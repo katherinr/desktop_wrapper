@@ -35,11 +35,8 @@ public:
     void setSendData_METEO(const METEO_DATA* data);
     void setDataFromReceived(const QByteArray&);
     void restartListening(quint16 _port);
-private slots:
-    // void sendDatagram();
-   // void processDatagrams();
-    void receiveData();
 
+//private slots:
 public slots:
     void startSending();
     void stopSending();

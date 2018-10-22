@@ -20,10 +20,11 @@ public:
     void setLimitsToScrolls();
     void setLimitsToLines();
     ~meteoWindow();
+public slots:
     void writeToFields(std::shared_ptr<METEO_DATA> meteo_data );
-    METEO_DATA* data;
-
+    void writeToFields(METEO_DATA * meteo_data );
 private:
+    METEO_DATA* data;
     Ui::meteoWindow *ui;
     FileMeteoIO file_io;
  signals:

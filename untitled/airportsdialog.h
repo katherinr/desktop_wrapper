@@ -15,7 +15,8 @@ class AirportsDialog : public QDialog
 public:
     explicit AirportsDialog(QWidget *parent = nullptr);
     ~AirportsDialog();
-
+public slots:
+void writeToFields(_AirportData*);
 private slots:
 
     void on_ok_pb_clicked();

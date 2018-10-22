@@ -11,7 +11,6 @@ meteoWindow::meteoWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::meteoWindow),
     data(new METEO_DATA)
-    //data(&br.m_meteoData)
 {
 	qDebug() << data;
     ui->setupUi(this);
@@ -490,7 +489,7 @@ void meteoWindow::writeToFields(std::shared_ptr<METEO_DATA> meteo_data )
 {
     data->message = 11;//meteo_data->message;
     deep_meteo_copy(meteo_data.get() ,data );
-
+   qDebug()<<"setting shared data from received";
     ui->visibility_inp->setText(QString::number(data->Visibility));
     ui->cloudBase_inp->setText(QString::number(data->CloudBase));
     ui->cloudThick_inp->setText(QString::number(data->CloudUpper));
@@ -515,6 +514,39 @@ void meteoWindow::writeToFields(std::shared_ptr<METEO_DATA> meteo_data )
     ui->starsBright_inp->setText(QString::number(data->StarBright));
 
     lineDataToScrollValue();
+    this->update();
+}
+
+void meteoWindow::writeToFields(METEO_DATA *meteo_data)
+{
+    data->message = 11;//meteo_data->message;
+    deep_meteo_copy(meteo_data, data );
+   qDebug()<<"setting METEO data from received";
+    ui->visibility_inp->setText(QString::number(data->Visibility));
+    ui->cloudBase_inp->setText(QString::number(data->CloudBase));
+    ui->cloudThick_inp->setText(QString::number(data->CloudUpper));
+    ui->cloudSize_inp->setText(QString::number(data->CloudSize));
+    ui->cloudsType_cmbB->setCurrentIndex(data->cloudsType);
+    ui->cloudsSecLay_cmbB->setCurrentIndex( data->cloudsSecondLay);
+    ui->cloudSecLayer_inp->setText(QString::number(data->SecLayHeight));
+
+    if (meteo_data->Month == 12)
+        ui->month_cmbB->setCurrentIndex(0);
+    else
+        ui->month_cmbB->setCurrentIndex(meteo_data->Month);
+    ui->day_spnB->setValue( data->Day);
+    ui->time_spnB->setDateTime(QDateTime(QDate(2018, data->Month, data->Day),QTime(data->Hours,data->Minutes)));
+
+    ui->localVis_inp->setText(QString::number(data->local_visibility));
+    ui->rain_inp->setText(QString::number(data->rain));
+    ui->snow_inp->setText(QString::number(data->snow));
+    ui->hmist_inp->setText(QString::number(data->hmist));
+    ui->windSpeed_inp->setText(QString::number(data->wind_speed));
+    ui->windSpeedPsi_inp->setText(QString::number( data->wind_psi));
+    ui->starsBright_inp->setText(QString::number(data->StarBright));
+
+    lineDataToScrollValue();
+    //this->update();
 }
 
 void meteoWindow::on_day_spnB_valueChanged(int arg1)
