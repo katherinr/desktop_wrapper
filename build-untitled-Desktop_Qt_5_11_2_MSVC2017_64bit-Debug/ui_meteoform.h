@@ -141,6 +141,7 @@ public:
             meteoWindow->setObjectName(QStringLiteral("meteoWindow"));
         meteoWindow->setWindowModality(Qt::ApplicationModal);
         meteoWindow->resize(678, 1080);
+        meteoWindow->setMinimumSize(QSize(0, 1080));
         meteoWindow->setContextMenuPolicy(Qt::NoContextMenu);
         meteoWindow->setLayoutDirection(Qt::LeftToRight);
         action = new QAction(meteoWindow);

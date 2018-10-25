@@ -192,8 +192,14 @@
               <layout class="QVBoxLayout" name="verticalLayout_3">
                <item>
                 <widget class="QLineEdit" name="sendIPEdit">
+                 <property name="text">
+                  <string>127.0.0.1</string>
+                 </property>
                  <property name="alignment">
                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                 </property>
+                 <property name="placeholderText">
+                  <string>127.0.0.1</string>
                  </property>
                 </widget>
                </item>
@@ -324,7 +330,7 @@
                 <string>Send once</string>
                </property>
                <property name="checkable">
-                <bool>false</bool>
+                <bool>true</bool>
                </property>
               </widget>
              </item>
@@ -346,7 +352,7 @@
                 </size>
                </property>
                <property name="text">
-                <string>Start send</string>
+                <string>Start sending</string>
                </property>
                <property name="checkable">
                 <bool>true</bool>
@@ -391,6 +397,9 @@
              </item>
              <item>
               <widget class="QLineEdit" name="receivePortEdit">
+               <property name="text">
+                <string>5001</string>
+               </property>
                <property name="alignment">
                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                </property>
@@ -410,20 +419,10 @@
              <item>
               <widget class="QPushButton" name="recDatapB_2">
                <property name="text">
-                <string>Receive once</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="recDatapB">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="text">
-                <string>Start receive</string>
+                <string>Start receiving</string>
                </property>
                <property name="checkable">
-                <bool>false</bool>
+                <bool>true</bool>
                </property>
               </widget>
              </item>

@@ -1,12 +1,12 @@
 ﻿#include "meteo_struct.h"
 
-void deep_meteo_copy(METEO_DATA *_data,METEO_DATA *data )
+void deep_meteo_copy(_MeteoData *_data,_MeteoData *data )
 {
-    data->message = _data->message;
-    data->Visibility = _data->Visibility;
-    data->CloudBase = _data->CloudBase;
-    data->CloudUpper = _data->CloudUpper;
-    data->CloudSize = _data->CloudSize;
+    data->packet_id = _data->packet_id;
+    data->visibility = _data->visibility;
+    data->cloudBase = _data->cloudBase;
+    data->cloudUpper = _data->cloudUpper;
+    data->cloudSize = _data->cloudSize;
     data->cloudsType = _data->cloudsType;
     data->cloudsSecondLay = _data->cloudsSecondLay;
     data->SecLayHeight = _data->SecLayHeight;
@@ -20,5 +20,5 @@ void deep_meteo_copy(METEO_DATA *_data,METEO_DATA *data )
     data->hmist = _data->hmist;
     data->wind_speed = _data->wind_speed;
     data->wind_psi = _data->wind_psi;
-    data->StarBright = _data->StarBright;
+    data->starBright = _data->starBright;
 }

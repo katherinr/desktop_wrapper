@@ -32,7 +32,7 @@ public:
     void setSendData_AERODROMS(const _AirportData *data);
     void setSendData_BACKWARD(const _DataToModel *data);
     void setSendToAddress(const QHostAddress& address, quint16 port);
-    void setSendData_METEO(const METEO_DATA* data);
+    void setSendData_METEO(const _MeteoData* data);
     void setDataFromReceived(const QByteArray&);
     void restartListening(quint16 _port);
 
@@ -45,11 +45,11 @@ public slots:
 
 signals:
     void newDatagram(const QByteArray&);
-    void dataUpdated( METEO_DATA*);
+    void dataUpdated( _MeteoData*);
     void dataUpdated( _AirportData*);
     void dataUpdated( _DataToModel*);
 public:
-
+bool keep_recieve = false;
 
 private:
     QUdpSocket *m_receiver_socket;
@@ -70,7 +70,7 @@ private:
 
     QTime m_time;
 
-    METEO_DATA m_meteo_data;
+    _MeteoData m_meteo_data;
     _AirportData m_airoports_lights_data;
     _DataToModel m_backward_data;
 };

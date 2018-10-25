@@ -20,15 +20,18 @@ public:
     void setLimitsToScrolls();
     void setLimitsToLines();
     ~meteoWindow();
+    bool set_from_net = false;
 public slots:
-    void writeToFields(std::shared_ptr<METEO_DATA> meteo_data );
-    void writeToFields(METEO_DATA * meteo_data );
+    void writeToFields(std::shared_ptr<_MeteoData> meteo_data );
+    void writeToFieldsNet(_MeteoData * meteo_data );
+    void writeToFields(_MeteoData * meteo_data );
 private:
-    METEO_DATA* data;
+    _MeteoData* data;
+   // _MeteoData* network_data;
     Ui::meteoWindow *ui;
     FileMeteoIO file_io;
  signals:
-     void  sendData(METEO_DATA *data) ;
+     void  sendData(_MeteoData *data) ;
 private slots:
 
     void on_cloudThickScroll_valueChanged(int value);

@@ -90,7 +90,6 @@ public:
     QLabel *receivedLabel;
     QHBoxLayout *horizontalLayout_11;
     QPushButton *recDatapB_2;
-    QPushButton *recDatapB;
     QPlainTextEdit *ReceiveInfoText;
     QHBoxLayout *horizontalLayout_5;
     QSpacerItem *horizontalSpacer_3;
@@ -337,7 +336,7 @@ public:
         sendOnceButton = new QPushButton(groupBox);
         sendOnceButton->setObjectName(QStringLiteral("sendOnceButton"));
         sendOnceButton->setMaximumSize(QSize(133, 16777215));
-        sendOnceButton->setCheckable(false);
+        sendOnceButton->setCheckable(true);
 
         horizontalLayout->addWidget(sendOnceButton);
 
@@ -394,15 +393,9 @@ public:
         horizontalLayout_11->setObjectName(QStringLiteral("horizontalLayout_11"));
         recDatapB_2 = new QPushButton(groupBox_2);
         recDatapB_2->setObjectName(QStringLiteral("recDatapB_2"));
+        recDatapB_2->setCheckable(true);
 
         horizontalLayout_11->addWidget(recDatapB_2);
-
-        recDatapB = new QPushButton(groupBox_2);
-        recDatapB->setObjectName(QStringLiteral("recDatapB"));
-        recDatapB->setEnabled(false);
-        recDatapB->setCheckable(false);
-
-        horizontalLayout_11->addWidget(recDatapB);
 
 
         verticalLayout_5->addLayout(horizontalLayout_11);
@@ -473,17 +466,19 @@ public:
         groupBox->setTitle(QApplication::translate("MainWindow", "Send UDP", nullptr));
         label_3->setText(QApplication::translate("MainWindow", "IP Address", nullptr));
         label_2->setText(QApplication::translate("MainWindow", "Port", nullptr));
+        sendIPEdit->setText(QApplication::translate("MainWindow", "127.0.0.1", nullptr));
+        sendIPEdit->setPlaceholderText(QApplication::translate("MainWindow", "127.0.0.1", nullptr));
         mainVisCheckBox->setText(QApplication::translate("MainWindow", "MAIN Visual Data send interval [msec]", nullptr));
         meteoCheckBox->setText(QApplication::translate("MainWindow", "METEO data send interval [msec]", nullptr));
         lightsCheckBox->setText(QApplication::translate("MainWindow", "AERODROME LIGHTS data send intevral [msec]", nullptr));
         BackwardCheckBox->setText(QApplication::translate("MainWindow", "BACKWARD data send interval [msec]", nullptr));
         sendOnceButton->setText(QApplication::translate("MainWindow", "Send once", nullptr));
-        startStopSendButton->setText(QApplication::translate("MainWindow", "Start send", nullptr));
+        startStopSendButton->setText(QApplication::translate("MainWindow", "Start sending", nullptr));
         groupBox_2->setTitle(QApplication::translate("MainWindow", "Receive UDP", nullptr));
         label_7->setText(QApplication::translate("MainWindow", "Port", nullptr));
+        receivePortEdit->setText(QApplication::translate("MainWindow", "5001", nullptr));
         receivedLabel->setText(QApplication::translate("MainWindow", "Received Data", nullptr));
-        recDatapB_2->setText(QApplication::translate("MainWindow", "Receive once", nullptr));
-        recDatapB->setText(QApplication::translate("MainWindow", "Start receive", nullptr));
+        recDatapB_2->setText(QApplication::translate("MainWindow", "Start receiving", nullptr));
         okPB->setText(QApplication::translate("MainWindow", "Ok", nullptr));
         CancelPB->setText(QApplication::translate("MainWindow", "Cancel", nullptr));
     } // retranslateUi

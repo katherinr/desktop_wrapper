@@ -7,13 +7,13 @@
 
 #include <QFile>
 
-struct METEO_DATA;
+struct _MeteoData;
 class FileMeteoIO
 {
-    std::shared_ptr<METEO_DATA> readFile(QFile& file_);
+    std::shared_ptr<_MeteoData> readFile(QFile& file_);
 public:
-    std::shared_ptr<METEO_DATA> loadFile();                 //read meteo from file
-    void saveFile(METEO_DATA* meteo_data_); //write meteo to file
+    std::shared_ptr<_MeteoData> loadFile();                 //read meteo from file
+    void saveFile(_MeteoData* meteo_data_); //write meteo to file
 };
 
 #endif // FILEIO_H

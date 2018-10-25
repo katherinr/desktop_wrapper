@@ -5,14 +5,14 @@
 #include <QDataStream>
 #include <QString>
 #include <meteo_struct.h>
-void printMeteo(const METEO_DATA *meteo_data)
+void printMeteo(const _MeteoData *meteo_data)
 {
     qDebug() << "PRINT METEO";
-    qDebug() << meteo_data->message;
-    qDebug() << meteo_data->Visibility;
-    qDebug() << meteo_data->CloudBase;
-    qDebug() << meteo_data->CloudUpper;
-    qDebug() << meteo_data->CloudSize;
+    qDebug() << meteo_data->packet_id;
+    qDebug() << meteo_data->visibility;
+    qDebug() << meteo_data->cloudBase;
+    qDebug() << meteo_data->cloudUpper;
+    qDebug() << meteo_data->cloudSize;
     qDebug() << meteo_data->cloudsType;
     qDebug() << meteo_data->cloudsSecondLay;
     qDebug() << meteo_data->SecLayHeight;
@@ -26,7 +26,7 @@ void printMeteo(const METEO_DATA *meteo_data)
     qDebug() << meteo_data->hmist;
     qDebug() << meteo_data->wind_speed;
     qDebug() << meteo_data->wind_psi;
-    qDebug() << meteo_data->StarBright;
+    qDebug() << meteo_data->starBright;
 }
 
 void printAeroData(const _AirportData *_data)
@@ -60,7 +60,7 @@ UdpServer::UdpServer(QObject *parent):
     m_enabledPackets["VISUAL_DATA"] = false;
     m_enabledPackets["AERODROMS_DATA"] = false;
     m_enabledPackets["BACKWARD_DATA"] = false;
-    m_enabledPackets["METEO_DATA"] = false;
+    m_enabledPackets["_MeteoData"] = false;
 
     QTimer* meteoTimer = new QTimer(this);
     meteoTimer->setObjectName("meteoTimer");
@@ -113,13 +113,13 @@ void UdpServer::sendOnce()
     }
 }
 
-void UdpServer::setSendData_METEO(const METEO_DATA* data)
+void UdpServer::setSendData_METEO(const _MeteoData* data)
 {
     //print meteo
     qDebug()<<"meteo set send";
-    qDebug() << "METEO_DATA size: " << sizeof(METEO_DATA) << " and data: " << sizeof(*data);
+    qDebug() << "_MeteoData size: " << sizeof(_MeteoData) << " and data: " << sizeof(*data);
     printMeteo(data);
-    m_meteoPacket = QByteArray::fromRawData(reinterpret_cast<const char*>(data), sizeof(METEO_DATA));
+    m_meteoPacket = QByteArray::fromRawData(reinterpret_cast<const char*>(data), sizeof(_MeteoData));
     m_enabledPackets["METEO_DATA"] = true;
 }
 
@@ -132,18 +132,21 @@ void UdpServer::setDataFromReceived(const QByteArray &received)
 
     switch (message_type)
     {
-    case 11: // meteo
+    case  NPR_PACKET_TYPE_METEO_DATA: // meteo
     {
-        if (received.size() != sizeof(METEO_DATA))
+        if (received.size() != sizeof(_MeteoData))
         {
+            qDebug()<<received.size()<<"size rec;";
+            qDebug() << "_MeteoData size: " << sizeof(_MeteoData) << " and data: " << received.size();
+
             qWarning() << "paket with \"METEO_DATA\" identifier has wrong size.\n";
             break;
         }
-        m_meteo_data = *(reinterpret_cast<const METEO_DATA*>(received.data()));
+        m_meteo_data = *(reinterpret_cast<const _MeteoData*>(received.data()));
         emit dataUpdated(&m_meteo_data);
         break;
     }
-    case 203: // aeroports
+    case NPR_PACKET_TYPE_AIRPORT_DATA: // aeroports
     {
         if (received.size() != sizeof(_AirportData))
         {
@@ -154,7 +157,7 @@ void UdpServer::setDataFromReceived(const QByteArray &received)
         emit dataUpdated(&m_airoports_lights_data);
         break;
     }
-    case 205: //bckw
+    case NPR_PACKET_TYPE_BACK_DATA: //bckw
     {
         if (received.size() != sizeof(_DataToModel))
         {
@@ -175,7 +178,7 @@ void UdpServer::restartListening(quint16 _port)
 
     if (m_receiver_socket->state() != QAbstractSocket::UnconnectedState)
         {
-            //m_socket.disconnectFromHost();
+            m_receiver_socket->disconnectFromHost();
             m_receiver_socket->abort();
         }
         qDebug() <<"try to bind";
@@ -246,16 +249,19 @@ void UdpServer::readDatagram()
     quint16 senderPort;
     qDebug()<<"reading datagrams";
     // read all availible datagrams
-    if (m_receiver_socket->hasPendingDatagrams())
+    if (keep_recieve && m_receiver_socket->hasPendingDatagrams())
     {
         qDebug()<<"hasPendingDatagrams";
+
         while (m_receiver_socket->hasPendingDatagrams())
         {
             datagram.resize(m_receiver_socket->pendingDatagramSize());
 
             m_receiver_socket->readDatagram(datagram.data(), datagram.size(),
                                 &sender, &senderPort);
-              qDebug()<<"reading start"<<senderPort;
+            qDebug()<<"reading start"<<senderPort;
+
+           // setDataFromReceived(datagram);
         }
     }
 
@@ -277,59 +283,3 @@ void UdpServer::setSendToAddress(const QHostAddress& address, quint16 port)
     qDebug()<<"address"<<address2send;
     qDebug()<<"sender_port"<<port;
 }
-
-/*void  UdpServer::receiveMeteo(const QByteArray& received)
-{
-    const METEO_DATA *_data = (reinterpret_cast<const METEO_DATA*>(received.data()));
-    if (_data->message == 11)
-    {
-        METEO_DATA to_dialog;
-
-        qDebug() << _data->message;
-        qDebug() << _data->Visibility;
-        qDebug() << _data->CloudBase;
-        qDebug() << _data->CloudUpper;
-        qDebug() << _data->CloudSize;
-        qDebug() << _data->cloudsType;
-        qDebug() << _data->cloudsSecondLay;
-        qDebug() << _data->SecLayHeight;
-        qDebug() << _data->Day;
-        qDebug() << _data->Month;
-        qDebug() << _data->Hours;
-        qDebug() << _data->Minutes;
-        qDebug() << _data->local_visibility;
-        qDebug() << _data->rain;
-        qDebug() << _data->snow;
-        qDebug() << _data->hmist;
-        qDebug() << _data->wind_speed;
-        qDebug() << _data->wind_psi;
-       qDebug() << _data->StarBright;
-
-        data->message = _data->message;
-        data->Visibility = _data->Visibility;
-        data->CloudBase = _data->CloudBase;
-        data->CloudUpper = _data->CloudUpper;
-        data->CloudSize = _data->CloudSize;
-        data->cloudsType = _data->cloudsType;
-        data->cloudsSecondLay = _data->cloudsSecondLay;
-        data->SecLayHeight = _data->SecLayHeight;
-        data->Day = _data->Day;
-        data->Month = _data->Month;
-        data->Hours = _data->Hours;
-        data->Minutes = _data->Minutes;
-        data->local_visibility = _data->local_visibility;
-        data->rain = _data->rain;
-        data->snow = _data->snow;
-        data->hmist = _data->hmist;
-        data->wind_speed = _data->wind_speed;
-        data->wind_psi = _data->wind_psi;
-        data->StarBright = _data->StarBright;
-        /*QByteArray packet;
-        packet = QByteArray::fromRawData((char*)&toClient, sizeof(METEO_DATA));
-
-        if (m_udp.writeDatagram(packet, sender, senderPort) == -1)
-        {
-            qWarning() << m_socket.errorString();
-        }
-    }
-}*/

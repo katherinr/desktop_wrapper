@@ -39,9 +39,7 @@ HEADERS += \
     ../build-untitled-Desktop_Qt_5_11_1_MSVC2017_64bit-Debug/ui_meteoform.h \
     ../build-untitled-Desktop_Qt_5_11_1_MSVC2017_64bit-Debug/ui_mainwindow.h \
     mainwindow.h \
-    sfun_gss2kd_2017_visual_send_v22.h \
     airportsdialog.h \
-    Protocol_templates(25.09.2018).h \
     udpserver.h \
     ../build-untitled-Desktop_Qt_5_11_1_MSVC2017_64bit-Debug/ui_airportsdialog.h \
     backward.h

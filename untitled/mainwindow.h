@@ -20,9 +20,10 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 signals:
-    void sendUpdatedData(METEO_DATA *data);
+    void sendUpdatedData(_MeteoData *data);
     void sendUpdatedData(_AirportData *data);
     void sendUpdatedData(_DataToModel *data);
+
 private slots:
     void onNewDatagramReceived(const QByteArray& datagram);
 
@@ -49,15 +50,18 @@ private slots:
 
     void receiveData(_AirportData*);
     void receiveData(_DataToModel*);
-    void receiveData(METEO_DATA * _data);
-    void on_recDatapB_2_pressed();
+    void receiveData(_MeteoData * _data);
+
+    void on_recDatapB_2_toggled(bool checked);
+    void on_meteo_remchb_toggled(bool checked);
+
 private:
     Ui::MainWindow *ui;
     meteoWindow* meteo_ui;
     backwardW *backward_ui;
     AirportsDialog *aerodrom_ui;
 
-    METEO_DATA meteo_data;
+    _MeteoData meteo_data;
     _AirportData airoports_lights_data;
     _DataToModel backward_data;
 

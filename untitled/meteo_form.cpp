@@ -7,14 +7,16 @@
 #include <memory>
 #include <QtScript/qscriptclass.h>
 #include <meteo_struct.h>
+//#include <meteo_struct.cpp>
+//void deep_meteo_copy(_MeteoData*, _MeteoData*);
 meteoWindow::meteoWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::meteoWindow),
-    data(new METEO_DATA)
+    data(new _MeteoData)
 {
 	qDebug() << data;
     ui->setupUi(this);
-    data->message = 11;
+    data->packet_id = NPR_PACKET_TYPE_METEO_DATA;
      setWindowFlags(Qt::WindowStaysOnTopHint);
     setLimitsToScrolls();
     setLimitsToLines();
@@ -243,7 +245,7 @@ void meteoWindow::on_mSpringPushB_pressed()
 void meteoWindow::on_cloudThick_inp_editingFinished()
 {
     short thick=ui->cloudThick_inp->text().toShort();
-    data->CloudUpper = thick;
+    data->cloudUpper = thick;
     ui->cloudThickScroll->setValue(thick);
    // qDebug()<<"data->CloudUpper" <<data->CloudUpper<<"\n";
 }
@@ -254,7 +256,7 @@ void meteoWindow::on_cloudHeightScroll_valueChanged(int value)
   //  qDebug()<<"cloud height val" <<ui->cloudHeightScroll->value();
     short height=ui->cloudHeightScroll->value();
     ui->cloudBase_inp->setText(QString::number(height));
-    data->CloudBase = height;
+    data->cloudBase = height;
 }
 
 void meteoWindow::on_cloudThickScroll_valueChanged(int value)
@@ -263,13 +265,13 @@ void meteoWindow::on_cloudThickScroll_valueChanged(int value)
    // qDebug()<<"cloud thick val" <<ui->cloudHeightScroll->value();
     //short thick=ui->cloudThickScroll->value();
     ui->cloudThick_inp->setText(QString::number(value));
-    data->CloudUpper = value;
+    data->cloudUpper = value;
 }
 
 void meteoWindow::on_cloudBase_inp_editingFinished()
 {
     short val = ui->cloudBase_inp->text().toShort();
-    data->CloudBase = val;
+    data->cloudBase = val;
     ui->cloudHeightScroll->setValue(val);
     //qDebug()<<"data->CloudBase" <<data->CloudBase<<"\n";
     //qDebug()<<"----cloud height val" <<ui->cloudHeightScroll->value();
@@ -313,7 +315,7 @@ void meteoWindow::on_cloudsType_cmbB_currentIndexChanged(int index)
 
 void meteoWindow::on_cloudSize_inp_editingFinished()
 {
-    data->CloudSize = ui->cloudSize_inp->text().toShort();
+    data->cloudSize = ui->cloudSize_inp->text().toShort();
   //  qDebug()<<"data->CloudSize" <<data->CloudSize<<"\n";
 }
 /*----------------------------------------------------*/
@@ -415,7 +417,7 @@ void meteoWindow::on_windPsiScroll_valueChanged(int value)
 void meteoWindow::on_visibility_inp_editingFinished()
 {
     float visibility = ui->visibility_inp->text().toFloat();
-    data->Visibility = visibility;
+    data->visibility = visibility;
     ui->visScroll->setValue(int(visibility));
   //  qDebug()<<"data->Visibility" <<data->Visibility<<"\n";
 }
@@ -425,15 +427,15 @@ void meteoWindow::on_visScroll_valueChanged(int value)
   //  qDebug()<<"visibility" <<ui->visScroll->value();
     float visibility=ui->visScroll->value();
     ui->visibility_inp->setText(QString::number(visibility));
-    data->Visibility = visibility;
+    data->visibility = visibility;
 }
 
 void meteoWindow::on_starsBright_inp_editingFinished()
 {
   //  qDebug()<<"sr";
   //  qDebug()<<"srtext"<<ui->starsBright_inp->text();
-    data->StarBright = ui->starsBright_inp->text().toFloat();
-    ui->starsBrightScroll->setValue(int(data->StarBright));
+    data->starBright = ui->starsBright_inp->text().toFloat();
+    ui->starsBrightScroll->setValue(int(data->starBright));
    // qDebug()<<"data->StarBright" <<data->StarBright<<"\n";
 }
 
@@ -441,7 +443,7 @@ void meteoWindow::on_starsBrightScroll_valueChanged(int value)
 {
     float starsBr=ui->starsBrightScroll->value();
     ui->starsBright_inp->setText(QString::number(starsBr));
-    data->StarBright = starsBr;
+    data->starBright = starsBr;
 }
 
 void meteoWindow::on_action_4_triggered()
@@ -485,15 +487,15 @@ void meteoWindow::on_action_2_triggered()
     file_io.saveFile(data);
 }
 
-void meteoWindow::writeToFields(std::shared_ptr<METEO_DATA> meteo_data )
+void meteoWindow::writeToFields(std::shared_ptr<_MeteoData> meteo_data )
 {
-    data->message = 11;//meteo_data->message;
+    data->packet_id = NPR_PACKET_TYPE_METEO_DATA;//meteo_data->message;
     deep_meteo_copy(meteo_data.get() ,data );
-   qDebug()<<"setting shared data from received";
-    ui->visibility_inp->setText(QString::number(data->Visibility));
-    ui->cloudBase_inp->setText(QString::number(data->CloudBase));
-    ui->cloudThick_inp->setText(QString::number(data->CloudUpper));
-    ui->cloudSize_inp->setText(QString::number(data->CloudSize));
+    qDebug()<<"setting shared data from received";
+    ui->visibility_inp->setText(QString::number(data->visibility));
+    ui->cloudBase_inp->setText(QString::number(data->cloudBase));
+    ui->cloudThick_inp->setText(QString::number(data->cloudUpper));
+    ui->cloudSize_inp->setText(QString::number(data->cloudSize));
     ui->cloudsType_cmbB->setCurrentIndex(data->cloudsType);
     ui->cloudsSecLay_cmbB->setCurrentIndex( data->cloudsSecondLay);
     ui->cloudSecLayer_inp->setText(QString::number(data->SecLayHeight));
@@ -511,21 +513,20 @@ void meteoWindow::writeToFields(std::shared_ptr<METEO_DATA> meteo_data )
     ui->hmist_inp->setText(QString::number(data->hmist));
     ui->windSpeed_inp->setText(QString::number(data->wind_speed));
     ui->windSpeedPsi_inp->setText(QString::number( data->wind_psi));
-    ui->starsBright_inp->setText(QString::number(data->StarBright));
+    ui->starsBright_inp->setText(QString::number(data->starBright));
 
     lineDataToScrollValue();
     this->update();
 }
-
-void meteoWindow::writeToFields(METEO_DATA *meteo_data)
+void meteoWindow::writeToFields(_MeteoData * meteo_data )
 {
-    data->message = 11;//meteo_data->message;
+       data->packet_id = NPR_PACKET_TYPE_METEO_DATA;//meteo_data->message;
     deep_meteo_copy(meteo_data, data );
-   qDebug()<<"setting METEO data from received";
-    ui->visibility_inp->setText(QString::number(data->Visibility));
-    ui->cloudBase_inp->setText(QString::number(data->CloudBase));
-    ui->cloudThick_inp->setText(QString::number(data->CloudUpper));
-    ui->cloudSize_inp->setText(QString::number(data->CloudSize));
+   qDebug()<<"setting shared data from received";
+    ui->visibility_inp->setText(QString::number(data->visibility));
+    ui->cloudBase_inp->setText(QString::number(data->cloudBase));
+    ui->cloudThick_inp->setText(QString::number(data->cloudUpper));
+    ui->cloudSize_inp->setText(QString::number(data->cloudSize));
     ui->cloudsType_cmbB->setCurrentIndex(data->cloudsType);
     ui->cloudsSecLay_cmbB->setCurrentIndex( data->cloudsSecondLay);
     ui->cloudSecLayer_inp->setText(QString::number(data->SecLayHeight));
@@ -543,10 +544,44 @@ void meteoWindow::writeToFields(METEO_DATA *meteo_data)
     ui->hmist_inp->setText(QString::number(data->hmist));
     ui->windSpeed_inp->setText(QString::number(data->wind_speed));
     ui->windSpeedPsi_inp->setText(QString::number( data->wind_psi));
-    ui->starsBright_inp->setText(QString::number(data->StarBright));
+    ui->starsBright_inp->setText(QString::number(data->starBright));
 
     lineDataToScrollValue();
-    //this->update();
+    this->update();
+}
+void meteoWindow::writeToFieldsNet(_MeteoData *meteo_data)
+{
+    /*data->message = 11;//meteo_data->message;
+   // deep_meteo_copy(meteo_data, network_data );
+
+    if (set_from_net==false)
+        return;
+
+    qDebug()<<"setting METEO data from received NET";
+    ui->visibility_inp->setText(QString::number(network_data->Visibility));
+    ui->cloudBase_inp->setText(QString::number(network_data->CloudBase));
+    ui->cloudThick_inp->setText(QString::number(network_data->CloudUpper));
+    ui->cloudSize_inp->setText(QString::number(network_data->CloudSize));
+    ui->cloudsType_cmbB->setCurrentIndex(network_data->cloudsType);
+    ui->cloudsSecLay_cmbB->setCurrentIndex( network_data->cloudsSecondLay);
+    ui->cloudSecLayer_inp->setText(QString::number(network_data->SecLayHeight));
+
+    if (network_data->Month == 12)
+        ui->month_cmbB->setCurrentIndex(0);
+    else
+        ui->month_cmbB->setCurrentIndex(network_data->Month);
+    ui->day_spnB->setValue( network_data->Day);
+    ui->time_spnB->setDateTime(QDateTime(QDate(2018, network_data->Month, network_data->Day),QTime(network_data->Hours,network_data->Minutes)));
+
+    ui->localVis_inp->setText(QString::number(network_data->local_visibility));
+    ui->rain_inp->setText(QString::number(network_data->rain));
+    ui->snow_inp->setText(QString::number(network_data->snow));
+    ui->hmist_inp->setText(QString::number(network_data->hmist));
+    ui->windSpeed_inp->setText(QString::number(network_data->wind_speed));
+    ui->windSpeedPsi_inp->setText(QString::number( network_data->wind_psi));
+    ui->starsBright_inp->setText(QString::number(network_data->StarBright));
+
+    lineDataToScrollValue();*/
 }
 
 void meteoWindow::on_day_spnB_valueChanged(int arg1)
@@ -558,16 +593,16 @@ void meteoWindow::on_day_spnB_valueChanged(int arg1)
 void meteoWindow::lineDataToScrollValue()
 {
     //another shitty code
-    ui->cloudHeightScroll->setValue(data->CloudBase);
+    ui->cloudHeightScroll->setValue(data->cloudBase);
     ui->cloudSecLvlScroll->setValue(data->cloudsSecondLay);
-    ui->cloudThickScroll->setValue(data->CloudUpper);
+    ui->cloudThickScroll->setValue(data->cloudUpper);
     ui->localVisScroll->setValue(data->local_visibility);
     ui->mistScroll->setValue(data->hmist);
     ui->windSpeedScroll->setValue(data->wind_speed);
     ui->windPsiScroll->setValue(data->wind_psi);
     ui->snowScroll->setValue(data->snow);
     ui->rainScroll->setValue(data->rain);
-    ui->starsBrightScroll->setValue(data->StarBright);
+    ui->starsBrightScroll->setValue(data->starBright);
 }
 
 void meteoWindow::on_ok_pushb_pressed()
