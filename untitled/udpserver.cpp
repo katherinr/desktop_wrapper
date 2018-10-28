@@ -123,6 +123,16 @@ void UdpServer::setSendData_METEO(const _MeteoData* data)
     m_enabledPackets["METEO_DATA"] = true;
 }
 
+void UdpServer::setSendData_VISUAL(const _MainVisualData *data)
+{
+    //print meteo
+    qDebug()<<"visual set send";
+    qDebug() << "_Mainvis size: " << sizeof(_MainVisualData) << " and data: " << sizeof(*data);
+    //printMeteo(data);
+    m_visualPacket = QByteArray::fromRawData(reinterpret_cast<const char*>(data), sizeof(_MainVisualData));
+    m_enabledPackets["VISUAL_DATA"] = true;
+}
+
 void UdpServer::setDataFromReceived(const QByteArray &received)
 {
     qDebug()<<"setting data from received function";
@@ -166,6 +176,20 @@ void UdpServer::setDataFromReceived(const QByteArray &received)
         }
         m_backward_data = *(reinterpret_cast<const _DataToModel*>(received.data()));
         emit dataUpdated(&m_backward_data);
+        break;
+    }
+    case  NPR_PACKET_TYPE_VISUAL_DATA: // visual
+    {
+        if (received.size() != sizeof(_MainVisualData))
+        {
+            qDebug()<<received.size()<<"size rec;";
+            qDebug() << "_MainVisualData size: " << sizeof(_MainVisualData) << " and data: " << received.size();
+
+            qWarning() << "paket with \"_MainVisualData\" identifier has wrong size.\n";
+            break;
+        }
+        m_vis_data = *(reinterpret_cast<const _MainVisualData*>(received.data()));
+        emit dataUpdated(&m_vis_data);
         break;
     }
     }

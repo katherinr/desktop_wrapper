@@ -6,6 +6,7 @@
 #include "ui_meteoform.h"
 #include <airportsdialog.h>
 #include "ui_airportsdialog.h"
+#include <mainvisual.h>
 #include <udpserver.h>
 #include "backward.h"
 namespace Ui {
@@ -23,6 +24,7 @@ signals:
     void sendUpdatedData(_MeteoData *data);
     void sendUpdatedData(_AirportData *data);
     void sendUpdatedData(_DataToModel *data);
+   // void sendUpdatedData(_MainVisualData *data);
 
 private slots:
     void onNewDatagramReceived(const QByteArray& datagram);
@@ -60,6 +62,7 @@ private:
     meteoWindow* meteo_ui;
     backwardW *backward_ui;
     AirportsDialog *aerodrom_ui;
+    MainVisual *mainvis_ui;
 
     _MeteoData meteo_data;
     _AirportData airoports_lights_data;

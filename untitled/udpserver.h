@@ -33,6 +33,7 @@ public:
     void setSendData_BACKWARD(const _DataToModel *data);
     void setSendToAddress(const QHostAddress& address, quint16 port);
     void setSendData_METEO(const _MeteoData* data);
+    void setSendData_VISUAL(const _MainVisualData* data);
     void setDataFromReceived(const QByteArray&);
     void restartListening(quint16 _port);
 
@@ -48,6 +49,7 @@ signals:
     void dataUpdated( _MeteoData*);
     void dataUpdated( _AirportData*);
     void dataUpdated( _DataToModel*);
+    void dataUpdated( _MainVisualData*);
 public:
 bool keep_recieve = false;
 
@@ -73,6 +75,7 @@ private:
     _MeteoData m_meteo_data;
     _AirportData m_airoports_lights_data;
     _DataToModel m_backward_data;
+    _MainVisualData m_vis_data;
 };
 
 #endif // UDPSERVER_H

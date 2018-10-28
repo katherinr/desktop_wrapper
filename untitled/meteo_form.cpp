@@ -7,8 +7,6 @@
 #include <memory>
 #include <QtScript/qscriptclass.h>
 #include <meteo_struct.h>
-//#include <meteo_struct.cpp>
-//void deep_meteo_copy(_MeteoData*, _MeteoData*);
 meteoWindow::meteoWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::meteoWindow),

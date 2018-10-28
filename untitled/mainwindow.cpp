@@ -16,21 +16,21 @@ MainWindow::MainWindow(QWidget *parent) :
     meteo_ui = new meteoWindow;
     aerodrom_ui = new AirportsDialog;
     backward_ui = new backwardW;
-
+    mainvis_ui = new MainVisual;
     /*/////////////////////////////////////////////*/
     //show subwindows
 
     connect(ui->meteoPushButton, SIGNAL(clicked()), meteo_ui, SLOT(show()));
     connect(ui->AerodromsLightsPB, SIGNAL(clicked()), aerodrom_ui, SLOT(show()));
     connect(ui->CorrectPB, SIGNAL(clicked()), backward_ui, SLOT(show()));
-
+    connect(ui->mainVisPushButton, SIGNAL(clicked()), mainvis_ui, SLOT(show()));
     /*/////////////////////////////////////////////*/
     //receive data from subwindows
     connect(aerodrom_ui, SIGNAL(sendData(_AirportData*)), this, SLOT(receiveData(_AirportData*)));
     connect(backward_ui, SIGNAL(sendData(_DataToModel*)), this, SLOT(receiveData(_DataToModel*)));
     connect(meteo_ui, SIGNAL(sendData(_MeteoData*)), this, SLOT(receiveData(_MeteoData*)));
-    /*/////////////////////////////////////////////*/
 
+    /*/////////////////////////////////////////////*/
     //read and send data via UDP
      connect(m_server, &UdpServer::newDatagram, this, &MainWindow::onNewDatagramReceived);
      connect(m_server, SIGNAL(readyRead()), m_server, SLOT(readDatagram()));
@@ -45,9 +45,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_server, SIGNAL(dataUpdated(_AirportData*)), this, SLOT(receiveData(_AirportData*)));
     connect(m_server, SIGNAL(dataUpdated(_DataToModel*)), this, SLOT(receiveData(_DataToModel*)));
     connect(m_server, SIGNAL(dataUpdated(_MeteoData*)), this, SLOT(receiveData(_MeteoData*)));
+
     connect(this, SIGNAL(sendUpdatedData(_MeteoData*)),meteo_ui,SLOT(writeToFields(_MeteoData*)));
     connect(this, SIGNAL(sendUpdatedData(_DataToModel*)),backward_ui,SLOT(writeToFields(_DataToModel*)));
     connect(this, SIGNAL(sendUpdatedData(_AirportData*)),aerodrom_ui,SLOT(writeToFields(_AirportData*)));
+   // connect(m_server, SIGNAL(dataUpdated(_MainVisualData*)),mainvis_ui,SLOT(setData(_MainVisualData*)));
 
 }
 
@@ -143,6 +145,7 @@ MainWindow::~MainWindow()
     delete meteo_ui;
     delete aerodrom_ui;
     delete backward_ui;
+    delete mainvis_ui;
     delete m_server;
 }
 
