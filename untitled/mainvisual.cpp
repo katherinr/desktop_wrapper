@@ -5,6 +5,7 @@ MainVisual::MainVisual(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MainVisual)
 {
+    setWindowFlags(Qt::WindowStaysOnTopHint);
     ui->setupUi(this);
 }
 
