@@ -2,7 +2,7 @@
 #define UDPSERVER_H
 #include <QtNetwork/qudpsocket.h>
 #include <QMainWindow>
-#include <meteo_struct.h>
+#include "meteo_struct.h"
 #include <QTime>
 class UdpServer: public QObject
 {
@@ -22,13 +22,27 @@ public:
         }
 
         return false;
-
     }
-    void setSendingPort(quint16 _port){sender_port = _port;}
+
+    bool setSendingPort(quint16 _port)
+    {
+        if (sender_port != _port)
+        {
+            sender_port = _port;
+            return  true;
+        }
+        return false;
+    }
+
     void setAddress2Send(QHostAddress addr){address2send = addr;}
     quint16 getReceivingPort(){return receiving_port;}
     void sendUDPOnce(const QByteArray &array);
+    void setPacketSendEnabled(const QString& paketName, bool enabled);
     void meteoTimerTimeout();
+    void visTimerTimeout();
+    void aerodromsTimerTimeout();
+    void backwTimerTimeout();
+    void changeTimerInterval(const QString& timerObjName, int interval);
     void setSendData_AERODROMS(const _AirportData *data);
     void setSendData_BACKWARD(const _DataToModel *data);
     void setSendToAddress(const QHostAddress& address, quint16 port);
@@ -37,7 +51,7 @@ public:
     void setDataFromReceived(const QByteArray&);
     void restartListening(quint16 _port);
 
-//private slots:
+    //private slots:
 public slots:
     void startSending();
     void stopSending();
@@ -51,12 +65,12 @@ signals:
     void dataUpdated( _DataToModel*);
     void dataUpdated( _MainVisualData*);
 public:
-bool keep_recieve = false;
-
+    bool keep_recieve = false;
+	QTime m_time;
 private:
     QUdpSocket *m_receiver_socket;
     QList<QTimer*> m_timerList;
-   // QUdpSocket *m_udp;
+    // QUdpSocket *m_udp;
     QUdpSocket *m_sender_socket;
 
     QHostAddress address2send;
@@ -70,7 +84,7 @@ private:
     QByteArray m_backwardPacket;
     QMap<QString, bool> m_enabledPackets;
 
-    QTime m_time;
+    
 
     _MeteoData m_meteo_data;
     _AirportData m_airoports_lights_data;

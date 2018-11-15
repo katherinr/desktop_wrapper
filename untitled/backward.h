@@ -13,6 +13,8 @@ class backwardW : public QDialog
 public:
     explicit backwardW(QWidget *parent = nullptr);
     ~backwardW();
+
+	void readDefault(_DataToModel * _data);
 private slots:
     void on_simulation_timeLE_editingFinished();
 
@@ -24,7 +26,7 @@ private slots:
 
     void on_buttonBox_accepted();
 public slots:
-void writeDataToFields(_DataToModel *data);
+    void writeDataToFields(_DataToModel *data);
 private:
     Ui::backwardW *ui;
     _DataToModel *backw_data;

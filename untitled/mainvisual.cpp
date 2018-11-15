@@ -1,22 +1,28 @@
 ﻿#include "mainvisual.h"
 #include "ui_mainvisual.h"
 #include <qdebug.h>
+#include "utilities.h"
+#include <QDialog>
 MainVisual::MainVisual(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::MainVisual)
+      QDialog(parent),
+    ui(new Ui::MainVisual),
+    m_data(new _MainVisualData)
 {
-    setWindowFlags(Qt::WindowStaysOnTopHint);
+    setWindowModality(Qt::ApplicationModal);
     ui->setupUi(this);
+    //setDataFromDefaut(m_data);
 }
 
 MainVisual::~MainVisual()
 {
+    //printVisualData(m_data);
     delete ui;
+    delete m_data;
 }
 
-void MainVisual::setData(_MainVisualData *data)
+void MainVisual::setDataToShow(_MainVisualData *data)
 {
-    //data->packet_id = NPR_PACKET_TYPE_METEO_DATA;//meteo_data->message;
+    data->packet_id = NPR_PACKET_TYPE_VISUAL_DATA;
 
     qDebug()<<"setting visual data from received";
     ui->num_correct->setText(QString::number(data->num_correct));
@@ -72,4 +78,288 @@ void MainVisual::setData(_MainVisualData *data)
     ui->internal_lights->setText((QString::number(data->InternalLights)));
 
     this->update();
+}
+
+void MainVisual::on_okpb_clicked()
+{
+    //printVisualData(m_data);
+    emit sendData(m_data);
+    this->close();
+}
+
+void MainVisual::on_cancelPb_clicked()
+{
+     this->close();
+}
+
+void MainVisual::on_pangle_r_editingFinished()
+{
+    m_data->p_angle.R = ui->pangle_r->text().toFloat();
+}
+
+void MainVisual::on_pcoord_lat_editingFinished()
+{
+     m_data->p_coord.X = ui->pcoord_lat->text().toDouble();
+}
+
+void MainVisual::on_pcoord_lon_editingFinished()
+{
+    m_data->p_coord.Z = ui->pcoord_lon->text().toDouble();
+}
+
+void MainVisual::on_pcoord_h_editingFinished()
+{
+    m_data->p_coord.H = ui->pcoord_h->text().toFloat();
+
+}
+
+void MainVisual::on_pangle_c_editingFinished()
+{
+    m_data->p_angle.C = ui->pangle_c->text().toFloat();
+}
+
+void MainVisual::on_pangle_p_editingFinished()
+{
+
+    m_data->p_angle.P = ui->pangle_p->text().toFloat();
+}
+
+void MainVisual::on_n2_l_editingFinished()
+{
+      m_data->N2_L = ui->n2_l->text().toFloat();
+}
+
+void MainVisual::on_n2_r_editingFinished()
+{
+      m_data->N2_R = ui->n2_r->text().toFloat();
+}
+
+void MainVisual::on_flaps_editingFinished()
+{
+      m_data->Flaps = ui->flaps->text().toFloat();
+}
+
+void MainVisual::on_slats_editingFinished()
+{
+      m_data->Slats = ui->slats->text().toFloat();
+}
+
+void MainVisual::on_stabilizer_editingFinished()
+{
+
+    m_data->Stabilizer = ui->stabilizer->text().toFloat();
+}
+
+void MainVisual::on_elevator_l_editingFinished()
+{
+     m_data->Elevator_L = ui->elevator_l->text().toFloat();
+}
+
+void MainVisual::on_elevator_r_editingFinished()
+{
+     m_data->Elevator_R = ui->elevator_r->text().toFloat();
+}
+
+void MainVisual::on_aileron_l_editingFinished()
+{
+     m_data->Aileron_L = ui->aileron_l->text().toFloat();
+}
+
+void MainVisual::on_aileron_r_editingFinished()
+{
+     m_data->Aileron_R = ui->aileron_r->text().toFloat();
+}
+
+void MainVisual::on_rudder_editingFinished()
+{
+     m_data->Rudder = ui->rudder->text().toFloat();
+}
+
+void MainVisual::on_gear_n_editingFinished()
+{
+     m_data->Gear_N = ui->gear_n->text().toFloat();
+}
+
+void MainVisual::on_gear_l_editingFinished()
+{
+      m_data->Gear_L = ui->gear_l->text().toFloat();
+}
+
+void MainVisual::on_gear_r_editingFinished()
+{
+      m_data->Gear_R = ui->gear_r->text().toFloat();
+}
+
+void MainVisual::on_num_correct_editingFinished()
+{
+    QString s = ui->num_correct->text();
+    qstrcpy(&m_data->num_correct , s.toLatin1());
+}
+
+void MainVisual::on_gear_stri_angle_editingFinished()
+{
+    m_data->Gear_SteeringAngle = ui->gear_stri_angle->text().toFloat();
+}
+
+void MainVisual::on_spoiler_lob_editingFinished()
+{
+    m_data->Spoiler_L_OB = ui->spoiler_lob->text().toFloat();
+}
+
+void MainVisual::on_spoiler_lce_editingFinished()
+{
+    m_data->Spoiler_L_CE = ui->spoiler_lce->text().toFloat();
+}
+
+void MainVisual::on_spoiler_lin_editingFinished()
+{
+    m_data->Spoiler_L_IN = ui->spoiler_lin->text().toFloat();
+}
+
+void MainVisual::on_spoiler_rob_editingFinished()
+{
+    m_data->Spoiler_R_OB = ui->spoiler_rob->text().toFloat();
+}
+
+void MainVisual::on_spoiler_rce_editingFinished()
+{
+      m_data->Spoiler_R_CE = ui->spoiler_rce->text().toFloat();
+}
+
+void MainVisual::on_spoiler_rin_editingFinished()
+{
+    m_data->Spoiler_R_IN = ui->spoiler_rin->text().toFloat();
+}
+
+void MainVisual::on_gr_spoiler_lob_editingFinished()
+{
+    m_data->GroudSpoiler_L_OB = ui->gr_spoiler_lob->text().toFloat();
+}
+
+void MainVisual::on_gr_spoiler_lin_editingFinished()
+{
+    m_data->GroudSpoiler_L_IB = ui->gr_spoiler_lin->text().toFloat();
+}
+
+void MainVisual::on_gr_spoiler_rob_editingFinished()
+{
+    m_data->GroudSpoiler_R_OB = ui->gr_spoiler_rob->text().toFloat();
+}
+
+void MainVisual::on_gr_spoiler_rin_editingFinished()
+{
+    m_data->GroudSpoiler_R_IB = ui->gr_spoiler_rin->text().toFloat();
+}
+
+void MainVisual::on_landing_lights_editingFinished()
+{
+    m_data->LandingLights = ui->landing_lights->text().toFloat();
+}
+
+void MainVisual::on_taxi_light_editingFinished()
+{
+    m_data->TaxiLight = ui->taxi_light->text().toFloat();
+
+}
+
+void MainVisual::on_runway_turnofflights_editingFinished()
+{
+    m_data->RunwayTurnoffLights = ui->runway_turnofflights->text().toFloat();
+}
+
+void MainVisual::on_nav_light_red_editingFinished()
+{
+    m_data->NavigationLightRed = ui->nav_light_red->text().toFloat();
+
+}
+
+void MainVisual::on_nav_light_green_editingFinished()
+{
+    m_data->NavigationLightGreen = ui->nav_light_green->text().toFloat();
+
+}
+
+void MainVisual::on_nav_light_white_editingFinished()
+{
+    m_data->NavigationLightWhite = ui->nav_light_white->text().toFloat();
+
+}
+
+void MainVisual::on_anticollosion_bec_red_editingFinished()
+{
+    m_data->AntiCollisionBeaconRed = ui->anticollosion_bec_red->text().toFloat();
+}
+
+void MainVisual::on_anticoll_bec_white_editingFinished()
+{
+    m_data->AntiCollisionBeaconWhite = ui->anticoll_bec_white->text().toFloat();
+}
+
+void MainVisual::on_internal_lights_editingFinished()
+{
+    m_data->InternalLights = ui->internal_lights->text().toFloat();
+
+}
+
+
+void MainVisual::setDataFromDefaut( _MainVisualData *set_data)
+{
+    set_data->packet_id = NPR_PACKET_TYPE_VISUAL_DATA;
+
+    qDebug()<<"setting from visual data ";
+    set_data->num_correct= ui->num_correct->text().toInt();
+    set_data->p_coord.X = ui->pcoord_lat->text().toFloat();
+    set_data->p_coord.Z= ui->pcoord_lon->text().toFloat();
+    set_data->p_coord.H= ui->pcoord_h->text().toFloat();
+
+    set_data->p_angle.C = ui->pangle_c->text().toFloat();
+    set_data->p_angle.P= ui->pangle_p->text().toFloat();
+    set_data->p_angle.R= ui->pangle_r->text().toFloat();
+
+
+    //обороты
+    set_data->N2_L = ui->n2_l->text().toFloat();
+    set_data->N2_R = ui->n2_r->text().toFloat();
+
+    //stabs, mechs
+    set_data->Flaps = ui->flaps->text().toFloat();
+    set_data->Stabilizer = ui->stabilizer->text().toFloat();
+    set_data->Slats = ui->slats->text().toFloat();
+
+    set_data->Elevator_L = ui->elevator_l->text().toFloat();
+    set_data->Elevator_R = ui->elevator_r->text().toFloat();
+    set_data->Aileron_L = ui->aileron_l->text().toFloat();
+    set_data->Aileron_R = ui->aileron_r->text().toFloat();
+    set_data->Rudder = ui->rudder->text().toFloat();
+
+    set_data->Spoiler_L_CE = ui->spoiler_lce->text().toFloat();
+    set_data->Spoiler_L_IN = ui->spoiler_lin->text().toFloat();
+    set_data->Spoiler_L_OB = ui->spoiler_lob->text().toFloat();
+    set_data->Spoiler_R_CE = ui->spoiler_rce->text().toFloat();
+    set_data->Spoiler_R_IN = ui->spoiler_rin->text().toFloat();
+    set_data->Spoiler_R_OB = ui->spoiler_rob->text().toFloat();
+
+    set_data->GroudSpoiler_L_IB = ui->spoiler_lce->text().toFloat();
+    set_data->GroudSpoiler_L_OB = ui->spoiler_lin->text().toFloat();
+    set_data->GroudSpoiler_R_IB = ui->spoiler_lob->text().toFloat();
+    set_data->GroudSpoiler_R_OB = ui->spoiler_rob->text().toFloat();
+
+    set_data->Gear_N = ui->gear_n->text().toFloat();
+    set_data->Gear_L = ui->gear_l->text().toFloat();
+    set_data->Gear_R = ui->gear_r->text().toFloat();
+
+    //бортовые огни
+
+    set_data->LandingLights = ui->landing_lights->text().toFloat();
+    set_data->TaxiLight = ui->taxi_light->text().toFloat();
+    set_data->RunwayTurnoffLights = ui->runway_turnofflights->text().toFloat();
+
+    set_data->NavigationLightGreen = ui->nav_light_green->text().toFloat();
+    set_data->NavigationLightRed = ui->nav_light_red->text().toFloat();
+    set_data->NavigationLightWhite = ui->nav_light_white->text().toFloat();
+
+    set_data->AntiCollisionBeaconWhite = //ui->anticoll_bec_white->text().toInt();
+    set_data->AntiCollisionBeaconRed = ui->anticollosion_bec_red->text().toInt();
+    set_data->InternalLights = ui->internal_lights->text().toInt();
+	emit sendData(set_data);
 }

@@ -9,15 +9,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>740</width>
-    <height>717</height>
+    <width>718</width>
+    <height>625</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
    <enum>Qt::NoContextMenu</enum>
   </property>
   <property name="windowTitle">
-   <string>Аэродромные огни</string>
+   <string>Данные об аэродромах</string>
   </property>
   <property name="autoFillBackground">
    <bool>true</bool>
@@ -28,220 +28,576 @@
      <property name="title">
       <string>Взлет</string>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout">
+       <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
          <widget class="QLabel" name="label">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>324</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>324</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="text">
            <string>Аэродром взлета</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="label_2">
-          <property name="text">
-           <string>Полоса взлета</string>
+         <widget class="QComboBox" name="departureCity">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
           </property>
+          <property name="minimumSize">
+           <size>
+            <width>250</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>250</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>UpArrowCursor</cursorShape>
+          </property>
+          <property name="focusPolicy">
+           <enum>Qt::WheelFocus</enum>
+          </property>
+          <property name="contextMenuPolicy">
+           <enum>Qt::NoContextMenu</enum>
+          </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="editable">
+           <bool>false</bool>
+          </property>
+          <property name="currentText">
+           <string notr="true">Шереметьево (SVO/UUEE)</string>
+          </property>
+          <property name="currentIndex">
+           <number>0</number>
+          </property>
+          <property name="insertPolicy">
+           <enum>QComboBox::NoInsert</enum>
+          </property>
+          <property name="sizeAdjustPolicy">
+           <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+          </property>
+          <property name="frame">
+           <bool>true</bool>
+          </property>
+          <item>
+           <property name="text">
+            <string>Шереметьево (SVO/UUEE)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Домодедово (DME/UUDD)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Внуково (VKO/UUWW)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Жуковский (ZIA/UUBW)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Остафьево (OSF/UUMO)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Пулково (LED/ULLI)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Комсомольск (KXK/UHKK)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Сочи (AER/URSS)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Лондон (LCY/EGLC)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Карловы Вары (KLV/LKKV)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Тиват (TIV/LYTV)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Брюссель (BRU/EBBR)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Венеция (VCE/LIPZ)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Дублин (DUB/EIBW)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Инсбрук (INN/LOWI)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Кеблавик (KEF/BIKF)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Толука (TLC/MMTO)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Хельсинки (HEL/EFHK)</string>
+           </property>
+          </item>
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="label_3">
-          <property name="text">
-           <string>Боковые огни полосы</string>
+         <widget class="QLineEdit" name="departure_airport_code">
+          <property name="enabled">
+           <bool>true</bool>
           </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_4">
-          <property name="text">
-           <string>Рулежные огни аэродрома</string>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>25</height>
+           </size>
           </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_5">
-          <property name="text">
-           <string>Огни подсвета стоянок аэродрома</string>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>25</height>
+           </size>
           </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_6">
           <property name="text">
-           <string>Яркость остальных огней</string>
+           <string>UUEE</string>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="placeholderText">
+           <string/>
           </property>
          </widget>
         </item>
        </layout>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <widget class="QComboBox" name="departureCity">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="cursor">
-             <cursorShape>UpArrowCursor</cursorShape>
-            </property>
-            <property name="focusPolicy">
-             <enum>Qt::WheelFocus</enum>
-            </property>
-            <property name="contextMenuPolicy">
-             <enum>Qt::DefaultContextMenu</enum>
-            </property>
-            <property name="autoFillBackground">
-             <bool>false</bool>
-            </property>
-            <property name="editable">
-             <bool>false</bool>
-            </property>
-            <property name="currentText">
-             <string notr="true">Moscow DME</string>
-            </property>
-            <property name="insertPolicy">
-             <enum>QComboBox::NoInsert</enum>
-            </property>
-            <property name="sizeAdjustPolicy">
-             <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
-            </property>
-            <property name="frame">
-             <bool>true</bool>
-            </property>
-            <item>
-             <property name="text">
-              <string>Moscow DME</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Moscow OST</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>London</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>KarlovyVary</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Tivat</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Bruxelles</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Venice</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Dublin</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Innsbruck</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Keflavic</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Komsomolsk</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Pulkovo</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Sochi</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Toluca</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Moscow SVO</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Moscow VKO</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Moscow ZIA</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Helsinki</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="departureCode">
-            <property name="currentText">
-             <string/>
-            </property>
-            <property name="currentIndex">
-             <number>-1</number>
-            </property>
-            <property name="sizeAdjustPolicy">
-             <enum>QComboBox::AdjustToContents</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="departure_airport_code"/>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="takeoff_runway_code">
+         <widget class="QLabel" name="label_2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>324</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>324</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="text">
-           <string/>
+           <string>Полоса взлета</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="takeoff_runway_border_lights"/>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>250</width>
+            <height>25</height>
+           </size>
+          </property>
+         </spacer>
         </item>
         <item>
-         <widget class="QLineEdit" name="departure_airport_lights_taxiing"/>
+         <widget class="QComboBox" name="depPolosa">
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="currentText">
+           <string>07L</string>
+          </property>
+          <item>
+           <property name="text">
+            <string>07L</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>25R</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>07R</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>25L</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>324</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>324</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Яркость боковых огней полосы</string>
+          </property>
+         </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="departure_airport_lights_illumination"/>
+         <widget class="QScrollBar" name="depBokLightscroll">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>250</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>UpArrowCursor</cursorShape>
+          </property>
+          <property name="value">
+           <number>99</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="departure_airport_other_lights"/>
+         <widget class="QLineEdit" name="takeoff_runway_border_lights">
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>100</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <item>
+         <widget class="QLabel" name="label_4">
+          <property name="minimumSize">
+           <size>
+            <width>324</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>324</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Яркость рулежных огней аэродрома</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QScrollBar" name="depRelLightsScroll">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>250</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>UpArrowCursor</cursorShape>
+          </property>
+          <property name="value">
+           <number>99</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="departure_airport_lights_taxiing">
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>100</string>
+          </property>
+          <property name="maxLength">
+           <number>70</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_7">
+        <item>
+         <widget class="QLabel" name="label_5">
+          <property name="minimumSize">
+           <size>
+            <width>324</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>324</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Яркость огней подсвета стоянок аэродрома</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QScrollBar" name="depStoyankScroll">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>250</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>UpArrowCursor</cursorShape>
+          </property>
+          <property name="value">
+           <number>99</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="departure_airport_lights_illumination">
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>100</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_8">
+        <item>
+         <widget class="QLabel" name="label_6">
+          <property name="minimumSize">
+           <size>
+            <width>324</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>324</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Яркость остальных огней</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QScrollBar" name="depOtherScroll">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>250</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>UpArrowCursor</cursorShape>
+          </property>
+          <property name="maximum">
+           <number>100</number>
+          </property>
+          <property name="pageStep">
+           <number>1</number>
+          </property>
+          <property name="value">
+           <number>99</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="departure_airport_other_lights">
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>100</string>
+          </property>
+          <property name="clearButtonEnabled">
+           <bool>false</bool>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -253,208 +609,551 @@
      <property name="title">
       <string>Посадка</string>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_3">
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
          <widget class="QLabel" name="label_9">
+          <property name="minimumSize">
+           <size>
+            <width>324</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>324</width>
+            <height>25</height>
+           </size>
+          </property>
           <property name="text">
            <string>Аэродром посадки</string>
           </property>
          </widget>
         </item>
         <item>
+         <widget class="QComboBox" name="arrivalCity">
+          <property name="minimumSize">
+           <size>
+            <width>250</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>250</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>UpArrowCursor</cursorShape>
+          </property>
+          <property name="focusPolicy">
+           <enum>Qt::WheelFocus</enum>
+          </property>
+          <property name="contextMenuPolicy">
+           <enum>Qt::DefaultContextMenu</enum>
+          </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="editable">
+           <bool>false</bool>
+          </property>
+          <property name="currentText">
+           <string notr="true">Комсомольск (KXK/UHKK)</string>
+          </property>
+          <property name="currentIndex">
+           <number>7</number>
+          </property>
+          <property name="insertPolicy">
+           <enum>QComboBox::NoInsert</enum>
+          </property>
+          <property name="sizeAdjustPolicy">
+           <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+          </property>
+          <property name="frame">
+           <bool>true</bool>
+          </property>
+          <item>
+           <property name="text">
+            <string>Шереметьево (SVO/UUEE)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Домодедово (DME/UUDD)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Внуково (VKO/UUWW)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Жуковский (ZIA/UUBW)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Остафьево (OSF/UUMO)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Пулково (LED/ULLI)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Сочи (AER/URSS)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Комсомольск (KXK/UHKK)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Лондон (LCY/EGLC)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Карловы Вары (KLV/LKKV)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Тиват (TIV/LYTV)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Брюссель (BRU/EBBR)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Венеция (VCE/LIPZ)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Дублин (DUB/EIBW)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Инсбрук (INN/LOWI)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Кеблавик (KEF/BIKF)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Толука (TLC/MMTO)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Хельсинки (HEL/EFHK)</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="arrival_airport_code">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>UHKK</string>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_9">
+        <item>
          <widget class="QLabel" name="label_12">
+          <property name="minimumSize">
+           <size>
+            <width>324</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>324</width>
+            <height>25</height>
+           </size>
+          </property>
           <property name="text">
            <string>Полоса посадки</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="label_13">
-          <property name="text">
-           <string>Боковые огни полосы</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_8">
-          <property name="text">
-           <string>Рулежные огни аэродрома</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_10">
-          <property name="text">
-           <string>Огни подсвета стоянок аэродрома</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_11">
-          <property name="text">
-           <string>Яркость остальных огней</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="verticalLayout_4">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <item>
-           <widget class="QComboBox" name="arrivalCity">
-            <item>
-             <property name="text">
-              <string>Moscow DME</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>London</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>KarlovyVary</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Tivat</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Bruxelles</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Venice</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Dublin</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Innsbruck</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Keflavic</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Komsomolsk</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Pulkovo</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Sochi</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Toluca</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Moscow SVO</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Moscow VKO</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Moscow ZIA</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Helsinki</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="arrivalCode">
-            <property name="currentText">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="arrival_airport_code"/>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="landing_runway_code"/>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="landing_runway_border_lights"/>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="arrival_airport_lights_taxiing"/>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="arrival_airport_lights_illumination"/>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="arrival_airport_other_lights"/>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="groupBox_3">
-     <property name="title">
-      <string>Время</string>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_7">
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
-        <item>
-         <widget class="QLabel" name="label_7">
-          <property name="text">
-           <string>Текущее время в модели</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_2">
+         <spacer name="horizontalSpacer_3">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>78</width>
-            <height>20</height>
+            <width>250</width>
+            <height>25</height>
            </size>
           </property>
          </spacer>
         </item>
         <item>
-         <widget class="QLineEdit" name="model_simulation_time"/>
+         <widget class="QComboBox" name="arrPolosa">
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="currentText">
+           <string>36</string>
+          </property>
+          <item>
+           <property name="text">
+            <string>36</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>18</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_10">
+        <item>
+         <widget class="QLabel" name="label_13">
+          <property name="minimumSize">
+           <size>
+            <width>324</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>324</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Яркость боковых огней полосы</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QScrollBar" name="arrYarkBok">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>250</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>UpArrowCursor</cursorShape>
+          </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="maximum">
+           <number>99</number>
+          </property>
+          <property name="value">
+           <number>99</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="landing_runway_border_lights">
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>100</string>
+          </property>
+          <property name="cursorPosition">
+           <number>0</number>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+          </property>
+          <property name="cursorMoveStyle">
+           <enum>Qt::LogicalMoveStyle</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_11">
+        <item>
+         <widget class="QLabel" name="label_8">
+          <property name="minimumSize">
+           <size>
+            <width>324</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>324</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Яркость рулежных огней аэродрома</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QScrollBar" name="arrRulez">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>250</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>UpArrowCursor</cursorShape>
+          </property>
+          <property name="maximum">
+           <number>100</number>
+          </property>
+          <property name="value">
+           <number>99</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="arrival_airport_lights_taxiing">
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>100</string>
+          </property>
+          <property name="cursorPosition">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_12">
+        <item>
+         <widget class="QLabel" name="label_10">
+          <property name="minimumSize">
+           <size>
+            <width>324</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>324</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Яркость огней подсвета стоянок аэродрома</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QScrollBar" name="arrPodsvet">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>250</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>UpArrowCursor</cursorShape>
+          </property>
+          <property name="maximum">
+           <number>100</number>
+          </property>
+          <property name="value">
+           <number>99</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="arrival_airport_lights_illumination">
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>100</string>
+          </property>
+          <property name="cursorPosition">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_13">
+        <item>
+         <widget class="QLabel" name="label_11">
+          <property name="minimumSize">
+           <size>
+            <width>324</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>324</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Яркость остальных огней</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QScrollBar" name="arrOther">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>250</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>UpArrowCursor</cursorShape>
+          </property>
+          <property name="maximum">
+           <number>100</number>
+          </property>
+          <property name="pageStep">
+           <number>1</number>
+          </property>
+          <property name="value">
+           <number>100</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="arrival_airport_other_lights">
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>100</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>

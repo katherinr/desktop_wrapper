@@ -1,6 +1,6 @@
 ﻿#include "meteo_struct.h"
 
-void deep_meteo_copy(_MeteoData *_data,_MeteoData *data )
+/*void deep_meteo_copy(_MeteoData *_data,_MeteoData *data )
 {
     data->packet_id = _data->packet_id;
     data->visibility = _data->visibility;
@@ -22,3 +22,4 @@ void deep_meteo_copy(_MeteoData *_data,_MeteoData *data )
     data->wind_psi = _data->wind_psi;
     data->starBright = _data->starBright;
 }
+*/

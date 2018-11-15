@@ -4,70 +4,75 @@
 #include <QTime>
 #include <QDataStream>
 #include <QString>
-#include <meteo_struct.h>
-void printMeteo(const _MeteoData *meteo_data)
-{
-    qDebug() << "PRINT METEO";
-    qDebug() << meteo_data->packet_id;
-    qDebug() << meteo_data->visibility;
-    qDebug() << meteo_data->cloudBase;
-    qDebug() << meteo_data->cloudUpper;
-    qDebug() << meteo_data->cloudSize;
-    qDebug() << meteo_data->cloudsType;
-    qDebug() << meteo_data->cloudsSecondLay;
-    qDebug() << meteo_data->SecLayHeight;
-    qDebug() << meteo_data->Day;
-    qDebug() << meteo_data->Month;
-    qDebug() << meteo_data->Hours;
-    qDebug() << meteo_data->Minutes;
-    qDebug() << meteo_data->local_visibility;
-    qDebug() << meteo_data->rain;
-    qDebug() << meteo_data->snow;
-    qDebug() << meteo_data->hmist;
-    qDebug() << meteo_data->wind_speed;
-    qDebug() << meteo_data->wind_psi;
-    qDebug() << meteo_data->starBright;
-}
-
-void printAeroData(const _AirportData *_data)
-{
-    qDebug() <<"airoports_lights_data->packet_id"<< _data->packet_id;
-    qDebug() <<"ARRIVAL_AIRPORT_LIGHTS_ILLUMINATION" <<  _data->ARRIVAL_AIRPORT_LIGHTS_ILLUMINATION;
-    qDebug() <<"ARRIVAL_AIRPORT_LIGHTS_TAXIING"<<  _data->ARRIVAL_AIRPORT_LIGHTS_TAXIING;
-    qDebug() <<"ARRIVAL_AIRPORT_OTHER_LIGHTS" << _data->ARRIVAL_AIRPORT_OTHER_LIGHTS;
-    qDebug() <<"DEPARTURE_AIRPORT_LIGHTS_ILLUMINATION" <<  _data->DEPARTURE_AIRPORT_LIGHTS_ILLUMINATION;
-    qDebug() <<"DEPARTURE_AIRPORT_LIGHTS_TAXIING"<< _data->DEPARTURE_AIRPORT_LIGHTS_TAXIING;
-    qDebug() <<"DEPARTURE_AIRPORT_OTHER_LIGHTS"<<  _data->DEPARTURE_AIRPORT_OTHER_LIGHTS;
-    qDebug() <<"TAKEOFF_RUNWAY_BORDER_LIGHTS" <<  _data->TAKEOFF_RUNWAY_BORDER_LIGHTS;
-    qDebug() <<"LANDING_RUNWAY_BORDER_LIGHTS" <<  _data->LANDING_RUNWAY_BORDER_LIGHTS;
-    qDebug() << "LANDING_RUNWAY_CODE"<<  _data->LANDING_RUNWAY_BORDER_LIGHTS;
-    qDebug() << "TAKEOFF_RUNWAY_CODE"<<_data->TAKEOFF_RUNWAY_CODE;
-    qDebug() << "DEPARTURE_AIRPORT_CODE"<<  _data->DEPARTURE_AIRPORT_CODE;;
-    qDebug() << "ARRIVAL_AIRPORT_CODE"<<_data->TAKEOFF_RUNWAY_CODE;
-    qDebug() <<"pid"<< _data->packet_id;
-}
+#include "meteo_struct.h"
+#include "utilities.h"
 
 UdpServer::UdpServer(QObject *parent):
     QObject (parent)
 {
-   // m_udp = new QUdpSocket(this);
     m_receiver_socket = new QUdpSocket(this);
-
     connect(m_receiver_socket, SIGNAL(readyRead()),this, SLOT(readDatagram()));
+
     m_sender_socket =  new QUdpSocket(this);
     connect(m_sender_socket, SIGNAL(readyRead()),this, SLOT(readDatagram()));
+
     // enabled/disable sending for each udp packet
     m_enabledPackets["VISUAL_DATA"] = false;
     m_enabledPackets["AERODROMS_DATA"] = false;
     m_enabledPackets["BACKWARD_DATA"] = false;
-    m_enabledPackets["_MeteoData"] = false;
+    m_enabledPackets["METEO_DATA"] = false;
+
+    /*/////////////////timers////////////////*/
+
+    QTimer* visTimer = new QTimer(this);
+    visTimer->setObjectName("visTimer");
+    visTimer->setInterval(10);
+    connect(visTimer, &QTimer::timeout, this, &UdpServer::visTimerTimeout);
+
+    QTimer* aerodromsTimer = new QTimer(this);
+    aerodromsTimer->setObjectName("aerodromsTimer");
+    aerodromsTimer->setInterval(1000);
+    connect(aerodromsTimer, &QTimer::timeout, this, &UdpServer::aerodromsTimerTimeout);
 
     QTimer* meteoTimer = new QTimer(this);
     meteoTimer->setObjectName("meteoTimer");
     meteoTimer->setInterval(1000);
     connect(meteoTimer, &QTimer::timeout, this, &UdpServer::meteoTimerTimeout);
 
-    m_time.start(); // O. asked to send current time in VISUAL_DATA.Other[0];
+    QTimer* backwardTimer = new QTimer(this);
+    visTimer->setObjectName("backwTimer");
+    visTimer->setInterval(10);
+    connect(visTimer, &QTimer::timeout, this, &UdpServer::backwTimerTimeout);
+
+    m_timerList << visTimer << aerodromsTimer << meteoTimer << backwardTimer;
+
+ //   m_time.start(); //current time in VISUAL_DATA;
+}
+
+void UdpServer::changeTimerInterval(const QString& timerObjName, int interval)
+{
+    QTimer* timer = this->findChild<QTimer*>(timerObjName);
+
+    if (timer)
+    {
+        timer->setInterval(interval);
+    }
+    else{
+        qDebug() << "Timer not found: " << timerObjName << "\n";
+    }
+}
+
+void UdpServer::setPacketSendEnabled(const QString& paketName, bool enabled)
+{
+    auto it = m_enabledPackets.find(paketName);
+    if (it != m_enabledPackets.end())
+    {
+        it.value() = enabled;
+    }
+    else
+    {
+        qDebug() << paketName + " packet not found! setPacketSendEnabled() failed. \n";
+    }
 }
 
 void UdpServer::meteoTimerTimeout()
@@ -76,6 +81,39 @@ void UdpServer::meteoTimerTimeout()
     {
         sendUDPOnce(m_meteoPacket);
     }
+}
+void UdpServer::visTimerTimeout()
+{
+
+    if (m_enabledPackets["VISUAL_DATA"] == true)
+    {
+        sendUDPOnce(m_visualPacket);
+    }
+}
+
+void UdpServer::aerodromsTimerTimeout()
+{
+    if (m_enabledPackets["AERODROMS_DATA"] == true)
+    {
+        sendUDPOnce(m_aerodromePacket);
+    }
+}
+
+void UdpServer::backwTimerTimeout()
+{
+    if (m_enabledPackets["BACKWARD_DATA"] == true)
+    {
+        sendUDPOnce(m_backwardPacket);
+    }
+}
+
+void UdpServer::stopSending()
+{
+    foreach(QTimer* timer, m_timerList)
+    {
+        timer->stop();
+    }
+    qInfo() << "UDP sending stopped.\n";
 }
 
 UdpServer::~UdpServer()
@@ -94,15 +132,10 @@ void UdpServer::sendOnce()
         sendUDPOnce(m_backwardPacket);
     }
 
-    if (m_enabledPackets["VISUAL_DATA"] == true)
-    {
-        qDebug()<<"m_visualPacket staff";
-        sendUDPOnce(m_visualPacket);
-    }
-
     if (m_enabledPackets["METEO_DATA"] == true)
     {
-        qDebug()<<"m_meteoPacket staff";
+        qDebug()<<"m_meteoPacket staff"<<*m_meteoPacket.begin();
+        printMeteo(&m_meteo_data);
         sendUDPOnce(m_meteoPacket);
     }
 
@@ -111,16 +144,27 @@ void UdpServer::sendOnce()
          qDebug()<<"m_aerodromePacket staff";
         sendUDPOnce(m_aerodromePacket);
     }
+
+    if (m_enabledPackets["VISUAL_DATA"] == true)
+    {
+        qDebug()<<"m_visualPacket staff";
+        printVisualData(&m_vis_data);
+        sendUDPOnce(m_visualPacket);
+    }
 }
 
 void UdpServer::setSendData_METEO(const _MeteoData* data)
 {
     //print meteo
+    deep_meteo_copy( data,&m_meteo_data);
     qDebug()<<"meteo set send";
     qDebug() << "_MeteoData size: " << sizeof(_MeteoData) << " and data: " << sizeof(*data);
     printMeteo(data);
     m_meteoPacket = QByteArray::fromRawData(reinterpret_cast<const char*>(data), sizeof(_MeteoData));
-    m_enabledPackets["METEO_DATA"] = true;
+	_MeteoData* meteo_ptr = reinterpret_cast<_MeteoData*>(m_meteoPacket.data());
+	meteo_ptr->model_simulation_time = m_time.elapsed()/1000.0;
+    
+	m_enabledPackets["METEO_DATA"] = true;
 }
 
 void UdpServer::setSendData_VISUAL(const _MainVisualData *data)
@@ -129,7 +173,12 @@ void UdpServer::setSendData_VISUAL(const _MainVisualData *data)
     qDebug()<<"visual set send";
     qDebug() << "_Mainvis size: " << sizeof(_MainVisualData) << " and data: " << sizeof(*data);
     //printMeteo(data);
+
     m_visualPacket = QByteArray::fromRawData(reinterpret_cast<const char*>(data), sizeof(_MainVisualData));
+
+    _MainVisualData* visual_ptr = reinterpret_cast<_MainVisualData*>(m_visualPacket.data());
+	visual_ptr->model_simulation_time = m_time.elapsed()/1000.0;
+
     m_enabledPackets["VISUAL_DATA"] = true;
 }
 
@@ -223,6 +272,8 @@ void UdpServer::setSendData_BACKWARD(const _DataToModel* data)
     //print meteo
     m_enabledPackets["BACKWARD_DATA"] = true;
     m_backwardPacket = QByteArray::fromRawData(reinterpret_cast<const char*>(data), sizeof(_DataToModel));
+	_AirportData* backw_ptr = reinterpret_cast<_AirportData*>(m_backwardPacket.data());
+	backw_ptr->model_simulation_time = m_time.elapsed() / 1000.0;
 }
 
 void UdpServer::setSendData_AERODROMS(const _AirportData* data)
@@ -232,6 +283,8 @@ void UdpServer::setSendData_AERODROMS(const _AirportData* data)
     m_enabledPackets["AERODROMS_DATA"] = true;
     m_aerodromePacket = QByteArray::fromRawData(reinterpret_cast<const char*>(data), sizeof(_AirportData));
 
+	_AirportData* aerodrome_ptr = reinterpret_cast<_AirportData*>(m_aerodromePacket.data());
+	aerodrome_ptr->model_simulation_time = m_time.elapsed()/1000.0;
 }
 
 void UdpServer::startSending()
@@ -240,17 +293,9 @@ void UdpServer::startSending()
     {
         timer->start();
     }
+
     qInfo() << "UDP sending to " << address2send.toString() << " : "
             << QString::number(sender_port) << " started.";
-}
-
-void UdpServer::stopSending()
-{
-    foreach(QTimer* timer, m_timerList)
-    {
-        timer->stop();
-    }
-    qInfo() << "UDP sending stopped.\n";
 }
 
 void UdpServer::sendUDPOnce(const QByteArray& packet)

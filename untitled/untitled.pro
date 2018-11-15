@@ -44,7 +44,8 @@ HEADERS += \
     udpserver.h \
     ../build-untitled-Desktop_Qt_5_11_1_MSVC2017_64bit-Debug/ui_airportsdialog.h \
     backward.h \
-    mainvisual.h
+    mainvisual.h \
+    utilities.h
 
 FORMS += \
     meteoform.ui \

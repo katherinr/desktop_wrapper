@@ -1,5 +1,5 @@
 ﻿#include "file_meteo_io.h"
-#include <meteo_struct.h>
+#include "meteo_struct.h"
 #include <QFileDialog>
 #include <qdebug.h>
 
@@ -11,18 +11,18 @@ std::shared_ptr<_MeteoData> FileMeteoIO::readFile(QFile& file_)
      QTextStream in(&file_);
      QStringList line;
      QString str_val;
-     if(!in.atEnd())
+    /* if(!in.atEnd())
      {
         line = in.readLine().split(' ');
         str_val = line.first();
-        if(str_val != "_MeteoData.message")
+       if(str_val != "_MeteoData.message")
         {
             return nullptr;
         }
         str_val = line.last();
         auto delim_pos =  str_val.indexOf(';');
         p_meteo_data->packet_id = str_val.left(delim_pos).toInt();
-     }
+     }*/
 
      if(!in.atEnd())
      {
@@ -95,6 +95,8 @@ std::shared_ptr<_MeteoData> FileMeteoIO::readFile(QFile& file_)
         str_val = line.last();
         auto delim_pos =  str_val.indexOf(';');
         p_meteo_data->Day = str_val.left(delim_pos).toShort();
+        qDebug()<<"Day file "<< p_meteo_data->Day;
+        qDebug()<<"Day str val "<< str_val;
      }
 
      if(!in.atEnd())
@@ -103,6 +105,8 @@ std::shared_ptr<_MeteoData> FileMeteoIO::readFile(QFile& file_)
         str_val = line.last();
         auto delim_pos =  str_val.indexOf(';');
         p_meteo_data->Month = str_val.left(delim_pos).toShort();
+        qDebug()<<"Month file "<< p_meteo_data->Month;
+        qDebug()<<"Month str val "<< str_val;
      }
 
      if(!in.atEnd())
@@ -111,6 +115,9 @@ std::shared_ptr<_MeteoData> FileMeteoIO::readFile(QFile& file_)
         str_val = line.last();
         auto delim_pos =  str_val.indexOf(';');
         p_meteo_data->Hours = str_val.left(delim_pos).toShort();
+        qDebug()<<"Hours file "<< p_meteo_data->Hours;
+        qDebug()<<"Hours str val "<< str_val;
+
      }
 
      if(!in.atEnd())
@@ -119,6 +126,8 @@ std::shared_ptr<_MeteoData> FileMeteoIO::readFile(QFile& file_)
         str_val = line.last();
         auto delim_pos =  str_val.indexOf(';');
         p_meteo_data->Minutes = str_val.left(delim_pos).toShort();
+        qDebug()<<"Minutes file "<< p_meteo_data->Minutes;
+        qDebug()<<"Minutes str val "<< str_val;
      }
 
      if(!in.atEnd())
@@ -127,6 +136,8 @@ std::shared_ptr<_MeteoData> FileMeteoIO::readFile(QFile& file_)
         str_val = line.last();
         auto delim_pos =  str_val.indexOf(';');
         p_meteo_data->local_visibility = str_val.left(delim_pos).toFloat();
+        qDebug()<<"local_visibility file "<< p_meteo_data->local_visibility;
+        qDebug()<<"local_visibility str val "<< str_val;
      }
 
      if(!in.atEnd())
@@ -135,6 +146,8 @@ std::shared_ptr<_MeteoData> FileMeteoIO::readFile(QFile& file_)
         str_val = line.last();
         auto delim_pos =  str_val.indexOf(';');
         p_meteo_data->rain = str_val.left(delim_pos).toFloat();
+        qDebug()<<"rain file "<< p_meteo_data->rain;
+        qDebug()<<"rain str val "<< str_val;
      }
 
      if(!in.atEnd())
@@ -143,6 +156,8 @@ std::shared_ptr<_MeteoData> FileMeteoIO::readFile(QFile& file_)
         str_val = line.last();
         auto delim_pos =  str_val.indexOf(';');
         p_meteo_data->snow = str_val.left(delim_pos).toFloat();
+        qDebug()<<"snow file "<< p_meteo_data->snow;
+        qDebug()<<"snow str val "<< str_val;
      }
 
      if(!in.atEnd())
@@ -151,6 +166,8 @@ std::shared_ptr<_MeteoData> FileMeteoIO::readFile(QFile& file_)
         str_val = line.last();
         auto delim_pos =  str_val.indexOf(';');
         p_meteo_data->hmist = str_val.left(delim_pos).toFloat();
+        qDebug()<<"hmist file "<< p_meteo_data->hmist;
+        qDebug()<<"hmist str val "<< str_val;
      }
 
      if(!in.atEnd())
@@ -159,6 +176,8 @@ std::shared_ptr<_MeteoData> FileMeteoIO::readFile(QFile& file_)
         str_val = line.last();
         auto delim_pos =  str_val.indexOf(';');
         p_meteo_data->wind_speed = str_val.left(delim_pos).toFloat();
+        qDebug()<<"wind_speed file "<< p_meteo_data->wind_speed;
+        qDebug()<<"wind_speed str val "<< str_val;
      }
 
      if(!in.atEnd())
@@ -167,6 +186,8 @@ std::shared_ptr<_MeteoData> FileMeteoIO::readFile(QFile& file_)
         str_val = line.last();
         auto delim_pos =  str_val.indexOf(';');
         p_meteo_data->wind_psi = str_val.left(delim_pos).toFloat();
+        qDebug()<<"wind_psi file "<< p_meteo_data->wind_psi;
+        qDebug()<<"wind_psi str val "<< str_val;
      }
 
      if(!in.atEnd())
@@ -175,6 +196,8 @@ std::shared_ptr<_MeteoData> FileMeteoIO::readFile(QFile& file_)
         str_val = line.last();
         auto delim_pos =  str_val.indexOf(';');
         p_meteo_data->starBright = str_val.left(delim_pos).toFloat();
+        qDebug()<<"starBright file "<< p_meteo_data->starBright;
+        qDebug()<<"starBright str val "<< str_val;
      }
 
      return p_meteo_data;
@@ -206,25 +229,25 @@ void FileMeteoIO::saveFile(_MeteoData* meteo_data_)
         if(file_for_writing.open(QIODevice::WriteOnly))
         {
             QTextStream stream(&file_for_writing);
-            stream << "_MeteoData.message = " << (int)meteo_data_->packet_id << ";\n";
-            stream << "METEO_DATA.Visibility = " << meteo_data_->visibility << ";\n";
-            stream << "METEO_DATA.CloudBase = " << meteo_data_->cloudBase << ";\n";
-            stream << "METEO_DATA.CloudUpper = " << meteo_data_->cloudUpper << ";\n";
-            stream << "METEO_DATA.CloudSize = " << meteo_data_->cloudSize << ";\n";
-            stream << "METEO_DATA.cloudsType = " << (int)meteo_data_->cloudsType << ";\n";
-            stream << "METEO_DATA.cloudsSecondLay = " <<(int) meteo_data_->cloudsSecondLay << ";\n";
-            stream << "METEO_DATA.SecLayHeight = " << meteo_data_->SecLayHeight << ";\n";
-            stream << "METEO_DATA.Day = " << meteo_data_->Day << ";\n";
-            stream << "METEO_DATA.Month = " << meteo_data_->Month << ";\n";
-            stream << "METEO_DATA.Hours = " << meteo_data_->Hours << ";\n";
-            stream << "METEO_DATA.Minutes = " << meteo_data_->Minutes << ";\n";
-            stream << "METEO_DATA.local_visibility = " << meteo_data_->local_visibility << ";\n";
-            stream << "METEO_DATA.rain = " << meteo_data_->rain << ";\n";
-            stream << "METEO_DATA.snow = " << meteo_data_->snow << ";\n";
-            stream << "METEO_DATA.hmist = " << meteo_data_->hmist << ";\n";
-            stream << "METEO_DATA.wind_speed = " << meteo_data_->wind_speed << ";\n";
-            stream << "METEO_DATA.wind_psi  = " << meteo_data_->wind_psi  << ";\n";
-            stream << "METEO_DATA.StarBright = " << meteo_data_->starBright << ";\n";
+            //stream << "_MeteoData.message = " << (int)meteo_data_->packet_id << ";\n";
+            stream << "Visibility = " << meteo_data_->visibility << ";\n";
+            stream << "CloudBase = " << meteo_data_->cloudBase << ";\n";
+            stream << "CloudUpper = " << meteo_data_->cloudUpper << ";\n";
+            stream << "CloudSize = " << meteo_data_->cloudSize << ";\n";
+            stream << "cloudsType = " << (int)meteo_data_->cloudsType << ";\n";
+            stream << "cloudsSecondLay = " <<(int) meteo_data_->cloudsSecondLay << ";\n";
+            stream << "SecLayHeight = " << meteo_data_->SecLayHeight << ";\n";
+            stream << "Day = " << meteo_data_->Day << ";\n";
+            stream << "Month = " << meteo_data_->Month << ";\n";
+            stream << "Hours = " << meteo_data_->Hours << ";\n";
+            stream << "Minutes = " << meteo_data_->Minutes << ";\n";
+            stream << "local_visibility = " << meteo_data_->local_visibility << ";\n";
+            stream << "rain = " << meteo_data_->rain << ";\n";
+            stream << "snow = " << meteo_data_->snow << ";\n";
+            stream << "hmist = " << meteo_data_->hmist << ";\n";
+            stream << "wind_speed = " << meteo_data_->wind_speed << ";\n";
+            stream << "wind_psi  = " << meteo_data_->wind_psi  << ";\n";
+            stream << "StarBright = " << meteo_data_->starBright << ";\n";
             file_for_writing.close();
         }
     }

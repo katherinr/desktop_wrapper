@@ -5,6 +5,7 @@
 #define NPR_PACKET_TYPE_AIRPORT_DATA        203
 #define NPR_PACKET_TYPE_CORRECT_DATA        204
 #define NPR_PACKET_TYPE_BACK_DATA           205
+#include <QtGlobal>
 
 #pragma pack ( push, 1 )
 
@@ -13,6 +14,10 @@ struct D3_POINT
     double X;
     double Z;
     float  H;
+    D3_POINT()
+        {
+            memset(this, 0, sizeof(*this));
+        }
 };
 
 struct D3_ANGLE
@@ -20,18 +25,27 @@ struct D3_ANGLE
     float  C;
     float  P;
     float  R;
+    D3_ANGLE()
+        {
+            memset(this, 0, sizeof(*this));
+        }
 };
 
 // ПРИМЕР ПАКЕТА ОСНОВНЫХ ДАННЫХ:
 
 struct _MainVisualData
 {
+    _MainVisualData()
+    {
+            memset(this, 0, sizeof(*this));
+    }
+
     unsigned char    packet_id;                              // Отличительный признак пакета (постоянное число = 201)
 
     double  model_simulation_time;                  // Текущее время в модели,                  [мс]
 
     // Коррекция изображения в кабине пилота: 0 - центр, 1 - для левого кресла, 2 - для правого кресла
-    int     num_correct;
+    char     num_correct;
 
     // Основное
     D3_POINT p_coord;								// Координаты:  Широта [град], Долгота [град], Высота над уровнем моря  [м]
@@ -83,6 +97,7 @@ struct _MainVisualData
     char    AntiCollisionBeaconWhite;               // Белые проблесковые маяки (крылья, хвост),[0...100%]
     char    InternalLights;			                // Освещение кабины и салона самолёта,		[0...100%]
 
+
     // Резерв:
     float   Reserved[8];
 
@@ -95,7 +110,10 @@ struct _MainVisualData
 
 struct _MeteoData
 {
-
+    _MeteoData()
+    {
+            memset(this, 0, sizeof(*this));
+    }
     unsigned char    packet_id;                              // Отличительный признак пакета (постоянное число = 202)
 
     double  model_simulation_time;                  // Текущее время в модели,                  [мс]
@@ -130,13 +148,17 @@ struct _MeteoData
 };
 
 
-void deep_meteo_copy(_MeteoData *_data,_MeteoData *data );
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ПРИМЕР ПАКЕТА ДАННЫХ ОБ АЭРОДРОМЕ И ПОЛОСЕ:
 
 
 struct _AirportData
 {
+    _AirportData()
+        {
+            memset(this, 0, sizeof(*this));
+        }
     unsigned char 	packet_id;                              // Отличительный признак пакета (постоянное число = 203)
 
     double  model_simulation_time;                  // Текущее время в модели,                  [мс]
@@ -169,6 +191,10 @@ struct _AirportData
 
 struct _DataToModel
 {
+    _DataToModel()
+    {
+        memset(this, 0, sizeof(*this));
+    }
     unsigned char   	packet_id;                              // Признак пакета (постоянное число = 205)
 
     // Для контроля обмена (запаздывания и т.д.):
@@ -185,10 +211,60 @@ struct _DataToModel
 // ПАКЕТ КОРРЕКЦИИ:
 struct _CorrectData
 {
+    _CorrectData()
+    {
+        memset(this, 0, sizeof(*this));
+    }
+
     unsigned char   message;                                                         // Признак пакета Correct = 204
 
-    int num_correct;                                                        // коррекция: 0 - центр, 1 - левая, 2 - правая
+    char num_correct;                                                        // коррекция: 0 - центр, 1 - левая, 2 - правая
+};
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ДЛЯ КАРТЫ:
+struct UDP_data_t
+{
+    UDP_data_t()
+    {
+        memset(this, 0, sizeof(*this));
+    }
+
+  bool isShowingWindow;
+  bool showCurTraj;
+  bool showRoute;
+  bool followMainPlane;
+  bool isOrientingCamera;
+  double centerLat;
+  double centerLon;
+  float centerH;
+  double seconds;
+
+  double curLat;
+  double curLon;
+  float curH;
+  float curPsi;
+  float curTheta;
+  float curGamma;
+
+  struct botAcData
+  {
+    bool visibility;
+    double lat;
+    double lon;
+    float H;
+    float psi;
+  };
+
+  botAcData bots[10];
+
+  quint8 currWPT;
+  int updateRoute;
+
+  double routeLat[54];
+  double routeLon[54];
+  float routeAlt[54];
 };
 
 #pragma pack ( pop )
+
 #endif

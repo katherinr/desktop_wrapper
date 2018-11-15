@@ -5,8 +5,8 @@ backwardW::backwardW(QWidget *parent) :
     ui(new Ui::backwardW),
     backw_data(new _DataToModel)
 {
-    backw_data->packet_id = 205;
-    setWindowFlags(Qt::WindowStaysOnTopHint);
+    backw_data->packet_id = NPR_PACKET_TYPE_CORRECT_DATA;
+    setWindowModality(Qt::ApplicationModal);
     ui->setupUi(this);
 }
 
@@ -18,7 +18,7 @@ backwardW::~backwardW()
 
 void backwardW::on_simulation_timeLE_editingFinished()
 {
-    backw_data->simulation_time = ui->simulation_timeLE->text().toDouble();
+    //backw_data->simulation_time = ui->simulation_timeLE->text().toDouble();
 }
 
 void backwardW::on_lat_le_editingFinished()
@@ -50,3 +50,13 @@ void backwardW::writeDataToFields(_DataToModel *_data)
     backw_data->p_coord.Z  = _data->p_coord.Z;
     backw_data->simulation_time = _data->simulation_time;
 }
+
+void backwardW::readDefault(_DataToModel *_data)
+{
+	_data->packet_id = NPR_PACKET_TYPE_CORRECT_DATA;
+	_data->p_coord.H = ui->h_le->text().toFloat();
+	_data->p_coord.X = ui->lat_le->text().toDouble();
+	_data->p_coord.Z = ui->lon_le->text().toDouble();
+	_data->simulation_time = 0;// _data->simulation_time;
+}
+
