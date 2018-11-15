@@ -84,12 +84,15 @@ private:
     QByteArray m_backwardPacket;
     QMap<QString, bool> m_enabledPackets;
 
-    
-
     _MeteoData m_meteo_data;
     _AirportData m_airoports_lights_data;
     _DataToModel m_backward_data;
     _MainVisualData m_vis_data;
+	
+	//backward
+	QUdpSocket *m_backward_sender_socket;
+	//map
+	QUdpSocket *m_map_sender_socket;
 };
 
 #endif // UDPSERVER_H

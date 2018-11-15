@@ -18,10 +18,10 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -31,11 +31,12 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
-    QVBoxLayout *verticalLayout_20;
+    QWidget *widget;
     QHBoxLayout *horizontalLayout_12;
     QPushButton *startPB;
     QPushButton *stopPB;
     QSpacerItem *horizontalSpacer_4;
+    QWidget *widget1;
     QHBoxLayout *horizontalLayout_20;
     QGroupBox *groupBox_3;
     QVBoxLayout *verticalLayout_9;
@@ -145,8 +146,8 @@ public:
     QLabel *label_15;
     QLineEdit *centerH;
     QSpacerItem *verticalSpacer_5;
-    QMenuBar *menubar;
     QStatusBar *statusbar;
+    QToolBar *toolBar;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -157,11 +158,12 @@ public:
         MainWindow->setContextMenuPolicy(Qt::PreventContextMenu);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
-        verticalLayout_20 = new QVBoxLayout(centralwidget);
-        verticalLayout_20->setObjectName(QStringLiteral("verticalLayout_20"));
-        horizontalLayout_12 = new QHBoxLayout();
+        widget = new QWidget(centralwidget);
+        widget->setObjectName(QStringLiteral("widget"));
+        horizontalLayout_12 = new QHBoxLayout(widget);
         horizontalLayout_12->setObjectName(QStringLiteral("horizontalLayout_12"));
-        startPB = new QPushButton(centralwidget);
+        horizontalLayout_12->setContentsMargins(0, 0, 0, 0);
+        startPB = new QPushButton(widget);
         startPB->setObjectName(QStringLiteral("startPB"));
         startPB->setEnabled(true);
         startPB->setMinimumSize(QSize(170, 0));
@@ -172,7 +174,7 @@ public:
 
         horizontalLayout_12->addWidget(startPB);
 
-        stopPB = new QPushButton(centralwidget);
+        stopPB = new QPushButton(widget);
         stopPB->setObjectName(QStringLiteral("stopPB"));
         stopPB->setCheckable(false);
 
@@ -182,12 +184,12 @@ public:
 
         horizontalLayout_12->addItem(horizontalSpacer_4);
 
-
-        verticalLayout_20->addLayout(horizontalLayout_12);
-
-        horizontalLayout_20 = new QHBoxLayout();
+        widget1 = new QWidget(centralwidget);
+        widget1->setObjectName(QStringLiteral("widget1"));
+        horizontalLayout_20 = new QHBoxLayout(widget1);
         horizontalLayout_20->setObjectName(QStringLiteral("horizontalLayout_20"));
-        groupBox_3 = new QGroupBox(centralwidget);
+        horizontalLayout_20->setContentsMargins(0, 0, 0, 0);
+        groupBox_3 = new QGroupBox(widget1);
         groupBox_3->setObjectName(QStringLiteral("groupBox_3"));
         verticalLayout_9 = new QVBoxLayout(groupBox_3);
         verticalLayout_9->setObjectName(QStringLiteral("verticalLayout_9"));
@@ -355,7 +357,7 @@ public:
 
         horizontalLayout_20->addWidget(groupBox_3);
 
-        CHANgeVisgroupBox = new QGroupBox(centralwidget);
+        CHANgeVisgroupBox = new QGroupBox(widget1);
         CHANgeVisgroupBox->setObjectName(QStringLiteral("CHANgeVisgroupBox"));
         verticalLayout_13 = new QVBoxLayout(CHANgeVisgroupBox);
         verticalLayout_13->setObjectName(QStringLiteral("verticalLayout_13"));
@@ -529,7 +531,7 @@ public:
 
         horizontalLayout_20->addWidget(CHANgeVisgroupBox);
 
-        MapGroupBox = new QGroupBox(centralwidget);
+        MapGroupBox = new QGroupBox(widget1);
         MapGroupBox->setObjectName(QStringLiteral("MapGroupBox"));
         verticalLayout_19 = new QVBoxLayout(MapGroupBox);
         verticalLayout_19->setObjectName(QStringLiteral("verticalLayout_19"));
@@ -760,17 +762,13 @@ public:
 
         horizontalLayout_20->addWidget(MapGroupBox);
 
-
-        verticalLayout_20->addLayout(horizontalLayout_20);
-
         MainWindow->setCentralWidget(centralwidget);
-        menubar = new QMenuBar(MainWindow);
-        menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 1403, 31));
-        MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QStringLiteral("statusbar"));
         MainWindow->setStatusBar(statusbar);
+        toolBar = new QToolBar(MainWindow);
+        toolBar->setObjectName(QStringLiteral("toolBar"));
+        MainWindow->addToolBar(Qt::TopToolBarArea, toolBar);
 
         retranslateUi(MainWindow);
 
@@ -852,6 +850,7 @@ public:
         centerLon->setText(QApplication::translate("MainWindow", "38.137015", nullptr));
         label_15->setText(QApplication::translate("MainWindow", "\320\222\321\213\321\201\320\276\321\202\320\260, \320\274", nullptr));
         centerH->setText(QApplication::translate("MainWindow", "115", nullptr));
+        toolBar->setWindowTitle(QApplication::translate("MainWindow", "toolBar", nullptr));
     } // retranslateUi
 
 };

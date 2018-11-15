@@ -17,27 +17,7 @@ meteoWindow::meteoWindow(QWidget *parent) :
     //qDebug() << data;
 
 
-    //flush data
-    /*data->visibility=0;
-    data->cloudBase=0;
-    data->cloudUpper=0;
-    data->cloudSize=0;
-    data->cloudsType=0;
-    data->cloudsSecondLay=0;
-    data->SecLayHeight=0;
-
-    data->Month=0;
-    data->Day=0;
-    data->Hours=0;
-    data->Minutes=0;
-
-    data->local_visibility=0;
-    data->rain=0;
-    data->snow=0;
-    data->hmist=0;
-    data->wind_speed=0;
-    data->wind_psi=0;
-    data->starBright=0;*/
+   
     ui->setupUi(this);
     data->packet_id = NPR_PACKET_TYPE_METEO_DATA;
     //setDataFromDefaultMeteo();
@@ -144,6 +124,9 @@ void meteoWindow::setDataFromDefaultMeteo()
     data->SecLayHeight=ui->cloudSecLayer_inp_->text().toFloat();
 
    // data->Month=ui->month_cmbB_->currentIndex();
+	if (ui->day_spnB_->value() == 0)
+		ui->day_spnB_->setValue(1);
+
     data->Day=ui->day_spnB_->value();
 
     if (ui->month_cmbB_->currentIndex() == 0)
@@ -163,8 +146,8 @@ void meteoWindow::setDataFromDefaultMeteo()
     data->wind_speed=ui->windSpeed_inp_->text().toFloat();
     data->wind_psi=ui->windSpeedPsi_inp_->text().toFloat();
     data->starBright=ui->starsBright_inp_->text().toFloat();
-    data->packet_id = 202;
-         lineDataToScrollValue();
+    data->packet_id = NPR_PACKET_TYPE_METEO_DATA;
+    lineDataToScrollValue();
 }
 
 meteoWindow::~meteoWindow()
@@ -599,7 +582,7 @@ void meteoWindow::writeToFields(std::shared_ptr<_MeteoData> meteo_data )
 void meteoWindow::writeToFields(_MeteoData * meteo_data )
 {
     data->packet_id = 202;//NPR_PACKET_TYPE_METEO_DATA;//meteo_data->message;
-    deep_meteo_copy(meteo_data, data );
+  //  deep_meteo_copy(meteo_data, data );
     qDebug()<<"setting data from received";
     ui->visibility_inp_->setText(QString::number(data->visibility));
     ui->cloudBase_inp_->setText(QString::number(data->cloudBase));

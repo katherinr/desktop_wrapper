@@ -13,7 +13,8 @@ class backwardW : public QDialog
 public:
     explicit backwardW(QWidget *parent = nullptr);
     ~backwardW();
-
+	void setCurrentTime(QTime *time);
+	void updateBackwardPacket(_MainVisualData data);
 	void readDefault(_DataToModel * _data);
 private slots:
     void on_simulation_timeLE_editingFinished();

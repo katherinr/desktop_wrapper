@@ -40,9 +40,9 @@ UdpServer::UdpServer(QObject *parent):
     connect(meteoTimer, &QTimer::timeout, this, &UdpServer::meteoTimerTimeout);
 
     QTimer* backwardTimer = new QTimer(this);
-    visTimer->setObjectName("backwTimer");
-    visTimer->setInterval(10);
-    connect(visTimer, &QTimer::timeout, this, &UdpServer::backwTimerTimeout);
+	backwardTimer->setObjectName("backwTimer");
+	backwardTimer->setInterval(10);
+    connect(backwardTimer, &QTimer::timeout, this, &UdpServer::backwTimerTimeout);
 
     m_timerList << visTimer << aerodromsTimer << meteoTimer << backwardTimer;
 
@@ -51,7 +51,7 @@ UdpServer::UdpServer(QObject *parent):
 
 void UdpServer::changeTimerInterval(const QString& timerObjName, int interval)
 {
-    QTimer* timer = this->findChild<QTimer*>(timerObjName);
+	QTimer* timer = this->findChild<QTimer*>(timerObjName);
 
     if (timer)
     {
@@ -129,6 +129,8 @@ void UdpServer::sendOnce()
     if (m_enabledPackets["BACKWARD_DATA"] == true)
     {
         qDebug()<<"m_backwardPacket staff";
+		_DataToModel* backw_ptr = reinterpret_cast<_DataToModel*>(m_backwardPacket.data());
+		backw_ptr->simulation_time = m_time.elapsed() / 1000.0;
         sendUDPOnce(m_backwardPacket);
     }
 
@@ -136,12 +138,16 @@ void UdpServer::sendOnce()
     {
         qDebug()<<"m_meteoPacket staff"<<*m_meteoPacket.begin();
         printMeteo(&m_meteo_data);
+		_MeteoData* meteo_ptr = reinterpret_cast<_MeteoData*>(m_meteoPacket.data());
+		meteo_ptr->model_simulation_time = m_time.elapsed() / 1000.0;
         sendUDPOnce(m_meteoPacket);
     }
 
     if (m_enabledPackets["AERODROMS_DATA"] == true)
     {
          qDebug()<<"m_aerodromePacket staff";
+		 _AirportData* aerodrome_ptr = reinterpret_cast<_AirportData*>(m_aerodromePacket.data());
+		 aerodrome_ptr->model_simulation_time = m_time.elapsed() / 1000.0;
         sendUDPOnce(m_aerodromePacket);
     }
 
@@ -149,6 +155,9 @@ void UdpServer::sendOnce()
     {
         qDebug()<<"m_visualPacket staff";
         printVisualData(&m_vis_data);
+		_MainVisualData* visual_ptr = reinterpret_cast<_MainVisualData*>(m_visualPacket.data());
+		visual_ptr->model_simulation_time = m_time.elapsed() / 1000.0;
+		
         sendUDPOnce(m_visualPacket);
     }
 }
@@ -161,9 +170,7 @@ void UdpServer::setSendData_METEO(const _MeteoData* data)
     qDebug() << "_MeteoData size: " << sizeof(_MeteoData) << " and data: " << sizeof(*data);
     printMeteo(data);
     m_meteoPacket = QByteArray::fromRawData(reinterpret_cast<const char*>(data), sizeof(_MeteoData));
-	_MeteoData* meteo_ptr = reinterpret_cast<_MeteoData*>(m_meteoPacket.data());
-	meteo_ptr->model_simulation_time = m_time.elapsed()/1000.0;
-    
+	
 	m_enabledPackets["METEO_DATA"] = true;
 }
 
@@ -176,8 +183,7 @@ void UdpServer::setSendData_VISUAL(const _MainVisualData *data)
 
     m_visualPacket = QByteArray::fromRawData(reinterpret_cast<const char*>(data), sizeof(_MainVisualData));
 
-    _MainVisualData* visual_ptr = reinterpret_cast<_MainVisualData*>(m_visualPacket.data());
-	visual_ptr->model_simulation_time = m_time.elapsed()/1000.0;
+
 
     m_enabledPackets["VISUAL_DATA"] = true;
 }
@@ -187,7 +193,7 @@ void UdpServer::setDataFromReceived(const QByteArray &received)
     qDebug()<<"setting data from received function";
     QDataStream stream(received);
 
-    unsigned int message_type = received.at(0);
+    unsigned char message_type = received.at(0);
 
     switch (message_type)
     {
@@ -272,8 +278,7 @@ void UdpServer::setSendData_BACKWARD(const _DataToModel* data)
     //print meteo
     m_enabledPackets["BACKWARD_DATA"] = true;
     m_backwardPacket = QByteArray::fromRawData(reinterpret_cast<const char*>(data), sizeof(_DataToModel));
-	_AirportData* backw_ptr = reinterpret_cast<_AirportData*>(m_backwardPacket.data());
-	backw_ptr->model_simulation_time = m_time.elapsed() / 1000.0;
+
 }
 
 void UdpServer::setSendData_AERODROMS(const _AirportData* data)
@@ -283,8 +288,6 @@ void UdpServer::setSendData_AERODROMS(const _AirportData* data)
     m_enabledPackets["AERODROMS_DATA"] = true;
     m_aerodromePacket = QByteArray::fromRawData(reinterpret_cast<const char*>(data), sizeof(_AirportData));
 
-	_AirportData* aerodrome_ptr = reinterpret_cast<_AirportData*>(m_aerodromePacket.data());
-	aerodrome_ptr->model_simulation_time = m_time.elapsed()/1000.0;
 }
 
 void UdpServer::startSending()

@@ -33,6 +33,11 @@ private slots:
     void receiveData(_DataToModel*);
     void receiveData(_MeteoData * _data);
 	void receiveData(_MainVisualData * _data);
+
+	void receiveDatafromModel(_AirportData*);
+	//void receiveDatafromModel(_DataToModel*);
+	void receiveDatafromModel(_MeteoData * _data);
+	void receiveDatafromModel(_MainVisualData * _data);
     void on_receivePortEdit_editingFinished();
 
     //sending
@@ -46,15 +51,20 @@ private slots:
     //show dialogs contents
     void on_mainiComboBox_currentIndexChanged(int index);
     void on_meteoComboBox_currentIndexChanged(int index);
+	void on_aerodrCB_currentIndexChanged(int index);
 
     //global process
     void on_startPB_clicked();
     void on_sendOnceButton_clicked();
     void on_stopPB_clicked();
-
+	void readConfig();
     //map indication
     void on_routePushB_clicked();
     void on_send2mapchb_toggled(bool checked);
+
+    void on_backwReceive_toggled(bool checked);
+
+    void on_backwardChkBox_toggled(bool checked);
 
 private:
     Ui::MainWindow *ui;
@@ -74,6 +84,7 @@ private:
 	_MainVisualData visual_data_from_model;
 
     UdpServer *m_server;
+	QTime time_from_start;
 };
 
 #endif // MAINWINDOW_H
