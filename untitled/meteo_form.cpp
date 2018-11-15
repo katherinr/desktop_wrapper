@@ -581,9 +581,12 @@ void meteoWindow::writeToFields(std::shared_ptr<_MeteoData> meteo_data )
 }
 void meteoWindow::writeToFields(_MeteoData * meteo_data )
 {
-    data->packet_id = 202;//NPR_PACKET_TYPE_METEO_DATA;//meteo_data->message;
-  //  deep_meteo_copy(meteo_data, data );
-    qDebug()<<"setting data from received";
+    data->packet_id = NPR_PACKET_TYPE_METEO_DATA;//meteo_data->message;
+	
+	if( !set_from_net  )
+		deep_meteo_copy(meteo_data, data );
+    
+	qDebug()<<"setting data from received";
     ui->visibility_inp_->setText(QString::number(data->visibility));
     ui->cloudBase_inp_->setText(QString::number(data->cloudBase));
     ui->cloudThick_inp_->setText(QString::number(data->cloudUpper));

@@ -132,7 +132,8 @@ void MainWindow::receiveData(_MeteoData * _data)
     {
         //block signals
     }		*/
-	//emit sendUpdatedData(&meteo_data);
+	meteo_ui->set_from_net = false;
+	emit sendUpdatedData(&meteo_data);
 }
 
 void MainWindow::receiveData(_MainVisualData * _data)
@@ -151,6 +152,7 @@ void MainWindow::receiveDatafromModel(_AirportData *_data)
 void MainWindow::receiveDatafromModel(_MeteoData * _data)
 {
 	deep_meteo_copy(_data, &meteo_data_from_model);
+	meteo_ui->set_from_net = true;
 	emit sendUpdatedData(&meteo_data_from_model);
 }
 
@@ -195,11 +197,12 @@ void MainWindow::on_receivePortEdit_editingFinished()
 void MainWindow::on_mainVisCheckBox_toggled(bool checked)
 {
     ui->mainVisIntervalEdit->setEnabled(checked);
+	
     ui->mainVisIntervalEdit->setText("0.01");
 
-    m_server->changeTimerInterval("visTimer",ui->mainVisIntervalEdit->text().toUInt() );
-    if (checked)
-        m_server->setSendData_VISUAL(&visual_data);
+    m_server->changeTimerInterval("visTimer",ui->mainVisIntervalEdit->text().toUInt()/1000 );
+
+    m_server->setSendData_VISUAL(&visual_data, checked);
 }
 
 
@@ -207,10 +210,9 @@ void MainWindow::on_lightsCheckBox_toggled(bool checked)
 {
     ui->aerodromsIntervalEdit->setEnabled(checked);
     ui->aerodromsIntervalEdit->setText("5");
-    m_server->changeTimerInterval("aerodromsTimer",ui->aerodromsIntervalEdit->text().toUInt() );
+    m_server->changeTimerInterval("aerodromsTimer",ui->aerodromsIntervalEdit->text().toUInt()/1000 );
 
-    if (checked)
-        m_server->setSendData_AERODROMS(&airoports_lights_data);
+        m_server->setSendData_AERODROMS(&airoports_lights_data, checked);
 }
 
 /*void MainWindow::on_BackwardCheckBox_clicked(bool checked)
@@ -304,19 +306,19 @@ void MainWindow::readConfig()
 	if (ui->meteoCheckBox->isChecked())
 	{
 		m_server->changeTimerInterval("meteoTimer", ui->meteoIntervalEdit->text().toUInt());
-		m_server->setSendData_METEO(&meteo_data);
+		m_server->setSendData_METEO(&meteo_data, ui->meteoCheckBox->isChecked());
 	}
 
 	if (ui->mainVisCheckBox->isChecked())
 	{
 		m_server->changeTimerInterval("visTimer", ui->mainVisIntervalEdit->text().toUInt());
-		m_server->setSendData_VISUAL(&visual_data);
+		m_server->setSendData_VISUAL(&visual_data, ui->mainVisCheckBox->isChecked());
 	}
 
 	if (ui->lightsCheckBox->isChecked())
 	{
 		m_server->changeTimerInterval("aerodromsTimer", ui->aerodromsIntervalEdit->text().toUInt());
-		m_server->setSendData_AERODROMS(&airoports_lights_data);
+		m_server->setSendData_AERODROMS(&airoports_lights_data, ui->lightsCheckBox->isChecked());
 	}
 }
 
@@ -332,12 +334,11 @@ void MainWindow::on_meteoCheckBox_toggled(bool checked)
     ui->meteoIntervalEdit->setText("5");
     m_server->changeTimerInterval("meteoTimer", ui->meteoIntervalEdit->text().toUInt() );
 
-    if (checked)
-    {
+   
         qDebug()<<"meteo set send";
         printMeteo(&meteo_data);
-        m_server->setSendData_METEO(&meteo_data);
-    }
+        m_server->setSendData_METEO(&meteo_data, checked);
+   
 }
 
 void MainWindow::on_mainiComboBox_currentIndexChanged(int index)
@@ -469,6 +470,6 @@ void MainWindow::on_backwardChkBox_toggled(bool checked)
 	ui->backwPortEdit->setEnabled(checked);
     //read backwport and fill backw address
 
-    if (checked)
-        m_server->setSendData_BACKWARD(&backward_data);
+ 
+        m_server->setSendData_BACKWARD(&backward_data,checked);
 }

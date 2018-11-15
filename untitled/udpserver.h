@@ -43,11 +43,11 @@ public:
     void aerodromsTimerTimeout();
     void backwTimerTimeout();
     void changeTimerInterval(const QString& timerObjName, int interval);
-    void setSendData_AERODROMS(const _AirportData *data);
-    void setSendData_BACKWARD(const _DataToModel *data);
+    void setSendData_AERODROMS(const _AirportData *data, bool check);
+    void setSendData_BACKWARD(const _DataToModel *data, bool check);
     void setSendToAddress(const QHostAddress& address, quint16 port);
-    void setSendData_METEO(const _MeteoData* data);
-    void setSendData_VISUAL(const _MainVisualData* data);
+    void setSendData_METEO(const _MeteoData* data, bool check);
+    void setSendData_VISUAL(const _MainVisualData* data, bool check);
     void setDataFromReceived(const QByteArray&);
     void restartListening(quint16 _port);
 

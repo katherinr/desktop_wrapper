@@ -142,61 +142,61 @@ inline void deepAeroportcopy(const _AirportData *_data, _AirportData *airoports_
 	qstrcpy(airoports_lights_data->ARRIVAL_AIRPORT_CODE, _data->ARRIVAL_AIRPORT_CODE);
 }
 
-inline void deepVisualCopy(const _MainVisualData *data, _MainVisualData visual_data)
+inline void deepVisualCopy(const _MainVisualData *data, _MainVisualData *visual_data)
 {
-	visual_data.packet_id = NPR_PACKET_TYPE_VISUAL_DATA;
+	visual_data->packet_id = NPR_PACKET_TYPE_VISUAL_DATA;
 
-	visual_data.num_correct = data->num_correct;
-	visual_data.p_coord.X = data->p_coord.X;
-	visual_data.p_coord.Z = data->p_coord.Z;
-	visual_data.p_coord.H = data->p_coord.H;
+	visual_data->num_correct = data->num_correct;
+	visual_data->p_coord.X = data->p_coord.X;
+	visual_data->p_coord.Z = data->p_coord.Z;
+	visual_data->p_coord.H = data->p_coord.H;
 
-	visual_data.p_angle.C = data->p_angle.C;
-	visual_data.p_angle.P = data->p_angle.P;
-	visual_data.p_angle.R = data->p_angle.R;
+	visual_data->p_angle.C = data->p_angle.C;
+	visual_data->p_angle.P = data->p_angle.P;
+	visual_data->p_angle.R = data->p_angle.R;
 
 	//обороты
-	visual_data.N2_L = data->N2_L;
-	visual_data.N2_R = data->N2_R;
+	visual_data->N2_L = data->N2_L;
+	visual_data->N2_R = data->N2_R;
 
 	//stabs, mechs
-	visual_data.Flaps = data->Flaps;
-	visual_data.Stabilizer = data->Stabilizer;
-	visual_data.Slats = data->Slats;
+	visual_data->Flaps = data->Flaps;
+	visual_data->Stabilizer = data->Stabilizer;
+	visual_data->Slats = data->Slats;
 
-	visual_data.Elevator_L = data->Elevator_L;
-	visual_data.Elevator_R = data->Elevator_R;
-	visual_data.Aileron_L = data->Aileron_L;
-	visual_data.Aileron_R = data->Aileron_R;
-	visual_data.Rudder = data->Rudder;
+	visual_data->Elevator_L = data->Elevator_L;
+	visual_data->Elevator_R = data->Elevator_R;
+	visual_data->Aileron_L = data->Aileron_L;
+	visual_data->Aileron_R = data->Aileron_R;
+	visual_data->Rudder = data->Rudder;
 
-	visual_data.Spoiler_L_CE = data->Spoiler_L_CE;
-	visual_data.Spoiler_L_IN = data->Spoiler_L_IN;
-	visual_data.Spoiler_L_OB = data->Spoiler_L_OB;
-	visual_data.Spoiler_R_CE = data->Spoiler_R_CE;
-	visual_data.Spoiler_R_IN = data->Spoiler_R_IN;
-	visual_data.Spoiler_R_OB = data->Spoiler_R_OB;
+	visual_data->Spoiler_L_CE = data->Spoiler_L_CE;
+	visual_data->Spoiler_L_IN = data->Spoiler_L_IN;
+	visual_data->Spoiler_L_OB = data->Spoiler_L_OB;
+	visual_data->Spoiler_R_CE = data->Spoiler_R_CE;
+	visual_data->Spoiler_R_IN = data->Spoiler_R_IN;
+	visual_data->Spoiler_R_OB = data->Spoiler_R_OB;
 
-	visual_data.GroudSpoiler_L_IB = data->GroudSpoiler_L_IB;
-	visual_data.GroudSpoiler_L_OB = data->GroudSpoiler_L_OB;
-	visual_data.GroudSpoiler_R_IB = data->GroudSpoiler_R_IB;
-	visual_data.GroudSpoiler_R_OB = data->GroudSpoiler_R_OB;
-	visual_data.Spoiler_R_IN = data->Spoiler_R_IN;
-	visual_data.Gear_N = data->Gear_N;
-	visual_data.Gear_L = data->Gear_L;
-	visual_data.Gear_R = data->Gear_R;
-	visual_data.Gear_SteeringAngle = data->Gear_SteeringAngle;
+	visual_data->GroudSpoiler_L_IB = data->GroudSpoiler_L_IB;
+	visual_data->GroudSpoiler_L_OB = data->GroudSpoiler_L_OB;
+	visual_data->GroudSpoiler_R_IB = data->GroudSpoiler_R_IB;
+	visual_data->GroudSpoiler_R_OB = data->GroudSpoiler_R_OB;
+	visual_data->Spoiler_R_IN = data->Spoiler_R_IN;
+	visual_data->Gear_N = data->Gear_N;
+	visual_data->Gear_L = data->Gear_L;
+	visual_data->Gear_R = data->Gear_R;
+	visual_data->Gear_SteeringAngle = data->Gear_SteeringAngle;
 
 	//бортовые огни
-	visual_data.LandingLights = data->LandingLights;
-	visual_data.TaxiLight = data->TaxiLight;
-	visual_data.RunwayTurnoffLights = data->RunwayTurnoffLights;
-	visual_data.NavigationLightGreen = data->NavigationLightGreen;
-	visual_data.NavigationLightRed = data->NavigationLightRed;
-	visual_data.NavigationLightWhite = data->NavigationLightWhite;
-	visual_data.AntiCollisionBeaconWhite = data->AntiCollisionBeaconWhite;
-	visual_data.AntiCollisionBeaconRed = data->AntiCollisionBeaconRed;
-	visual_data.InternalLights = data->InternalLights;
+	visual_data->LandingLights = data->LandingLights;
+	visual_data->TaxiLight = data->TaxiLight;
+	visual_data->RunwayTurnoffLights = data->RunwayTurnoffLights;
+	visual_data->NavigationLightGreen = data->NavigationLightGreen;
+	visual_data->NavigationLightRed = data->NavigationLightRed;
+	visual_data->NavigationLightWhite = data->NavigationLightWhite;
+	visual_data->AntiCollisionBeaconWhite = data->AntiCollisionBeaconWhite;
+	visual_data->AntiCollisionBeaconRed = data->AntiCollisionBeaconRed;
+	visual_data->InternalLights = data->InternalLights;
 }
 inline void flushVISUALData(_MainVisualData visual_data)
 {
@@ -295,13 +295,13 @@ inline void flushMeteoData(_MeteoData *data)
    data->starBright=0;
 }
 
-inline void backwardDeepCopy(const _DataToModel * _data, _DataToModel  backward_data)
+inline void backwardDeepCopy(const _DataToModel * _data, _DataToModel  *backward_data)
 {
-	backward_data.packet_id = NPR_PACKET_TYPE_BACK_DATA;
-	backward_data.p_coord.H = _data->p_coord.H;
-	backward_data.p_coord.X = _data->p_coord.X;
-	backward_data.p_coord.Z = _data->p_coord.Z;
-	backward_data.simulation_time = _data->simulation_time;
+	backward_data->packet_id = NPR_PACKET_TYPE_BACK_DATA;
+	backward_data->p_coord.H = _data->p_coord.H;
+	backward_data->p_coord.X = _data->p_coord.X;
+	backward_data->p_coord.Z = _data->p_coord.Z;
+	backward_data->simulation_time = _data->simulation_time;
 
 	qDebug() << "received backward";
 	qDebug() << "packet_id" << _data->packet_id;
@@ -311,12 +311,12 @@ inline void backwardDeepCopy(const _DataToModel * _data, _DataToModel  backward_
 	qDebug() << "simulation_time" << _data->simulation_time;
 }
 
-inline void flushBackwardData(const _DataToModel * _data, _DataToModel  backward_data)
+inline void flushBackwardData(const _DataToModel * _data, _DataToModel  *backward_data)
 {
-	backward_data.packet_id = NPR_PACKET_TYPE_BACK_DATA;
-	backward_data.p_coord.H = 0;
-	backward_data.p_coord.X = 0;
-	backward_data.p_coord.Z =0;
+	backward_data->packet_id = NPR_PACKET_TYPE_BACK_DATA;
+	backward_data->p_coord.H = 0;
+	backward_data->p_coord.X = 0;
+	backward_data->p_coord.Z =0;
 //	backward_data.simulation_time = 0;
 
 	qDebug() << "received backward";
