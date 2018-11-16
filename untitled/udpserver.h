@@ -50,11 +50,11 @@ public:
     void setSendData_VISUAL(const _MainVisualData* data, bool check);
     void setDataFromReceived(const QByteArray&);
     void restartListening(quint16 _port);
-
+	void startSending();
+	void stopSending();
     //private slots:
 public slots:
-    void startSending();
-    void stopSending();
+
     void sendOnce();
     void readDatagram();
 

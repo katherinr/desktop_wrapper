@@ -101,7 +101,7 @@
              <item>
               <widget class="QLineEdit" name="receivePortEdit">
                <property name="text">
-                <string>5003</string>
+                <string>5103</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -441,6 +441,9 @@
                  <property name="text">
                   <string>Отсылка основных данных</string>
                  </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
                 </widget>
                </item>
                <item>
@@ -458,6 +461,9 @@
                  <property name="text">
                   <string>Отсылка данных для аэродромов</string>
                  </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
                 </widget>
                </item>
               </layout>
@@ -467,7 +473,7 @@
                <item>
                 <widget class="QLineEdit" name="mainVisIntervalEdit">
                  <property name="enabled">
-                  <bool>false</bool>
+                  <bool>true</bool>
                  </property>
                  <property name="contextMenuPolicy">
                   <enum>Qt::ActionsContextMenu</enum>
@@ -502,7 +508,7 @@
                <item>
                 <widget class="QLineEdit" name="aerodromsIntervalEdit">
                  <property name="enabled">
-                  <bool>false</bool>
+                  <bool>true</bool>
                  </property>
                  <property name="text">
                   <string>5</string>

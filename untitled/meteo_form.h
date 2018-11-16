@@ -22,10 +22,12 @@ public:
     ~meteoWindow();
     bool set_from_net = false;
     _MeteoData* data;
+	void writeToFields(_MeteoData * meteo_data);
+	void setReadOnly(bool isReadOnly);
 public slots:
     void writeToFields(std::shared_ptr<_MeteoData> meteo_data );
     void writeToFieldsNet(_MeteoData * meteo_data );
-    void writeToFields(_MeteoData * meteo_data );
+
 
 private:
 
@@ -74,7 +76,7 @@ private slots:
     void on_starsBrightScroll__valueChanged(int value);
     void on_action_4_triggered();
     void on_day_spnB__valueChanged(int arg1);
-    void lineDataToScrollValue();
+    void lineDataToScrollValue(_MeteoData *curr);
 
     void on_ok_pushb__pressed();
     void on_CancelPB__clicked();

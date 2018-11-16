@@ -90,19 +90,52 @@ AirportsDialog::~AirportsDialog()
 
 void AirportsDialog::writeToFields(_AirportData *_data)
 {
-	data->ARRIVAL_AIRPORT_LIGHTS_ILLUMINATION = _data->ARRIVAL_AIRPORT_LIGHTS_ILLUMINATION;
-	data->ARRIVAL_AIRPORT_LIGHTS_TAXIING = _data->ARRIVAL_AIRPORT_LIGHTS_TAXIING;
-	data->ARRIVAL_AIRPORT_OTHER_LIGHTS = _data->ARRIVAL_AIRPORT_OTHER_LIGHTS;
-	data->DEPARTURE_AIRPORT_LIGHTS_ILLUMINATION = _data->DEPARTURE_AIRPORT_LIGHTS_ILLUMINATION;
-	data->DEPARTURE_AIRPORT_LIGHTS_TAXIING = _data->DEPARTURE_AIRPORT_LIGHTS_TAXIING;
-	data->DEPARTURE_AIRPORT_OTHER_LIGHTS = _data->DEPARTURE_AIRPORT_OTHER_LIGHTS;
-	data->TAKEOFF_RUNWAY_BORDER_LIGHTS = _data->TAKEOFF_RUNWAY_BORDER_LIGHTS;
-	data->LANDING_RUNWAY_BORDER_LIGHTS = _data->LANDING_RUNWAY_BORDER_LIGHTS;
+	ui->arrival_airport_lights_illumination->setText(QString::number(_data->ARRIVAL_AIRPORT_LIGHTS_ILLUMINATION));
+	ui->arrival_airport_lights_taxiing->setText(QString::number(_data->ARRIVAL_AIRPORT_LIGHTS_TAXIING));
+	ui->arrival_airport_other_lights->setText(QString::number(_data->ARRIVAL_AIRPORT_OTHER_LIGHTS));
 
-	qstrcpy(data->TAKEOFF_RUNWAY_CODE, _data->TAKEOFF_RUNWAY_CODE);
-	qstrcpy(data->LANDING_RUNWAY_CODE, _data->LANDING_RUNWAY_CODE);
-	qstrcpy(data->DEPARTURE_AIRPORT_CODE, _data->DEPARTURE_AIRPORT_CODE);
-	qstrcpy(data->ARRIVAL_AIRPORT_CODE, _data->ARRIVAL_AIRPORT_CODE);
+	ui->departure_airport_lights_illumination->setText(QString::number(_data->ARRIVAL_AIRPORT_LIGHTS_ILLUMINATION));
+	ui->departure_airport_lights_taxiing->setText(QString::number(_data->ARRIVAL_AIRPORT_LIGHTS_TAXIING));
+	ui->departure_airport_other_lights->setText(QString::number(_data->ARRIVAL_AIRPORT_OTHER_LIGHTS));
+
+	ui->takeoff_runway_border_lights->setText(QString::number(_data->TAKEOFF_RUNWAY_BORDER_LIGHTS));
+	ui->landing_runway_border_lights->setText(QString::number(_data->LANDING_RUNWAY_BORDER_LIGHTS));
+
+	ui->arrival_airport_code->setText(QString(_data->ARRIVAL_AIRPORT_CODE));
+	ui->departure_airport_code->setText(QString(_data->DEPARTURE_AIRPORT_CODE));
+
+	ui->arrPolosa->setCurrentText(QString(_data->TAKEOFF_RUNWAY_CODE));
+	ui->depPolosa->setCurrentText(QString(_data->LANDING_RUNWAY_CODE));
+
+
+	///fill strips
+
+	auto jt = flight_strips.find(ui->departure_airport_code->text());
+	if (jt != flight_strips.end())
+	{
+		ui->depPolosa->clear();
+		for (auto it : jt.value())
+			ui->depPolosa->addItem(it);
+	}
+
+	auto kt = flight_strips.find(ui->arrival_airport_code->text());
+	if (kt != flight_strips.end())
+	{
+		ui->arrPolosa->clear();
+		for (auto it : kt.value())
+			ui->arrPolosa->addItem(it);
+	}
+
+	//scrolls
+	ui->arrPodsvet->setSliderPosition(ui->arrival_airport_lights_illumination->text().toInt());
+	ui->arrRulez->setSliderPosition(ui->arrival_airport_lights_taxiing->text().toInt());
+	ui->arrOther->setSliderPosition(ui->arrival_airport_other_lights->text().toInt());
+	ui->arrYarkBok->setSliderPosition(ui->landing_runway_border_lights->text().toInt());
+
+	ui->depStoyankScroll->setSliderPosition(ui->departure_airport_lights_illumination->text().toInt());
+	ui->depRelLightsScroll->setSliderPosition(ui->departure_airport_lights_taxiing->text().toInt());
+	ui->depOtherScroll->setSliderPosition(ui->departure_airport_other_lights->text().toInt());
+	ui->depBokLightscroll->setSliderPosition(ui->takeoff_runway_border_lights->text().toInt());
 }
 
 void AirportsDialog::readDefault(_AirportData *data_)
@@ -148,7 +181,17 @@ void AirportsDialog::readDefault(_AirportData *data_)
 		for (auto it : kt.value())
 			ui->arrPolosa->addItem(it);
 	}
-	emit sendData(data_);
+
+	ui->arrPodsvet->setSliderPosition(ui->arrival_airport_lights_illumination->text().toInt());
+	ui->arrRulez->setSliderPosition(ui->arrival_airport_lights_taxiing->text().toInt());
+	ui->arrOther->setSliderPosition(ui->arrival_airport_other_lights->text().toInt());
+	ui->arrYarkBok->setSliderPosition(ui->landing_runway_border_lights->text().toInt());
+
+	ui->depStoyankScroll->setSliderPosition(ui->departure_airport_lights_illumination->text().toInt());
+	ui->depRelLightsScroll->setSliderPosition(ui->departure_airport_lights_taxiing->text().toInt());
+	ui->depOtherScroll->setSliderPosition(ui->departure_airport_other_lights->text().toInt());
+	ui->depBokLightscroll->setSliderPosition(ui->takeoff_runway_border_lights->text().toInt());
+	//emit sendData(data_);
 }
 
 void AirportsDialog::on_ok_pb_clicked()

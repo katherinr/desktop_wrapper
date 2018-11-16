@@ -17,7 +17,6 @@ public:
     explicit AirportsDialog(QWidget *parent = nullptr);
     ~AirportsDialog();
 	void readDefault(_AirportData *);
-public slots:
     void writeToFields(_AirportData*);
 
 private slots:

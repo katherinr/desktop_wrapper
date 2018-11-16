@@ -15,8 +15,6 @@ public:
     explicit MainVisual(QWidget *parent = nullptr);
     ~MainVisual();
 	void setDataFromDefaut(_MainVisualData *set_data);
-
-public slots:
     void setDataToShow(_MainVisualData * visual_data );
 
 private slots:

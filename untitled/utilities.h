@@ -136,10 +136,30 @@ inline void deepAeroportcopy(const _AirportData *_data, _AirportData *airoports_
 	airoports_lights_data->TAKEOFF_RUNWAY_BORDER_LIGHTS = _data->TAKEOFF_RUNWAY_BORDER_LIGHTS;
 	airoports_lights_data->LANDING_RUNWAY_BORDER_LIGHTS = _data->LANDING_RUNWAY_BORDER_LIGHTS;
 
-	qstrcpy(airoports_lights_data->TAKEOFF_RUNWAY_CODE, _data->TAKEOFF_RUNWAY_CODE);
+	airoports_lights_data->TAKEOFF_RUNWAY_CODE[0] = _data->TAKEOFF_RUNWAY_CODE[0];
+	airoports_lights_data->TAKEOFF_RUNWAY_CODE[1] = _data->TAKEOFF_RUNWAY_CODE[1];
+	airoports_lights_data->TAKEOFF_RUNWAY_CODE[2] = _data->TAKEOFF_RUNWAY_CODE[2];
+	airoports_lights_data->TAKEOFF_RUNWAY_CODE[3] = _data->TAKEOFF_RUNWAY_CODE[3];
+
+	airoports_lights_data->ARRIVAL_AIRPORT_CODE[0] = _data->ARRIVAL_AIRPORT_CODE[0];
+	airoports_lights_data->ARRIVAL_AIRPORT_CODE[1] = _data->ARRIVAL_AIRPORT_CODE[1];
+	airoports_lights_data->ARRIVAL_AIRPORT_CODE[2] = _data->ARRIVAL_AIRPORT_CODE[2];
+	airoports_lights_data->ARRIVAL_AIRPORT_CODE[3] = _data->ARRIVAL_AIRPORT_CODE[3];
+
+	airoports_lights_data->DEPARTURE_AIRPORT_CODE[0] = _data->DEPARTURE_AIRPORT_CODE[0];
+	airoports_lights_data->DEPARTURE_AIRPORT_CODE[1] = _data->DEPARTURE_AIRPORT_CODE[1];
+	airoports_lights_data->DEPARTURE_AIRPORT_CODE[2] = _data->DEPARTURE_AIRPORT_CODE[2];
+	airoports_lights_data->DEPARTURE_AIRPORT_CODE[3] = _data->DEPARTURE_AIRPORT_CODE[3];
+
+	airoports_lights_data->LANDING_RUNWAY_CODE[0] = _data->LANDING_RUNWAY_CODE[0];
+	airoports_lights_data->LANDING_RUNWAY_CODE[1] = _data->LANDING_RUNWAY_CODE[1];
+	airoports_lights_data->LANDING_RUNWAY_CODE[2] = _data->LANDING_RUNWAY_CODE[2];
+	airoports_lights_data->LANDING_RUNWAY_CODE[3] = _data->LANDING_RUNWAY_CODE[3];
+
+/*	qstrcpy(airoports_lights_data->TAKEOFF_RUNWAY_CODE, _data->TAKEOFF_RUNWAY_CODE);
 	qstrcpy(airoports_lights_data->LANDING_RUNWAY_CODE, _data->LANDING_RUNWAY_CODE);
 	qstrcpy(airoports_lights_data->DEPARTURE_AIRPORT_CODE, _data->DEPARTURE_AIRPORT_CODE);
-	qstrcpy(airoports_lights_data->ARRIVAL_AIRPORT_CODE, _data->ARRIVAL_AIRPORT_CODE);
+	qstrcpy(airoports_lights_data->ARRIVAL_AIRPORT_CODE, _data->ARRIVAL_AIRPORT_CODE);	  */
 }
 
 inline void deepVisualCopy(const _MainVisualData *data, _MainVisualData *visual_data)
