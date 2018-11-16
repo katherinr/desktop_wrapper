@@ -432,14 +432,14 @@ void MainWindow::on_startPB_clicked()
 	if (m_server->setSendingPort(ui->receivePortEdit->text().toUInt()))
 	{
 		m_server->setSendToAddress(QHostAddress(ui->sendIPEdit->text()), ui->sendPortEdit->text().toInt());
-		m_server->changeTimerInterval("visTimer", ui->mainVisIntervalEdit->text().toUInt());// / 1000);
-		m_server->changeTimerInterval("meteoTimer", ui->meteoIntervalEdit->text().toUInt());// / 1000);
-		m_server->changeTimerInterval("aerodromsTimer", ui->aerodromsIntervalEdit->text().toUInt());// / 1000);
+		m_server->changeTimerInterval("visTimer", ui->mainVisIntervalEdit->text().toUInt()* 1000);
+		m_server->changeTimerInterval("meteoTimer", ui->meteoIntervalEdit->text().toUInt()* 1000);
+		m_server->changeTimerInterval("aerodromsTimer", ui->aerodromsIntervalEdit->text().toUInt() * 1000);
 
 		if (ui->backwardChkBox->isChecked())
 		{
 			//куда слать обратный пакет
-			m_server->changeTimerInterval("backwTimer", ui->mainVisIntervalEdit->text().toUInt());// / 1000);
+			m_server->changeTimerInterval("backwTimer", ui->mainVisIntervalEdit->text().toUInt()*1000);
 		}
 
 		m_server->startSending();

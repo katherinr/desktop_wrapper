@@ -88,6 +88,8 @@ private:
     _AirportData m_airoports_lights_data;
     _DataToModel m_backward_data;
     _MainVisualData m_vis_data;
+
+	const _MainVisualData* m_visualData;
 	
 	//backward
 	QUdpSocket *m_backward_sender_socket;

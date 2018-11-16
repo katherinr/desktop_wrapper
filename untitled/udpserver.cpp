@@ -93,10 +93,14 @@ void UdpServer::visTimerTimeout()
     {
 		qDebug() << "m_visualPacket staff";
 		printVisualData(&m_vis_data);
-		_MainVisualData* visual_ptr = reinterpret_cast<_MainVisualData*>(m_visualPacket.data());
-		visual_ptr->model_simulation_time = m_time.elapsed();
 
-		sendUDPOnce(m_visualPacket);
+
+		QByteArray visualData = QByteArray::fromRawData(reinterpret_cast<const char*>(m_visualData), sizeof(_MainVisualData));
+
+		_MainVisualData* visual_ptr = reinterpret_cast<_MainVisualData*>(visualData.data());
+		visual_ptr->model_simulation_time = m_time.elapsed();
+		sendUDPOnce(visualData);
+
     }
 }
 
@@ -215,6 +219,8 @@ void UdpServer::setSendData_VISUAL(const _MainVisualData *data, bool check)
     m_visualPacket = QByteArray::fromRawData(reinterpret_cast<const char*>(data), sizeof(_MainVisualData));
 
     m_enabledPackets["VISUAL_DATA"] = check;
+
+	m_visualData = data;
 }
 
 void UdpServer::setDataFromReceived(const QByteArray &received)
