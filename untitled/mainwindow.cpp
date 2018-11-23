@@ -280,6 +280,7 @@ void MainWindow::readConfig()
 {
 	//interchange with ,odel
 	m_server->setReceivingPort(ui->receivePortEdit->text().toUInt());
+	
 	//backward edit send
 
 	//sending
@@ -303,11 +304,17 @@ void MainWindow::readConfig()
 	else if ((ui->meteoComboBox->currentIndex() == DATA_FROM_MODEL))
 		m_server->setSendData_AERODROMS(&airoports_lights_data_from_model, ui->lightsCheckBox->isChecked());
 
+	//time intervals
 	m_server->changeTimerInterval("visTimer", ui->mainVisIntervalEdit->text().toUInt());
 
 	m_server->changeTimerInterval("aerodromsTimer", ui->aerodromsIntervalEdit->text().toUInt());
 
 	m_server->changeTimerInterval("meteoTimer", ui->meteoIntervalEdit->text().toUInt());
+	
+	//map indication on load
+
+	//
+	//send map on load
 
 }
 
@@ -435,6 +442,7 @@ void MainWindow::on_startPB_clicked()
 		m_server->changeTimerInterval("visTimer", ui->mainVisIntervalEdit->text().toUInt()* 1000);
 		m_server->changeTimerInterval("meteoTimer", ui->meteoIntervalEdit->text().toUInt()* 1000);
 		m_server->changeTimerInterval("aerodromsTimer", ui->aerodromsIntervalEdit->text().toUInt() * 1000);
+		m_server->changeTimerInterval("mapTimer", ui->send2mapIE->text().toUInt() * 1000);
 
 		if (ui->backwardChkBox->isChecked())
 		{
@@ -449,13 +457,12 @@ void MainWindow::on_startPB_clicked()
 
 void MainWindow::on_send2mapchb_toggled(bool checked)
 {
-	if (checked)
-		ui->send2mapIE->setEnabled(true);
-	else
-		ui->send2mapIE->setEnabled(false);
+        ui->send2mapIE->setEnabled(checked);
+       // if (checked)
+        m_server->setSendData_MAP(&map_data,checked);
 }
 
-
+		//backward set 
 void MainWindow::on_backwReceive_toggled(bool checked)
 {
 	//данные от визуализации
@@ -471,4 +478,75 @@ void MainWindow::on_backwardChkBox_toggled(bool checked)
 
 	//read backwport and fill backw address
 	m_server->setSendData_BACKWARD(&backward_data, checked);
+}
+
+void MainWindow::on_showWindchB_toggled(bool checked)
+{
+	map_data.isShowingWindow = checked;
+
+}
+
+void MainWindow::on_showTrajChB_toggled(bool checked)
+{
+	map_data.showCurTraj = checked;
+}
+
+void MainWindow::on_showRoutechB_toggled(bool checked)
+{
+	map_data.showRoute = checked;
+}
+
+void MainWindow::on_followMainPlainCHB_toggled(bool checked)
+{
+	map_data.followMainPlane = checked;
+}
+
+void MainWindow::on_isOrientCamchB_toggled(bool checked)
+{
+	map_data.isOrientingCamera = checked;
+}
+
+void MainWindow::on_sendIPEdit_2_editingFinished()
+{
+	//ui->sendPortEdit_2->text().toUInt()
+	m_server->setMAPAddress2Send(QHostAddress(ui->sendIPEdit_2->text().toUInt()));
+
+}
+
+void MainWindow::on_sendPortEdit_2_editingFinished()
+{
+	m_server->setMAPSendingPort(ui->sendPortEdit_2->text().toUInt());
+}
+
+void MainWindow::on_send2mapIE_editingFinished()
+{
+	m_server->changeTimerInterval("mapTimer", ui->send2mapIE->text().toUInt());
+
+}
+
+void MainWindow::on_nppm_editingFinished()
+{
+	//&???
+	map_data.currWPT = ui->nppm->text().toUInt();
+	
+}
+
+void MainWindow::on_updateRoute_editingFinished()
+{
+	map_data.updateRoute = ui->updateRoute->text().toInt();
+}
+
+void MainWindow::on_centerLat_editingFinished()
+{
+	map_data.centerLat = ui->centerLat->text().toDouble();
+}
+
+void MainWindow::on_centerLon_editingFinished()
+{
+	map_data.centerLon = ui->centerLon->text().toDouble();
+}
+
+void MainWindow::on_centerH_editingFinished()
+{
+	map_data.centerLon = ui->centerLon->text().toFloat();
 }

@@ -16,12 +16,15 @@ UdpServer::UdpServer(QObject *parent):
     m_sender_socket =  new QUdpSocket(this);
     connect(m_sender_socket, SIGNAL(readyRead()),this, SLOT(readDatagram()));
 
+	m_map_sender_socket = new QUdpSocket(this);
+	connect(m_map_sender_socket, SIGNAL(readyRead()), this, SLOT(readDatagram()));
+
     // enabled/disable sending for each udp packet
     m_enabledPackets["VISUAL_DATA"] = false;
     m_enabledPackets["AERODROMS_DATA"] = false;
     m_enabledPackets["BACKWARD_DATA"] = false;
     m_enabledPackets["METEO_DATA"] = false;
-
+	m_enabledPackets["MAP_DATA"] = false;
     /*/////////////////timers////////////////*/
 
     QTimer* visTimer = new QTimer(this);
@@ -44,7 +47,12 @@ UdpServer::UdpServer(QObject *parent):
 	backwardTimer->setInterval(10);
     connect(backwardTimer, &QTimer::timeout, this, &UdpServer::backwTimerTimeout);
 
-    m_timerList << visTimer << aerodromsTimer << meteoTimer << backwardTimer;
+	QTimer* mapTimer = new QTimer(this);
+	mapTimer->setObjectName("mapTimer");
+	mapTimer->setInterval(10);
+	connect(mapTimer, &QTimer::timeout, this, &UdpServer::mapTimerTimeout);
+
+    m_timerList << visTimer << aerodromsTimer << meteoTimer << backwardTimer<< mapTimer;
 
    // m_time.start(); //current time in VISUAL_DATA;
 }
@@ -81,9 +89,12 @@ void UdpServer::meteoTimerTimeout()
     {
 		qDebug() << "m_meteoPacket staff" << *m_meteoPacket.begin();
 		printMeteo(&m_meteo_data);
-		_MeteoData* meteo_ptr = reinterpret_cast<_MeteoData*>(m_meteoPacket.data());
+
+		QByteArray meteoData_ = QByteArray::fromRawData(reinterpret_cast<const char*>(m_meteoData), sizeof(_MeteoData));
+
+		_MeteoData* meteo_ptr = reinterpret_cast<_MeteoData*>(meteoData_.data());
 		meteo_ptr->model_simulation_time = m_time.elapsed();
-		sendUDPOnce(m_meteoPacket);
+		sendUDPOnce(meteoData_);
     }
 }
 void UdpServer::visTimerTimeout()
@@ -109,9 +120,11 @@ void UdpServer::aerodromsTimerTimeout()
     if (m_enabledPackets["AERODROMS_DATA"] == true)
     {
 		qDebug() << "m_aerodromePacket staff";
-		_AirportData* aerodrome_ptr = reinterpret_cast<_AirportData*>(m_aerodromePacket.data());
+		QByteArray aerodrome_data = QByteArray::fromRawData(reinterpret_cast<const char*>(m_airoportsData), sizeof(_AirportData));
+
+		_AirportData* aerodrome_ptr = reinterpret_cast<_AirportData*>(aerodrome_data.data());
 		aerodrome_ptr->model_simulation_time = m_time.elapsed();
-		sendUDPOnce(m_aerodromePacket);
+		sendUDPOnce(aerodrome_data);
     }
 }
 
@@ -120,10 +133,21 @@ void UdpServer::backwTimerTimeout()
     if (m_enabledPackets["BACKWARD_DATA"] == true)
     {
 		qDebug() << "m_backwardPacket staff";
-		_DataToModel* backw_ptr = reinterpret_cast<_DataToModel*>(m_backwardPacket.data());
+		QByteArray d2m = QByteArray::fromRawData(reinterpret_cast<const char*>(m_backwardData), sizeof(_DataToModel));
+
+		_DataToModel* backw_ptr = reinterpret_cast<_DataToModel*>(d2m.data());
 		backw_ptr->simulation_time = m_time.elapsed();
-		sendUDPOnce(m_backwardPacket);
+		sendUDPOnce(d2m);
     }
+}
+
+void UdpServer::mapTimerTimeout()
+{
+	if (m_enabledPackets["MAP_DATA"] == true)
+	{
+		qDebug() << "map staff";
+		sendMAPUDPOnce(m_mapPacket);
+	}
 }
 
 void UdpServer::stopSending()
@@ -179,6 +203,14 @@ void UdpServer::sendOnce()
 		
         sendUDPOnce(m_visualPacket);
     }
+
+	if (m_enabledPackets["MAP_DATA"] == true)
+	{
+		qDebug() << "map staff";
+		//UDP_data_t* map_ptr = reinterpret_cast<UDP_data_t*>(m_mapPacket.data());
+		//	backw_ptr->simulation_time = m_time.elapsed();
+		sendMAPUDPOnce(m_mapPacket);
+	}
 }
 
 void UdpServer::setSendData_METEO(const _MeteoData* data, bool check)
@@ -191,6 +223,7 @@ void UdpServer::setSendData_METEO(const _MeteoData* data, bool check)
     m_meteoPacket = QByteArray::fromRawData(reinterpret_cast<const char*>(data), sizeof(_MeteoData));
 	
 	m_enabledPackets["METEO_DATA"] = check;
+	m_meteoData = data;
 }
 
 void UdpServer::setSendData_BACKWARD(const _DataToModel* data, bool check)
@@ -198,7 +231,7 @@ void UdpServer::setSendData_BACKWARD(const _DataToModel* data, bool check)
 	//print meteo
 	m_enabledPackets["BACKWARD_DATA"] = check;
 	m_backwardPacket = QByteArray::fromRawData(reinterpret_cast<const char*>(data), sizeof(_DataToModel));
-
+	m_backwardData = data;
 }
 
 void UdpServer::setSendData_AERODROMS(const _AirportData* data, bool check)
@@ -207,7 +240,8 @@ void UdpServer::setSendData_AERODROMS(const _AirportData* data, bool check)
 	printAeroData(data);
 	m_enabledPackets["AERODROMS_DATA"] = check;
 	m_aerodromePacket = QByteArray::fromRawData(reinterpret_cast<const char*>(data), sizeof(_AirportData));
-
+	
+	m_airoportsData = data;
 }
 void UdpServer::setSendData_VISUAL(const _MainVisualData *data, bool check)
 {
@@ -221,6 +255,19 @@ void UdpServer::setSendData_VISUAL(const _MainVisualData *data, bool check)
     m_enabledPackets["VISUAL_DATA"] = check;
 
 	m_visualData = data;
+}
+
+void UdpServer::setSendData_MAP(const UDP_data_t * data, bool check)
+{
+	qDebug() << "map set send";
+	qDebug() << "_Mainvis size: " << sizeof(UDP_data_t) << " and data: " << sizeof(*data);
+	//printMeteo(data);
+
+	m_mapPacket = QByteArray::fromRawData(reinterpret_cast<const char*>(data), sizeof(UDP_data_t));
+
+	m_enabledPackets["MAP_DATA"] = check;
+
+	m_mapData = data;
 }
 
 void UdpServer::setDataFromReceived(const QByteArray &received)
@@ -330,6 +377,17 @@ void UdpServer::sendUDPOnce(const QByteArray& packet)
     {
         qWarning() << m_sender_socket->errorString();
     }
+
+}
+void UdpServer::sendMAPUDPOnce(const QByteArray& packet)
+{
+	qDebug() << QHostAddress::LocalHost << map_address2send;
+	qDebug() << "send Once port" << map_sender_port;
+
+	if (m_map_sender_socket->writeDatagram(packet, map_address2send, map_sender_port) == -1)
+	{
+		qWarning() << m_map_sender_socket->errorString();
+	}
 
 }
 

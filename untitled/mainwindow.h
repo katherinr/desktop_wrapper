@@ -66,6 +66,32 @@ private slots:
 
     void on_backwardChkBox_toggled(bool checked);
 
+    void on_showWindchB_toggled(bool checked);
+
+    void on_showTrajChB_toggled(bool checked);
+
+    void on_showRoutechB_toggled(bool checked);
+
+    void on_followMainPlainCHB_toggled(bool checked);
+
+    void on_isOrientCamchB_toggled(bool checked);
+
+    void on_sendIPEdit_2_editingFinished();
+
+    void on_sendPortEdit_2_editingFinished();
+
+    void on_send2mapIE_editingFinished();
+
+    void on_nppm_editingFinished();
+
+    void on_updateRoute_editingFinished();
+
+    void on_centerLat_editingFinished();
+
+    void on_centerLon_editingFinished();
+
+    void on_centerH_editingFinished();
+
 private:
     Ui::MainWindow *ui;
     meteoWindow* meteo_ui;
@@ -83,6 +109,8 @@ private:
 	_DataToModel backward_data_from_model;
 	_MainVisualData visual_data_from_model;
 
+
+    UDP_data_t map_data;
     UdpServer *m_server;
 	QTime time_from_start;
 };
