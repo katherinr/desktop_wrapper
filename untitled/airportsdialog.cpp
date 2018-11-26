@@ -94,36 +94,71 @@ void AirportsDialog::writeToFields(_AirportData *_data)
 	ui->arrival_airport_lights_taxiing->setText(QString::number(_data->ARRIVAL_AIRPORT_LIGHTS_TAXIING));
 	ui->arrival_airport_other_lights->setText(QString::number(_data->ARRIVAL_AIRPORT_OTHER_LIGHTS));
 
-	ui->departure_airport_lights_illumination->setText(QString::number(_data->ARRIVAL_AIRPORT_LIGHTS_ILLUMINATION));
-	ui->departure_airport_lights_taxiing->setText(QString::number(_data->ARRIVAL_AIRPORT_LIGHTS_TAXIING));
-	ui->departure_airport_other_lights->setText(QString::number(_data->ARRIVAL_AIRPORT_OTHER_LIGHTS));
+	ui->departure_airport_lights_illumination->setText(QString::number(_data->DEPARTURE_AIRPORT_LIGHTS_ILLUMINATION));
+	ui->departure_airport_lights_taxiing->setText(QString::number(_data->DEPARTURE_AIRPORT_LIGHTS_TAXIING));
+	ui->departure_airport_other_lights->setText(QString::number(_data->DEPARTURE_AIRPORT_OTHER_LIGHTS));
 
 	ui->takeoff_runway_border_lights->setText(QString::number(_data->TAKEOFF_RUNWAY_BORDER_LIGHTS));
 	ui->landing_runway_border_lights->setText(QString::number(_data->LANDING_RUNWAY_BORDER_LIGHTS));
 
-	ui->arrival_airport_code->setText(QString(_data->ARRIVAL_AIRPORT_CODE));
-	ui->departure_airport_code->setText(QString(_data->DEPARTURE_AIRPORT_CODE));
+	char tmp[5] = { '\0' };
+	tmp[0] = _data->ARRIVAL_AIRPORT_CODE[0];
+	tmp[1] = _data->ARRIVAL_AIRPORT_CODE[1];
+	tmp[2] = _data->ARRIVAL_AIRPORT_CODE[2];
+	tmp[3] = _data->ARRIVAL_AIRPORT_CODE[3];
+	QString arrCity = QString::fromUtf8(tmp);
 
-	ui->arrPolosa->setCurrentText(QString(_data->TAKEOFF_RUNWAY_CODE));
-	ui->depPolosa->setCurrentText(QString(_data->LANDING_RUNWAY_CODE));
 
+	tmp[0] = _data->DEPARTURE_AIRPORT_CODE[0];
+	tmp[1] = _data->DEPARTURE_AIRPORT_CODE[1];
+	tmp[2] = _data->DEPARTURE_AIRPORT_CODE[2];
+	tmp[3] = _data->DEPARTURE_AIRPORT_CODE[3];
+	
+	 QString depCity = QString::fromUtf8(tmp);
+
+	//ui->arrivalCity->setCurrentText(arrCity);
+	//ui->departureCity->setCurrentText(depCity);
+
+	//ui->arrPolosa->setCurrentText(QString::fromUtf8(_data->LANDING_RUNWAY_CODE));
+	//ui->depPolosa->setCurrentText(QString::fromUtf8(_data->TAKEOFF_RUNWAY_CODE));
+	
+	ui->arrival_airport_code->setText(arrCity);
+	ui->departure_airport_code->setText(depCity);
 
 	///fill strips
-
-	auto jt = flight_strips.find(ui->departure_airport_code->text());
-	if (jt != flight_strips.end())
+	if (!from_model)
 	{
-		ui->depPolosa->clear();
-		for (auto it : jt.value())
-			ui->depPolosa->addItem(it);
+		fillStripsComboBoxArr(arrCity);
+		fillStripsComboBoxDep(depCity);
+
+		auto jt = flight_strips.find(ui->departure_airport_code->text());
+
+		if (jt != flight_strips.end())
+			ui->depPolosa->setCurrentText(*jt.value().begin());
+
+		auto kt = flight_strips.find(ui->arrival_airport_code->text()); 
+
+		if (kt != flight_strips.end())
+			ui->arrPolosa->setCurrentText(*kt.value().begin());
 	}
-
-	auto kt = flight_strips.find(ui->arrival_airport_code->text());
-	if (kt != flight_strips.end())
+	else
 	{
-		ui->arrPolosa->clear();
-		for (auto it : kt.value())
-			ui->arrPolosa->addItem(it);
+		char tmp1[5] = { '\0' };
+		tmp[0] = _data->LANDING_RUNWAY_CODE[0];
+		tmp[1] = _data->LANDING_RUNWAY_CODE[1];
+		tmp[2] = _data->LANDING_RUNWAY_CODE[2];
+		tmp[3] = _data->LANDING_RUNWAY_CODE[3];
+		QString landCode = QString::fromUtf8(tmp);
+
+
+		tmp[0] = _data->TAKEOFF_RUNWAY_CODE[0];
+		tmp[1] = _data->TAKEOFF_RUNWAY_CODE[1];
+		tmp[2] = _data->TAKEOFF_RUNWAY_CODE[2];
+		tmp[3] = _data->TAKEOFF_RUNWAY_CODE[3];
+
+		QString takeoffCode = QString::fromUtf8(tmp);
+		ui->arrPolosa->setCurrentText(landCode);
+		ui->depPolosa->setCurrentText(takeoffCode);
 	}
 
 	//scrolls
@@ -543,9 +578,33 @@ void AirportsDialog::on_arrivalCity_currentIndexChanged(const QString &arg1)
 		qDebug() << "arrcityworks" << arg1 << it->icao;
 		ui->arrival_airport_code->clear();
 		ui->arrival_airport_code->setText(it->icao);
-
+		fillStripsComboBoxArr(arg1);
 		auto jt = flight_strips.find(arg1);
 
+		/*if (jt != flight_strips.end())
+		{
+			ui->arrPolosa->clear();
+			for (auto it : jt.value())
+				ui->arrPolosa->addItem(it);
+
+			ui->arrPolosa->setCurrentText(*jt.value().begin());
+		}  */
+
+		  if(jt != flight_strips.end())
+		      ui->arrPolosa->setCurrentText(*jt.value().begin());
+	}
+
+    QString s = ui->arrival_airport_code->text();
+    qstrcpy(data->ARRIVAL_AIRPORT_CODE, s.toLatin1());
+
+    s.clear();
+    s = ui->arrPolosa->currentText();
+    qstrcpy(data->LANDING_RUNWAY_CODE, s.toLatin1());
+}
+
+void AirportsDialog::fillStripsComboBoxArr(const QString &iata)
+{
+		auto jt = flight_strips.find(iata);
 
 		if (jt != flight_strips.end())
 		{
@@ -553,14 +612,25 @@ void AirportsDialog::on_arrivalCity_currentIndexChanged(const QString &arg1)
 			for (auto it : jt.value())
 				ui->arrPolosa->addItem(it);
 
-			ui->arrPolosa->setCurrentText(*jt.value().begin());
+		//	ui->arrPolosa->setCurrentText(*jt.value().begin());
 		}
 
-		//  if(jt != flight_strips.end())
-		 //     ui->arrPolosa->setCurrentText(*jt.value().begin());
-	}
 }
 
+void AirportsDialog::fillStripsComboBoxDep(const QString &iata)
+{
+	auto jt = flight_strips.find(iata);
+
+	if (jt != flight_strips.end())
+	{
+		ui->depPolosa->clear();
+		for (auto it : jt.value())
+			ui->depPolosa->addItem(it);
+
+		//ui->depPolosa->setCurrentText(*jt.value().begin());
+	}
+
+}
 void AirportsDialog::on_departureCity_currentIndexChanged(const QString &arg1)
 {
 	qDebug() << "arg = " << arg1;
@@ -575,15 +645,27 @@ void AirportsDialog::on_departureCity_currentIndexChanged(const QString &arg1)
 		ui->departure_airport_code->setText(it->icao);
 
 		auto jt = flight_strips.find(arg1);
-		ui->depPolosa->clear();
+		/*ui->depPolosa->clear();
 		if (jt != flight_strips.end())
 		{
 			for (auto it : jt.value())
 				ui->depPolosa->addItem(it);
 
 			ui->depPolosa->setCurrentText(*jt.value().begin());
+		} */
+		fillStripsComboBoxDep(arg1);
+		if (jt != flight_strips.end())
+		{
+			ui->depPolosa->setCurrentText(*jt.value().begin());
 		}
 	}
+
+	QString s = ui->departure_airport_code->text();
+	qstrcpy(data->DEPARTURE_AIRPORT_CODE, s.toLatin1());
+
+	s.clear();
+	s = ui->depPolosa->currentText();
+	qstrcpy(data->TAKEOFF_RUNWAY_CODE, s.toLatin1());
 }
 
 
@@ -651,11 +733,14 @@ void AirportsDialog::on_depStoyankScroll_valueChanged(int value)
 
 void AirportsDialog::on_departure_airport_code_editingFinished()
 {
+	/*fillStripsComboBoxArr(ui->departure_airport_code->text());
+	
 	auto jt = flight_strips.find(ui->departure_airport_code->text());
+
 	if (jt != flight_strips.end())
 	{
 		ui->depPolosa->clear();
 		for (auto it : jt.value())
 			ui->depPolosa->addItem(it);
-	}
+	}  */
 }

@@ -25,7 +25,8 @@ QT_BEGIN_NAMESPACE
 class Ui_MainVisual
 {
 public:
-    QHBoxLayout *horizontalLayout_11;
+    QVBoxLayout *verticalLayout_16;
+    QHBoxLayout *horizontalLayout_14;
     QVBoxLayout *verticalLayout_7;
     QGroupBox *mCloudGrB;
     QHBoxLayout *horizontalLayout;
@@ -108,7 +109,6 @@ public:
     QLineEdit *gr_spoiler_lin;
     QLineEdit *gr_spoiler_rob;
     QLineEdit *gr_spoiler_rin;
-    QVBoxLayout *verticalLayout_5;
     QGroupBox *mCloudGrB_7;
     QHBoxLayout *horizontalLayout_3;
     QVBoxLayout *verticalLayout_22;
@@ -136,6 +136,56 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QLabel *label_25;
     QLineEdit *num_correct;
+    QVBoxLayout *verticalLayout_5;
+    QGroupBox *mCloudGrB_8;
+    QHBoxLayout *horizontalLayout_13;
+    QHBoxLayout *horizontalLayout_11;
+    QVBoxLayout *verticalLayout_15;
+    QLabel *label_37;
+    QLabel *label_47;
+    QLabel *label_48;
+    QLabel *label_49;
+    QLabel *label_50;
+    QLabel *label_51;
+    QLabel *label_52;
+    QLabel *label_53;
+    QLabel *label_54;
+    QLabel *label_55;
+    QLabel *label_26;
+    QLabel *label_56;
+    QLabel *label_57;
+    QLabel *label_58;
+    QLabel *label_59;
+    QLabel *label_60;
+    QLabel *label_61;
+    QLabel *label_62;
+    QVBoxLayout *verticalLayout_14;
+    QLineEdit *Alpha;
+    QLineEdit *Beta;
+    QLineEdit *wx;
+    QLineEdit *wy;
+    QLineEdit *wz;
+    QLineEdit *nx;
+    QLineEdit *ny;
+    QLineEdit *nz;
+    QLineEdit *Vx_ef;
+    QLineEdit *Vy_ef;
+    QLineEdit *Vz_ef;
+    QLineEdit *VCAS;
+    QLineEdit *VTAS;
+    QLineEdit *M;
+    QLineEdit *RadioAltitude;
+    QLineEdit *WOW_L;
+    QLineEdit *WOW_R;
+    QLineEdit *WOW_N;
+    QGroupBox *mCloudGrB_5;
+    QHBoxLayout *horizontalLayout_12;
+    QVBoxLayout *verticalLayout_12;
+    QLabel *label_22;
+    QLabel *label_24;
+    QVBoxLayout *verticalLayout_13;
+    QLineEdit *SimulationRunning;
+    QLineEdit *SimulationReset;
     QHBoxLayout *horizontalLayout_8;
     QSpacerItem *horizontalSpacer;
     QHBoxLayout *horizontalLayout_7;
@@ -148,16 +198,18 @@ public:
             MainVisual->setObjectName(QStringLiteral("MainVisual"));
         MainVisual->setWindowModality(Qt::ApplicationModal);
         MainVisual->setEnabled(true);
-        MainVisual->resize(961, 900);
+        MainVisual->resize(1527, 900);
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(MainVisual->sizePolicy().hasHeightForWidth());
         MainVisual->setSizePolicy(sizePolicy);
         MainVisual->setMinimumSize(QSize(800, 900));
-        MainVisual->setMaximumSize(QSize(961, 900));
-        horizontalLayout_11 = new QHBoxLayout(MainVisual);
-        horizontalLayout_11->setObjectName(QStringLiteral("horizontalLayout_11"));
+        MainVisual->setMaximumSize(QSize(1000000, 900));
+        verticalLayout_16 = new QVBoxLayout(MainVisual);
+        verticalLayout_16->setObjectName(QStringLiteral("verticalLayout_16"));
+        horizontalLayout_14 = new QHBoxLayout();
+        horizontalLayout_14->setObjectName(QStringLiteral("horizontalLayout_14"));
         verticalLayout_7 = new QVBoxLayout();
         verticalLayout_7->setObjectName(QStringLiteral("verticalLayout_7"));
         mCloudGrB = new QGroupBox(MainVisual);
@@ -439,7 +491,7 @@ public:
         verticalLayout_7->addWidget(mCloudGrB_4);
 
 
-        horizontalLayout_11->addLayout(verticalLayout_7);
+        horizontalLayout_14->addLayout(verticalLayout_7);
 
         verticalLayout_6 = new QVBoxLayout();
         verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
@@ -562,8 +614,6 @@ public:
 
         verticalLayout_6->addWidget(mCloudGrB_6);
 
-        verticalLayout_5 = new QVBoxLayout();
-        verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
         mCloudGrB_7 = new QGroupBox(MainVisual);
         mCloudGrB_7->setObjectName(QStringLiteral("mCloudGrB_7"));
         horizontalLayout_3 = new QHBoxLayout(mCloudGrB_7);
@@ -670,7 +720,7 @@ public:
         horizontalLayout_3->addLayout(verticalLayout_23);
 
 
-        verticalLayout_5->addWidget(mCloudGrB_7);
+        verticalLayout_6->addWidget(mCloudGrB_7);
 
         groupBox = new QGroupBox(MainVisual);
         groupBox->setObjectName(QStringLiteral("groupBox"));
@@ -695,7 +745,262 @@ public:
         horizontalLayout_10->addLayout(horizontalLayout_2);
 
 
-        verticalLayout_5->addWidget(groupBox);
+        verticalLayout_6->addWidget(groupBox);
+
+
+        horizontalLayout_14->addLayout(verticalLayout_6);
+
+        verticalLayout_5 = new QVBoxLayout();
+        verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
+        mCloudGrB_8 = new QGroupBox(MainVisual);
+        mCloudGrB_8->setObjectName(QStringLiteral("mCloudGrB_8"));
+        horizontalLayout_13 = new QHBoxLayout(mCloudGrB_8);
+        horizontalLayout_13->setObjectName(QStringLiteral("horizontalLayout_13"));
+        horizontalLayout_11 = new QHBoxLayout();
+        horizontalLayout_11->setObjectName(QStringLiteral("horizontalLayout_11"));
+        verticalLayout_15 = new QVBoxLayout();
+        verticalLayout_15->setObjectName(QStringLiteral("verticalLayout_15"));
+        label_37 = new QLabel(mCloudGrB_8);
+        label_37->setObjectName(QStringLiteral("label_37"));
+        label_37->setMinimumSize(QSize(271, 0));
+
+        verticalLayout_15->addWidget(label_37);
+
+        label_47 = new QLabel(mCloudGrB_8);
+        label_47->setObjectName(QStringLiteral("label_47"));
+
+        verticalLayout_15->addWidget(label_47);
+
+        label_48 = new QLabel(mCloudGrB_8);
+        label_48->setObjectName(QStringLiteral("label_48"));
+
+        verticalLayout_15->addWidget(label_48);
+
+        label_49 = new QLabel(mCloudGrB_8);
+        label_49->setObjectName(QStringLiteral("label_49"));
+        label_49->setMinimumSize(QSize(271, 0));
+
+        verticalLayout_15->addWidget(label_49);
+
+        label_50 = new QLabel(mCloudGrB_8);
+        label_50->setObjectName(QStringLiteral("label_50"));
+
+        verticalLayout_15->addWidget(label_50);
+
+        label_51 = new QLabel(mCloudGrB_8);
+        label_51->setObjectName(QStringLiteral("label_51"));
+
+        verticalLayout_15->addWidget(label_51);
+
+        label_52 = new QLabel(mCloudGrB_8);
+        label_52->setObjectName(QStringLiteral("label_52"));
+
+        verticalLayout_15->addWidget(label_52);
+
+        label_53 = new QLabel(mCloudGrB_8);
+        label_53->setObjectName(QStringLiteral("label_53"));
+
+        verticalLayout_15->addWidget(label_53);
+
+        label_54 = new QLabel(mCloudGrB_8);
+        label_54->setObjectName(QStringLiteral("label_54"));
+
+        verticalLayout_15->addWidget(label_54);
+
+        label_55 = new QLabel(mCloudGrB_8);
+        label_55->setObjectName(QStringLiteral("label_55"));
+
+        verticalLayout_15->addWidget(label_55);
+
+        label_26 = new QLabel(mCloudGrB_8);
+        label_26->setObjectName(QStringLiteral("label_26"));
+        label_26->setMinimumSize(QSize(271, 0));
+
+        verticalLayout_15->addWidget(label_26);
+
+        label_56 = new QLabel(mCloudGrB_8);
+        label_56->setObjectName(QStringLiteral("label_56"));
+
+        verticalLayout_15->addWidget(label_56);
+
+        label_57 = new QLabel(mCloudGrB_8);
+        label_57->setObjectName(QStringLiteral("label_57"));
+
+        verticalLayout_15->addWidget(label_57);
+
+        label_58 = new QLabel(mCloudGrB_8);
+        label_58->setObjectName(QStringLiteral("label_58"));
+        label_58->setMinimumSize(QSize(271, 0));
+
+        verticalLayout_15->addWidget(label_58);
+
+        label_59 = new QLabel(mCloudGrB_8);
+        label_59->setObjectName(QStringLiteral("label_59"));
+
+        verticalLayout_15->addWidget(label_59);
+
+        label_60 = new QLabel(mCloudGrB_8);
+        label_60->setObjectName(QStringLiteral("label_60"));
+
+        verticalLayout_15->addWidget(label_60);
+
+        label_61 = new QLabel(mCloudGrB_8);
+        label_61->setObjectName(QStringLiteral("label_61"));
+
+        verticalLayout_15->addWidget(label_61);
+
+        label_62 = new QLabel(mCloudGrB_8);
+        label_62->setObjectName(QStringLiteral("label_62"));
+
+        verticalLayout_15->addWidget(label_62);
+
+
+        horizontalLayout_11->addLayout(verticalLayout_15);
+
+        verticalLayout_14 = new QVBoxLayout();
+        verticalLayout_14->setObjectName(QStringLiteral("verticalLayout_14"));
+        Alpha = new QLineEdit(mCloudGrB_8);
+        Alpha->setObjectName(QStringLiteral("Alpha"));
+
+        verticalLayout_14->addWidget(Alpha);
+
+        Beta = new QLineEdit(mCloudGrB_8);
+        Beta->setObjectName(QStringLiteral("Beta"));
+
+        verticalLayout_14->addWidget(Beta);
+
+        wx = new QLineEdit(mCloudGrB_8);
+        wx->setObjectName(QStringLiteral("wx"));
+
+        verticalLayout_14->addWidget(wx);
+
+        wy = new QLineEdit(mCloudGrB_8);
+        wy->setObjectName(QStringLiteral("wy"));
+
+        verticalLayout_14->addWidget(wy);
+
+        wz = new QLineEdit(mCloudGrB_8);
+        wz->setObjectName(QStringLiteral("wz"));
+
+        verticalLayout_14->addWidget(wz);
+
+        nx = new QLineEdit(mCloudGrB_8);
+        nx->setObjectName(QStringLiteral("nx"));
+
+        verticalLayout_14->addWidget(nx);
+
+        ny = new QLineEdit(mCloudGrB_8);
+        ny->setObjectName(QStringLiteral("ny"));
+
+        verticalLayout_14->addWidget(ny);
+
+        nz = new QLineEdit(mCloudGrB_8);
+        nz->setObjectName(QStringLiteral("nz"));
+
+        verticalLayout_14->addWidget(nz);
+
+        Vx_ef = new QLineEdit(mCloudGrB_8);
+        Vx_ef->setObjectName(QStringLiteral("Vx_ef"));
+
+        verticalLayout_14->addWidget(Vx_ef);
+
+        Vy_ef = new QLineEdit(mCloudGrB_8);
+        Vy_ef->setObjectName(QStringLiteral("Vy_ef"));
+
+        verticalLayout_14->addWidget(Vy_ef);
+
+        Vz_ef = new QLineEdit(mCloudGrB_8);
+        Vz_ef->setObjectName(QStringLiteral("Vz_ef"));
+
+        verticalLayout_14->addWidget(Vz_ef);
+
+        VCAS = new QLineEdit(mCloudGrB_8);
+        VCAS->setObjectName(QStringLiteral("VCAS"));
+
+        verticalLayout_14->addWidget(VCAS);
+
+        VTAS = new QLineEdit(mCloudGrB_8);
+        VTAS->setObjectName(QStringLiteral("VTAS"));
+
+        verticalLayout_14->addWidget(VTAS);
+
+        M = new QLineEdit(mCloudGrB_8);
+        M->setObjectName(QStringLiteral("M"));
+
+        verticalLayout_14->addWidget(M);
+
+        RadioAltitude = new QLineEdit(mCloudGrB_8);
+        RadioAltitude->setObjectName(QStringLiteral("RadioAltitude"));
+
+        verticalLayout_14->addWidget(RadioAltitude);
+
+        WOW_L = new QLineEdit(mCloudGrB_8);
+        WOW_L->setObjectName(QStringLiteral("WOW_L"));
+
+        verticalLayout_14->addWidget(WOW_L);
+
+        WOW_R = new QLineEdit(mCloudGrB_8);
+        WOW_R->setObjectName(QStringLiteral("WOW_R"));
+
+        verticalLayout_14->addWidget(WOW_R);
+
+        WOW_N = new QLineEdit(mCloudGrB_8);
+        WOW_N->setObjectName(QStringLiteral("WOW_N"));
+
+        verticalLayout_14->addWidget(WOW_N);
+
+
+        horizontalLayout_11->addLayout(verticalLayout_14);
+
+
+        horizontalLayout_13->addLayout(horizontalLayout_11);
+
+
+        verticalLayout_5->addWidget(mCloudGrB_8);
+
+        mCloudGrB_5 = new QGroupBox(MainVisual);
+        mCloudGrB_5->setObjectName(QStringLiteral("mCloudGrB_5"));
+        horizontalLayout_12 = new QHBoxLayout(mCloudGrB_5);
+        horizontalLayout_12->setObjectName(QStringLiteral("horizontalLayout_12"));
+        verticalLayout_12 = new QVBoxLayout();
+        verticalLayout_12->setObjectName(QStringLiteral("verticalLayout_12"));
+        label_22 = new QLabel(mCloudGrB_5);
+        label_22->setObjectName(QStringLiteral("label_22"));
+        label_22->setMinimumSize(QSize(271, 0));
+
+        verticalLayout_12->addWidget(label_22);
+
+        label_24 = new QLabel(mCloudGrB_5);
+        label_24->setObjectName(QStringLiteral("label_24"));
+
+        verticalLayout_12->addWidget(label_24);
+
+
+        horizontalLayout_12->addLayout(verticalLayout_12);
+
+        verticalLayout_13 = new QVBoxLayout();
+        verticalLayout_13->setObjectName(QStringLiteral("verticalLayout_13"));
+        SimulationRunning = new QLineEdit(mCloudGrB_5);
+        SimulationRunning->setObjectName(QStringLiteral("SimulationRunning"));
+
+        verticalLayout_13->addWidget(SimulationRunning);
+
+        SimulationReset = new QLineEdit(mCloudGrB_5);
+        SimulationReset->setObjectName(QStringLiteral("SimulationReset"));
+
+        verticalLayout_13->addWidget(SimulationReset);
+
+
+        horizontalLayout_12->addLayout(verticalLayout_13);
+
+
+        verticalLayout_5->addWidget(mCloudGrB_5);
+
+
+        horizontalLayout_14->addLayout(verticalLayout_5);
+
+
+        verticalLayout_16->addLayout(horizontalLayout_14);
 
         horizontalLayout_8 = new QHBoxLayout();
         horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
@@ -719,13 +1024,7 @@ public:
         horizontalLayout_8->addLayout(horizontalLayout_7);
 
 
-        verticalLayout_5->addLayout(horizontalLayout_8);
-
-
-        verticalLayout_6->addLayout(verticalLayout_5);
-
-
-        horizontalLayout_11->addLayout(verticalLayout_6);
+        verticalLayout_16->addLayout(horizontalLayout_8);
 
 
         retranslateUi(MainVisual);
@@ -823,6 +1122,48 @@ public:
         groupBox->setTitle(QString());
         label_25->setText(QApplication::translate("MainVisual", "\320\232\320\276\321\200\321\200\320\265\320\272\321\206\320\270\321\217 \320\270\320\267\320\276\320\261\321\200\320\260\320\266\320\265\320\275\320\270\321\217 \320\262 \320\272\320\260\320\261\320\270\320\275\320\265 \320\277\320\270\320\273\320\276\321\202\320\260 (0/1/2)", nullptr));
         num_correct->setText(QApplication::translate("MainVisual", "0", nullptr));
+        mCloudGrB_8->setTitle(QApplication::translate("MainVisual", "\320\224\320\276\320\277\320\276\320\273\320\275\320\270\321\202\320\265\320\273\321\214\320\275\320\260\321\217 \320\270\320\275\321\204\320\276\321\200\320\274\320\260\321\206\320\270\321\217 \320\264\320\273\321\217 \320\263\321\200\320\260\321\204\320\270\320\272\320\276\320\262", nullptr));
+        label_37->setText(QApplication::translate("MainVisual", "\320\243\320\263\320\276\320\273 \320\260\321\202\320\260\320\272\320\270", nullptr));
+        label_47->setText(QApplication::translate("MainVisual", "\320\243\320\263\320\276\320\273 \321\201\320\272\320\276\320\273\321\214\320\266\320\265\320\275\320\270\321\217", nullptr));
+        label_48->setText(QApplication::translate("MainVisual", "\320\243\320\263\320\273\320\276\320\262\320\260\321\217 \321\201\320\272\320\276\321\200\320\276\321\201\321\202\321\214 \320\272\321\200\320\265\320\275\320\260 \320\262 \321\201\320\262\321\217\320\267\320\260\320\275\320\275\320\276\320\271 \320\241\320\232", nullptr));
+        label_49->setText(QApplication::translate("MainVisual", "\320\243\320\263\320\273\320\276\320\262\320\260\321\217 \321\201\320\272\320\276\321\200\320\276\321\201\321\202\321\214 \321\200\321\213\321\201\320\272\320\260\320\275\320\270\321\217 \320\262 \321\201\320\262\321\217\320\267\320\260\320\275\320\275\320\276\320\271 \320\241\320\232", nullptr));
+        label_50->setText(QApplication::translate("MainVisual", "\320\243\320\263\320\273\320\276\320\262\320\260\321\217 \321\201\320\272\320\276\321\200\320\276\321\201\321\202\321\214 \321\202\320\260\320\275\320\263\320\260\320\266\320\260 \320\262 \321\201\320\262\321\217\320\267\320\260\320\275\320\275\320\276\320\271 \320\241\320\232", nullptr));
+        label_51->setText(QApplication::translate("MainVisual", "\320\241\320\276\321\201\321\202\320\260\320\262\320\273\321\217\321\216\321\211\320\260\321\217 \320\262\320\265\320\272\321\202\320\276\321\200\320\260 \320\277\320\265\321\200\320\265\320\263\321\200\321\203\320\267\320\272\320\270 nx \320\262 \321\201\320\262\321\217\320\267\320\260\320\275\320\275\320\276\320\271 \320\241\320\232,[\320\265\320\264]", nullptr));
+        label_52->setText(QApplication::translate("MainVisual", "\320\241\320\276\321\201\321\202\320\260\320\262\320\273\321\217\321\216\321\211\320\260\321\217 \320\262\320\265\320\272\321\202\320\276\321\200\320\260 \320\277\320\265\321\200\320\265\320\263\321\200\321\203\320\267\320\272\320\270 ny \320\262 \321\201\320\262\321\217\320\267\320\260\320\275\320\275\320\276\320\271 \320\241\320\232", nullptr));
+        label_53->setText(QApplication::translate("MainVisual", "\320\241\320\276\321\201\321\202\320\260\320\262\320\273\321\217\321\216\321\211\320\260\321\217 \320\262\320\265\320\272\321\202\320\276\321\200\320\260 \320\277\320\265\321\200\320\265\320\263\321\200\321\203\320\267\320\272\320\270 nz \320\262 \321\201\320\262\321\217\320\267\320\260\320\275\320\275\320\276\320\271 \320\241\320\232", nullptr));
+        label_54->setText(QApplication::translate("MainVisual", "\320\241\320\276\321\201\321\202\320\260\320\262\320\273\321\217\321\216\321\211\320\260\321\217 \320\262\320\265\320\272\321\202\320\276\321\200\320\260 \321\201\320\272\320\276\321\200\320\276\321\201\321\202\320\270 Vx \320\262 \320\267\320\265\320\274\320\275\320\276\320\271 \320\241\320\232", nullptr));
+        label_55->setText(QApplication::translate("MainVisual", "\320\241\320\276\321\201\321\202\320\260\320\262\320\273\321\217\321\216\321\211\320\260\321\217 \320\262\320\265\320\272\321\202\320\276\321\200\320\260 \321\201\320\272\320\276\321\200\320\276\321\201\321\202\320\270 Vy \320\262 \320\267\320\265\320\274\320\275\320\276\320\271 \320\241\320\232", nullptr));
+        label_26->setText(QApplication::translate("MainVisual", "\320\241\320\276\321\201\321\202\320\260\320\262\320\273\321\217\321\216\321\211\320\260\321\217 \320\262\320\265\320\272\321\202\320\276\321\200\320\260 \321\201\320\272\320\276\321\200\320\276\321\201\321\202\320\270 Vz \320\262 \320\267\320\265\320\274\320\275\320\276\320\271 \320\241\320\232", nullptr));
+        label_56->setText(QApplication::translate("MainVisual", "\320\237\321\200\320\270\320\261\320\276\321\200\320\275\320\260\321\217 \321\201\320\272\320\276\321\200\320\276\321\201\321\202\321\214", nullptr));
+        label_57->setText(QApplication::translate("MainVisual", "\320\230\321\201\321\202\320\270\320\275\320\275\320\260\321\217 \321\201\320\272\320\276\321\200\320\276\321\201\321\202\321\214", nullptr));
+        label_58->setText(QApplication::translate("MainVisual", "\320\247\320\270\321\201\320\273\320\276 \320\234\320\260\321\205\320\260", nullptr));
+        label_59->setText(QApplication::translate("MainVisual", "P\320\260\320\264\320\270\320\276\320\262\321\213\321\201\320\276\321\202\320\260 \320\270\320\267 \320\274\320\276\320\264\320\265\320\273\320\270", nullptr));
+        label_60->setText(QApplication::translate("MainVisual", "\321\210\320\260\321\201\321\201\320\270 \320\276\320\261\320\266\320\260\321\202\320\276: \320\273\320\265\320\262\320\260\321\217 \321\201\321\202\320\276\320\271\320\272\320\260", nullptr));
+        label_61->setText(QApplication::translate("MainVisual", "\321\210\320\260\321\201\321\201\320\270 \320\276\320\261\320\266\320\260\321\202\320\276: \320\277\321\200\320\260\320\262\320\260\321\217 \321\201\321\202\320\276\320\271\320\272\320\260", nullptr));
+        label_62->setText(QApplication::translate("MainVisual", "\321\210\320\260\321\201\321\201\320\270 \320\276\320\261\320\266\320\260\321\202\320\276: \320\275\320\276\321\201\320\276\320\262\320\260\321\217 \321\201\321\202\320\276\320\271\320\272\320\260", nullptr));
+        Alpha->setText(QApplication::translate("MainVisual", "0", nullptr));
+        Beta->setText(QApplication::translate("MainVisual", "0", nullptr));
+        wx->setText(QApplication::translate("MainVisual", "0", nullptr));
+        wy->setText(QApplication::translate("MainVisual", "0", nullptr));
+        wz->setText(QApplication::translate("MainVisual", "0", nullptr));
+        nx->setText(QApplication::translate("MainVisual", "0", nullptr));
+        ny->setText(QApplication::translate("MainVisual", "0", nullptr));
+        nz->setText(QApplication::translate("MainVisual", "0", nullptr));
+        Vx_ef->setText(QApplication::translate("MainVisual", "0", nullptr));
+        Vy_ef->setText(QApplication::translate("MainVisual", "0", nullptr));
+        Vz_ef->setText(QApplication::translate("MainVisual", "0", nullptr));
+        VCAS->setText(QApplication::translate("MainVisual", "0", nullptr));
+        VTAS->setText(QApplication::translate("MainVisual", "0", nullptr));
+        M->setText(QApplication::translate("MainVisual", "0", nullptr));
+        RadioAltitude->setText(QApplication::translate("MainVisual", "0", nullptr));
+        WOW_L->setText(QApplication::translate("MainVisual", "0", nullptr));
+        WOW_R->setText(QApplication::translate("MainVisual", "0", nullptr));
+        WOW_N->setText(QApplication::translate("MainVisual", "0", nullptr));
+        mCloudGrB_5->setTitle(QApplication::translate("MainVisual", "\320\245\320\276\320\264 \321\200\320\260\321\201\321\207\320\265\321\202\320\276\320\262", nullptr));
+        label_22->setText(QApplication::translate("MainVisual", "\320\234\320\276\320\264\320\265\320\273\320\270\321\200\320\276\320\262\320\260\320\275\320\270\320\265 \320\267\320\260\320\277\321\203\321\211\320\265\320\275\320\276", nullptr));
+        label_24->setText(QApplication::translate("MainVisual", "\320\237\320\265\321\200\320\265\320\267\320\260\320\277\321\203\321\201\320\272 \320\274\320\276\320\264\320\265\320\273\320\270\321\200\320\276\320\262\320\260\320\275\320\270\321\217", nullptr));
+        SimulationRunning->setText(QApplication::translate("MainVisual", "0", nullptr));
+        SimulationReset->setText(QApplication::translate("MainVisual", "0", nullptr));
         okpb->setText(QApplication::translate("MainVisual", "Ok", nullptr));
         cancelPb->setText(QApplication::translate("MainVisual", "\320\236\321\202\320\274\320\265\320\275\320\260", nullptr));
     } // retranslateUi

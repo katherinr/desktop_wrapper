@@ -77,6 +77,29 @@ void MainVisual::setDataToShow(_MainVisualData *data)
     ui->anticollosion_bec_red->setText((QString::number(data->AntiCollisionBeaconRed)));
     ui->internal_lights->setText((QString::number(data->InternalLights)));
 
+
+	//бортовые огни
+	ui->SimulationRunning->setText((QString::number(data->SimulationRunning)));
+	ui->SimulationReset->setText((QString::number(data->SimulationReset)));
+	ui->Alpha->setText((QString::number(data->Alpha)));
+	ui->Beta->setText((QString::number(data->Beta)));
+	ui->wx->setText((QString::number(data->wx)));
+	ui->wy->setText((QString::number(data->wy)));
+	ui->wz->setText((QString::number(data->wz)));
+	ui->nx->setText((QString::number(data->nx)));
+	ui->ny->setText((QString::number(data->ny)));
+	ui->nz->setText((QString::number(data->nz)));		
+	ui->Vx_ef->setText((QString::number(data->Vx_ef)));
+	ui->Vy_ef->setText((QString::number(data->Vy_ef)));
+	ui->Vz_ef->setText((QString::number(data->Vz_ef)));
+	ui->VCAS->setText((QString::number(data->VCAS)));
+	ui->VTAS->setText((QString::number(data->VTAS)));
+	ui->M->setText((QString::number(data->M)));
+
+	ui->WOW_L->setText((QString::number(data->WOW_L)));
+	ui->WOW_R->setText((QString::number(data->WOW_R)));
+	ui->WOW_N->setText((QString::number(data->WOW_N)));
+	ui->RadioAltitude->setText((QString::number(data->RadioAltitude)));
     this->update();
 }
 
@@ -358,8 +381,40 @@ void MainVisual::setDataFromDefaut( _MainVisualData *set_data)
     set_data->NavigationLightRed = ui->nav_light_red->text().toFloat();
     set_data->NavigationLightWhite = ui->nav_light_white->text().toFloat();
 
-    set_data->AntiCollisionBeaconWhite = //ui->anticoll_bec_white->text().toInt();
+    set_data->AntiCollisionBeaconWhite = ui->anticoll_bec_white->text().toInt();
     set_data->AntiCollisionBeaconRed = ui->anticollosion_bec_red->text().toInt();
     set_data->InternalLights = ui->internal_lights->text().toInt();
+	
+	// ход расчетов
+	set_data->SimulationRunning = ui->SimulationRunning->text().toFloat();               // Признак того, что моделирование (расчет) идёт
+	set_data->SimulationReset = ui->SimulationReset->text().toFloat();                           // Признак перезапуска моделирования
+
+	// дополнительная информация для графиков
+
+	set_data->Alpha = ui->Alpha->text().toFloat();
+	set_data->Beta = ui->Beta->text().toFloat();
+	set_data->wx = ui->wx->text().toFloat();
+	set_data->wy = ui->wy->text().toFloat();
+	set_data->wz = ui->wz->text().toFloat();
+	set_data->nx = ui->nx->text().toFloat();
+	set_data->ny = ui->ny->text().toFloat();
+	set_data->nz = ui->nz->text().toFloat();
+	set_data->Vx_ef = ui->Vx_ef->text().toFloat();
+
+	set_data->VCAS = ui->VCAS->text().toFloat();
+	set_data->VTAS = ui->VTAS->text().toFloat();
+	set_data->M = ui->M->text().toFloat();
+	set_data->RadioAltitude = ui->RadioAltitude->text().toFloat();
+	set_data->WOW_L = ui->WOW_L->text().toFloat();
+	set_data->WOW_R = ui->WOW_R->text().toFloat();
+	set_data->WOW_N = ui->WOW_N->text().toFloat();
+
+
 	emit sendData(set_data);
+}
+
+void MainVisual::on_RadioAltitude_editingFinished()
+{
+     m_data->RadioAltitude = ui->RadioAltitude->text().toFloat();
+
 }

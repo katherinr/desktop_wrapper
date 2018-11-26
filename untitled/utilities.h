@@ -155,7 +155,7 @@ inline void deepAeroportcopy(const _AirportData *_data, _AirportData *airoports_
 	airoports_lights_data->LANDING_RUNWAY_CODE[1] = _data->LANDING_RUNWAY_CODE[1];
 	airoports_lights_data->LANDING_RUNWAY_CODE[2] = _data->LANDING_RUNWAY_CODE[2];
 	airoports_lights_data->LANDING_RUNWAY_CODE[3] = _data->LANDING_RUNWAY_CODE[3];
-
+	airoports_lights_data->model_simulation_time = _data->model_simulation_time;
 /*	qstrcpy(airoports_lights_data->TAKEOFF_RUNWAY_CODE, _data->TAKEOFF_RUNWAY_CODE);
 	qstrcpy(airoports_lights_data->LANDING_RUNWAY_CODE, _data->LANDING_RUNWAY_CODE);
 	qstrcpy(airoports_lights_data->DEPARTURE_AIRPORT_CODE, _data->DEPARTURE_AIRPORT_CODE);
@@ -217,6 +217,31 @@ inline void deepVisualCopy(const _MainVisualData *data, _MainVisualData *visual_
 	visual_data->AntiCollisionBeaconWhite = data->AntiCollisionBeaconWhite;
 	visual_data->AntiCollisionBeaconRed = data->AntiCollisionBeaconRed;
 	visual_data->InternalLights = data->InternalLights;
+
+
+	// ход расчетов
+	visual_data->SimulationRunning = data->InternalLights;               // Признак того, что моделирование (расчет) идёт
+	visual_data->SimulationReset = data->SimulationReset;                           // Признак перезапуска моделирования
+
+	// дополнительная информация для графиков
+
+	visual_data->Alpha = data->Alpha;
+	visual_data->Beta = data->Beta;
+	visual_data->wx = data->wx;
+	visual_data->wy = data->wy;
+	visual_data->wz = data->wz;
+	visual_data->nx = data->nx;
+	visual_data->ny = data->ny;
+	visual_data->nz = data->nz;
+	visual_data->Vx_ef = data->Vx_ef;
+
+	visual_data->VCAS = data->VCAS;
+	visual_data->VTAS = data->VTAS;
+	visual_data->M = data->M;
+	visual_data->RadioAltitude = data->RadioAltitude;
+	visual_data->WOW_L = data->WOW_L;
+	visual_data->WOW_R = data->WOW_R;
+	visual_data->WOW_N = data->WOW_N;
 }
 inline void flushVISUALData(_MainVisualData visual_data)
 {
@@ -272,6 +297,27 @@ inline void flushVISUALData(_MainVisualData visual_data)
 	visual_data.AntiCollisionBeaconWhite = 0;
 	visual_data.AntiCollisionBeaconRed = 0;
 	visual_data.InternalLights = 0;
+
+	visual_data.SimulationRunning = 0;
+	visual_data.SimulationReset = 0;
+	visual_data.Alpha = 0;;
+	visual_data.Beta = 0;;
+	visual_data.wx = 0;;
+	visual_data.wy = 0;
+	visual_data.wz = 0;
+	visual_data.nx = 0;
+	visual_data.ny = 0;
+	visual_data.nz = 0;;
+	visual_data.Vx_ef = 0;
+	visual_data.VCAS = 0;
+	visual_data.VTAS = 0;
+	visual_data.M = 0;
+	visual_data.RadioAltitude = 0;
+
+	visual_data.WOW_L = 0;
+	visual_data.WOW_R = 0;
+	visual_data.WOW_N = 0;
+
 }
 inline void flushaEROData(_AirportData *airoports_lights_data)
 {

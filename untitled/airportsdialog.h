@@ -18,7 +18,7 @@ public:
     ~AirportsDialog();
 	void readDefault(_AirportData *);
     void writeToFields(_AirportData*);
-
+	bool from_model = false;
 private slots:
 
     void on_ok_pb_clicked();
@@ -48,7 +48,8 @@ private slots:
     void fill_flights_strips();
 
     void on_ok_pb_pressed();
-
+	void fillStripsComboBoxArr(const QString &iata);
+	void fillStripsComboBoxDep(const QString &iata);
     void updateScrolls();
     void on_arrivalCity_currentIndexChanged(const QString &arg1);
     void on_departureCity_currentIndexChanged(const QString &arg1);
@@ -68,6 +69,8 @@ private slots:
 
     void on_departure_airport_code_editingFinished();
 
+   // void on_arrivalCity_currentIndexChanged(int index);
+
 private:
     Ui::AirportsDialog *ui;
     _AirportData *data;
@@ -81,6 +84,7 @@ private:
     QMap<QString,codes> aeroports_codes;
     QMap<QString,std::vector <QString>> flight_strips;
     void setLimitsToScrolls();
+	
 signals:
     void sendData(_AirportData *data);
 };

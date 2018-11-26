@@ -101,6 +101,8 @@ private slots:
     void on_internal_lights_editingFinished();
 
 
+    void on_RadioAltitude_editingFinished();
+
 signals:
     void sendData(_MainVisualData *);		
 	void dataUpdated(_MainVisualData *);

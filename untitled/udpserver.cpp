@@ -146,7 +146,23 @@ void UdpServer::mapTimerTimeout()
 	if (m_enabledPackets["MAP_DATA"] == true)
 	{
 		qDebug() << "map staff";
-		sendMAPUDPOnce(m_mapPacket);
+
+		QByteArray visualData = QByteArray::fromRawData(reinterpret_cast<const char*>(m_visualData), sizeof(_MainVisualData));
+
+		_MainVisualData* visual_ptr = reinterpret_cast<_MainVisualData*>(visualData.data());
+		
+		QByteArray mapData = QByteArray::fromRawData(reinterpret_cast<const char*>(m_mapData), sizeof(UDP_data_t));
+
+		UDP_data_t* map_ptr = reinterpret_cast<UDP_data_t*>(mapData.data());
+		map_ptr->curLat = visual_ptr->p_coord.X;
+		map_ptr->curLon = visual_ptr->p_coord.Z;
+		map_ptr->curH = visual_ptr->p_coord.H;
+
+		map_ptr->curGamma = visual_ptr->p_angle.R;
+		map_ptr->curPsi = visual_ptr->p_angle.C;
+		map_ptr->curTheta = visual_ptr->p_angle.P;
+		map_ptr->seconds = visual_ptr->model_simulation_time;
+		sendMAPUDPOnce(mapData);
 	}
 }
 

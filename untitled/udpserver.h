@@ -114,8 +114,8 @@ private:
 	
 	//map
 	QUdpSocket *m_map_sender_socket;
-	QHostAddress map_address2send;
-	quint16 map_sender_port = 0;
+	QHostAddress map_address2send = QHostAddress("127.0.0.1");
+	quint16 map_sender_port = 3456;
 
 };
 
