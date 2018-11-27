@@ -92,6 +92,20 @@ private slots:
 
     void on_centerH_editingFinished();
 
+    void on_stopReceivingMain_toggled(bool checked);
+
+    void on_mapHeiihtspinBox_valueChanged(int arg1);
+
+    void on_receivePortEdit_2_editingFinished();
+
+    void on_send2mapCHb_toggled(bool checked);
+
+    void on_portMapSend_editingFinished();
+
+    void on_mapIPsend_editingFinished();
+
+    void on_stopReceivingMeteo_toggled(bool checked);
+
 private:
     Ui::MainWindow *ui;
     meteoWindow* meteo_ui;

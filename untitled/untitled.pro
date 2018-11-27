@@ -31,7 +31,8 @@ SOURCES += \
     udpserver.cpp \
     backward.cpp \
     meteo_struct.cpp \
-    mainvisual.cpp
+    mainvisual.cpp \
+    map_route.cpp
 
 HEADERS += \
     meteo_struct.h \
@@ -45,7 +46,8 @@ HEADERS += \
     ../build-untitled-Desktop_Qt_5_11_1_MSVC2017_64bit-Debug/ui_airportsdialog.h \
     backward.h \
     mainvisual.h \
-    utilities.h
+    utilities.h \
+    map_route.h
 
 FORMS += \
     meteoform.ui \
@@ -53,7 +55,8 @@ FORMS += \
     mainwindow.ui \
     airportsdialog.ui \
     backward.ui \
-    mainvisual.ui
+    mainvisual.ui \
+    map_route.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

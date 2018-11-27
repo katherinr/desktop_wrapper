@@ -3,7 +3,7 @@
 
 #include "meteo_struct.h"
 #include "qdebug.h"
-
+#include "qstring.h"
 inline void printAeroData(const _AirportData *_data)
 {
 	qDebug() << "airoports_lights_data->packet_id" << _data->packet_id;
@@ -392,4 +392,6 @@ inline void flushBackwardData(const _DataToModel * _data, _DataToModel  *backwar
 	qDebug() << "p_coord.Z" << _data->p_coord.Z;
 	qDebug() << "simulation_time" << _data->simulation_time;
 }
+
+
 #endif // UTILITIES_H

@@ -50,6 +50,7 @@ private slots:
     void on_ok_pb_pressed();
 	void fillStripsComboBoxArr(const QString &iata);
 	void fillStripsComboBoxDep(const QString &iata);
+
     void updateScrolls();
     void on_arrivalCity_currentIndexChanged(const QString &arg1);
     void on_departureCity_currentIndexChanged(const QString &arg1);
@@ -80,11 +81,24 @@ private:
         QString iata;
         QString icao;
     };
+	struct route_point
+	{
+		double routeLat;
+		double routeLon;
+		float routeAlt;
+	};
 
-    QMap<QString,codes> aeroports_codes;
+	//QMap <QString, route_point> fillRouteByICAO();
+	QMap <QString, QString> fillICAObyRus();
+
+	QMap <QString, route_point> route_points_by_icao;
+	QMap <QString, QString> icaoByrus;
+  
+	QMap<QString,codes> aeroports_codes;
     QMap<QString,std::vector <QString>> flight_strips;
     void setLimitsToScrolls();
-	
+
+	void AirportsDialog::fillRouteByICAO(QMap <QString, route_point> &answer);
 signals:
     void sendData(_AirportData *data);
 };

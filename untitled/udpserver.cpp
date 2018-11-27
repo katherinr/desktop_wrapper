@@ -19,6 +19,9 @@ UdpServer::UdpServer(QObject *parent):
 	m_map_sender_socket = new QUdpSocket(this);
 	connect(m_map_sender_socket, SIGNAL(readyRead()), this, SLOT(readDatagram()));
 
+	m_backward_sender_socket = new QUdpSocket(this);
+
+	connect(m_backward_sender_socket, SIGNAL(readyRead()), this, SLOT(readDatagram()));
     // enabled/disable sending for each udp packet
     m_enabledPackets["VISUAL_DATA"] = false;
     m_enabledPackets["AERODROMS_DATA"] = false;
@@ -162,6 +165,7 @@ void UdpServer::mapTimerTimeout()
 		map_ptr->curPsi = visual_ptr->p_angle.C;
 		map_ptr->curTheta = visual_ptr->p_angle.P;
 		map_ptr->seconds = visual_ptr->model_simulation_time;
+
 		sendMAPUDPOnce(mapData);
 	}
 }
@@ -180,6 +184,8 @@ UdpServer::~UdpServer()
     //delete m_udp;
     delete m_receiver_socket;
     delete m_sender_socket;
+	delete m_map_sender_socket;
+	delete m_backward_sender_socket;
 }
 
 void UdpServer::sendOnce()
@@ -371,7 +377,28 @@ void UdpServer::restartListening(quint16 _port)
 
 }
 
+void UdpServer::restartBACKWARDListening(quint16 _port)
+{
+	setBackwardReceivingPort(_port);
+	qDebug() << "listen port is" << backward_receive_port;
 
+	if (m_backward_receive_socket->state() != QAbstractSocket::UnconnectedState)
+	{
+		//   m_receiver_socket->disconnectFromHost();
+		m_backward_receive_socket->abort();
+	}
+	qDebug() << "try to bind";
+	if (!m_backward_receive_socket->bind(QHostAddress::Any, backward_receive_port))
+	{
+		auto error = m_backward_receive_socket->errorString();
+		qWarning() << "Could not create socket: " << QHostAddress(QHostAddress::Any)
+			<< ":" << backward_receive_port << " " << error << "!\n";
+		return;
+	}
+
+	qInfo() << "Listening on" << QHostAddress(QHostAddress::Any) << ":" << backward_receive_port << "\n";
+
+}
 
 void UdpServer::startSending()
 {
@@ -386,12 +413,12 @@ void UdpServer::startSending()
 
 void UdpServer::sendUDPOnce(const QByteArray& packet)
 {
-    qDebug()<<QHostAddress::LocalHost<<sender_port;
-    qDebug()<<"send Once port"<<sender_port;
+    qDebug()<<QHostAddress::LocalHost<< backward_address2send;
+    qDebug()<<"send Once port"<< backward_sender_port;
 
-    if (m_sender_socket->writeDatagram(packet, address2send, sender_port) == -1)
+    if (m_backward_sender_socket->writeDatagram(packet, backward_address2send, backward_sender_port) == -1)
     {
-        qWarning() << m_sender_socket->errorString();
+        qWarning() << m_backward_sender_socket->errorString();
     }
 
 }
@@ -415,7 +442,7 @@ void UdpServer::readDatagram()
     quint16 senderPort;
     qDebug()<<"reading datagrams";
     // read all availible datagrams
-    if (keep_recieve && m_receiver_socket->hasPendingDatagrams())
+    if ( m_receiver_socket->hasPendingDatagrams())
     {
         qDebug()<<"hasPendingDatagrams";
 
@@ -427,7 +454,8 @@ void UdpServer::readDatagram()
                                 &sender, &senderPort);
             qDebug()<<"reading start"<<senderPort;
 
-            setDataFromReceived(datagram);
+			if(keep_recieve)
+				setDataFromReceived(datagram);
         }
     }
 

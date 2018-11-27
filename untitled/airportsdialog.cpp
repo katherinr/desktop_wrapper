@@ -6,6 +6,7 @@
 #include "utilities.h"	 
 #include "meteo_struct.h"
 #include <stdlib.h>
+#include <map>
 AirportsDialog::AirportsDialog(QWidget *parent) :
 	QDialog(parent),
 	ui(new Ui::AirportsDialog),
@@ -19,6 +20,9 @@ AirportsDialog::AirportsDialog(QWidget *parent) :
 	//readDefault();
 	fill_aeroport_codes();
 	fill_flights_strips();
+	fillRouteByICAO(route_points_by_icao);
+	icaoByrus = fillICAObyRus();
+
 	setLimitsToLines();
 	setLimitsToScrolls();
 };
@@ -80,6 +84,19 @@ void AirportsDialog::setLimitsToScrolls()
 
 }
 
+QMap <QString, QString> AirportsDialog::fillICAObyRus()
+{
+	QMap<QString, QString> answer;
+
+	foreach(QString key, aeroports_codes.keys())
+	{
+		QString value = aeroports_codes.value(key).icao;
+		answer[value] = key;
+	}
+
+	return answer;
+}
+
 AirportsDialog::~AirportsDialog()
 {
 	delete ui;
@@ -113,22 +130,31 @@ void AirportsDialog::writeToFields(_AirportData *_data)
 	tmp[1] = _data->DEPARTURE_AIRPORT_CODE[1];
 	tmp[2] = _data->DEPARTURE_AIRPORT_CODE[2];
 	tmp[3] = _data->DEPARTURE_AIRPORT_CODE[3];
-	
-	 QString depCity = QString::fromUtf8(tmp);
+
+	QString depCity = QString::fromUtf8(tmp);
 
 	//ui->arrivalCity->setCurrentText(arrCity);
 	//ui->departureCity->setCurrentText(depCity);
 
 	//ui->arrPolosa->setCurrentText(QString::fromUtf8(_data->LANDING_RUNWAY_CODE));
 	//ui->depPolosa->setCurrentText(QString::fromUtf8(_data->TAKEOFF_RUNWAY_CODE));
-	
+
 	ui->arrival_airport_code->setText(arrCity);
 	ui->departure_airport_code->setText(depCity);
+	
+	auto rusCityArr = icaoByrus.find(arrCity);
+	if (rusCityArr != icaoByrus.end())
+		ui->arrivalCity->setCurrentText(rusCityArr.value());
 
+	auto rusCityDep = icaoByrus.find(depCity);
+	if (rusCityDep != icaoByrus.end())
+		ui->departureCity->setCurrentText(rusCityDep.value());	 
 	///fill strips
 	if (!from_model)
 	{
+		
 		fillStripsComboBoxArr(arrCity);
+		
 		fillStripsComboBoxDep(depCity);
 
 		auto jt = flight_strips.find(ui->departure_airport_code->text());
@@ -136,14 +162,16 @@ void AirportsDialog::writeToFields(_AirportData *_data)
 		if (jt != flight_strips.end())
 			ui->depPolosa->setCurrentText(*jt.value().begin());
 
-		auto kt = flight_strips.find(ui->arrival_airport_code->text()); 
+		auto kt = flight_strips.find(ui->arrival_airport_code->text());
 
 		if (kt != flight_strips.end())
 			ui->arrPolosa->setCurrentText(*kt.value().begin());
 	}
 	else
 	{
-		char tmp1[5] = { '\0' };
+		ui->arrPolosa->clear();
+		ui->depPolosa->clear();
+		char tmp1[4] = { '\0' };
 		tmp[0] = _data->LANDING_RUNWAY_CODE[0];
 		tmp[1] = _data->LANDING_RUNWAY_CODE[1];
 		tmp[2] = _data->LANDING_RUNWAY_CODE[2];
@@ -159,6 +187,15 @@ void AirportsDialog::writeToFields(_AirportData *_data)
 		QString takeoffCode = QString::fromUtf8(tmp);
 		ui->arrPolosa->setCurrentText(landCode);
 		ui->depPolosa->setCurrentText(takeoffCode);
+		
+	/*	const auto& rusCityArr = icaoByrus.find(landCode);
+
+		if (rusCityArr != icaoByrus.end())
+			ui->arrivalCity->setCurrentText(rusCityArr.value());
+
+		auto rusCityDep = icaoByrus.find(landCode);
+		if (rusCityDep != icaoByrus.end())
+			ui->departureCity->setCurrentText(rusCityDep.value());	*/
 	}
 
 	//scrolls
@@ -576,7 +613,7 @@ void AirportsDialog::on_arrivalCity_currentIndexChanged(const QString &arg1)
 	if (it != aeroports_codes.end())
 	{
 		qDebug() << "arrcityworks" << arg1 << it->icao;
-		ui->arrival_airport_code->clear();
+		//ui->arrival_airport_code->settclear();
 		ui->arrival_airport_code->setText(it->icao);
 		fillStripsComboBoxArr(arg1);
 		auto jt = flight_strips.find(arg1);
@@ -590,30 +627,30 @@ void AirportsDialog::on_arrivalCity_currentIndexChanged(const QString &arg1)
 			ui->arrPolosa->setCurrentText(*jt.value().begin());
 		}  */
 
-		  if(jt != flight_strips.end())
-		      ui->arrPolosa->setCurrentText(*jt.value().begin());
+		if (jt != flight_strips.end())
+			ui->arrPolosa->setCurrentText(*jt.value().begin());
 	}
 
-    QString s = ui->arrival_airport_code->text();
-    qstrcpy(data->ARRIVAL_AIRPORT_CODE, s.toLatin1());
+	QString s = ui->arrival_airport_code->text();
+	qstrcpy(data->ARRIVAL_AIRPORT_CODE, s.toLatin1());
 
-    s.clear();
-    s = ui->arrPolosa->currentText();
-    qstrcpy(data->LANDING_RUNWAY_CODE, s.toLatin1());
+	s.clear();
+	s = ui->arrPolosa->currentText();
+	qstrcpy(data->LANDING_RUNWAY_CODE, s.toLatin1());
 }
 
 void AirportsDialog::fillStripsComboBoxArr(const QString &iata)
 {
-		auto jt = flight_strips.find(iata);
+	auto jt = flight_strips.find(iata);
 
-		if (jt != flight_strips.end())
-		{
-			ui->arrPolosa->clear();
-			for (auto it : jt.value())
-				ui->arrPolosa->addItem(it);
+	if (jt != flight_strips.end())
+	{
+		ui->arrPolosa->clear();
+		for (auto it : jt.value())
+			ui->arrPolosa->addItem(it);
 
 		//	ui->arrPolosa->setCurrentText(*jt.value().begin());
-		}
+	}
 
 }
 
@@ -731,10 +768,72 @@ void AirportsDialog::on_depStoyankScroll_valueChanged(int value)
 	//qDebug()<<dep_border<< data->DEPARTURE_AIRPORT_LIGHTS_ILLUMINATION;
 }
 
+
+void AirportsDialog::fillRouteByICAO(QMap <QString, route_point> &answer)
+{
+	//QMap <QString, route_point> answer;
+
+	answer["UUDD"].routeLat = 55.973607;
+	answer["UUDD"].routeLon = 37.412512;
+
+	answer["UUEE"].routeLat = 55.410222;
+	answer["UUEE"].routeLon = 37.902443;
+
+	answer["UUWW"].routeLat = 55.599611;
+	answer["UUWW"].routeLon = 37.271236;
+
+	answer["UUBW"].routeLat = 55.973607;
+	answer["UUBW"].routeLon = 37.412512;
+
+	answer["UUMO"].routeLat = 55.513190;
+	answer["UUMO"].routeLon = 37.507440;
+
+	answer["EGLC"].routeLat = 51.505523;
+	answer["EGLC"].routeLon = 0.045733;
+
+	answer["LKKV"].routeLat = 50.202978000000;
+	answer["LKKV"].routeLon = 12.914983000000;
+
+	answer["LYTV"].routeLat = 42.404778;
+	answer["LYTV"].routeLon = 18.723146;
+
+	answer["EBBR"].routeLat = 50.901389000000;
+	answer["EBBR"].routeLon = 4.484444000000;
+
+	answer["LIPZ"].routeLat = 45.505278;
+	answer["LIPZ"].routeLon = 12.351944;
+
+	answer["EIDW"].routeLat = 53.421389000000;
+	answer["EIDW"].routeLon = -6.270000000000;
+
+	answer["LOWI"].routeLat = 47.2602005004883;
+	answer["LOWI"].routeLon = 11.3439998626709;
+
+	answer["BIKF"].routeLat = 63.985000000000;
+	answer["BIKF"].routeLon = -22.605556000000;
+
+	answer["UHKK"].routeLat = 50.409444000000;
+	answer["UHKK"].routeLon = 136.934167000000;
+
+	answer["ULLI"].routeLat = 59.800292000000;
+	answer["ULLI"].routeLon = 30.262503000000;
+
+	answer["URSS"].routeLat = 43.449928000000;
+	answer["URSS"].routeLon = 39.956589000000;
+
+	answer["MMTO"].routeLat = 19.337072000000;
+	answer["MMTO"].routeLon = -99.566008000000;
+
+	answer["EFHK"].routeLat = 60.317222000000;
+	answer["EFHK"].routeLon = 24.963333000000;
+
+	//return answer;
+}
+
 void AirportsDialog::on_departure_airport_code_editingFinished()
 {
 	/*fillStripsComboBoxArr(ui->departure_airport_code->text());
-	
+
 	auto jt = flight_strips.find(ui->departure_airport_code->text());
 
 	if (jt != flight_strips.end())

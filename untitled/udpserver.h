@@ -43,9 +43,31 @@ public:
 		return false;
 	}
 
+	bool setBackwardSendingPort(quint16 _port)
+	{
+		if (backward_sender_port != _port)
+		{
+			backward_sender_port = _port;
+			return  true;
+		}
+		return false;
+	}
+
+	bool setBackwardReceivingPort(quint16 _port)
+	{
+		if (backward_receive_port != _port)
+		{
+			backward_receive_port = _port;
+			return  true;
+		}
+		return false;
+	}
+
+	void setBackwardAddress2Send(QHostAddress addr){backward_address2send = addr; }
     void setAddress2Send(QHostAddress addr){address2send = addr;}
 	void setMAPAddress2Send(QHostAddress addr) { map_address2send = addr; }
-   
+
+	void restartBACKWARDListening(quint16 _port);
 	quint16 getReceivingPort(){return receiving_port;}
     void sendUDPOnce(const QByteArray &array);
     void setPacketSendEnabled(const QString& paketName, bool enabled);
@@ -111,12 +133,14 @@ private:
 	const UDP_data_t   *m_mapData;
 	//backward
 	QUdpSocket *m_backward_sender_socket;
-	
+	QUdpSocket *m_backward_receive_socket;
+	QHostAddress backward_address2send = QHostAddress("127.0.0.1");
+	quint16 backward_sender_port = 5003;
+	quint16 backward_receive_port = 5001;
 	//map
 	QUdpSocket *m_map_sender_socket;
 	QHostAddress map_address2send = QHostAddress("127.0.0.1");
 	quint16 map_sender_port = 3456;
-
 };
 
 #endif // UDPSERVER_H
