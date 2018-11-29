@@ -251,11 +251,11 @@ struct UDP_data_t
         memset(this, 0, sizeof(*this));
     }
 
-  bool isShowingWindow;
-  bool showCurTraj;
-  bool showRoute;
-  bool followMainPlane;
-  bool isOrientingCamera;
+  bool isShowingWindow;	 //
+  bool showCurTraj;	//
+  bool showRoute; //
+  bool followMainPlane;	//	
+  bool isOrientingCamera;	  //
   double centerLat;
   double centerLon;
   float centerH;

@@ -24,7 +24,7 @@ void MainVisual::setDataToShow(_MainVisualData *data)
 {
     data->packet_id = NPR_PACKET_TYPE_VISUAL_DATA;
 
-    qDebug()<<"setting visual data from received";
+  //  qDebug()<<"setting visual data from received";
     ui->num_correct->setText(QString::number(data->num_correct));
     ui->pcoord_lat->setText(QString::number(data->p_coord.X));
     ui->pcoord_lon->setText(QString::number(data->p_coord.Z));

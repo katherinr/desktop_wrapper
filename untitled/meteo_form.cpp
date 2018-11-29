@@ -13,11 +13,6 @@ meteoWindow::meteoWindow(QWidget *parent) :
     ui(new Ui::meteoWindow),
     data(new _MeteoData)
 {
-
-    //qDebug() << data;
-
-
-   
     ui->setupUi(this);
     data->packet_id = NPR_PACKET_TYPE_METEO_DATA;
     //setDataFromDefaultMeteo();
@@ -236,7 +231,7 @@ void meteoWindow::on_month_cmbB__currentIndexChanged(int index)
     {
         if (index>2 )
         {
-            qDebug()<<"sindex)11) " << index;
+           // qDebug()<<"sindex)11) " << index;
             ui->month_cmbB_->setCurrentIndex(0);
             //qDebug()<<"setCurrentIndex((2)11) " << data->Month;
         }
@@ -519,13 +514,13 @@ void meteoWindow::on_action_triggered()
     if(!meteo_data)
         return;
     writeToFields(meteo_data);
-    qDebug() << "reading file";
+   // qDebug() << "reading file";
     /*qDebug() << meteo_data->message;
     qDebug() << meteo_data->Visibility;
     qDebug() << meteo_data->CloudBase;
     qDebug() << meteo_data->CloudUpper;
     qDebug() << meteo_data->CloudSize;
-    qDebug() << meteo_data->cloudsType;*/
+    qDebug() << meteo_data->cloudsType;
     qDebug() << meteo_data->cloudsSecondLay;
     qDebug() << meteo_data->SecLayHeight;
     qDebug() << meteo_data->Day;
@@ -537,7 +532,7 @@ void meteoWindow::on_action_triggered()
     qDebug() << meteo_data->snow;
     qDebug() << meteo_data->hmist;
     qDebug() << meteo_data->wind_speed;
-    qDebug() << meteo_data->wind_psi;
+    qDebug() << meteo_data->wind_psi;  */
     //  qDebug() << meteo_data->StarBright;
 }
 
@@ -586,7 +581,7 @@ void meteoWindow::writeToFields(_MeteoData * _data )
 	if( !set_from_net  )
 		deep_meteo_copy(_data, data );
     
-	qDebug()<<"setting data from received";
+	//qDebug()<<"setting data from received";
     ui->visibility_inp_->setText(QString::number(_data->visibility));
     ui->cloudBase_inp_->setText(QString::number(_data->cloudBase));
     ui->cloudThick_inp_->setText(QString::number(_data->cloudUpper));

@@ -24,11 +24,11 @@ public:
     _MeteoData* data;
 	void writeToFields(_MeteoData * meteo_data);
 	void setReadOnly(bool isReadOnly);
-public slots:
-    void writeToFields(std::shared_ptr<_MeteoData> meteo_data );
-    void writeToFieldsNet(_MeteoData * meteo_data );
-
-
+	void writeToFieldsNet(_MeteoData * meteo_data);
+	void writeToFields(std::shared_ptr<_MeteoData> meteo_data);
+/*public slots:
+	void writeToFields(std::shared_ptr<_MeteoData> meteo_data);
+	void writeToFieldsNet(_MeteoData * meteo_data);		*/
 private:
 
    // _MeteoData* network_data;
@@ -36,6 +36,7 @@ private:
     FileMeteoIO file_io;
  signals:
     void  sendData(_MeteoData *data) ;
+
 private slots:
     void on_localVis_inp__editingFinished();
     void on_cloudThickScroll__valueChanged(int value);

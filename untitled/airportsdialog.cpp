@@ -14,14 +14,12 @@ AirportsDialog::AirportsDialog(QWidget *parent) :
 {
 	ui->setupUi(this);
 	data->packet_id = NPR_PACKET_TYPE_AIRPORT_DATA;
-	// ui->arrPolosa->clear();
-	// ui->depPolosa->clear();
 	setWindowModality(Qt::ApplicationModal);
-	//readDefault();
-	fill_aeroport_codes();
-	fill_flights_strips();
-	fillRouteByICAO(route_points_by_icao);
-	icaoByrus = fillICAObyRus();
+	
+	aeroports_codes = fill_aeroport_codes();
+	fill_flights_strips(flight_strips);
+	route_points_by_icao = fillRouteByICAO();
+	icaoByrus = fillICAObyRus(aeroports_codes);
 
 	setLimitsToLines();
 	setLimitsToScrolls();
@@ -83,7 +81,7 @@ void AirportsDialog::setLimitsToScrolls()
 	//  ui->arrRulez->setRange(0,100);
 
 }
-
+  /*
 QMap <QString, QString> AirportsDialog::fillICAObyRus()
 {
 	QMap<QString, QString> answer;
@@ -95,14 +93,14 @@ QMap <QString, QString> AirportsDialog::fillICAObyRus()
 	}
 
 	return answer;
-}
+}  */
 
 AirportsDialog::~AirportsDialog()
 {
 	delete ui;
 	delete data;
 
-	qDebug() << "destructor airp";
+	//qDebug() << "destructor airp";
 }
 
 void AirportsDialog::writeToFields(_AirportData *_data)
@@ -133,12 +131,6 @@ void AirportsDialog::writeToFields(_AirportData *_data)
 
 	QString depCity = QString::fromUtf8(tmp);
 
-	//ui->arrivalCity->setCurrentText(arrCity);
-	//ui->departureCity->setCurrentText(depCity);
-
-	//ui->arrPolosa->setCurrentText(QString::fromUtf8(_data->LANDING_RUNWAY_CODE));
-	//ui->depPolosa->setCurrentText(QString::fromUtf8(_data->TAKEOFF_RUNWAY_CODE));
-
 	ui->arrival_airport_code->setText(arrCity);
 	ui->departure_airport_code->setText(depCity);
 	
@@ -152,7 +144,6 @@ void AirportsDialog::writeToFields(_AirportData *_data)
 	///fill strips
 	if (!from_model)
 	{
-		
 		fillStripsComboBoxArr(arrCity);
 		
 		fillStripsComboBoxDep(depCity);
@@ -169,8 +160,8 @@ void AirportsDialog::writeToFields(_AirportData *_data)
 	}
 	else
 	{
-		ui->arrPolosa->clear();
-		ui->depPolosa->clear();
+		//ui->arrPolosa->clear();
+		//ui->depPolosa->clear();
 		char tmp1[4] = { '\0' };
 		tmp[0] = _data->LANDING_RUNWAY_CODE[0];
 		tmp[1] = _data->LANDING_RUNWAY_CODE[1];
@@ -268,7 +259,7 @@ void AirportsDialog::readDefault(_AirportData *data_)
 
 void AirportsDialog::on_ok_pb_clicked()
 {
-	printAeroData(data);
+//	printAeroData(data);
 	emit sendData(data);
 	this->close();
 }
@@ -337,7 +328,7 @@ void AirportsDialog::on_takeoff_runway_border_lights_editingFinished()
 	int tmp = s.toInt();
 	//data->TAKEOFF_RUNWAY_BORDER_LIGHTS = itoa(tmp,&data->TAKEOFF_RUNWAY_BORDER_LIGHTS,10);
 	qstrcpy(&data->TAKEOFF_RUNWAY_BORDER_LIGHTS, s.toLatin1());
-	qDebug() << "data->TAKEOFF_RUNWAY_BORDER_LIGHTS" << (int)data->TAKEOFF_RUNWAY_BORDER_LIGHTS << "\n";
+	//qDebug() << "data->TAKEOFF_RUNWAY_BORDER_LIGHTS" << (int)data->TAKEOFF_RUNWAY_BORDER_LIGHTS << "\n";
 	ui->depBokLightscroll->setSliderPosition(ui->takeoff_runway_border_lights->text().toInt());
 
 }
@@ -345,7 +336,7 @@ void AirportsDialog::on_takeoff_runway_border_lights_editingFinished()
 void AirportsDialog::on_departure_airport_lights_taxiing_editingFinished()
 {
 	qstrcpy(&data->DEPARTURE_AIRPORT_LIGHTS_TAXIING, qPrintable(ui->departure_airport_lights_taxiing->text()));
-	qDebug() << "data->DEPARTURE_AIRPORT_LIGHTS_TAXIING" << (int)data->DEPARTURE_AIRPORT_LIGHTS_TAXIING << "\n";
+//	qDebug() << "data->DEPARTURE_AIRPORT_LIGHTS_TAXIING" << (int)data->DEPARTURE_AIRPORT_LIGHTS_TAXIING << "\n";
 	ui->depRelLightsScroll->setSliderPosition(ui->departure_airport_lights_taxiing->text().toInt());
 
 
@@ -354,7 +345,7 @@ void AirportsDialog::on_departure_airport_lights_taxiing_editingFinished()
 void AirportsDialog::on_departure_airport_lights_illumination_editingFinished()
 {
 	qstrcpy(&data->DEPARTURE_AIRPORT_LIGHTS_ILLUMINATION, qPrintable(ui->departure_airport_lights_illumination->text()));
-	qDebug() << "data->DEPARTURE_AIRPORT_LIGHTS_ILLUMINATION" << (int)data->DEPARTURE_AIRPORT_LIGHTS_ILLUMINATION << "\n";
+//	qDebug() << "data->DEPARTURE_AIRPORT_LIGHTS_ILLUMINATION" << (int)data->DEPARTURE_AIRPORT_LIGHTS_ILLUMINATION << "\n";
 	ui->depStoyankScroll->setSliderPosition(ui->departure_airport_lights_illumination->text().toInt());
 
 }
@@ -362,7 +353,7 @@ void AirportsDialog::on_departure_airport_lights_illumination_editingFinished()
 void AirportsDialog::on_departure_airport_other_lights_editingFinished()
 {
 	qstrcpy(&data->DEPARTURE_AIRPORT_OTHER_LIGHTS, qPrintable(ui->departure_airport_other_lights->text()));
-	qDebug() << "data->DEPARTURE_AIRPORT_OTHER_LIGHTS" << (int)data->DEPARTURE_AIRPORT_OTHER_LIGHTS << "\n";
+//	qDebug() << "data->DEPARTURE_AIRPORT_OTHER_LIGHTS" << (int)data->DEPARTURE_AIRPORT_OTHER_LIGHTS << "\n";
 	ui->depOtherScroll->setSliderPosition(ui->departure_airport_other_lights->text().toInt());
 }
 
@@ -370,21 +361,21 @@ void AirportsDialog::on_arrival_airport_code_editingFinished()
 {
 	QString s = ui->arrival_airport_code->text();
 	qstrcpy(data->ARRIVAL_AIRPORT_CODE, s.toLatin1());
-	qDebug() << "data->ARRIVAL_AIRPORT_CODE" << data->ARRIVAL_AIRPORT_CODE << "\n";
+//	qDebug() << "data->ARRIVAL_AIRPORT_CODE" << data->ARRIVAL_AIRPORT_CODE << "\n";
 }
 
-void AirportsDialog::on_landing_runway_code_editingFinished()
+/*void AirportsDialog::on_landing_runway_code_editingFinished()
 {
 	QString s = ui->departure_airport_code->text();
 	qstrcpy(data->LANDING_RUNWAY_CODE, s.toLatin1());
-	qDebug() << "data->LANDING_RUNWAY_CODE" << data->LANDING_RUNWAY_CODE << "\n";
+//	qDebug() << "data->LANDING_RUNWAY_CODE" << data->LANDING_RUNWAY_CODE << "\n";
 
-}
+}	  */
 
 void AirportsDialog::on_landing_runway_border_lights_editingFinished()
 {
 	qstrcpy(&data->LANDING_RUNWAY_BORDER_LIGHTS, qPrintable(ui->landing_runway_border_lights->text()));
-	qDebug() << "data->LANDING_RUNWAY_BORDER_LIGHTS" << (int)data->LANDING_RUNWAY_BORDER_LIGHTS << "\n";
+//	qDebug() << "data->LANDING_RUNWAY_BORDER_LIGHTS" << (int)data->LANDING_RUNWAY_BORDER_LIGHTS << "\n";
 	ui->arrYarkBok->setSliderPosition(ui->landing_runway_border_lights->text().toInt());
 
 }
@@ -392,24 +383,24 @@ void AirportsDialog::on_landing_runway_border_lights_editingFinished()
 void AirportsDialog::on_arrival_airport_lights_taxiing_editingFinished()
 {
 	qstrcpy(&data->ARRIVAL_AIRPORT_LIGHTS_TAXIING, qPrintable(ui->arrival_airport_lights_taxiing->text()));
-	qDebug() << "data->ARRIVAL_AIRPORT_LIGHTS_TAXIING" << (int)data->ARRIVAL_AIRPORT_LIGHTS_TAXIING << "\n";
+//	qDebug() << "data->ARRIVAL_AIRPORT_LIGHTS_TAXIING" << (int)data->ARRIVAL_AIRPORT_LIGHTS_TAXIING << "\n";
 	ui->arrRulez->setSliderPosition(ui->arrival_airport_lights_taxiing->text().toInt());
 }
 
 void AirportsDialog::on_arrival_airport_lights_illumination_editingFinished()
 {
 	qstrcpy(&data->ARRIVAL_AIRPORT_LIGHTS_ILLUMINATION, qPrintable(ui->arrival_airport_lights_illumination->text()));
-	qDebug() << "data->ARRIVAL_AIRPORT_LIGHTS_ILLUMINATION" << (int)data->ARRIVAL_AIRPORT_LIGHTS_ILLUMINATION << "\n";
+//	qDebug() << "data->ARRIVAL_AIRPORT_LIGHTS_ILLUMINATION" << (int)data->ARRIVAL_AIRPORT_LIGHTS_ILLUMINATION << "\n";
 	ui->arrPodsvet->setSliderPosition(ui->arrival_airport_lights_illumination->text().toInt());
 }
 
 void AirportsDialog::on_arrival_airport_other_lights_editingFinished()
 {
 	qstrcpy(&data->ARRIVAL_AIRPORT_OTHER_LIGHTS, qPrintable(ui->arrival_airport_other_lights->text()));
-	qDebug() << "data->ARRIVAL_AIRPORT_OTHER_LIGHTS" << (int)data->ARRIVAL_AIRPORT_OTHER_LIGHTS << "\n";
+//	qDebug() << "data->ARRIVAL_AIRPORT_OTHER_LIGHTS" << (int)data->ARRIVAL_AIRPORT_OTHER_LIGHTS << "\n";
 	ui->arrOther->setSliderPosition(ui->arrival_airport_other_lights->text().toInt());
 }
-
+ /*
 void AirportsDialog::fill_aeroport_codes()
 {
 	QString s = QString::fromLocal8Bit("Шереметьево (SVO/UUEE)");
@@ -581,7 +572,7 @@ void AirportsDialog::fill_flights_strips()
 	(flight_strips[QString::fromLocal8Bit("Хельсинки (HEL/EFHK)")].begin(),
 		tmp.begin(), tmp.end());
 }
-
+	*/
 void AirportsDialog::on_ok_pb_pressed()
 {
 	emit sendData(this->data);
@@ -606,13 +597,13 @@ void AirportsDialog::updateScrolls()
 
 void AirportsDialog::on_arrivalCity_currentIndexChanged(const QString &arg1)
 {
-	qDebug() << "arg = " << arg1;
+	//qDebug() << "arg = " << arg1;
 	//for(const auto& aer : aeroports_codes.keys())
 	//  qDebug() << "aeroports_codes[" << aer <<"] = " << aeroports_codes[aer].iata <<  aeroports_codes[aer].icao;
 	auto it = aeroports_codes.find(arg1);
 	if (it != aeroports_codes.end())
 	{
-		qDebug() << "arrcityworks" << arg1 << it->icao;
+		//qDebug() << "arrcityworks" << arg1 << it->icao;
 		//ui->arrival_airport_code->settclear();
 		ui->arrival_airport_code->setText(it->icao);
 		fillStripsComboBoxArr(arg1);
@@ -757,7 +748,7 @@ void AirportsDialog::on_depRelLightsScroll_valueChanged(int position)
 	char dep_border = ui->depRelLightsScroll->value();
 	ui->departure_airport_lights_taxiing->setText(QString::number(dep_border));
 	data->DEPARTURE_AIRPORT_LIGHTS_TAXIING = dep_border;
-	qDebug() << dep_border << data->DEPARTURE_AIRPORT_LIGHTS_TAXIING;
+	//qDebug() << dep_border << data->DEPARTURE_AIRPORT_LIGHTS_TAXIING;
 }
 
 void AirportsDialog::on_depStoyankScroll_valueChanged(int value)
@@ -768,7 +759,7 @@ void AirportsDialog::on_depStoyankScroll_valueChanged(int value)
 	//qDebug()<<dep_border<< data->DEPARTURE_AIRPORT_LIGHTS_ILLUMINATION;
 }
 
-
+  /*
 void AirportsDialog::fillRouteByICAO(QMap <QString, route_point> &answer)
 {
 	//QMap <QString, route_point> answer;
@@ -828,7 +819,7 @@ void AirportsDialog::fillRouteByICAO(QMap <QString, route_point> &answer)
 	answer["EFHK"].routeLon = 24.963333000000;
 
 	//return answer;
-}
+}	   */
 
 void AirportsDialog::on_departure_airport_code_editingFinished()
 {

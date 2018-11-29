@@ -66,7 +66,7 @@ public:
 	void setBackwardAddress2Send(QHostAddress addr){backward_address2send = addr; }
     void setAddress2Send(QHostAddress addr){address2send = addr;}
 	void setMAPAddress2Send(QHostAddress addr) { map_address2send = addr; }
-
+	void setBackwReceive(bool check) { keep_backw_receive = check; }
 	void restartBACKWARDListening(quint16 _port);
 	quint16 getReceivingPort(){return receiving_port;}
     void sendUDPOnce(const QByteArray &array);
@@ -88,6 +88,7 @@ public:
 	void sendMAPUDPOnce(const QByteArray& packet);
 	void startSending();
 	void stopSending();
+	void sendBACKWARDUDPOnce(const QByteArray& packet);
     //private slots:
 public slots:
 
@@ -102,6 +103,7 @@ signals:
     void dataUpdated( _MainVisualData*);
 public:
     bool keep_recieve = false;
+	bool keep_backw_receive = false;
 	QTime m_time;
 private:
     QUdpSocket *m_receiver_socket;

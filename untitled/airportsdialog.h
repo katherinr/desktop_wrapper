@@ -4,6 +4,7 @@
 #include <QMap>
 #include <QDialog>
 #include "meteo_struct.h"
+#include "utilities.h"
 //#include <Protocol_templates(25.09.2018).h>
 namespace Ui {
 class AirportsDialog;
@@ -14,11 +15,13 @@ class AirportsDialog : public QDialog
     Q_OBJECT
 
 public:
+
     explicit AirportsDialog(QWidget *parent = nullptr);
     ~AirportsDialog();
 	void readDefault(_AirportData *);
     void writeToFields(_AirportData*);
 	bool from_model = false;
+	QMap <QString, route_point> getRouteByIcao() { return route_points_by_icao; }
 private slots:
 
     void on_ok_pb_clicked();
@@ -34,7 +37,7 @@ private slots:
 
     void on_arrival_airport_code_editingFinished();
 
-    void on_landing_runway_code_editingFinished();
+   // void on_landing_runway_code_editingFinished();
 
     void on_landing_runway_border_lights_editingFinished();
 
@@ -44,8 +47,8 @@ private slots:
 
     void on_arrival_airport_other_lights_editingFinished();
 
-    void fill_aeroport_codes();
-    void fill_flights_strips();
+   // void fill_aeroport_codes();
+   // void fill_flights_strips();
 
     void on_ok_pb_pressed();
 	void fillStripsComboBoxArr(const QString &iata);
@@ -69,36 +72,25 @@ private slots:
     void on_depStoyankScroll_valueChanged(int value);
 
     void on_departure_airport_code_editingFinished();
-
+	 //	QMap <QString, route_point> getRouteByIcao() { return route_points_by_icao; }
    // void on_arrivalCity_currentIndexChanged(int index);
 
 private:
     Ui::AirportsDialog *ui;
     _AirportData *data;
 
-    struct codes
-    {
-        QString iata;
-        QString icao;
-    };
-	struct route_point
-	{
-		double routeLat;
-		double routeLon;
-		float routeAlt;
-	};
-
 	//QMap <QString, route_point> fillRouteByICAO();
-	QMap <QString, QString> fillICAObyRus();
+	//QMap <QString, QString> fillICAObyRus();
 
-	QMap <QString, route_point> route_points_by_icao;
-	QMap <QString, QString> icaoByrus;
+	QMap <QString, route_point>  route_points_by_icao;
+	QMap <QString, QString>  icaoByrus;
   
-	QMap<QString,codes> aeroports_codes;
+	QMap<QString,codes>  aeroports_codes;
     QMap<QString,std::vector <QString>> flight_strips;
     void setLimitsToScrolls();
 
-	void AirportsDialog::fillRouteByICAO(QMap <QString, route_point> &answer);
+	//void AirportsDialog::fillRouteByICAO(QMap <QString, route_point> &answer);
+
 signals:
     void sendData(_AirportData *data);
 };

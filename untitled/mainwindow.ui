@@ -109,6 +109,16 @@
           </layout>
          </item>
          <item>
+          <widget class="QCheckBox" name="stopReceivingMain">
+           <property name="text">
+            <string>Отключить прием данных</string>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QLabel" name="label_4">
            <property name="text">
             <string>Основной пакет данных</string>
@@ -161,27 +171,17 @@
              </property>
             </spacer>
            </item>
-           <item>
-            <widget class="QCheckBox" name="stopReceivingMain">
-             <property name="text">
-              <string>Отключить прием данных</string>
-             </property>
-             <property name="checked">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
           </layout>
          </item>
          <item>
-          <widget class="QLabel" name="label_5">
-           <property name="text">
-            <string>Данные о времени и погоде</string>
-           </property>
-          </widget>
-         </item>
-         <item>
           <layout class="QVBoxLayout" name="verticalLayout_9">
+           <item>
+            <widget class="QLabel" name="label_5">
+             <property name="text">
+              <string>Данные о времени и погоде</string>
+             </property>
+            </widget>
+           </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_7">
              <item>
@@ -217,33 +217,23 @@
              </property>
              <property name="sizeHint" stdset="0">
               <size>
-               <width>298</width>
-               <height>68</height>
+               <width>295</width>
+               <height>88</height>
               </size>
              </property>
             </spacer>
            </item>
-           <item>
-            <widget class="QCheckBox" name="stopReceivingMeteo">
-             <property name="text">
-              <string>Отключить прием данных</string>
-             </property>
-             <property name="checked">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
           </layout>
          </item>
          <item>
-          <widget class="QLabel" name="label_6">
-           <property name="text">
-            <string>Данные об аэродромах</string>
-           </property>
-          </widget>
-         </item>
-         <item>
           <layout class="QVBoxLayout" name="verticalLayout_11">
+           <item>
+            <widget class="QLabel" name="label_6">
+             <property name="text">
+              <string>Данные об аэродромах</string>
+             </property>
+            </widget>
+           </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_6">
              <item>
@@ -279,21 +269,11 @@
              </property>
              <property name="sizeHint" stdset="0">
               <size>
-               <width>298</width>
-               <height>68</height>
+               <width>295</width>
+               <height>88</height>
               </size>
              </property>
             </spacer>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="stopReceivingAerodroms">
-             <property name="text">
-              <string>Отключить прием данных</string>
-             </property>
-             <property name="checked">
-              <bool>false</bool>
-             </property>
-            </widget>
            </item>
           </layout>
          </item>
@@ -350,7 +330,7 @@
                <item>
                 <widget class="QLineEdit" name="backwPortEdit">
                  <property name="text">
-                  <string>5003</string>
+                  <string>1234</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -608,7 +588,7 @@
              <item>
               <widget class="QLineEdit" name="receivePortEdit_2">
                <property name="text">
-                <string>5001</string>
+                <string>3456</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>

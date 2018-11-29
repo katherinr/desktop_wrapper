@@ -58,9 +58,10 @@ private slots:
     void on_sendOnceButton_clicked();
     void on_stopPB_clicked();
 	void readConfig();
-    //map indication
+	//void MAP_fill_route(UDP_data_t * map_data_, _MainVisualData * vis_data, _AirportData * airp_data);
+	//map indication
     void on_routePushB_clicked();
-    void on_send2mapchb_toggled(bool checked);
+  //  void on_send2mapchb_toggled(bool checked);
 
     void on_backwReceive_toggled(bool checked);
 
@@ -76,11 +77,7 @@ private slots:
 
     void on_isOrientCamchB_toggled(bool checked);
 
-    void on_sendIPEdit_2_editingFinished();
-
-    void on_sendPortEdit_2_editingFinished();
-
-    void on_send2mapIE_editingFinished();
+   // void on_sendPortEdit_2_editingFinished();
 
     void on_nppm_editingFinished();
 
@@ -90,7 +87,7 @@ private slots:
 
     void on_centerLon_editingFinished();
 
-    void on_centerH_editingFinished();
+  //  void on_centerH_editingFinished();
 
     void on_stopReceivingMain_toggled(bool checked);
 
@@ -104,8 +101,7 @@ private slots:
 
     void on_mapIPsend_editingFinished();
 
-    void on_stopReceivingMeteo_toggled(bool checked);
-
+   // void on_stopReceivingMeteo_toggled(bool checked);
 private:
     Ui::MainWindow *ui;
     meteoWindow* meteo_ui;

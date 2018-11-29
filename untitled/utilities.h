@@ -4,6 +4,351 @@
 #include "meteo_struct.h"
 #include "qdebug.h"
 #include "qstring.h"
+
+struct codes
+{
+	
+	QString iata;
+	QString icao;
+};
+struct route_point
+{
+
+	double routeLat;
+	double routeLon;
+	float routeAlt;
+};
+
+struct camera_part
+{
+	/*camera_part()
+	{
+		memset(this, 0, sizeof(*this));
+	}  */
+	bool isShowingWindow;	 //
+	bool showCurTraj;	//
+	bool showRoute; //
+	bool followMainPlane;	//	
+	bool isOrientingCamera;	  //
+	
+	//double centerLat;
+	//double centerLon;
+	//float centerH;
+	
+	quint8 currWPT;
+	int updateRoute;
+};
+
+inline QMap<QString, codes>  fill_aeroport_codes()
+{
+	QMap<QString, codes>  aeroports_codes;
+	QString s = QString::fromLocal8Bit("Шереметьево (SVO/UUEE)");
+
+	aeroports_codes[QString::fromLocal8Bit("Шереметьево (SVO/UUEE)")].icao = "UUEE";
+	aeroports_codes[QString::fromLocal8Bit("Шереметьево (SVO/UUEE)")].iata = "SVO";
+
+	aeroports_codes[QString::fromLocal8Bit("Домодедово (DME/UUDD)")].icao = "UUDD";
+	aeroports_codes[QString::fromLocal8Bit("Домодедово (DME/UUDD)")].iata = "DME";
+
+	aeroports_codes[QString::fromLocal8Bit("Внуково (VKO/UUWW)")].icao = "UUWW";
+	aeroports_codes[QString::fromLocal8Bit("Внуково (VKO/UUWW)")].iata = "SVO";
+
+	aeroports_codes[QString::fromLocal8Bit("Жуковский (ZIA/UUBW)")].icao = "UUBW";
+	aeroports_codes[QString::fromLocal8Bit("Жуковский (ZIA/UUBW)")].iata = "ZIA";
+
+	aeroports_codes[QString::fromLocal8Bit("Остафьево (OSF/UUMO)")].icao = "UUMO";
+	aeroports_codes[QString::fromLocal8Bit("Остафьево (OSF/UUMO)")].iata = "OSF";
+
+	aeroports_codes[QString::fromLocal8Bit("Лондон (LCY/EGLC)")].iata = "LCY";
+	aeroports_codes[QString::fromLocal8Bit("Лондон (LCY/EGLC)")].icao = "EGLC";
+
+	aeroports_codes[QString::fromLocal8Bit("Карловы Вары (KLV/LKKV)")].iata = "KLV";
+	aeroports_codes[QString::fromLocal8Bit("Карловы Вары (KLV/LKKV)")].icao = "LKKV";
+
+	aeroports_codes[QString::fromLocal8Bit("Тиват (TIV/LYTV)")].iata = "TIV";
+	aeroports_codes[QString::fromLocal8Bit("Тиват (TIV/LYTV)")].icao = "LYTV";
+
+	aeroports_codes[QString::fromLocal8Bit("Брюссель (BRU/EBBR)")].iata = "BRU";
+	aeroports_codes[QString::fromLocal8Bit("Брюссель (BRU/EBBR)")].icao = "EBBR";
+
+	aeroports_codes[QString::fromLocal8Bit("Венеция (VCE/LIPZ)")].iata = "VCE";
+	aeroports_codes[QString::fromLocal8Bit("Венеция (VCE/LIPZ)")].icao = "LIPZ";
+
+	aeroports_codes[QString::fromLocal8Bit("Дублин (DUB/EIBW)")].iata = "DUB";
+	aeroports_codes[QString::fromLocal8Bit("Дублин (DUB/EIBW)")].icao = "EIDW";
+
+	aeroports_codes[QString::fromLocal8Bit("Инсбрук (INN/LOWI)")].iata = "INN";
+	aeroports_codes[QString::fromLocal8Bit("Инсбрук (INN/LOWI)")].icao = "LOWI";
+
+	aeroports_codes[QString::fromLocal8Bit("Кеблавик (KEF/BIKF)")].iata = "KEF";
+	aeroports_codes[QString::fromLocal8Bit("Кеблавик (KEF/BIKF)")].icao = "BIKF";
+
+	aeroports_codes[QString::fromLocal8Bit("Комсомольск (KXK/UHKK)")].iata = "KXK";
+	aeroports_codes[QString::fromLocal8Bit("Комсомольск (KXK/UHKK)")].icao = "UHKK";
+
+	aeroports_codes[QString::fromLocal8Bit("Пулково (LED/ULLI)")].iata = "LED";
+	aeroports_codes[QString::fromLocal8Bit("Пулково (LED/ULLI)")].icao = "ULLI";
+
+	aeroports_codes[QString::fromLocal8Bit("Сочи (AER/URSS)")].iata = "AER";
+	aeroports_codes[QString::fromLocal8Bit("Сочи (AER/URSS)")].icao = "URSS";
+
+	aeroports_codes[QString::fromLocal8Bit("Толука (TLC/MMTO)")].iata = "TLC";
+	aeroports_codes[QString::fromLocal8Bit("Толука (TLC/MMTO)")].icao = "MMTO";
+
+	aeroports_codes[QString::fromLocal8Bit("Хельсинки (HEL/EFHK)")].iata = "HEL";
+	aeroports_codes[QString::fromLocal8Bit("Хельсинки (HEL/EFHK)")].icao = "EFHK";
+
+	//   qDebug()<<aeroports_codes["Шереметьево (SVO/UUEE)"].iata;
+	 //  qDebug()<<aeroports_codes["Шереметьево (SVO/UUEE)"].icao;
+	return aeroports_codes;
+}
+
+inline void fill_flights_strips(QMap<QString, std::vector <QString>> &flight_strips)
+{
+	std::vector <QString> tmp{ "07L","25R","07R","25L" };
+
+	flight_strips[QString::fromLocal8Bit("Шереметьево (SVO/UUEE)")].insert
+	(flight_strips[QString::fromLocal8Bit("Шереметьево (SVO/UUEE)")].begin(),
+		tmp.begin(), tmp.end());
+	//qDebug()<<flight_strips[QString::fromLocal8Bit("Шереметьево (SVO/UUEE)")];
+	tmp.clear();
+	tmp = { "32L","14R","32R","14L" };
+	flight_strips[QString::fromLocal8Bit("Домодедово (DME/UUDD)")].insert
+	(flight_strips[QString::fromLocal8Bit("Домодедово (DME/UUDD)")].begin(),
+		tmp.begin(), tmp.end());
+
+	tmp.clear();
+	tmp = { "06","24","01","19" };
+	flight_strips[QString::fromLocal8Bit("Внуково (VKO/UUWW)")].insert
+	(flight_strips[QString::fromLocal8Bit("Внуково (VKO/UUWW)")].begin(),
+		tmp.begin(), tmp.end());
+
+	tmp.clear();
+	tmp = { "12","30" };
+	flight_strips[QString::fromLocal8Bit("Жуковский (ZIA/UUBW)")].insert
+	(flight_strips[QString::fromLocal8Bit("Жуковский (ZIA/UUBW)")].begin(),
+		tmp.begin(), tmp.end());
+
+	tmp.clear();
+	tmp = { "26","08" };
+	flight_strips[QString::fromLocal8Bit("Остафьево (OSF/UUMO)")].insert
+	(flight_strips[QString::fromLocal8Bit("Остафьево (OSF/UUMO)")].begin(),
+		tmp.begin(), tmp.end());
+
+	tmp.clear();
+	tmp = { "09","27" };
+	flight_strips[QString::fromLocal8Bit("Лондон (LCY/EGLC)")].insert
+	(flight_strips[QString::fromLocal8Bit("Лондон (LCY/EGLC)")].begin(),
+		tmp.begin(), tmp.end());
+
+	tmp.clear();
+	tmp = { "11","29" };
+	flight_strips[QString::fromLocal8Bit("Карловы Вары (KLV/LKKV)")].insert
+	(flight_strips[QString::fromLocal8Bit("Карловы Вары (KLV/LKKV)")].begin(),
+		tmp.begin(), tmp.end());
+
+	tmp.clear();
+	tmp = { "14","32" };
+	flight_strips[QString::fromLocal8Bit("Тиват (TIV/LYTV)")].insert
+	(flight_strips[QString::fromLocal8Bit("Тиват (TIV/LYTV)")].begin(),
+		tmp.begin(), tmp.end());
+
+	tmp.clear();
+	tmp = { "07L","25R","07R","25L","02","20" };
+	flight_strips[QString::fromLocal8Bit("Брюссель (BRU/EBBR)")].insert
+	(flight_strips[QString::fromLocal8Bit("Брюссель (BRU/EBBR)")].begin(),
+		tmp.begin(), tmp.end());
+	tmp.clear();
+	tmp = { "04L","22R","04R","22L" };
+	flight_strips[QString::fromLocal8Bit("Венеция (VCE/LIPZ)")].insert
+	(flight_strips[QString::fromLocal8Bit("Венеция (VCE/LIPZ)")].begin(),
+		tmp.begin(), tmp.end());
+
+	tmp.clear();
+	tmp = { "10","28","16","34","11","29" };
+	flight_strips[QString::fromLocal8Bit("Дублин (DUB/EIBW)")].insert
+	(flight_strips[QString::fromLocal8Bit("Дублин (DUB/EIBW)")].begin(),
+		tmp.begin(), tmp.end());
+
+	tmp.clear();
+	tmp = { "08","26" };
+	flight_strips[QString::fromLocal8Bit("Инсбрук (INN/LOWI)")].insert
+	(flight_strips[QString::fromLocal8Bit("Инсбрук (INN/LOWI)")].begin(),
+		tmp.begin(), tmp.end());
+
+	tmp.clear();
+	tmp = { "11","29","02","20" };
+	flight_strips[QString::fromLocal8Bit("Кеблавик (KEF/BIKF)")].insert
+	(flight_strips[QString::fromLocal8Bit("Кеблавик (KEF/BIKF)")].begin(),
+		tmp.begin(), tmp.end());
+
+	tmp.clear();
+	tmp = { "36","18" };
+	flight_strips[QString::fromLocal8Bit("Комсомольск (KXK/UHKK)")].insert
+	(flight_strips[QString::fromLocal8Bit("Комсомольск (KXK/UHKK)")].begin(),
+		tmp.begin(), tmp.end());
+
+	tmp.clear();
+	tmp = { "10L","10R","28R","28L" };
+	flight_strips[QString::fromLocal8Bit("Пулково (LED/ULLI)")].insert
+	(flight_strips[QString::fromLocal8Bit("Пулково (LED/ULLI)")].begin(),
+		tmp.begin(), tmp.end());
+
+	tmp.clear();
+	tmp = { "06","24","02","20" };
+	flight_strips[QString::fromLocal8Bit("Сочи (AER/URSS)")].insert
+	(flight_strips[QString::fromLocal8Bit("Сочи (AER/URSS)")].begin(),
+		tmp.begin(), tmp.end());
+
+	tmp.clear();
+	tmp = { "15","33" };
+	flight_strips[QString::fromLocal8Bit("Толука (TLC/MMTO)")].insert
+	(flight_strips[QString::fromLocal8Bit("Толука (TLC/MMTO)")].begin(),
+		tmp.begin(), tmp.end());
+
+	tmp.clear();
+	tmp = { "04L","22R","04R","22L","15","33" };
+	flight_strips[QString::fromLocal8Bit("Хельсинки (HEL/EFHK)")].insert
+	(flight_strips[QString::fromLocal8Bit("Хельсинки (HEL/EFHK)")].begin(),
+		tmp.begin(), tmp.end());
+}
+
+
+inline QMap <QString, route_point> fillRouteByICAO()
+{
+	QMap <QString, route_point> answer;
+
+	answer["UUDD"].routeLat = 55.973607;
+	answer["UUDD"].routeLon = 37.412512;
+
+	answer["UUEE"].routeLat = 55.410222;
+	answer["UUEE"].routeLon = 37.902443;
+
+	answer["UUWW"].routeLat = 55.599611;
+	answer["UUWW"].routeLon = 37.271236;
+
+	answer["UUBW"].routeLat = 55.973607;
+	answer["UUBW"].routeLon = 37.412512;
+
+	answer["UUMO"].routeLat = 55.513190;
+	answer["UUMO"].routeLon = 37.507440;
+
+	answer["EGLC"].routeLat = 51.505523;
+	answer["EGLC"].routeLon = 0.045733;
+
+	answer["LKKV"].routeLat = 50.202978000000;
+	answer["LKKV"].routeLon = 12.914983000000;
+
+	answer["LYTV"].routeLat = 42.404778;
+	answer["LYTV"].routeLon = 18.723146;
+
+	answer["EBBR"].routeLat = 50.901389000000;
+	answer["EBBR"].routeLon = 4.484444000000;
+
+	answer["LIPZ"].routeLat = 45.505278;
+	answer["LIPZ"].routeLon = 12.351944;
+
+	answer["EIDW"].routeLat = 53.421389000000;
+	answer["EIDW"].routeLon = -6.270000000000;
+
+	answer["LOWI"].routeLat = 47.2602005004883;
+	answer["LOWI"].routeLon = 11.3439998626709;
+
+	answer["BIKF"].routeLat = 63.985000000000;
+	answer["BIKF"].routeLon = -22.605556000000;
+
+	answer["UHKK"].routeLat = 50.409444000000;
+	answer["UHKK"].routeLon = 136.934167000000;
+
+	answer["ULLI"].routeLat = 59.800292000000;
+	answer["ULLI"].routeLon = 30.262503000000;
+
+	answer["URSS"].routeLat = 43.449928000000;
+	answer["URSS"].routeLon = 39.956589000000;
+
+	answer["MMTO"].routeLat = 19.337072000000;
+	answer["MMTO"].routeLon = -99.566008000000;
+
+	answer["EFHK"].routeLat = 60.317222000000;
+	answer["EFHK"].routeLon = 24.963333000000;
+
+	return answer;
+}
+
+inline void MAP_fill_route(UDP_data_t * map_data_, _MainVisualData *vis_data, _AirportData *airp_data)// , camera_part *part)
+{
+	// map data
+
+	/*map_data_->isOrientingCamera = part->isOrientingCamera;
+	map_data_->isShowingWindow = part->isShowingWindow;
+	map_data_->showCurTraj = part->showCurTraj;
+	map_data_->showRoute = part->showRoute;
+	map_data_->followMainPlane = part->followMainPlane;
+
+	map_data_->currWPT = part->currWPT;		  */
+	map_data_->curLat = vis_data->p_coord.X;
+	map_data_->curLon = vis_data->p_coord.Z;
+	map_data_->curH = vis_data->p_coord.H;
+
+	map_data_->curGamma = vis_data->p_angle.R;
+	map_data_->curPsi = vis_data->p_angle.C;
+	map_data_->curTheta = vis_data->p_angle.P;
+	//map_data_->updateRoute = part->updateRoute;
+	//route
+
+	const auto &route_points_by_icao = fillRouteByICAO();
+	
+	char tmp[5] = { '\0' };
+	tmp[0] = airp_data->ARRIVAL_AIRPORT_CODE[0];
+	tmp[1] = airp_data->ARRIVAL_AIRPORT_CODE[1];
+	tmp[2] = airp_data->ARRIVAL_AIRPORT_CODE[2];
+	tmp[3] = airp_data->ARRIVAL_AIRPORT_CODE[3];
+	QString arrCity = QString::fromUtf8(tmp);
+
+
+	tmp[0] = airp_data->DEPARTURE_AIRPORT_CODE[0];
+	tmp[1] = airp_data->DEPARTURE_AIRPORT_CODE[1];
+	tmp[2] = airp_data->DEPARTURE_AIRPORT_CODE[2];
+	tmp[3] = airp_data->DEPARTURE_AIRPORT_CODE[3];
+
+	QString depCity = QString::fromUtf8(tmp);
+	map_data_->routeLat[0] = route_points_by_icao[depCity].routeLat;
+	map_data_->routeLon[0] = route_points_by_icao[depCity].routeLon;
+	map_data_->routeAlt[0] = route_points_by_icao[depCity].routeAlt;
+
+	map_data_->routeLat[1] = route_points_by_icao[arrCity].routeLat;
+	map_data_->routeLon[1] = route_points_by_icao[arrCity].routeLon;
+	map_data_->routeAlt[1] = route_points_by_icao[arrCity].routeAlt;
+
+	for (size_t i = 0; i < 53; ++i)
+	{
+		map_data_->routeLat[i] = map_data_->routeLat[1];
+		map_data_->routeLon[i] = map_data_->routeLon[1];
+		map_data_->routeAlt[i] = map_data_->routeAlt[1];
+	}
+	//bots
+	for (auto & bot : map_data_->bots)
+	{
+		bot.H = 0;
+		bot.lat = 0;
+		bot.psi = 0;
+		bot.visibility = 0;
+	}
+}
+
+
+inline QMap <QString, QString> fillICAObyRus(QMap<QString, codes> &aeroports_codes)
+{
+	QMap<QString, QString> answer;
+	//QMap<QString, codes> &aeroports_codes;
+	foreach(QString key, aeroports_codes.keys())
+	{
+		QString value = aeroports_codes.value(key).icao;
+		answer[value] = key;
+	}
+
+	return answer;
+}
 inline void printAeroData(const _AirportData *_data)
 {
 	qDebug() << "airoports_lights_data->packet_id" << _data->packet_id;
@@ -19,7 +364,7 @@ inline void printAeroData(const _AirportData *_data)
 	qDebug() << "TAKEOFF_RUNWAY_CODE" << _data->TAKEOFF_RUNWAY_CODE;
 	qDebug() << "DEPARTURE_AIRPORT_CODE" << _data->DEPARTURE_AIRPORT_CODE;;
 	qDebug() << "ARRIVAL_AIRPORT_CODE" << _data->TAKEOFF_RUNWAY_CODE;
-	qDebug() << "time now" << (int)_data->model_simulation_time;
+	qDebug() << "time now" << (int)_data->model_simulation_time;	
 }
 
 inline void printMeteo(const _MeteoData *meteo_data)
@@ -369,12 +714,12 @@ inline void backwardDeepCopy(const _DataToModel * _data, _DataToModel  *backward
 	backward_data->p_coord.Z = _data->p_coord.Z;
 	backward_data->simulation_time = _data->simulation_time;
 
-	qDebug() << "received backward";
+	/*qDebug() << "received backward";
 	qDebug() << "packet_id" << _data->packet_id;
 	qDebug() << "p_coord.H" << _data->p_coord.H;
 	qDebug() << "p_coord.X" << _data->p_coord.X;
 	qDebug() << "p_coord.Z" << _data->p_coord.Z;
-	qDebug() << "simulation_time" << _data->simulation_time;
+	qDebug() << "simulation_time" << _data->simulation_time;	   */
 }
 
 inline void flushBackwardData(const _DataToModel * _data, _DataToModel  *backward_data)
