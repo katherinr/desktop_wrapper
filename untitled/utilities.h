@@ -218,20 +218,20 @@ inline QMap <QString, route_point> fillRouteByICAO()
 {
 	QMap <QString, route_point> answer;
 
-	answer["UUDD"].routeLat = 55.973607;
-	answer["UUDD"].routeLon = 37.412512;
+	answer["UUDD"].routeLat = 55.410222;
+	answer["UUDD"].routeLon = 37.902443;
 
-	answer["UUEE"].routeLat = 55.410222;
-	answer["UUEE"].routeLon = 37.902443;
+	answer["UUEE"].routeLat = 55.973607;
+	answer["UUEE"].routeLon = 37.412512;
 
 	answer["UUWW"].routeLat = 55.599611;
 	answer["UUWW"].routeLon = 37.271236;
 
-	answer["UUBW"].routeLat = 55.973607;
+	answer["UUBW"].routeLat = 55.564917;
 	answer["UUBW"].routeLon = 37.412512;
 
 	answer["UUMO"].routeLat = 55.513190;
-	answer["UUMO"].routeLon = 37.507440;
+	answer["UUMO"].routeLon = 38.137015;
 
 	answer["EGLC"].routeLat = 51.505523;
 	answer["EGLC"].routeLon = 0.045733;
@@ -320,7 +320,7 @@ inline void MAP_fill_route(UDP_data_t * map_data_, _MainVisualData *vis_data, _A
 	map_data_->routeLon[1] = route_points_by_icao[arrCity].routeLon;
 	map_data_->routeAlt[1] = route_points_by_icao[arrCity].routeAlt;
 
-	for (size_t i = 0; i < 53; ++i)
+	for (size_t i = 2; i < 53; ++i)
 	{
 		map_data_->routeLat[i] = map_data_->routeLat[1];
 		map_data_->routeLon[i] = map_data_->routeLon[1];

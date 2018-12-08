@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QDebug>
 #include "utilities.h"
-
+#include "qtimer.h"
 #define DATA_FROM_MODEL 0
 #define USER_DATA_CHOICE 1
 
@@ -59,6 +59,8 @@ MainWindow::MainWindow(QWidget *parent) :
     aerodrom_ui->readDefault(&airoports_lights_data);
 
    // backward_ui->readDefault(&backward_data);
+
+	backward_data.packet_id = NPR_PACKET_TYPE_BACK_DATA;
 	backward_data.p_coord.X = visual_data.p_coord.X;
 	backward_data.p_coord.H = visual_data.p_coord.H;
 	backward_data.p_coord.Z = visual_data.p_coord.Z;
@@ -68,10 +70,32 @@ MainWindow::MainWindow(QWidget *parent) :
     flushaEROData(&airoports_lights_data_from_model);
     flushVISUALData(visual_data_from_model);
 
-    readConfig();
+   // readConfig();
+	//time
+	passed_time_indicator = new QLabel(this);
+	modeling_timer = new QTimer(this);
+	shift_time_indicator = new QLabel(this);
+	/*/////////////////////////////////////////////*/
+	QString timer_text = "T = " + QString::number(visual_data_from_model.model_simulation_time / 1000) + " c";
 
-    QString timer_text = "T = " + QString::number(time_from_start.elapsed() / 1000) + " c";
-    QMainWindow::statusBar()->showMessage(timer_text);
+	//timer connect	
+	QTimer *timer = new QTimer(this);
+
+	connect(timer, SIGNAL(timeout()), this, SLOT(onTimerTimeout()));
+	connect(timer, SIGNAL(timeout()), passed_time_indicator, SLOT(update()));
+
+	QString pass_text = "T = " + QString::number(0) + " c";
+	passed_time_indicator->setText(pass_text);
+
+	QMainWindow::statusBar()->showMessage(timer_text);
+	QMainWindow::statusBar()->addPermanentWidget(passed_time_indicator, 2);
+
+	QString shift_time = "T late = " + QString::number((visual_data_from_model.model_simulation_time / 1000 - backward_data.simulation_time / 1000)*.5) + " c";
+	shift_time_indicator->setText(pass_text);
+	QMainWindow::statusBar()->addPermanentWidget(shift_time_indicator, 1);
+
+
+	timer->start(1000);
 }
 
 void MainWindow::receiveData(_AirportData *_data)
@@ -138,6 +162,11 @@ void MainWindow::receiveDatafromModel(_MainVisualData * _data)
     deepVisualCopy(_data, &visual_data_from_model);
     if (ui->mainiComboBox->currentIndex() == DATA_FROM_MODEL)
         mainvis_ui->setDataToShow(_data);
+
+	QString pass_text = "T = " + QString::number(_data->model_simulation_time / 1000) + " c";
+	passed_time_indicator->setText(pass_text);
+	QString shift_time = "T late = " + QString::number((_data->model_simulation_time / 1000 - backward_data.simulation_time / 1000)*.5) + " c";
+	shift_time_indicator->setText(shift_time);
 }
 
 
@@ -519,7 +548,7 @@ void MainWindow::on_aerodrCB_currentIndexChanged(int index)
 void MainWindow::on_startPB_clicked()
 {
     qDebug() << "start sending?receiving check";
-
+	readConfig();
     m_server->m_time.start();
     ui->sendOnceButton->setEnabled(false);
     ui->startPB->setEnabled(false);

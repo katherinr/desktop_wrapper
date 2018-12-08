@@ -186,7 +186,7 @@ void UdpServer::mapTimerTimeout()
 		map_ptr->curPsi = visual_ptr->p_angle.C;
 		map_ptr->curTheta = visual_ptr->p_angle.P;
 		map_ptr->seconds = visual_ptr->model_simulation_time;	*/
-
+		map_ptr->seconds = m_time.elapsed();
 		MAP_fill_route(map_ptr, visual_ptr, aerodrome_ptr);
 
 		sendMAPUDPOnce(mapData);

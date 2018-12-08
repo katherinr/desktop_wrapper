@@ -118,7 +118,15 @@ private:
 	_AirportData airoports_lights_data_from_model;
 	_DataToModel backward_data_from_model;
 	_MainVisualData visual_data_from_model;
+	QTimer *modeling_timer;
+	int shift_time = 0;		   //seconds
 
+	QLabel * shift_time_indicator;
+	QLabel * passed_time_indicator;
+	int timer_id = 0;
+	public:
+	//	void update_route_() { update_route++; };
+//		int get_update_route() { return update_route; }
 
     UDP_data_t map_data;
     UdpServer *m_server;
