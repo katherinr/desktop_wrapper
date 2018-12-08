@@ -290,6 +290,9 @@
              <property name="text">
               <string>Включить отсылку обратного пакета</string>
              </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
             </widget>
            </item>
            <item>
@@ -330,7 +333,7 @@
                <item>
                 <widget class="QLineEdit" name="backwPortEdit">
                  <property name="text">
-                  <string>1234</string>
+                  <string>5003</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -392,7 +395,7 @@
                <item>
                 <widget class="QLineEdit" name="sendIPEdit">
                  <property name="text">
-                  <string>127.0.0.1</string>
+                  <string>192.168.0.255</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -574,6 +577,9 @@
              <property name="text">
               <string>Включить прием от визуализации</string>
              </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
             </widget>
            </item>
            <item>
@@ -588,7 +594,7 @@
              <item>
               <widget class="QLineEdit" name="receivePortEdit_2">
                <property name="text">
-                <string>3456</string>
+                <string>5002</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -683,7 +689,7 @@
              <item>
               <widget class="QLineEdit" name="portMapSend">
                <property name="text">
-                <string>5001</string>
+                <string>3456</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -738,12 +744,18 @@
                <property name="text">
                 <string>Показать окно</string>
                </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
               </widget>
              </item>
              <item>
               <widget class="QCheckBox" name="showTrajChB">
                <property name="text">
                 <string>Показ траектории</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
                </property>
               </widget>
              </item>
@@ -752,6 +764,9 @@
                <property name="text">
                 <string>Показ ППМ</string>
                </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
               </widget>
              </item>
              <item>
@@ -759,12 +774,18 @@
                <property name="text">
                 <string>Основной всегда в центре</string>
                </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
               </widget>
              </item>
              <item>
               <widget class="QCheckBox" name="isOrientCamchB">
                <property name="text">
-                <string>Основной всегда вверх</string>
+                <string>Основной всегда вверх (когда в центре)</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
                </property>
               </widget>
              </item>
@@ -773,100 +794,7 @@
            <item>
             <layout class="QVBoxLayout" name="verticalLayout_21">
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_13">
-               <item>
-                <widget class="QLabel" name="label_11">
-                 <property name="text">
-                  <string>N ППМ</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="nppm">
-                 <property name="maximumSize">
-                  <size>
-                   <width>130</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string>0</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QVBoxLayout" name="verticalLayout_16">
-               <item>
-                <widget class="QLabel" name="label_26">
-                 <property name="text">
-                  <string>Признак изменения маршрута</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_19">
-                 <item>
-                  <spacer name="horizontalSpacer_5">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>88</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                 <item>
-                  <widget class="QLineEdit" name="updateRoute">
-                   <property name="minimumSize">
-                    <size>
-                     <width>50</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>130</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="text">
-                    <string>1</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-              </layout>
-             </item>
-             <item>
               <layout class="QHBoxLayout" name="horizontalLayout_15">
-               <item>
-                <spacer name="horizontalSpacer_6">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>88</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
                <item>
                 <widget class="QPushButton" name="routePushB">
                  <property name="minimumSize">
@@ -897,7 +825,7 @@
            <item>
             <widget class="QLabel" name="label_14">
              <property name="text">
-              <string>Координаты камеры</string>
+              <string>Координаты установки камеры</string>
              </property>
             </widget>
            </item>
@@ -906,7 +834,7 @@
              <item>
               <widget class="QLabel" name="label_12">
                <property name="text">
-                <string>Широта, [град]</string>
+                <string>Начальная широта, [град]</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -933,7 +861,7 @@
              <item>
               <widget class="QLabel" name="label_13">
                <property name="text">
-                <string>Долгота, [град]</string>
+                <string>Начльная долгота, [град]</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

@@ -275,6 +275,20 @@ inline QMap <QString, route_point> fillRouteByICAO()
 	return answer;
 }
 
+inline void get_coords_by_aeroport_code(const char aeroport_code[4], const QMap <QString, route_point> &database, D3_POINT &answer)
+{
+	char tmp[5] = { '\0' };
+	tmp[0] = aeroport_code[0];
+	tmp[1] = aeroport_code[1];
+	tmp[2] = aeroport_code[2];
+	tmp[3] = aeroport_code[3];
+	QString city_string = QString::fromUtf8(tmp);
+
+	answer.X = database[city_string].routeLat;
+	answer.Z = database[city_string].routeLon;
+	answer.H = 300;//database[city_string].routeLat;
+
+}
 inline void MAP_fill_route(UDP_data_t * map_data_, _MainVisualData *vis_data, _AirportData *airp_data)// , camera_part *part)
 {
 	// map data
@@ -565,7 +579,7 @@ inline void deepVisualCopy(const _MainVisualData *data, _MainVisualData *visual_
 
 
 	// ход расчетов
-	visual_data->SimulationRunning = data->InternalLights;               // Признак того, что моделирование (расчет) идёт
+	visual_data->SimulationRunning = data->SimulationRunning;               // Признак того, что моделирование (расчет) идёт
 	visual_data->SimulationReset = data->SimulationReset;                           // Признак перезапуска моделирования
 
 	// дополнительная информация для графиков
@@ -587,6 +601,7 @@ inline void deepVisualCopy(const _MainVisualData *data, _MainVisualData *visual_
 	visual_data->WOW_L = data->WOW_L;
 	visual_data->WOW_R = data->WOW_R;
 	visual_data->WOW_N = data->WOW_N;
+	visual_data->model_simulation_time = data->model_simulation_time;
 }
 inline void flushVISUALData(_MainVisualData visual_data)
 {

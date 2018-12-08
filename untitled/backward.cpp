@@ -69,7 +69,7 @@ void backwardW::writeDataToFields(_DataToModel *_data)
 	ui->h_le->setText(QString::number(backw_data->p_coord.H));
 	ui->lat_le->setText(QString::number(backw_data->p_coord.X));
 	ui->lon_le->setText(QString::number(backw_data->p_coord.Z));
-	ui->h_le_2->setText(QString::number(backw_data->simulation_time));
+	ui->h_le_2->setText(QString::number(backw_data->simulation_time/1000));
 }
 
 void backwardW::readDefault(_DataToModel *_data)

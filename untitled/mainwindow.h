@@ -102,6 +102,8 @@ private slots:
     void on_mapIPsend_editingFinished();
 
    // void on_stopReceivingMeteo_toggled(bool checked);
+    void on_mapHeiihtspinBox_editingFinished();
+
 private:
     Ui::MainWindow *ui;
     meteoWindow* meteo_ui;

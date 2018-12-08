@@ -3,8 +3,8 @@
 #define NPR_PACKET_TYPE_VISUAL_DATA         201
 #define NPR_PACKET_TYPE_METEO_DATA          202
 #define NPR_PACKET_TYPE_AIRPORT_DATA        203
-#define NPR_PACKET_TYPE_CORRECT_DATA        204
-#define NPR_PACKET_TYPE_BACK_DATA           205
+#define NPR_PACKET_TYPE_CORRECT_DATA        211
+#define NPR_PACKET_TYPE_BACK_DATA           204
 #include <QtGlobal>
 
 #pragma pack ( push, 1 )

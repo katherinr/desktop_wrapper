@@ -124,16 +124,7 @@ public:
     QCheckBox *followMainPlainCHB;
     QCheckBox *isOrientCamchB;
     QVBoxLayout *verticalLayout_21;
-    QHBoxLayout *horizontalLayout_13;
-    QLabel *label_11;
-    QLineEdit *nppm;
-    QVBoxLayout *verticalLayout_16;
-    QLabel *label_26;
-    QHBoxLayout *horizontalLayout_19;
-    QSpacerItem *horizontalSpacer_5;
-    QLineEdit *updateRoute;
     QHBoxLayout *horizontalLayout_15;
-    QSpacerItem *horizontalSpacer_6;
     QPushButton *routePushB;
     QVBoxLayout *verticalLayout_15;
     QLabel *label_14;
@@ -314,6 +305,7 @@ public:
         backwardChkBox = new QCheckBox(groupBox_3);
         backwardChkBox->setObjectName(QStringLiteral("backwardChkBox"));
         backwardChkBox->setMaximumSize(QSize(16777215, 25));
+        backwardChkBox->setChecked(true);
 
         verticalLayout_10->addWidget(backwardChkBox);
 
@@ -497,6 +489,7 @@ public:
         verticalLayout_8->setObjectName(QStringLiteral("verticalLayout_8"));
         backwReceive = new QCheckBox(CHANgeVisgroupBox);
         backwReceive->setObjectName(QStringLiteral("backwReceive"));
+        backwReceive->setChecked(true);
 
         verticalLayout_8->addWidget(backwReceive);
 
@@ -604,26 +597,31 @@ public:
         verticalLayout_14->setObjectName(QStringLiteral("verticalLayout_14"));
         showWindchB = new QCheckBox(MapGroupBox);
         showWindchB->setObjectName(QStringLiteral("showWindchB"));
+        showWindchB->setChecked(true);
 
         verticalLayout_14->addWidget(showWindchB);
 
         showTrajChB = new QCheckBox(MapGroupBox);
         showTrajChB->setObjectName(QStringLiteral("showTrajChB"));
+        showTrajChB->setChecked(true);
 
         verticalLayout_14->addWidget(showTrajChB);
 
         showRoutechB = new QCheckBox(MapGroupBox);
         showRoutechB->setObjectName(QStringLiteral("showRoutechB"));
+        showRoutechB->setChecked(true);
 
         verticalLayout_14->addWidget(showRoutechB);
 
         followMainPlainCHB = new QCheckBox(MapGroupBox);
         followMainPlainCHB->setObjectName(QStringLiteral("followMainPlainCHB"));
+        followMainPlainCHB->setChecked(true);
 
         verticalLayout_14->addWidget(followMainPlainCHB);
 
         isOrientCamchB = new QCheckBox(MapGroupBox);
         isOrientCamchB->setObjectName(QStringLiteral("isOrientCamchB"));
+        isOrientCamchB->setChecked(true);
 
         verticalLayout_14->addWidget(isOrientCamchB);
 
@@ -632,57 +630,8 @@ public:
 
         verticalLayout_21 = new QVBoxLayout();
         verticalLayout_21->setObjectName(QStringLiteral("verticalLayout_21"));
-        horizontalLayout_13 = new QHBoxLayout();
-        horizontalLayout_13->setObjectName(QStringLiteral("horizontalLayout_13"));
-        label_11 = new QLabel(MapGroupBox);
-        label_11->setObjectName(QStringLiteral("label_11"));
-        label_11->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        horizontalLayout_13->addWidget(label_11);
-
-        nppm = new QLineEdit(MapGroupBox);
-        nppm->setObjectName(QStringLiteral("nppm"));
-        nppm->setMaximumSize(QSize(130, 16777215));
-
-        horizontalLayout_13->addWidget(nppm);
-
-
-        verticalLayout_21->addLayout(horizontalLayout_13);
-
-        verticalLayout_16 = new QVBoxLayout();
-        verticalLayout_16->setObjectName(QStringLiteral("verticalLayout_16"));
-        label_26 = new QLabel(MapGroupBox);
-        label_26->setObjectName(QStringLiteral("label_26"));
-        label_26->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        verticalLayout_16->addWidget(label_26);
-
-        horizontalLayout_19 = new QHBoxLayout();
-        horizontalLayout_19->setObjectName(QStringLiteral("horizontalLayout_19"));
-        horizontalSpacer_5 = new QSpacerItem(88, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_19->addItem(horizontalSpacer_5);
-
-        updateRoute = new QLineEdit(MapGroupBox);
-        updateRoute->setObjectName(QStringLiteral("updateRoute"));
-        updateRoute->setMinimumSize(QSize(50, 0));
-        updateRoute->setMaximumSize(QSize(130, 16777215));
-        updateRoute->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-
-        horizontalLayout_19->addWidget(updateRoute);
-
-
-        verticalLayout_16->addLayout(horizontalLayout_19);
-
-
-        verticalLayout_21->addLayout(verticalLayout_16);
-
         horizontalLayout_15 = new QHBoxLayout();
         horizontalLayout_15->setObjectName(QStringLiteral("horizontalLayout_15"));
-        horizontalSpacer_6 = new QSpacerItem(88, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_15->addItem(horizontalSpacer_6);
-
         routePushB = new QPushButton(MapGroupBox);
         routePushB->setObjectName(QStringLiteral("routePushB"));
         routePushB->setMinimumSize(QSize(130, 0));
@@ -822,11 +771,11 @@ public:
         label_10->setText(QApplication::translate("MainWindow", "IP \320\277\320\276\321\200\321\202 \320\276\321\202\321\201\321\213\320\273\320\272\320\270", nullptr));
         backwIPedit->setText(QApplication::translate("MainWindow", "127.0.0.1", nullptr));
         backwIPedit->setPlaceholderText(QApplication::translate("MainWindow", "127.0.0.1", nullptr));
-        backwPortEdit->setText(QApplication::translate("MainWindow", "1234", nullptr));
+        backwPortEdit->setText(QApplication::translate("MainWindow", "5003", nullptr));
         CHANgeVisgroupBox->setTitle(QApplication::translate("MainWindow", "\320\236\320\261\320\274\320\265\320\275 \321\201 \320\262\320\270\320\267\321\203\320\260\320\273\320\270\320\267\320\260\321\206\320\270\320\265\320\271", nullptr));
         label_3->setText(QApplication::translate("MainWindow", "IP \320\260\320\264\321\200\320\265\321\201 \320\276\321\202\321\201\321\213\320\273\320\272\320\270", nullptr));
         label_2->setText(QApplication::translate("MainWindow", "IP \320\277\320\276\321\200\321\202 \320\276\321\202\321\201\321\213\320\273\320\272\320\270", nullptr));
-        sendIPEdit->setText(QApplication::translate("MainWindow", "127.0.0.1", nullptr));
+        sendIPEdit->setText(QApplication::translate("MainWindow", "192.168.0.255", nullptr));
         sendIPEdit->setPlaceholderText(QApplication::translate("MainWindow", "127.0.0.1", nullptr));
         sendPortEdit->setText(QApplication::translate("MainWindow", "5001", nullptr));
         label->setText(QApplication::translate("MainWindow", "\320\237\320\265\321\200\320\270\320\276\320\264\321\213, \321\201", nullptr));
@@ -839,7 +788,7 @@ public:
         sendOnceButton->setText(QApplication::translate("MainWindow", "\320\236\321\202\320\277\321\200\320\260\320\262\320\270\321\202\321\214 \321\200\320\260\320\267\320\276\320\262\321\213\320\271 \320\277\320\260\320\272\320\265\321\202", nullptr));
         backwReceive->setText(QApplication::translate("MainWindow", "\320\222\320\272\320\273\321\216\321\207\320\270\321\202\321\214 \320\277\321\200\320\270\320\265\320\274 \320\276\321\202 \320\262\320\270\320\267\321\203\320\260\320\273\320\270\320\267\320\260\321\206\320\270\320\270", nullptr));
         label_8->setText(QApplication::translate("MainWindow", "\320\237\320\276\321\200\321\202 \320\277\321\200\320\270\320\265\320\274\320\260 \320\264\320\260\320\275\320\275\321\213\321\205 \320\276\321\202 \320\262\320\270\320\267\321\203\320\260\320\273\320\270\320\267\320\260\321\206\320\270\320\270", nullptr));
-        receivePortEdit_2->setText(QApplication::translate("MainWindow", "3456", nullptr));
+        receivePortEdit_2->setText(QApplication::translate("MainWindow", "5002", nullptr));
         CorrectPB->setText(QApplication::translate("MainWindow", "\320\237\321\200\320\276\321\201\320\274\320\276\321\202\321\200 \320\277\320\260\320\272\320\265\321\202\320\260", nullptr));
         MapGroupBox->setTitle(QApplication::translate("MainWindow", "\320\232\320\260\321\200\321\202\320\260", nullptr));
         label_16->setText(QApplication::translate("MainWindow", "IP \320\260\320\264\321\200\320\265\321\201 \320\276\321\202\321\201\321\213\320\273\320\272\320\270", nullptr));
@@ -847,22 +796,18 @@ public:
         send2mapCHb->setText(QApplication::translate("MainWindow", "\320\236\321\202\321\201\321\213\320\273\320\272\320\260 \320\264\320\260\320\275\320\275\321\213\321\205 \320\275\320\260 \320\272\320\260\321\200\321\202\321\203", nullptr));
         mapIPsend->setText(QApplication::translate("MainWindow", "127.0.0.1", nullptr));
         mapIPsend->setPlaceholderText(QApplication::translate("MainWindow", "127.0.0.1", nullptr));
-        portMapSend->setText(QApplication::translate("MainWindow", "5001", nullptr));
+        portMapSend->setText(QApplication::translate("MainWindow", "3456", nullptr));
         timeMap->setText(QApplication::translate("MainWindow", "0.01", nullptr));
         showWindchB->setText(QApplication::translate("MainWindow", "\320\237\320\276\320\272\320\260\320\267\320\260\321\202\321\214 \320\276\320\272\320\275\320\276", nullptr));
         showTrajChB->setText(QApplication::translate("MainWindow", "\320\237\320\276\320\272\320\260\320\267 \321\202\321\200\320\260\320\265\320\272\321\202\320\276\321\200\320\270\320\270", nullptr));
         showRoutechB->setText(QApplication::translate("MainWindow", "\320\237\320\276\320\272\320\260\320\267 \320\237\320\237\320\234", nullptr));
         followMainPlainCHB->setText(QApplication::translate("MainWindow", "\320\236\321\201\320\275\320\276\320\262\320\275\320\276\320\271 \320\262\321\201\320\265\320\263\320\264\320\260 \320\262 \321\206\320\265\320\275\321\202\321\200\320\265", nullptr));
-        isOrientCamchB->setText(QApplication::translate("MainWindow", "\320\236\321\201\320\275\320\276\320\262\320\275\320\276\320\271 \320\262\321\201\320\265\320\263\320\264\320\260 \320\262\320\262\320\265\321\200\321\205", nullptr));
-        label_11->setText(QApplication::translate("MainWindow", "N \320\237\320\237\320\234", nullptr));
-        nppm->setText(QApplication::translate("MainWindow", "0", nullptr));
-        label_26->setText(QApplication::translate("MainWindow", "\320\237\321\200\320\270\320\267\320\275\320\260\320\272 \320\270\320\267\320\274\320\265\320\275\320\265\320\275\320\270\321\217 \320\274\320\260\321\200\321\210\321\200\321\203\321\202\320\260", nullptr));
-        updateRoute->setText(QApplication::translate("MainWindow", "1", nullptr));
+        isOrientCamchB->setText(QApplication::translate("MainWindow", "\320\236\321\201\320\275\320\276\320\262\320\275\320\276\320\271 \320\262\321\201\320\265\320\263\320\264\320\260 \320\262\320\262\320\265\321\200\321\205 (\320\272\320\276\320\263\320\264\320\260 \320\262 \321\206\320\265\320\275\321\202\321\200\320\265)", nullptr));
         routePushB->setText(QApplication::translate("MainWindow", "\320\234\320\260\321\200\321\210\321\200\321\203\321\202", nullptr));
-        label_14->setText(QApplication::translate("MainWindow", "\320\232\320\276\320\276\321\200\320\264\320\270\320\275\320\260\321\202\321\213 \320\272\320\260\320\274\320\265\321\200\321\213", nullptr));
-        label_12->setText(QApplication::translate("MainWindow", "\320\250\320\270\321\200\320\276\321\202\320\260, [\320\263\321\200\320\260\320\264]", nullptr));
+        label_14->setText(QApplication::translate("MainWindow", "\320\232\320\276\320\276\321\200\320\264\320\270\320\275\320\260\321\202\321\213 \321\203\321\201\321\202\320\260\320\275\320\276\320\262\320\272\320\270 \320\272\320\260\320\274\320\265\321\200\321\213", nullptr));
+        label_12->setText(QApplication::translate("MainWindow", "\320\235\320\260\321\207\320\260\320\273\321\214\320\275\320\260\321\217 \321\210\320\270\321\200\320\276\321\202\320\260, [\320\263\321\200\320\260\320\264]", nullptr));
         centerLat->setText(QApplication::translate("MainWindow", "55.564917", nullptr));
-        label_13->setText(QApplication::translate("MainWindow", "\320\224\320\276\320\273\320\263\320\276\321\202\320\260, [\320\263\321\200\320\260\320\264]", nullptr));
+        label_13->setText(QApplication::translate("MainWindow", "\320\235\320\260\321\207\320\273\321\214\320\275\320\260\321\217 \320\264\320\276\320\273\320\263\320\276\321\202\320\260, [\320\263\321\200\320\260\320\264]", nullptr));
         centerLon->setText(QApplication::translate("MainWindow", "38.137015", nullptr));
         label_15->setText(QApplication::translate("MainWindow", "\320\222\321\213\321\201\320\276\321\202\320\260, \320\274", nullptr));
         toolBar->setWindowTitle(QApplication::translate("MainWindow", "toolBar", nullptr));

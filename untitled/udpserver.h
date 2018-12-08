@@ -89,12 +89,14 @@ public:
 	void startSending();
 	void stopSending();
 	void sendBACKWARDUDPOnce(const QByteArray& packet);
+
+
     //private slots:
 public slots:
 
     void sendOnce();
     void readDatagram();
-
+	void backwardReadDatagram();
 signals:
     void newDatagram(const QByteArray&);
     void dataUpdated( _MeteoData*);
