@@ -723,18 +723,12 @@ inline void flushMeteoData(_MeteoData *data)
 
 inline void backwardDeepCopy(const _DataToModel * _data, _DataToModel  *backward_data)
 {
-	backward_data->packet_id = NPR_PACKET_TYPE_BACK_DATA;
+	backward_data->packet_id = _data->packet_id;
 	backward_data->p_coord.H = _data->p_coord.H;
 	backward_data->p_coord.X = _data->p_coord.X;
 	backward_data->p_coord.Z = _data->p_coord.Z;
 	backward_data->simulation_time = _data->simulation_time;
 
-	/*qDebug() << "received backward";
-	qDebug() << "packet_id" << _data->packet_id;
-	qDebug() << "p_coord.H" << _data->p_coord.H;
-	qDebug() << "p_coord.X" << _data->p_coord.X;
-	qDebug() << "p_coord.Z" << _data->p_coord.Z;
-	qDebug() << "simulation_time" << _data->simulation_time;	   */
 }
 
 inline void flushBackwardData(const _DataToModel * _data, _DataToModel  *backward_data)

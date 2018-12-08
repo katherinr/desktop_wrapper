@@ -326,8 +326,6 @@ void MainWindow::readConfig()
     //interchange with model
     m_server->setReceivingPort(ui->receivePortEdit->text().toUInt());
   
-	//if (ui->stopReceivingMain->isChecked() )
-	//	m_server->keep_recieve = false;
 
 	//backward edit send
     m_server->setBackwardAddress2Send(QHostAddress(ui->backwIPedit->text().toUInt()));
@@ -382,6 +380,7 @@ void MainWindow::readConfig()
 	{
 		m_server->keep_recieve = false;
 	}
+
 	if (ui->meteoComboBox->currentIndex() == USER_DATA_CHOICE)
 		m_server->setSendData_METEO(&meteo_data, ui->meteoCheckBox->isChecked());
 	else

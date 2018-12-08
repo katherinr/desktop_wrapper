@@ -18,7 +18,7 @@ backwardW::~backwardW()
 
 void backwardW::setCurrentTime(QTime * _time)
 {
-	backw_data->simulation_time = double(_time->msec());
+	//backw_data->simulation_time = double(_time->msec());
 }
 
 void backwardW::updateBackwardPacket(_MainVisualData _data)
