@@ -546,6 +546,9 @@ void MainWindow::on_meteoCheckBox_toggled(bool checked)
     else if ((ui->meteoComboBox->currentIndex() == DATA_FROM_MODEL))
         m_server->setSendData_METEO(&meteo_data_from_model, checked);
 
+
+
+
 }
 
 void MainWindow::on_mainiComboBox_currentIndexChanged(int index)
