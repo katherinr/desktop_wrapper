@@ -22,7 +22,6 @@
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -32,7 +31,7 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
-    QVBoxLayout *verticalLayout_20;
+    QVBoxLayout *verticalLayout_16;
     QHBoxLayout *horizontalLayout_12;
     QPushButton *startPB;
     QPushButton *stopPB;
@@ -43,24 +42,24 @@ public:
     QHBoxLayout *horizontalLayout;
     QLabel *label_7;
     QLineEdit *receivePortEdit;
-    QCheckBox *stopReceivingMain;
+    QCheckBox *send_from_this;
     QLabel *label_4;
     QVBoxLayout *verticalLayout_7;
     QHBoxLayout *horizontalLayout_8;
-    QComboBox *mainiComboBox;
     QPushButton *mainVisPushButton;
+    QComboBox *mainiComboBox;
     QSpacerItem *verticalSpacer_3;
     QVBoxLayout *verticalLayout_9;
     QLabel *label_5;
     QHBoxLayout *horizontalLayout_7;
-    QComboBox *meteoComboBox;
     QPushButton *meteoPushButton;
+    QComboBox *meteoComboBox;
     QSpacerItem *verticalSpacer_2;
     QVBoxLayout *verticalLayout_11;
     QLabel *label_6;
     QHBoxLayout *horizontalLayout_6;
-    QComboBox *aerodrCB;
     QPushButton *AerodromsLightsPB;
+    QComboBox *aerodrCB;
     QSpacerItem *verticalSpacer;
     QVBoxLayout *verticalLayout_10;
     QCheckBox *backwardChkBox;
@@ -139,7 +138,6 @@ public:
     QSpinBox *mapHeiihtspinBox;
     QSpacerItem *verticalSpacer_5;
     QStatusBar *statusbar;
-    QToolBar *toolBar;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -150,15 +148,15 @@ public:
         MainWindow->setContextMenuPolicy(Qt::PreventContextMenu);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
-        verticalLayout_20 = new QVBoxLayout(centralwidget);
-        verticalLayout_20->setObjectName(QStringLiteral("verticalLayout_20"));
+        verticalLayout_16 = new QVBoxLayout(centralwidget);
+        verticalLayout_16->setObjectName(QStringLiteral("verticalLayout_16"));
         horizontalLayout_12 = new QHBoxLayout();
         horizontalLayout_12->setObjectName(QStringLiteral("horizontalLayout_12"));
         startPB = new QPushButton(centralwidget);
         startPB->setObjectName(QStringLiteral("startPB"));
         startPB->setEnabled(true);
-        startPB->setMinimumSize(QSize(170, 0));
-        startPB->setMaximumSize(QSize(170, 16777215));
+        startPB->setMinimumSize(QSize(370, 0));
+        startPB->setMaximumSize(QSize(270, 16777215));
         startPB->setCheckable(false);
         startPB->setChecked(false);
         startPB->setAutoExclusive(false);
@@ -167,16 +165,17 @@ public:
 
         stopPB = new QPushButton(centralwidget);
         stopPB->setObjectName(QStringLiteral("stopPB"));
+        stopPB->setEnabled(true);
         stopPB->setCheckable(false);
 
         horizontalLayout_12->addWidget(stopPB);
 
-        horizontalSpacer_4 = new QSpacerItem(1078, 35, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        horizontalSpacer_4 = new QSpacerItem(858, 32, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_12->addItem(horizontalSpacer_4);
 
 
-        verticalLayout_20->addLayout(horizontalLayout_12);
+        verticalLayout_16->addLayout(horizontalLayout_12);
 
         horizontalLayout_20 = new QHBoxLayout();
         horizontalLayout_20->setObjectName(QStringLiteral("horizontalLayout_20"));
@@ -200,11 +199,11 @@ public:
 
         verticalLayout_12->addLayout(horizontalLayout);
 
-        stopReceivingMain = new QCheckBox(groupBox_3);
-        stopReceivingMain->setObjectName(QStringLiteral("stopReceivingMain"));
-        stopReceivingMain->setChecked(false);
+        send_from_this = new QCheckBox(groupBox_3);
+        send_from_this->setObjectName(QStringLiteral("send_from_this"));
+        send_from_this->setChecked(false);
 
-        verticalLayout_12->addWidget(stopReceivingMain);
+        verticalLayout_12->addWidget(send_from_this);
 
         label_4 = new QLabel(groupBox_3);
         label_4->setObjectName(QStringLiteral("label_4"));
@@ -215,18 +214,18 @@ public:
         verticalLayout_7->setObjectName(QStringLiteral("verticalLayout_7"));
         horizontalLayout_8 = new QHBoxLayout();
         horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
+        mainVisPushButton = new QPushButton(groupBox_3);
+        mainVisPushButton->setObjectName(QStringLiteral("mainVisPushButton"));
+        mainVisPushButton->setEnabled(true);
+
+        horizontalLayout_8->addWidget(mainVisPushButton);
+
         mainiComboBox = new QComboBox(groupBox_3);
         mainiComboBox->addItem(QString());
         mainiComboBox->addItem(QString());
         mainiComboBox->setObjectName(QStringLiteral("mainiComboBox"));
 
         horizontalLayout_8->addWidget(mainiComboBox);
-
-        mainVisPushButton = new QPushButton(groupBox_3);
-        mainVisPushButton->setObjectName(QStringLiteral("mainVisPushButton"));
-        mainVisPushButton->setEnabled(true);
-
-        horizontalLayout_8->addWidget(mainVisPushButton);
 
 
         verticalLayout_7->addLayout(horizontalLayout_8);
@@ -247,17 +246,17 @@ public:
 
         horizontalLayout_7 = new QHBoxLayout();
         horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
+        meteoPushButton = new QPushButton(groupBox_3);
+        meteoPushButton->setObjectName(QStringLiteral("meteoPushButton"));
+
+        horizontalLayout_7->addWidget(meteoPushButton);
+
         meteoComboBox = new QComboBox(groupBox_3);
         meteoComboBox->addItem(QString());
         meteoComboBox->addItem(QString());
         meteoComboBox->setObjectName(QStringLiteral("meteoComboBox"));
 
         horizontalLayout_7->addWidget(meteoComboBox);
-
-        meteoPushButton = new QPushButton(groupBox_3);
-        meteoPushButton->setObjectName(QStringLiteral("meteoPushButton"));
-
-        horizontalLayout_7->addWidget(meteoPushButton);
 
 
         verticalLayout_9->addLayout(horizontalLayout_7);
@@ -278,17 +277,17 @@ public:
 
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
+        AerodromsLightsPB = new QPushButton(groupBox_3);
+        AerodromsLightsPB->setObjectName(QStringLiteral("AerodromsLightsPB"));
+
+        horizontalLayout_6->addWidget(AerodromsLightsPB);
+
         aerodrCB = new QComboBox(groupBox_3);
         aerodrCB->addItem(QString());
         aerodrCB->addItem(QString());
         aerodrCB->setObjectName(QStringLiteral("aerodrCB"));
 
         horizontalLayout_6->addWidget(aerodrCB);
-
-        AerodromsLightsPB = new QPushButton(groupBox_3);
-        AerodromsLightsPB->setObjectName(QStringLiteral("AerodromsLightsPB"));
-
-        horizontalLayout_6->addWidget(AerodromsLightsPB);
 
 
         verticalLayout_11->addLayout(horizontalLayout_6);
@@ -551,6 +550,7 @@ public:
 
         send2mapCHb = new QCheckBox(MapGroupBox);
         send2mapCHb->setObjectName(QStringLiteral("send2mapCHb"));
+        send2mapCHb->setChecked(true);
 
         verticalLayout_17->addWidget(send2mapCHb);
 
@@ -573,9 +573,10 @@ public:
 
         timeMap = new QLineEdit(MapGroupBox);
         timeMap->setObjectName(QStringLiteral("timeMap"));
-        timeMap->setEnabled(false);
+        timeMap->setEnabled(true);
         timeMap->setContextMenuPolicy(Qt::ActionsContextMenu);
         timeMap->setAcceptDrops(true);
+        timeMap->setEchoMode(QLineEdit::NoEcho);
         timeMap->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
         timeMap->setClearButtonEnabled(false);
 
@@ -722,15 +723,12 @@ public:
         horizontalLayout_20->addWidget(MapGroupBox);
 
 
-        verticalLayout_20->addLayout(horizontalLayout_20);
+        verticalLayout_16->addLayout(horizontalLayout_20);
 
         MainWindow->setCentralWidget(centralwidget);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QStringLiteral("statusbar"));
         MainWindow->setStatusBar(statusbar);
-        toolBar = new QToolBar(MainWindow);
-        toolBar->setObjectName(QStringLiteral("toolBar"));
-        MainWindow->addToolBar(Qt::TopToolBarArea, toolBar);
 
         retranslateUi(MainWindow);
 
@@ -745,27 +743,27 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "BIRD WRAPPER", nullptr));
-        startPB->setText(QApplication::translate("MainWindow", "\320\222\320\272\320\273\321\216\321\207\320\270\321\202\321\214 \320\276\320\261\320\274\320\265\320\275", nullptr));
+        startPB->setText(QApplication::translate("MainWindow", "\320\222\320\272\320\273\321\216\321\207\320\270\321\202\321\214 \320\276\320\261\320\274\320\265\320\275 \320\270\320\267 \320\264\320\260\320\275\320\275\320\276\320\271 \320\277\321\200\320\276\320\263\321\200\320\260\320\274\320\274\321\213", nullptr));
         stopPB->setText(QApplication::translate("MainWindow", "\320\236\321\201\321\202\320\260\320\275\320\276\320\262\320\270\321\202\321\214", nullptr));
         groupBox_3->setTitle(QApplication::translate("MainWindow", "\320\236\320\261\320\274\320\265\320\275 \321\201 \320\274\320\276\320\264\320\265\320\273\321\214\321\216", nullptr));
         label_7->setText(QApplication::translate("MainWindow", "IP \320\277\320\276\321\200\321\202 \320\277\321\200\320\270\320\265\320\274\320\260 \320\276\321\202 \320\274\320\276\320\264\320\265\320\273\320\270:", nullptr));
         receivePortEdit->setText(QApplication::translate("MainWindow", "5103", nullptr));
-        stopReceivingMain->setText(QApplication::translate("MainWindow", "\320\236\321\202\320\272\320\273\321\216\321\207\320\270\321\202\321\214 \320\277\321\200\320\270\320\265\320\274 \320\264\320\260\320\275\320\275\321\213\321\205", nullptr));
+        send_from_this->setText(QApplication::translate("MainWindow", "\320\230\320\267 \320\264\320\260\320\275\320\275\320\276\320\271 \320\277\321\200\320\276\320\263\321\200\320\260\320\274\320\274\321\213", nullptr));
         label_4->setText(QApplication::translate("MainWindow", "\320\236\321\201\320\275\320\276\320\262\320\275\320\276\320\271 \320\277\320\260\320\272\320\265\321\202 \320\264\320\260\320\275\320\275\321\213\321\205", nullptr));
+        mainVisPushButton->setText(QApplication::translate("MainWindow", "\320\237\321\200\320\276\321\201\320\274\320\276\321\202\321\200 \320\277\320\260\320\272\320\265\321\202\320\260", nullptr));
         mainiComboBox->setItemText(0, QApplication::translate("MainWindow", "\320\230\320\267 \320\274\320\276\320\264\320\265\320\273\320\270", nullptr));
         mainiComboBox->setItemText(1, QApplication::translate("MainWindow", "\320\230\320\267 \320\264\320\260\320\275\320\275\320\276\320\271 \320\277\321\200\320\276\320\263\321\200\320\260\320\274\320\274\321\213", nullptr));
 
-        mainVisPushButton->setText(QApplication::translate("MainWindow", "\320\237\321\200\320\276\321\201\320\274\320\276\321\202\321\200 \320\277\320\260\320\272\320\265\321\202\320\260", nullptr));
         label_5->setText(QApplication::translate("MainWindow", "\320\224\320\260\320\275\320\275\321\213\320\265 \320\276 \320\262\321\200\320\265\320\274\320\265\320\275\320\270 \320\270 \320\277\320\276\320\263\320\276\320\264\320\265", nullptr));
+        meteoPushButton->setText(QApplication::translate("MainWindow", "\320\237\321\200\320\276\321\201\320\274\320\276\321\202\321\200 \320\277\320\260\320\272\320\265\321\202\320\260", nullptr));
         meteoComboBox->setItemText(0, QApplication::translate("MainWindow", "\320\230\320\267 \320\274\320\276\320\264\320\265\320\273\320\270", nullptr));
         meteoComboBox->setItemText(1, QApplication::translate("MainWindow", "\320\230\320\267 \320\264\320\260\320\275\320\275\320\276\320\271 \320\277\321\200\320\276\320\263\321\200\320\260\320\274\320\274\321\213", nullptr));
 
-        meteoPushButton->setText(QApplication::translate("MainWindow", "\320\237\321\200\320\276\321\201\320\274\320\276\321\202\321\200 \320\277\320\260\320\272\320\265\321\202\320\260", nullptr));
         label_6->setText(QApplication::translate("MainWindow", "\320\224\320\260\320\275\320\275\321\213\320\265 \320\276\320\261 \320\260\321\215\321\200\320\276\320\264\321\200\320\276\320\274\320\260\321\205", nullptr));
+        AerodromsLightsPB->setText(QApplication::translate("MainWindow", "\320\237\321\200\320\276\321\201\320\274\320\276\321\202\321\200 \320\277\320\260\320\272\320\265\321\202\320\260", nullptr));
         aerodrCB->setItemText(0, QApplication::translate("MainWindow", "\320\230\320\267 \320\274\320\276\320\264\320\265\320\273\320\270", nullptr));
         aerodrCB->setItemText(1, QApplication::translate("MainWindow", "\320\230\320\267 \320\264\320\260\320\275\320\275\320\276\320\271 \320\277\321\200\320\276\320\263\321\200\320\260\320\274\320\274\321\213", nullptr));
 
-        AerodromsLightsPB->setText(QApplication::translate("MainWindow", "\320\237\321\200\320\276\321\201\320\274\320\276\321\202\321\200 \320\277\320\260\320\272\320\265\321\202\320\260", nullptr));
         backwardChkBox->setText(QApplication::translate("MainWindow", "\320\222\320\272\320\273\321\216\321\207\320\270\321\202\321\214 \320\276\321\202\321\201\321\213\320\273\320\272\321\203 \320\276\320\261\321\200\320\260\321\202\320\275\320\276\320\263\320\276 \320\277\320\260\320\272\320\265\321\202\320\260", nullptr));
         label_9->setText(QApplication::translate("MainWindow", "IP \320\260\320\264\321\200\320\265\321\201 \320\276\321\202\321\201\321\213\320\273\320\272\320\270", nullptr));
         label_10->setText(QApplication::translate("MainWindow", "IP \320\277\320\276\321\200\321\202 \320\276\321\202\321\201\321\213\320\273\320\272\320\270", nullptr));
@@ -775,7 +773,7 @@ public:
         CHANgeVisgroupBox->setTitle(QApplication::translate("MainWindow", "\320\236\320\261\320\274\320\265\320\275 \321\201 \320\262\320\270\320\267\321\203\320\260\320\273\320\270\320\267\320\260\321\206\320\270\320\265\320\271", nullptr));
         label_3->setText(QApplication::translate("MainWindow", "IP \320\260\320\264\321\200\320\265\321\201 \320\276\321\202\321\201\321\213\320\273\320\272\320\270", nullptr));
         label_2->setText(QApplication::translate("MainWindow", "IP \320\277\320\276\321\200\321\202 \320\276\321\202\321\201\321\213\320\273\320\272\320\270", nullptr));
-        sendIPEdit->setText(QApplication::translate("MainWindow", "192.168.0.255", nullptr));
+        sendIPEdit->setText(QApplication::translate("MainWindow", "127.0.0.1", nullptr));
         sendIPEdit->setPlaceholderText(QApplication::translate("MainWindow", "127.0.0.1", nullptr));
         sendPortEdit->setText(QApplication::translate("MainWindow", "5001", nullptr));
         label->setText(QApplication::translate("MainWindow", "\320\237\320\265\321\200\320\270\320\276\320\264\321\213, \321\201", nullptr));
@@ -810,7 +808,6 @@ public:
         label_13->setText(QApplication::translate("MainWindow", "\320\235\320\260\321\207\320\273\321\214\320\275\320\260\321\217 \320\264\320\276\320\273\320\263\320\276\321\202\320\260, [\320\263\321\200\320\260\320\264]", nullptr));
         centerLon->setText(QApplication::translate("MainWindow", "38.137015", nullptr));
         label_15->setText(QApplication::translate("MainWindow", "\320\222\321\213\321\201\320\276\321\202\320\260, \320\274", nullptr));
-        toolBar->setWindowTitle(QApplication::translate("MainWindow", "toolBar", nullptr));
     } // retranslateUi
 
 };

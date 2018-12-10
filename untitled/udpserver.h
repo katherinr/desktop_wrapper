@@ -63,6 +63,11 @@ public:
 		return false;
 	}
 
+	void setSendFromThis(bool check)
+	{
+		m_send_from_this = check;
+	}
+
 	void setBackwardAddress2Send(QHostAddress addr){backward_address2send = addr; }
     void setAddress2Send(QHostAddress addr){address2send = addr;}
 	void setMAPAddress2Send(QHostAddress addr) { map_address2send = addr; }
@@ -104,8 +109,9 @@ signals:
     void dataUpdated( _DataToModel*);
     void dataUpdated( _MainVisualData*);
 public:
-    bool keep_recieve = false;
+	
 	bool keep_backw_receive = false;
+	bool m_send_from_this = false;
 	QTime m_time;
 private:
     QUdpSocket *m_receiver_socket;

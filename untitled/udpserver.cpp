@@ -66,12 +66,10 @@ UdpServer::UdpServer(QObject *parent) :
 
 UdpServer::~UdpServer()
 {
-	//delete m_udp;
 	delete m_receiver_socket;
 	delete m_sender_socket;
 	delete m_map_sender_socket;
 	delete m_backward_sender_socket;
-	//delete m_backward_receive_socket;
 }
 
 void UdpServer::changeTimerInterval(const QString& timerObjName, int interval)
@@ -104,18 +102,10 @@ void UdpServer::meteoTimerTimeout()
 {
 	if (m_enabledPackets["METEO_DATA"] == true)
 	{
-		//qDebug() << "m_meteoPacket staff" << *m_meteoPacket.begin();
-	//	printMeteo(&m_meteo_data);
-
 		QByteArray meteoData_ = QByteArray::fromRawData(reinterpret_cast<const char*>(m_meteoData), sizeof(_MeteoData));
-
 		_MeteoData* meteo_ptr = reinterpret_cast<_MeteoData*>(meteoData_.data());
 
-		QByteArray visualData = QByteArray::fromRawData(reinterpret_cast<const char*>(m_visualData), sizeof(_MainVisualData));
-		_MainVisualData* visual_ptr = reinterpret_cast<_MainVisualData*>(visualData.data());
-
-		meteo_ptr->model_simulation_time = visual_ptr->model_simulation_time;
-		//meteo_ptr->model_simulation_time = m_time.elapsed();
+		meteo_ptr->model_simulation_time = m_time.elapsed();
 		sendUDPOnce(meteoData_);
 	}
 }
@@ -123,12 +113,10 @@ void UdpServer::visTimerTimeout()
 {
 	if (m_enabledPackets["VISUAL_DATA"] == true)
 	{
-		//qDebug() << "m_visualPacket staff";
-	//	printVisualData(&m_vis_data);
 		QByteArray visualData = QByteArray::fromRawData(reinterpret_cast<const char*>(m_visualData), sizeof(_MainVisualData));
 		_MainVisualData* visual_ptr = reinterpret_cast<_MainVisualData*>(visualData.data());
 
-	//	visual_ptr->model_simulation_time = c;
+		visual_ptr->model_simulation_time = m_time.elapsed();
 		sendUDPOnce(visualData);
 	}
 }
@@ -140,11 +128,8 @@ void UdpServer::aerodromsTimerTimeout()
 		//qDebug() << "m_aerodromePacket staff";
 		QByteArray aerodrome_data = QByteArray::fromRawData(reinterpret_cast<const char*>(m_airoportsData), sizeof(_AirportData));
 		_AirportData* aerodrome_ptr = reinterpret_cast<_AirportData*>(aerodrome_data.data());
-		
-		QByteArray visualData = QByteArray::fromRawData(reinterpret_cast<const char*>(m_visualData), sizeof(_MainVisualData));
-		_MainVisualData* visual_ptr = reinterpret_cast<_MainVisualData*>(visualData.data());
 
-		aerodrome_ptr->model_simulation_time = visual_ptr->model_simulation_time;
+		aerodrome_ptr->model_simulation_time =  m_time.elapsed();
 		sendUDPOnce(aerodrome_data);
 	}
 }
@@ -153,8 +138,6 @@ void UdpServer::backwTimerTimeout()
 {
 	if (m_enabledPackets["BACKWARD_DATA"] == true)
 	{
-		//	qDebug() << "m_backwardPacket staff";
-
 		QByteArray d2m = QByteArray::fromRawData(reinterpret_cast<const char*>(m_backwardData), sizeof(_DataToModel));
 		_DataToModel* backw_ptr = reinterpret_cast<_DataToModel*>(d2m.data());
 
@@ -328,7 +311,6 @@ void UdpServer::setDataFromReceived(const QByteArray &received)
 	//  qDebug()<<"setting data from received function";
 	QDataStream stream(received);
 
-
 	unsigned char message_type = received.at(0);
 
 	switch (message_type)
@@ -446,8 +428,8 @@ void UdpServer::startSending()
 void UdpServer::sendUDPOnce(const QByteArray& packet)
 {
 	//  qDebug()<<QHostAddress::LocalHost<< backward_address2send;
-	  //qDebug()<<"send Once port"<< backward_sender_port;
-
+	 //qDebug()<<"send Once port"<< backward_sender_port;
+	
 	if (m_sender_socket->writeDatagram(packet, address2send, sender_port) == -1)
 	{
 		qWarning() << m_sender_socket->errorString();
@@ -503,8 +485,12 @@ void UdpServer::readDatagram()
 			}
 			else
 			{
-				if (keep_recieve)
-					setDataFromReceived(datagram);
+				
+				//отсылка дальше
+				if (!m_send_from_this)
+					sendUDPOnce(datagram);
+
+				setDataFromReceived(datagram);
 			}
 		}
 	}
@@ -528,18 +514,15 @@ void UdpServer::backwardReadDatagram()
 
 			m_backward_sender_socket->readDatagram(datagram.data(), datagram.size(),
 				&sender, &senderPort);
-			//     qDebug()<<"reading start"<<senderPort;
-				 //if ()
+
 			if (datagram.size() == 0)
 			{
 				qWarning() << m_backward_sender_socket->errorString();
 			}
 			else
 			{
-
-				if (keep_recieve)
 					setDataFromReceived(datagram);
-
+					//sendBACKWARDUDPOnce(datagram);
 			}
 		}
 	}

@@ -28,14 +28,12 @@ signals:
 
 private slots:
     //receiving
-    void onNewDatagramReceived(const QByteArray& datagram);
     void receiveData(_AirportData*);
     void receiveData(_DataToModel*);
     void receiveData(_MeteoData * _data);
 	void receiveData(_MainVisualData * _data);
 
 	void receiveDatafromModel(_AirportData*);
-	//void receiveDatafromModel(_DataToModel*);
 	void receiveDatafromModel(_MeteoData * _data);
 	void receiveDatafromModel(_MainVisualData * _data);
     void on_receivePortEdit_editingFinished();
@@ -77,8 +75,6 @@ private slots:
 
     void on_isOrientCamchB_toggled(bool checked);
 
-   // void on_sendPortEdit_2_editingFinished();
-
     void on_nppm_editingFinished();
 
     void on_updateRoute_editingFinished();
@@ -86,10 +82,6 @@ private slots:
     void on_centerLat_editingFinished();
 
     void on_centerLon_editingFinished();
-
-  //  void on_centerH_editingFinished();
-
-    void on_stopReceivingMain_toggled(bool checked);
 
     void on_mapHeiihtspinBox_valueChanged(int arg1);
 
@@ -101,8 +93,10 @@ private slots:
 
     void on_mapIPsend_editingFinished();
 
-   // void on_stopReceivingMeteo_toggled(bool checked);
+
     void on_mapHeiihtspinBox_editingFinished();
+
+    void on_send_from_this_toggled(bool checked);
 
 private:
     Ui::MainWindow *ui;
