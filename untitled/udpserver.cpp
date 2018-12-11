@@ -151,16 +151,14 @@ void UdpServer::mapTimerTimeout()
 		QByteArray visualData = QByteArray::fromRawData(reinterpret_cast<const char*>(m_visualData), sizeof(_MainVisualData));
 		_MainVisualData* visual_ptr = reinterpret_cast<_MainVisualData*>(visualData.data());
 
-		QByteArray mapData = QByteArray::fromRawData(reinterpret_cast<const char*>(m_mapData), sizeof(UDP_data_t));
-
-		UDP_data_t* map_ptr = reinterpret_cast<UDP_data_t*>(mapData.data());
 		QByteArray aerodrome_data = QByteArray::fromRawData(reinterpret_cast<const char*>(m_airoportsData), sizeof(_AirportData));
-
 		_AirportData* aerodrome_ptr = reinterpret_cast<_AirportData*>(aerodrome_data.data());
-		map_ptr->seconds = m_time.elapsed();//visual_ptr->model_simulation_time; 
-		MAP_fill_route(map_ptr, visual_ptr, aerodrome_ptr);
 
-		sendMAPUDPOnce(mapData);
+		m_mapData->seconds = m_time.elapsed();//visual_ptr->model_simulation_time; 
+		MAP_fill_route(m_mapData, visual_ptr, aerodrome_ptr);
+		m_mapPacket = QByteArray::fromRawData(reinterpret_cast<const char*>(m_mapData), sizeof(UDP_data_t));
+
+		sendMAPUDPOnce(m_mapPacket);
 	}
 }
 
@@ -256,7 +254,7 @@ void UdpServer::setSendData_VISUAL(const _MainVisualData *data, bool check)
 	m_visualData = data;
 }
 
-void UdpServer::setSendData_MAP(const UDP_data_t * data, bool check)
+void UdpServer::setSendData_MAP(UDP_data_t * data, bool check)
 {
 	qDebug() << "map set send";
 	qDebug() << "_Mainvis size: " << sizeof(UDP_data_t) << " and data: " << sizeof(*data);
@@ -447,14 +445,18 @@ void UdpServer::readDatagram()
 			}
 			else
 			{
-				
+
 				//отсылка дальше
 				if (!m_send_from_this)
 				{
 					sendUDPOnce(datagram);
 
-					//if (formMapPacket(datagram))
-						//sendMAPUDPOnce(m_mapPacket);
+					 //send map indication
+					MAP_fill_route(m_mapData, &m_vis_data, &m_airoports_lights_data);
+					m_mapData->seconds = m_vis_data.model_simulation_time;
+
+					m_mapPacket = QByteArray::fromRawData(reinterpret_cast<const char*>(m_mapData), sizeof(UDP_data_t));
+					sendMAPUDPOnce(m_mapPacket);
 				}
 
 				setDataFromReceived(datagram);
@@ -462,13 +464,6 @@ void UdpServer::readDatagram()
 		}
 	}
 
-}
-
-inline bool UdpServer::formMapPacket(const QByteArray &datagram)
-{
-
-
-	return  true;
 }
 
 void UdpServer::backwardReadDatagram()

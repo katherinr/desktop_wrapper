@@ -117,7 +117,7 @@ public:
     void setSendToAddress(const QHostAddress& address, quint16 port);
     void setSendData_METEO(const _MeteoData* data, bool check);
     void setSendData_VISUAL(const _MainVisualData* data, bool check);
-	void setSendData_MAP(const UDP_data_t* data, bool check);
+	void setSendData_MAP( UDP_data_t* data, bool check);
 	///////////////////////////////////////////////////////////////////////
 	///bind
 	void restartBACKWARDListening(quint16 _port);
@@ -141,7 +141,7 @@ public:
 	quint16 getReceivingPort() { return receiving_port; }
 	void setDataFromReceived(const QByteArray&);
 
-	inline bool formMapPacket(const QByteArray &datagram);
+	//inline bool formMapPacket(const QByteArray &datagram);
 public slots:
 
     void readDatagram();
@@ -178,12 +178,13 @@ private:
     _AirportData m_airoports_lights_data;
     _DataToModel m_backward_data;
     _MainVisualData m_vis_data;
+	UDP_data_t  * m_mapData;
 
 	const _MainVisualData* m_visualData;
 	const _MeteoData* m_meteoData;
 	const _AirportData* m_airoportsData;
 	const _DataToModel* m_backwardData;
-	const UDP_data_t   *m_mapData;
+
 	
 	//backward
 	QUdpSocket *m_backward_sender_socket;

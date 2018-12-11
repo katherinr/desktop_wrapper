@@ -289,7 +289,7 @@ inline void get_coords_by_aeroport_code(const char aeroport_code[4], const QMap 
 	answer.H = 300;//database[city_string].routeLat;
 
 }
-inline void MAP_fill_route(UDP_data_t * map_data_, _MainVisualData *vis_data, _AirportData *airp_data)// , camera_part *part)
+inline void MAP_fill_route(UDP_data_t * map_data_, const _MainVisualData *vis_data, const _AirportData *airp_data)// , camera_part *part)
 {
 	// map data
 
