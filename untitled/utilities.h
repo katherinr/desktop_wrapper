@@ -524,8 +524,9 @@ inline void deepAeroportcopy(const _AirportData *_data, _AirportData *airoports_
 inline void deepVisualCopy(const _MainVisualData *data, _MainVisualData *visual_data)
 {
 	visual_data->packet_id = NPR_PACKET_TYPE_VISUAL_DATA;
-
+	visual_data->model_simulation_time = data->model_simulation_time;
 	visual_data->num_correct = data->num_correct;
+
 	visual_data->p_coord.X = data->p_coord.X;
 	visual_data->p_coord.Z = data->p_coord.Z;
 	visual_data->p_coord.H = data->p_coord.H;
@@ -560,7 +561,7 @@ inline void deepVisualCopy(const _MainVisualData *data, _MainVisualData *visual_
 	visual_data->GroudSpoiler_L_OB = data->GroudSpoiler_L_OB;
 	visual_data->GroudSpoiler_R_IB = data->GroudSpoiler_R_IB;
 	visual_data->GroudSpoiler_R_OB = data->GroudSpoiler_R_OB;
-	visual_data->Spoiler_R_IN = data->Spoiler_R_IN;
+
 	visual_data->Gear_N = data->Gear_N;
 	visual_data->Gear_L = data->Gear_L;
 	visual_data->Gear_R = data->Gear_R;
@@ -592,16 +593,20 @@ inline void deepVisualCopy(const _MainVisualData *data, _MainVisualData *visual_
 	visual_data->nx = data->nx;
 	visual_data->ny = data->ny;
 	visual_data->nz = data->nz;
+
 	visual_data->Vx_ef = data->Vx_ef;
+	visual_data->Vy_ef = data->Vy_ef;
+	visual_data->Vz_ef = data->Vz_ef;
 
 	visual_data->VCAS = data->VCAS;
 	visual_data->VTAS = data->VTAS;
 	visual_data->M = data->M;
+
 	visual_data->RadioAltitude = data->RadioAltitude;
+
 	visual_data->WOW_L = data->WOW_L;
 	visual_data->WOW_R = data->WOW_R;
 	visual_data->WOW_N = data->WOW_N;
-	visual_data->model_simulation_time = data->model_simulation_time;
 }
 inline void flushVISUALData(_MainVisualData visual_data)
 {
@@ -669,6 +674,8 @@ inline void flushVISUALData(_MainVisualData visual_data)
 	visual_data.ny = 0;
 	visual_data.nz = 0;;
 	visual_data.Vx_ef = 0;
+	visual_data.Vy_ef = 0;
+	visual_data.Vz_ef = 0;
 	visual_data.VCAS = 0;
 	visual_data.VTAS = 0;
 	visual_data.M = 0;
@@ -746,6 +753,11 @@ inline void flushBackwardData(const _DataToModel * _data, _DataToModel  *backwar
 	qDebug() << "p_coord.Z" << _data->p_coord.Z;
 	qDebug() << "simulation_time" << _data->simulation_time;
 }
+
+/*inline void SoundFillData(const SOUND_FUNC_INPUT * _data_func, const SOUND_FUNC_SETTINGS  *_data_settings, DATA_TO_SOUND_PLAYER *answer)
+{
+	
+}		*/
 
 
 #endif // UTILITIES_H

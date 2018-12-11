@@ -12,8 +12,8 @@ public:
 
     explicit UdpServer(QObject *parent = nullptr);
     virtual    ~UdpServer();
-
-    bool setReceivingPort(quint16 _port)
+	///////////////////set ports
+   inline  bool setReceivingPort(quint16 _port)
     {
         if (receiving_port != _port)
         {
@@ -24,7 +24,7 @@ public:
         return false;
     }
 
-    bool setSendingPort(quint16 _port)
+    inline bool setSendingPort(quint16 _port)
     {
         if (sender_port != _port)
         {
@@ -33,7 +33,8 @@ public:
         }
         return false;
     }
-	bool setMAPSendingPort(quint16 _port)
+	
+	inline bool setMAPSendingPort(quint16 _port)
 	{
 		if (map_sender_port != _port)
 		{
@@ -43,7 +44,7 @@ public:
 		return false;
 	}
 
-	bool setBackwardSendingPort(quint16 _port)
+	inline bool setBackwardSendingPort(quint16 _port)
 	{
 		if (backward_sender_port != _port)
 		{
@@ -53,7 +54,7 @@ public:
 		return false;
 	}
 
-	bool setBackwardReceivingPort(quint16 _port)
+	inline bool setBackwardReceivingPort(quint16 _port)
 	{
 		if (backward_receive_port != _port)
 		{
@@ -63,47 +64,89 @@ public:
 		return false;
 	}
 
-	void setSendFromThis(bool check)
+	inline bool setSOUNDSendingPort(quint16 _port)
 	{
-		m_send_from_this = check;
+		if (SOUND_sender_port != _port)
+		{
+			SOUND_sender_port = _port;
+			return  true;
+		}
+		return false;
+	}
+	///////////send data from model or this program
+
+
+	///////////////////////////////////////////////////////////////////////
+	///set addresses
+	void setBackwardAddress2Send(QHostAddress addr)
+	{
+		backward_address2send = addr; 
+	}
+    void setAddress2Send(QHostAddress addr)
+	{
+		address2send = addr;
+	}
+	void setMAPAddress2Send(QHostAddress addr) 
+	{
+		map_address2send = addr;
 	}
 
-	void setBackwardAddress2Send(QHostAddress addr){backward_address2send = addr; }
-    void setAddress2Send(QHostAddress addr){address2send = addr;}
-	void setMAPAddress2Send(QHostAddress addr) { map_address2send = addr; }
-	void setBackwReceive(bool check) { keep_backw_receive = check; }
-	void restartBACKWARDListening(quint16 _port);
-	quint16 getReceivingPort(){return receiving_port;}
-    void sendUDPOnce(const QByteArray &array);
-    void setPacketSendEnabled(const QString& paketName, bool enabled);
-    void meteoTimerTimeout();
+	void setSOUNDAddress2Send(QHostAddress addr)
+	{
+		SOUND_address2send = addr;
+	}
+
+	//del>
+	void setBackwReceive(bool check) 
+	{
+		keep_backw_receive = check; 
+	}
+	
+   	///////////////////////////////////////////////////////////////////////
+	///timers
+	void meteoTimerTimeout();
     void visTimerTimeout();
     void aerodromsTimerTimeout();
     void backwTimerTimeout();
 	void mapTimerTimeout();
     void changeTimerInterval(const QString& timerObjName, int interval);
+	///////////////////////////////////////////////////////////////////////
+	///set Sends
     void setSendData_AERODROMS(const _AirportData *data, bool check);
     void setSendData_BACKWARD(const _DataToModel *data, bool check);
     void setSendToAddress(const QHostAddress& address, quint16 port);
     void setSendData_METEO(const _MeteoData* data, bool check);
     void setSendData_VISUAL(const _MainVisualData* data, bool check);
 	void setSendData_MAP(const UDP_data_t* data, bool check);
-    void setDataFromReceived(const QByteArray&);
+	///////////////////////////////////////////////////////////////////////
+	///bind
+	void restartBACKWARDListening(quint16 _port);
     void restartListening(quint16 _port);
-	void sendMAPUDPOnce(const QByteArray& packet);
+	
+	/////main SEND
+	void setSendFromThis(bool check)
+	{
+		m_send_from_this = check;
+	}
+
+	void sendOnce();
 	void startSending();
 	void stopSending();
+
+	void sendUDPOnce(const QByteArray &array);
 	void sendBACKWARDUDPOnce(const QByteArray& packet);
+	void sendMAPUDPOnce(const QByteArray& packet);
+	void sendSOUNDUDPOnce(const QByteArray& packet);
+	//////receiving
+	quint16 getReceivingPort() { return receiving_port; }
+	void setDataFromReceived(const QByteArray&);
 
-
-    //private slots:
+	inline bool formMapPacket(const QByteArray &datagram);
 public slots:
 
-    void sendOnce();
     void readDatagram();
 	void backwardReadDatagram();
 signals:
-    void newDatagram(const QByteArray&);
     void dataUpdated( _MeteoData*);
     void dataUpdated( _AirportData*);
     void dataUpdated( _DataToModel*);
@@ -114,9 +157,9 @@ public:
 	bool m_send_from_this = false;
 	QTime m_time;
 private:
+
     QUdpSocket *m_receiver_socket;
     QList<QTimer*> m_timerList;
-    // QUdpSocket *m_udp;
     QUdpSocket *m_sender_socket;
 
     QHostAddress address2send;
@@ -141,16 +184,27 @@ private:
 	const _AirportData* m_airoportsData;
 	const _DataToModel* m_backwardData;
 	const UDP_data_t   *m_mapData;
+	
 	//backward
 	QUdpSocket *m_backward_sender_socket;
-	QUdpSocket *m_backward_receive_socket;
 	QHostAddress backward_address2send = QHostAddress("127.0.0.1");
 	quint16 backward_sender_port = 5003;
 	quint16 backward_receive_port = 5001;
+
 	//map
 	QUdpSocket *m_map_sender_socket;
 	QHostAddress map_address2send = QHostAddress("127.0.0.1");
 	quint16 map_sender_port = 3456;
+	
+	//for MAP at once send
+	 _MainVisualData *m_MAP_visualData;
+	 _AirportData *m_MAP_airoportsData;
+	 UDP_data_t   *m_MAP_instant_data;
+	 
+	 //sound socket
+	 QUdpSocket *m_sound_sender_socket;
+	 QHostAddress SOUND_address2send = QHostAddress("127.0.0.1");
+	 quint16 SOUND_sender_port = 1000;
 };
 
 #endif // UDPSERVER_H

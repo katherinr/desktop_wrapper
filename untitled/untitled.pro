@@ -32,7 +32,9 @@ SOURCES += \
     backward.cpp \
     meteo_struct.cpp \
     mainvisual.cpp \
-    map_route.cpp
+    map_route.cpp\
+    sound_read_input.cpp \
+    sound_form.cpp
 
 HEADERS += \
     meteo_struct.h \
@@ -47,7 +49,9 @@ HEADERS += \
     backward.h \
     mainvisual.h \
     utilities.h \
-    map_route.h
+    map_route.h \
+    elbird_sound_data.h \
+    sound_form.h
 
 FORMS += \
     meteoform.ui \
@@ -56,7 +60,8 @@ FORMS += \
     airportsdialog.ui \
     backward.ui \
     mainvisual.ui \
-    map_route.ui
+    map_route.ui \
+    sound_form.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

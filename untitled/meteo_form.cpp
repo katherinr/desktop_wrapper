@@ -293,9 +293,6 @@ void meteoWindow::on_mSpringPushB__pressed()
     ui->mWinterPushB_->setChecked(false);
     ui->mSummerPushB_->setChecked(false);
     data->Month = short(ui->month_cmbB_->currentIndex());
-
-
-
     ui->day_spnB_->update();
 }
 

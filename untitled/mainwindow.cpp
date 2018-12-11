@@ -21,18 +21,19 @@ MainWindow::MainWindow(QWidget *parent) :
     aerodrom_ui = new AirportsDialog;
     backward_ui = new backwardW;
     mainvis_ui = new MainVisual;
-
+    sound_ui = new Sound_form;
     /*/////////////////////////////////////////////*/
 	//time
 	passed_time_indicator = new QLabel(this);
 	modeling_timer = new QTimer(this);
 	shift_time_indicator = new QLabel(this);
-    //show subwindows
+   
+	//show subwindows
     connect(ui->meteoPushButton, SIGNAL(clicked()), meteo_ui, SLOT(show()));
     connect(ui->AerodromsLightsPB, SIGNAL(clicked()), aerodrom_ui, SLOT(show()));
     connect(ui->CorrectPB, SIGNAL(clicked()), backward_ui, SLOT(show()));
     connect(ui->mainVisPushButton, SIGNAL(clicked()), mainvis_ui, SLOT(show()));
-   
+     connect(ui->soundPB, SIGNAL(clicked()), sound_ui, SLOT(show()));
 	/*/////////////////////////////////////////////*/
     //receive data from subwindows
     connect(aerodrom_ui, SIGNAL(sendData(_AirportData*)), this, SLOT(receiveData(_AirportData*)));
@@ -173,6 +174,7 @@ MainWindow::~MainWindow()
     delete aerodrom_ui;
     delete backward_ui;
     delete mainvis_ui;
+    delete sound_ui;
     delete m_server;
 	delete passed_time_indicator;
 	killTimer(timer_id);
@@ -193,13 +195,22 @@ void MainWindow::on_mainVisCheckBox_toggled(bool checked)
     m_server->setSendData_VISUAL(&visual_data, checked);
 }
 
-
 void MainWindow::on_lightsCheckBox_toggled(bool checked)
 {
     ui->aerodromsIntervalEdit->setEnabled(checked);
  //   ui->aerodromsIntervalEdit->setText("5");
     m_server->changeTimerInterval("aerodromsTimer", ui->aerodromsIntervalEdit->text().toUInt()* 1000);
     m_server->setSendData_AERODROMS(&airoports_lights_data, checked);
+}
+
+void MainWindow::on_meteoCheckBox_toggled(bool checked)
+{
+	qDebug() << "meteo checked";
+	ui->meteoIntervalEdit->setEnabled(checked);
+	ui->meteoIntervalEdit->setText("5");
+	m_server->changeTimerInterval("meteoTimer", ui->meteoIntervalEdit->text().toUInt());
+	m_server->setSendData_METEO(&meteo_data, checked);
+
 }
 
 void MainWindow::on_sendIPEdit_editingFinished()
@@ -222,14 +233,15 @@ void MainWindow::on_sendOnceButton_clicked()
 
     if (ui->backwReceive->isChecked())
     {
-        // emit sendUpdatedData(&backward_data);
         message += " backward ";
     }
-    if (ui->meteoCheckBox->isChecked())
+  
+	if (ui->meteoCheckBox->isChecked())
     {
         //emit sendUpdatedData(&meteo_data);
         message += " meteo ";
     }
+
     if (ui->lightsCheckBox->isChecked())
     {
         // emit sendUpdatedData(&airoports_lights_data);
@@ -404,37 +416,22 @@ void MainWindow::on_routePushB_clicked()
     //open route window
 }
 
-void MainWindow::on_meteoCheckBox_toggled(bool checked)
-{
-    qDebug() << "meteo checked";
-    ui->meteoIntervalEdit->setEnabled(checked);
-    ui->meteoIntervalEdit->setText("5");
-    m_server->changeTimerInterval("meteoTimer", ui->meteoIntervalEdit->text().toUInt());
-    m_server->setSendData_METEO(&meteo_data, checked);
 
-}
 
 void MainWindow::on_mainiComboBox_currentIndexChanged(int index)
 {
     if (index == DATA_FROM_MODEL)
     {
         qDebug() << "sending to vis ui";
-        //emit sendUpdatedData(&visual_data_from_model);
         mainvis_ui->setDataToShow(&visual_data_from_model);
-
-		//m_server->setSendData_VISUAL(&visual_data_from_model, ui->mainVisCheckBox->isChecked());
         backward_ui->updateBackwardPacket(visual_data_from_model);
         mainvis_ui->setDisabled(true);
-        //update backward packet
+    
     }
 
     if (index == USER_DATA_CHOICE)
     {
-        //update backward packet
-        //emit sendUpdatedData(&visual_data);
         mainvis_ui->setDataToShow(&visual_data);
-
-		//m_server->setSendData_VISUAL(&visual_data, ui->mainVisCheckBox->isChecked());
         backward_ui->updateBackwardPacket(visual_data);
         mainvis_ui->setEnabled(true);
     }
@@ -448,23 +445,15 @@ void MainWindow::on_meteoComboBox_currentIndexChanged(int index)
     {
         qDebug() << "sending to meteo ui";
         meteo_ui->writeToFields(&meteo_data_from_model);
-
-	//	m_server->setSendData_METEO(&meteo_data_from_model, ui->meteoCheckBox->isChecked());
-        //	emit sendUpdatedData(&meteo_data_from_model);
         meteo_ui->setReadOnly(true);
     }
    
 	if (index == USER_DATA_CHOICE)
     {
         qDebug() << "sending to meteo ui";
-        //emit sendUpdatedData(&meteo_data);
         meteo_ui->writeToFields(&meteo_data);
-
-		//m_server->setSendData_METEO(&meteo_data, ui->meteoCheckBox->isChecked());
         meteo_ui->setReadOnly(false);
     }
-  
- 
 
 }
 
@@ -474,8 +463,7 @@ void MainWindow::on_aerodrCB_currentIndexChanged(int index)
     {
         qDebug() << "sending to meteo ui";
         aerodrom_ui->writeToFields(&airoports_lights_data_from_model);
-	//	m_server->setSendData_AERODROMS(&airoports_lights_data_from_model , ui->lightsCheckBox->isChecked());
-        aerodrom_ui->setEnabled(false);
+		 aerodrom_ui->setEnabled(false);
         aerodrom_ui->from_model = true;
     }
     
@@ -483,13 +471,10 @@ void MainWindow::on_aerodrCB_currentIndexChanged(int index)
     {
         qDebug() << "sending to meteo ui";
         aerodrom_ui->writeToFields(&airoports_lights_data);
-
-		//m_server->setSendData_AERODROMS(&airoports_lights_data, ui->lightsCheckBox->isChecked());
-        aerodrom_ui->setEnabled(true);
+		 aerodrom_ui->setEnabled(true);
         aerodrom_ui->from_model = false;
     }
   
-
 }
 
 void MainWindow::on_startPB_clicked()
@@ -550,8 +535,6 @@ void MainWindow::on_startPB_clicked()
             //куда слать обратный пакет
             m_server->changeTimerInterval("backwardTimer", ui->mainVisIntervalEdit->text().toUInt() * 1000);
         }
-
-
         m_server->startSending();
     }
     MainWindow::statusBar()->showMessage(QString::fromLocal8Bit("Идет обмен"));
@@ -560,21 +543,15 @@ void MainWindow::on_startPB_clicked()
 //backward set
 void MainWindow::on_backwReceive_toggled(bool checked)
 {
-    //данные от визуализации
- 
 	m_server->setBackwReceive(checked);
 	m_server->setBackwardReceivingPort(ui->receivePortEdit_2->text().toUInt());
-	//if ()
-	//	m_server->restartBACKWARDListening(ui->receivePortEdit_2->text().toInt());
+	//m_server->restartBACKWARDListening(ui->receivePortEdit_2->text().toInt());
 }
 
 void MainWindow::on_backwardChkBox_toggled(bool checked)
 {
- //   ui->backwIPedit->setEnabled(checked);
- //   ui->backwPortEdit->setEnabled(checked);
 	m_server->setBackwardAddress2Send(QHostAddress(ui->backwIPedit->text()));
 	m_server->setBackwardSendingPort(ui->backwPortEdit->text().toInt());
-
     //read backwport and fill backw address
     m_server->setSendData_BACKWARD(&backward_data, checked);
 }
@@ -603,13 +580,6 @@ void MainWindow::on_followMainPlainCHB_toggled(bool checked)
 void MainWindow::on_isOrientCamchB_toggled(bool checked)
 {
     map_data.isOrientingCamera = checked;
-}
-
-void MainWindow::on_nppm_editingFinished()
-{
-    //&???
-    map_data.currWPT = 0;
-
 }
 
 void MainWindow::on_updateRoute_editingFinished()
@@ -676,5 +646,17 @@ void MainWindow::on_send_from_this_toggled(bool checked)
 	ui->aerodromsIntervalEdit->setEnabled(checked);
 	ui->meteoIntervalEdit->setEnabled(checked);
 	ui->timeMap->setEnabled(checked);
+
+}
+
+void MainWindow::on_soundIPsend_editingFinished()
+{
+   // sound_settings.
+    m_server->setSOUNDAddress2Send((QHostAddress(ui->soundIPsend->text())));
+}
+
+void MainWindow::on_soundPortSend_editingFinished()
+{
+    m_server->setSOUNDSendingPort((ui->soundPortSend->text().toUInt()));
 
 }

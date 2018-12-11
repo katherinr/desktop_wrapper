@@ -31,12 +31,12 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
-    QVBoxLayout *verticalLayout_16;
+    QVBoxLayout *verticalLayout_23;
     QHBoxLayout *horizontalLayout_12;
     QPushButton *startPB;
     QPushButton *stopPB;
     QSpacerItem *horizontalSpacer_4;
-    QHBoxLayout *horizontalLayout_20;
+    QHBoxLayout *horizontalLayout_19;
     QGroupBox *groupBox_3;
     QVBoxLayout *verticalLayout_12;
     QHBoxLayout *horizontalLayout;
@@ -71,7 +71,7 @@ public:
     QLineEdit *backwIPedit;
     QLineEdit *backwPortEdit;
     QGroupBox *CHANgeVisgroupBox;
-    QVBoxLayout *verticalLayout_13;
+    QVBoxLayout *verticalLayout_24;
     QHBoxLayout *horizontalLayout_9;
     QSpacerItem *horizontalSpacer_2;
     QHBoxLayout *horizontalLayout_4;
@@ -103,8 +103,9 @@ public:
     QHBoxLayout *horizontalLayout_11;
     QSpacerItem *horizontalSpacer_3;
     QPushButton *CorrectPB;
+    QVBoxLayout *verticalLayout_20;
     QGroupBox *MapGroupBox;
-    QVBoxLayout *verticalLayout_19;
+    QVBoxLayout *verticalLayout_22;
     QHBoxLayout *horizontalLayout_14;
     QVBoxLayout *verticalLayout_17;
     QLabel *label_16;
@@ -136,6 +137,21 @@ public:
     QHBoxLayout *horizontalLayout_18;
     QLabel *label_15;
     QSpinBox *mapHeiihtspinBox;
+    QGroupBox *SoundGrBox;
+    QVBoxLayout *verticalLayout_25;
+    QVBoxLayout *verticalLayout_16;
+    QHBoxLayout *horizontalLayout_13;
+    QVBoxLayout *verticalLayout_19;
+    QLabel *label_18;
+    QLabel *label_19;
+    QCheckBox *send2SOUNDCHb;
+    QVBoxLayout *verticalLayout_13;
+    QLineEdit *soundIPsend;
+    QLineEdit *soundPortSend;
+    QLineEdit *soundTime;
+    QHBoxLayout *horizontalLayout_20;
+    QSpacerItem *horizontalSpacer_5;
+    QPushButton *soundPB;
     QSpacerItem *verticalSpacer_5;
     QStatusBar *statusbar;
 
@@ -148,8 +164,8 @@ public:
         MainWindow->setContextMenuPolicy(Qt::PreventContextMenu);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
-        verticalLayout_16 = new QVBoxLayout(centralwidget);
-        verticalLayout_16->setObjectName(QStringLiteral("verticalLayout_16"));
+        verticalLayout_23 = new QVBoxLayout(centralwidget);
+        verticalLayout_23->setObjectName(QStringLiteral("verticalLayout_23"));
         horizontalLayout_12 = new QHBoxLayout();
         horizontalLayout_12->setObjectName(QStringLiteral("horizontalLayout_12"));
         startPB = new QPushButton(centralwidget);
@@ -175,10 +191,10 @@ public:
         horizontalLayout_12->addItem(horizontalSpacer_4);
 
 
-        verticalLayout_16->addLayout(horizontalLayout_12);
+        verticalLayout_23->addLayout(horizontalLayout_12);
 
-        horizontalLayout_20 = new QHBoxLayout();
-        horizontalLayout_20->setObjectName(QStringLiteral("horizontalLayout_20"));
+        horizontalLayout_19 = new QHBoxLayout();
+        horizontalLayout_19->setObjectName(QStringLiteral("horizontalLayout_19"));
         groupBox_3 = new QGroupBox(centralwidget);
         groupBox_3->setObjectName(QStringLiteral("groupBox_3"));
         verticalLayout_12 = new QVBoxLayout(groupBox_3);
@@ -349,12 +365,12 @@ public:
         verticalLayout_12->addLayout(verticalLayout_10);
 
 
-        horizontalLayout_20->addWidget(groupBox_3);
+        horizontalLayout_19->addWidget(groupBox_3);
 
         CHANgeVisgroupBox = new QGroupBox(centralwidget);
         CHANgeVisgroupBox->setObjectName(QStringLiteral("CHANgeVisgroupBox"));
-        verticalLayout_13 = new QVBoxLayout(CHANgeVisgroupBox);
-        verticalLayout_13->setObjectName(QStringLiteral("verticalLayout_13"));
+        verticalLayout_24 = new QVBoxLayout(CHANgeVisgroupBox);
+        verticalLayout_24->setObjectName(QStringLiteral("verticalLayout_24"));
         horizontalLayout_9 = new QHBoxLayout();
         horizontalLayout_9->setObjectName(QStringLiteral("horizontalLayout_9"));
         horizontalSpacer_2 = new QSpacerItem(158, 58, QSizePolicy::Expanding, QSizePolicy::Minimum);
@@ -399,12 +415,12 @@ public:
         horizontalLayout_9->addLayout(horizontalLayout_4);
 
 
-        verticalLayout_13->addLayout(horizontalLayout_9);
+        verticalLayout_24->addLayout(horizontalLayout_9);
 
         label = new QLabel(CHANgeVisgroupBox);
         label->setObjectName(QStringLiteral("label"));
 
-        verticalLayout_13->addWidget(label);
+        verticalLayout_24->addWidget(label);
 
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
@@ -461,7 +477,7 @@ public:
         horizontalLayout_3->addLayout(verticalLayout);
 
 
-        verticalLayout_13->addLayout(horizontalLayout_3);
+        verticalLayout_24->addLayout(horizontalLayout_3);
 
         horizontalLayout_10 = new QHBoxLayout();
         horizontalLayout_10->setObjectName(QStringLiteral("horizontalLayout_10"));
@@ -478,11 +494,11 @@ public:
         horizontalLayout_10->addWidget(sendOnceButton);
 
 
-        verticalLayout_13->addLayout(horizontalLayout_10);
+        verticalLayout_24->addLayout(horizontalLayout_10);
 
         verticalSpacer_4 = new QSpacerItem(428, 276, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        verticalLayout_13->addItem(verticalSpacer_4);
+        verticalLayout_24->addItem(verticalSpacer_4);
 
         verticalLayout_8 = new QVBoxLayout();
         verticalLayout_8->setObjectName(QStringLiteral("verticalLayout_8"));
@@ -523,15 +539,17 @@ public:
         verticalLayout_8->addLayout(horizontalLayout_11);
 
 
-        verticalLayout_13->addLayout(verticalLayout_8);
+        verticalLayout_24->addLayout(verticalLayout_8);
 
 
-        horizontalLayout_20->addWidget(CHANgeVisgroupBox);
+        horizontalLayout_19->addWidget(CHANgeVisgroupBox);
 
+        verticalLayout_20 = new QVBoxLayout();
+        verticalLayout_20->setObjectName(QStringLiteral("verticalLayout_20"));
         MapGroupBox = new QGroupBox(centralwidget);
         MapGroupBox->setObjectName(QStringLiteral("MapGroupBox"));
-        verticalLayout_19 = new QVBoxLayout(MapGroupBox);
-        verticalLayout_19->setObjectName(QStringLiteral("verticalLayout_19"));
+        verticalLayout_22 = new QVBoxLayout(MapGroupBox);
+        verticalLayout_22->setObjectName(QStringLiteral("verticalLayout_22"));
         horizontalLayout_14 = new QHBoxLayout();
         horizontalLayout_14->setObjectName(QStringLiteral("horizontalLayout_14"));
         verticalLayout_17 = new QVBoxLayout();
@@ -586,11 +604,11 @@ public:
         horizontalLayout_14->addLayout(verticalLayout_18);
 
 
-        verticalLayout_19->addLayout(horizontalLayout_14);
+        verticalLayout_22->addLayout(horizontalLayout_14);
 
         horizontalSpacer_7 = new QSpacerItem(377, 18, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        verticalLayout_19->addItem(horizontalSpacer_7);
+        verticalLayout_22->addItem(horizontalSpacer_7);
 
         horizontalLayout_21 = new QHBoxLayout();
         horizontalLayout_21->setObjectName(QStringLiteral("horizontalLayout_21"));
@@ -647,7 +665,7 @@ public:
         horizontalLayout_21->addLayout(verticalLayout_21);
 
 
-        verticalLayout_19->addLayout(horizontalLayout_21);
+        verticalLayout_22->addLayout(horizontalLayout_21);
 
         verticalLayout_15 = new QVBoxLayout();
         verticalLayout_15->setObjectName(QStringLiteral("verticalLayout_15"));
@@ -712,18 +730,103 @@ public:
 
         verticalLayout_15->addLayout(horizontalLayout_18);
 
-        verticalSpacer_5 = new QSpacerItem(495, 368, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        verticalLayout_15->addItem(verticalSpacer_5);
-
-
-        verticalLayout_19->addLayout(verticalLayout_15);
+        verticalLayout_22->addLayout(verticalLayout_15);
 
 
-        horizontalLayout_20->addWidget(MapGroupBox);
+        verticalLayout_20->addWidget(MapGroupBox);
+
+        SoundGrBox = new QGroupBox(centralwidget);
+        SoundGrBox->setObjectName(QStringLiteral("SoundGrBox"));
+        verticalLayout_25 = new QVBoxLayout(SoundGrBox);
+        verticalLayout_25->setObjectName(QStringLiteral("verticalLayout_25"));
+        verticalLayout_16 = new QVBoxLayout();
+        verticalLayout_16->setObjectName(QStringLiteral("verticalLayout_16"));
+        horizontalLayout_13 = new QHBoxLayout();
+        horizontalLayout_13->setObjectName(QStringLiteral("horizontalLayout_13"));
+        verticalLayout_19 = new QVBoxLayout();
+        verticalLayout_19->setObjectName(QStringLiteral("verticalLayout_19"));
+        label_18 = new QLabel(SoundGrBox);
+        label_18->setObjectName(QStringLiteral("label_18"));
+        label_18->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        verticalLayout_19->addWidget(label_18);
+
+        label_19 = new QLabel(SoundGrBox);
+        label_19->setObjectName(QStringLiteral("label_19"));
+        label_19->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        verticalLayout_19->addWidget(label_19);
+
+        send2SOUNDCHb = new QCheckBox(SoundGrBox);
+        send2SOUNDCHb->setObjectName(QStringLiteral("send2SOUNDCHb"));
+        send2SOUNDCHb->setChecked(true);
+
+        verticalLayout_19->addWidget(send2SOUNDCHb);
+
+
+        horizontalLayout_13->addLayout(verticalLayout_19);
+
+        verticalLayout_13 = new QVBoxLayout();
+        verticalLayout_13->setObjectName(QStringLiteral("verticalLayout_13"));
+        soundIPsend = new QLineEdit(SoundGrBox);
+        soundIPsend->setObjectName(QStringLiteral("soundIPsend"));
+        soundIPsend->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        verticalLayout_13->addWidget(soundIPsend);
+
+        soundPortSend = new QLineEdit(SoundGrBox);
+        soundPortSend->setObjectName(QStringLiteral("soundPortSend"));
+        soundPortSend->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        verticalLayout_13->addWidget(soundPortSend);
+
+        soundTime = new QLineEdit(SoundGrBox);
+        soundTime->setObjectName(QStringLiteral("soundTime"));
+        soundTime->setEnabled(true);
+        soundTime->setContextMenuPolicy(Qt::ActionsContextMenu);
+        soundTime->setAcceptDrops(true);
+        soundTime->setEchoMode(QLineEdit::NoEcho);
+        soundTime->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        soundTime->setClearButtonEnabled(false);
+
+        verticalLayout_13->addWidget(soundTime);
+
+
+        horizontalLayout_13->addLayout(verticalLayout_13);
+
+
+        verticalLayout_16->addLayout(horizontalLayout_13);
+
+        horizontalLayout_20 = new QHBoxLayout();
+        horizontalLayout_20->setObjectName(QStringLiteral("horizontalLayout_20"));
+        horizontalSpacer_5 = new QSpacerItem(188, 18, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_20->addItem(horizontalSpacer_5);
+
+        soundPB = new QPushButton(SoundGrBox);
+        soundPB->setObjectName(QStringLiteral("soundPB"));
+
+        horizontalLayout_20->addWidget(soundPB);
 
 
         verticalLayout_16->addLayout(horizontalLayout_20);
+
+
+        verticalLayout_25->addLayout(verticalLayout_16);
+
+        verticalSpacer_5 = new QSpacerItem(428, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_25->addItem(verticalSpacer_5);
+
+
+        verticalLayout_20->addWidget(SoundGrBox);
+
+
+        horizontalLayout_19->addLayout(verticalLayout_20);
+
+
+        verticalLayout_23->addLayout(horizontalLayout_19);
 
         MainWindow->setCentralWidget(centralwidget);
         statusbar = new QStatusBar(MainWindow);
@@ -808,6 +911,15 @@ public:
         label_13->setText(QApplication::translate("MainWindow", "\320\235\320\260\321\207\320\273\321\214\320\275\320\260\321\217 \320\264\320\276\320\273\320\263\320\276\321\202\320\260, [\320\263\321\200\320\260\320\264]", nullptr));
         centerLon->setText(QApplication::translate("MainWindow", "38.137015", nullptr));
         label_15->setText(QApplication::translate("MainWindow", "\320\222\321\213\321\201\320\276\321\202\320\260, \320\274", nullptr));
+        SoundGrBox->setTitle(QApplication::translate("MainWindow", "\320\227\320\262\321\203\320\272", nullptr));
+        label_18->setText(QApplication::translate("MainWindow", "IP \320\260\320\264\321\200\320\265\321\201 \320\276\321\202\321\201\321\213\320\273\320\272\320\270", nullptr));
+        label_19->setText(QApplication::translate("MainWindow", "IP \320\277\320\276\321\200\321\202 \320\276\321\202\321\201\321\213\320\273\320\272\320\270", nullptr));
+        send2SOUNDCHb->setText(QApplication::translate("MainWindow", "\320\236\321\202\321\201\321\213\320\273\320\272\320\260 \320\264\320\260\320\275\320\275\321\213\321\205 \320\276 \320\267\320\262\321\203\320\272\320\265", nullptr));
+        soundIPsend->setText(QApplication::translate("MainWindow", "127.0.0.1", nullptr));
+        soundIPsend->setPlaceholderText(QApplication::translate("MainWindow", "127.0.0.1", nullptr));
+        soundPortSend->setText(QApplication::translate("MainWindow", "3456", nullptr));
+        soundTime->setText(QApplication::translate("MainWindow", "0.01", nullptr));
+        soundPB->setText(QApplication::translate("MainWindow", "\320\237\320\260\321\200\320\260\320\274\320\265\321\202\321\200\321\213 \320\275\320\260\321\201\321\202\321\200\320\276\320\271\320\272\320\270", nullptr));
     } // retranslateUi
 
 };
