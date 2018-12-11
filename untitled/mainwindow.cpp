@@ -105,6 +105,25 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->aerodromsIntervalEdit->setEnabled(false);
 	ui->meteoIntervalEdit->setEnabled(false);
 	ui->timeMap->setEnabled(false);
+
+	//map config
+	map_data.isOrientingCamera = ui->isOrientCamchB->isChecked();
+	map_data.isShowingWindow = ui->showWindchB->isChecked();
+	map_data.showCurTraj = ui->showTrajChB->isChecked();
+	map_data.showRoute = ui->showRoutechB->isChecked();
+	map_data.followMainPlane = ui->followMainPlainCHB->isChecked();
+
+	map_data.currWPT = 0;
+	map_data.curLat = visual_data_from_model.p_coord.X;
+	map_data.curLon = visual_data_from_model.p_coord.Z;
+	map_data.curH = visual_data_from_model.p_coord.H;
+
+	map_data.curGamma = visual_data_from_model.p_angle.R;
+	map_data.curPsi = visual_data_from_model.p_angle.C;
+	map_data.curTheta = visual_data_from_model.p_angle.P;
+	map_data.updateRoute = 1;
+
+	m_server->setSendData_MAP(&map_data, ui->send2mapCHb->isChecked());
 }
 
 //from this program

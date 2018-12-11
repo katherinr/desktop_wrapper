@@ -872,7 +872,7 @@
                <item>
                 <widget class="QLabel" name="label_13">
                  <property name="text">
-                  <string>Начльная долгота, [град]</string>
+                  <string>Начальная долгота, [град]</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
