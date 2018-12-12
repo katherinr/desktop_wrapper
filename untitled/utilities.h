@@ -293,12 +293,12 @@ inline QMap <QString, route_point> fillRouteByICAO()
 
 	answer["MMTO"].routeLat = 19.337072000000;
 	answer["MMTO"].routeLon = -99.566008000000;
-	answer["MMTO"].routeAlt = -99.566008000000;
+	answer["MMTO"].routeAlt = 2580;
 
 
 	answer["EFHK"].routeLat = 60.317222000000;
 	answer["EFHK"].routeLon = 24.963333000000;
-	answer["EFHK"].routeAlt = 24.963333000000;
+	answer["EFHK"].routeAlt = 55;
 
 
 	return answer;
@@ -359,6 +359,7 @@ inline void MAP_fill_route(UDP_data_t * map_data_, const _MainVisualData *vis_da
 		map_data_->routeLon[i] = map_data_->routeLon[1];
 		map_data_->routeAlt[i] = map_data_->routeAlt[1];
 	}
+
 	//bots
 	for (auto & bot : map_data_->bots)
 	{

@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include "meteo_struct.h"
 #include <QTime>
+
+#include "elbird_sound_send.h"
+
 class UdpServer: public QObject
 {
     Q_OBJECT
@@ -73,6 +76,16 @@ public:
 		}
 		return false;
 	}
+
+	inline bool setPLOTSendingPort(quint16 _port)
+	{
+		if (plot_sender_port != _port)
+		{
+			plot_sender_port = _port;
+			return  true;
+		}
+		return false;
+	}
 	///////////send data from model or this program
 
 
@@ -94,6 +107,11 @@ public:
 	void setSOUNDAddress2Send(QHostAddress addr)
 	{
 		SOUND_address2send = addr;
+	}
+
+	void setPLOTAddress2Send(QHostAddress addr)
+	{
+		plot_address2send = addr;
 	}
 
 	//del>
@@ -142,10 +160,14 @@ public:
 	void setDataFromReceived(const QByteArray&);
 
 	//inline bool formMapPacket(const QByteArray &datagram);
-public slots:
 
+public slots:
+	void onNewGuiSoundSettings(const SOUND_FUNC_SETTINGS&);
+
+private slots:
     void readDatagram();
 	void backwardReadDatagram();
+
 signals:
     void dataUpdated( _MeteoData*);
     void dataUpdated( _AirportData*);
@@ -156,8 +178,11 @@ public:
 	bool keep_backw_receive = false;
 	bool m_send_from_this = false;
 	QTime m_time;
-private:
 
+private:
+	void send_to_sound(const _MainVisualData& visualData, const SOUND_FUNC_SETTINGS& guiSoundSettings);
+
+private:
     QUdpSocket *m_receiver_socket;
     QList<QTimer*> m_timerList;
     QUdpSocket *m_sender_socket;
@@ -206,6 +231,13 @@ private:
 	 QUdpSocket *m_sound_sender_socket;
 	 QHostAddress SOUND_address2send = QHostAddress("127.0.0.1");
 	 quint16 SOUND_sender_port = 1000;
+	 SOUND_FUNC_SETTINGS m_guiSoundSettings;
+	 CSendToSound m_olegSoundPacker;
+
+	 //plots
+	 QUdpSocket *m_plots_socket;
+	 QHostAddress plot_address2send = QHostAddress("127.0.0.1");
+	 quint16 plot_sender_port = 2000;
 };
 
 #endif // UDPSERVER_H

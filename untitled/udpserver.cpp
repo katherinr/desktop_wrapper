@@ -26,6 +26,7 @@ UdpServer::UdpServer(QObject *parent) :
 
 	m_sound_sender_socket = new QUdpSocket(this);
 	//connect(m_sound_sender_socket, SIGNAL(readyRead()), this, SLOT(readDatagram()));
+	m_plots_socket = new QUdpSocket(this);
 
 	// enabled/disable sending for each udp packet
 	m_enabledPackets["VISUAL_DATA"] = false;
@@ -50,19 +51,19 @@ UdpServer::UdpServer(QObject *parent) :
 	meteoTimer->setInterval(1000);
 	connect(meteoTimer, &QTimer::timeout, this, &UdpServer::meteoTimerTimeout);
 
-	  QTimer* backwardTimer = new QTimer(this);
-	  backwardTimer->setObjectName("backwardTimer");
-	  backwardTimer->setInterval(10);
-	  connect(backwardTimer, &QTimer::timeout, this, &UdpServer::backwTimerTimeout);		
+	QTimer* backwardTimer = new QTimer(this);
+	backwardTimer->setObjectName("backwardTimer");
+	backwardTimer->setInterval(10);
+	connect(backwardTimer, &QTimer::timeout, this, &UdpServer::backwTimerTimeout);
 
 	QTimer* mapTimer = new QTimer(this);
 	mapTimer->setObjectName("mapTimer");
 	mapTimer->setInterval(10);
 	connect(mapTimer, &QTimer::timeout, this, &UdpServer::mapTimerTimeout);
 
-	m_timerList << visTimer << aerodromsTimer << meteoTimer << backwardTimer <<mapTimer;
+	m_timerList << visTimer << aerodromsTimer << meteoTimer << backwardTimer << mapTimer;
 
-	// m_time.start(); //current time in VISUAL_DATA;
+	m_olegSoundPacker.Initialize(0.01); // шаг моедлирования модели откуда взять
 }
 
 UdpServer::~UdpServer()
@@ -72,6 +73,7 @@ UdpServer::~UdpServer()
 	delete m_map_sender_socket;
 	delete m_backward_sender_socket;
 	delete m_sound_sender_socket;
+	delete m_plots_socket;
 }
 
 void UdpServer::changeTimerInterval(const QString& timerObjName, int interval)
@@ -119,7 +121,7 @@ void UdpServer::aerodromsTimerTimeout()
 		QByteArray aerodrome_data = QByteArray::fromRawData(reinterpret_cast<const char*>(m_airoportsData), sizeof(_AirportData));
 		_AirportData* aerodrome_ptr = reinterpret_cast<_AirportData*>(aerodrome_data.data());
 
-		aerodrome_ptr->model_simulation_time =  m_time.elapsed();
+		aerodrome_ptr->model_simulation_time = m_time.elapsed();
 		sendUDPOnce(aerodrome_data);
 	}
 }
@@ -193,7 +195,7 @@ void UdpServer::sendOnce()
 		//  qDebug()<<"m_meteoPacket staff"<<*m_meteoPacket.begin();
 		 // printMeteo(&m_meteo_data);
 		_MeteoData* meteo_ptr = reinterpret_cast<_MeteoData*>(m_meteoPacket.data());
-	//	meteo_ptr->model_simulation_time = m_time.elapsed();
+		//	meteo_ptr->model_simulation_time = m_time.elapsed();
 		sendUDPOnce(m_meteoPacket);
 	}
 
@@ -405,6 +407,8 @@ void UdpServer::sendBACKWARDUDPOnce(const QByteArray& packet)
 }
 void UdpServer::sendMAPUDPOnce(const QByteArray& packet)
 {
+	auto address = map_address2send.toString();
+
 	if (m_map_sender_socket->writeDatagram(packet, map_address2send, map_sender_port) == -1)
 	{
 		qWarning() << m_map_sender_socket->errorString();
@@ -445,18 +449,19 @@ void UdpServer::readDatagram()
 			}
 			else
 			{
-
 				//отсылка дальше
 				if (!m_send_from_this)
 				{
 					sendUDPOnce(datagram);
 
-					 //send map indication
+					//send map indication
 					MAP_fill_route(m_mapData, &m_vis_data, &m_airoports_lights_data);
 					m_mapData->seconds = m_vis_data.model_simulation_time;
 
 					m_mapPacket = QByteArray::fromRawData(reinterpret_cast<const char*>(m_mapData), sizeof(UDP_data_t));
 					sendMAPUDPOnce(m_mapPacket);
+
+					send_to_sound(m_vis_data, m_guiSoundSettings);
 				}
 
 				setDataFromReceived(datagram);
@@ -487,12 +492,44 @@ void UdpServer::backwardReadDatagram()
 			}
 			else
 			{
-					setDataFromReceived(datagram);
-					//sendBACKWARDUDPOnce(datagram);
+				setDataFromReceived(datagram);
+				//sendBACKWARDUDPOnce(datagram);
 			}
 		}
 	}
 
+}
+
+void UdpServer::send_to_sound(const _MainVisualData & visualData, const SOUND_FUNC_SETTINGS& guiSoundSettings)
+{
+	SOUND_FUNC_INPUT soundInput{ 0 };
+
+	soundInput.simulation_status = visualData.SimulationRunning;
+	soundInput.model_time = visualData.model_simulation_time;
+	soundInput.N_left_curr = visualData.N2_L;
+	soundInput.N_rght_curr = visualData.N2_R;
+	soundInput.Flaps_curr = visualData.Flaps;
+	soundInput.Abrks_curr = 6;
+	soundInput.LG_curr = 7;
+	soundInput.LG_touchdown_nose = 8;
+	soundInput.LG_touchdown_left = 9;
+	soundInput.LG_touchdown_rght = 10;
+	soundInput.beep = 11;
+
+	m_olegSoundPacker.Update(soundInput, guiSoundSettings);
+
+	if (
+		m_sound_sender_socket->writeDatagram(reinterpret_cast<const char*>(m_olegSoundPacker.getSendPacketPtr()),
+			sizeof(SOUND_FUNC_INPUT), SOUND_address2send, SOUND_sender_port)
+		)
+	{
+		qWarning() << Q_FUNC_INFO << m_map_sender_socket->errorString();
+	}
+}
+
+void UdpServer::onNewGuiSoundSettings(const SOUND_FUNC_SETTINGS& newSettings)
+{
+	m_guiSoundSettings = newSettings;
 }
 
 void UdpServer::setSendToAddress(const QHostAddress& address, quint16 port)

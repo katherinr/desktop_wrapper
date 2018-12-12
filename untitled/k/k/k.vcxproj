@@ -130,7 +130,9 @@
     <QtMoc Include="..\..\backward.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\C_rate_limiter.h" />
     <ClInclude Include="..\..\elbird_sound_data.h" />
+    <ClInclude Include="..\..\elbird_sound_send.h" />
     <ClInclude Include="..\..\file_meteo_io.h" />
     <ClInclude Include="..\..\meteo_struct.h" />
     <QtMoc Include="..\..\sound_form.h">
@@ -148,6 +150,8 @@
   <ItemGroup>
     <ClCompile Include="..\..\airportsdialog.cpp" />
     <ClCompile Include="..\..\backward.cpp" />
+    <ClCompile Include="..\..\C_rate_limiter.cpp" />
+    <ClCompile Include="..\..\elbird_sound_send.cpp" />
     <ClCompile Include="..\..\file_meteo_io.cpp" />
     <ClCompile Include="..\..\main.cpp" />
     <ClCompile Include="..\..\mainvisual.cpp" />

@@ -28,6 +28,12 @@
       <Extensions>qrc;*</Extensions>
       <ParseFiles>false</ParseFiles>
     </Filter>
+    <Filter Include="Header Files\sound r">
+      <UniqueIdentifier>{34b31ee8-f0c5-42c6-b863-0b1152b3dd67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\sound r">
+      <UniqueIdentifier>{3a922ebe-f6a2-43d8-be64-ae0722b1efec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="k.qrc">
@@ -87,8 +93,14 @@
     <ClInclude Include="..\..\utilities.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\C_rate_limiter.h">
+      <Filter>Header Files\sound r</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\elbird_sound_send.h">
+      <Filter>Header Files\sound r</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\elbird_sound_data.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\sound r</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +136,12 @@
     </ClCompile>
     <ClCompile Include="..\..\sound_form.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\C_rate_limiter.cpp">
+      <Filter>Source Files\sound r</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\elbird_sound_send.cpp">
+      <Filter>Source Files\sound r</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

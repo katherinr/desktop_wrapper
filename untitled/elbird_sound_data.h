@@ -3,7 +3,6 @@
 #pragma once
 
 #pragma pack ( push, 1 )
-
 // структура для отправки данных для программы воспроизведения звука
 struct DATA_TO_SOUND_PLAYER{
 
@@ -27,9 +26,9 @@ struct DATA_TO_SOUND_PLAYER{
     char sound_beep;
     
 };
+#pragma pack ( pop )
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 // структура входных аргументов для функции отправки данных на звук
 // (char simulation_status, double model_time, double N_left_curr, double N_rght_curr, double Flaps_curr,  double Abrks_curr, double LG_curr,
 struct SOUND_FUNC_INPUT{
@@ -46,14 +45,12 @@ struct SOUND_FUNC_INPUT{
     char LG_touchdown_left;
     char LG_touchdown_rght;
     char beep;
-    
-    
 };
 
 // структура для передачи настроек в функцию отправки данных на звук
 struct SOUND_FUNC_SETTINGS{
 
-    unsigned char shutdown_counter;  // сколько раз отсылать сигнал на завершение проигрывания звукового файла
+    unsigned char shutdown_counter; // сколько раз отсылать сигнал на завершение проигрывания звукового файла
     
     double loudness_idle;
     double loudness_max;
@@ -67,5 +64,3 @@ struct SOUND_FUNC_SETTINGS{
     double loudness_beep;
     
 };
-
-#pragma pack ( pop )

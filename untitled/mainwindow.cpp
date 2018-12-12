@@ -40,6 +40,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(backward_ui, SIGNAL(sendData(_DataToModel*)), this, SLOT(receiveData(_DataToModel*)));
     connect(meteo_ui, SIGNAL(sendData(_MeteoData*)), this, SLOT(receiveData(_MeteoData*)));
     connect(mainvis_ui, SIGNAL(sendData(_MainVisualData*)), this, SLOT(receiveData(_MainVisualData*)));
+	connect(sound_ui, &Sound_form::sendData, m_server, &UdpServer::onNewGuiSoundSettings);
 
     /*/////////////////////////////////////////////*/
 
@@ -105,7 +106,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->aerodromsIntervalEdit->setEnabled(false);
 	ui->meteoIntervalEdit->setEnabled(false);
 	ui->timeMap->setEnabled(false);
-
+//	ui->soundTime->setEnabled(checked);
 	//map config
 	map_data.isOrientingCamera = ui->isOrientCamchB->isChecked();
 	map_data.isShowingWindow = ui->showWindchB->isChecked();
@@ -117,6 +118,10 @@ MainWindow::MainWindow(QWidget *parent) :
 	map_data.curLat = visual_data_from_model.p_coord.X;
 	map_data.curLon = visual_data_from_model.p_coord.Z;
 	map_data.curH = visual_data_from_model.p_coord.H;
+
+	map_data.centerLat = ui->centerLat->text().toDouble();
+	map_data.centerLon = ui->centerLon->text().toDouble();
+	map_data.centerH = ui->mapHeiihtspinBox->value();
 
 	map_data.curGamma = visual_data_from_model.p_angle.R;
 	map_data.curPsi = visual_data_from_model.p_angle.C;
@@ -679,4 +684,21 @@ void MainWindow::on_soundPortSend_editingFinished()
 {
     m_server->setSOUNDSendingPort((ui->soundPortSend->text().toUInt()));
 
+}
+
+void MainWindow::on_send2SOUNDCHb_toggled(bool checked)
+{
+    ui->soundTime->setEnabled(checked);
+    m_server->setSOUNDSendingPort((ui->soundPortSend->text().toUInt()));
+    m_server->setSOUNDAddress2Send(QHostAddress(ui->soundIPsend->text()));
+    //m_server->setSendData_MAP(&map_data, checked);
+   // m_server->changeTimerInterval("mapTimer", ui->timeMap->text().toUInt()*1000);
+}
+
+void MainWindow::on_soundTime_editingFinished()
+{
+    double Tperiod_sound = ui->soundTime->text().toDouble();
+    //send toserver
+    //m_server->setTperiod(Tperiod_sound);
+    //void setTperiod( double Tperiod) { m_TperiodSound = Tperiod;}
 }

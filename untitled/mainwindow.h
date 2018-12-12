@@ -106,6 +106,10 @@ private slots:
 
 
 
+    void on_send2SOUNDCHb_toggled(bool checked);
+
+    void on_soundTime_editingFinished();
+
 private:
     Ui::MainWindow *ui;
     meteoWindow* meteo_ui;
