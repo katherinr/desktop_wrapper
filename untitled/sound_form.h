@@ -63,10 +63,10 @@ private slots:
 	void setLimitsToScrolls();
 private:
     Ui::Sound_form *ui;
-    SOUND_FUNC_SETTINGS *sound_settings;
+    SOUND_FUNC_SETTINGS sound_settings;
 
 signals:
-    void sendData(SOUND_FUNC_SETTINGS *data);
+    void sendData(const SOUND_FUNC_SETTINGS &data);
 };
 
 #endif // SOUND_FORM_H
