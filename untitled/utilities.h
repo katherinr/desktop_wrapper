@@ -224,54 +224,82 @@ inline QMap <QString, route_point> fillRouteByICAO()
 
 	answer["UUEE"].routeLat = 55.973607;
 	answer["UUEE"].routeLon = 37.412512;
+	answer["UUEE"].routeAlt = 187.3;
 
 	answer["UUWW"].routeLat = 55.599611;
 	answer["UUWW"].routeLon = 37.271236;
+	answer["UUWW"].routeAlt = 206.4;
 
 	answer["UUBW"].routeLat = 55.564917;
 	answer["UUBW"].routeLon = 38.137015;
+	answer["UUBW"].routeAlt = 120.2;
 
 	answer["UUMO"].routeLat = 55.513190;
 	answer["UUMO"].routeLon = 37.507440;
+	answer["UUMO"].routeAlt = 164.6;
 
 	answer["EGLC"].routeLat = 51.505523;
 	answer["EGLC"].routeLon = 0.045733;
+	answer["EGLC"].routeAlt = 3.7;
 
 	answer["LKKV"].routeLat = 50.202978000000;
 	answer["LKKV"].routeLon = 12.914983000000;
+	answer["LKKV"].routeAlt = 603.3;
 
 	answer["LYTV"].routeLat = 42.404778;
 	answer["LYTV"].routeLon = 18.723146;
+	answer["LYTV"].routeAlt = 6;
+
 
 	answer["EBBR"].routeLat = 50.901389000000;
 	answer["EBBR"].routeLon = 4.484444000000;
+	answer["EBBR"].routeAlt = 56;
+
 
 	answer["LIPZ"].routeLat = 45.505278;
 	answer["LIPZ"].routeLon = 12.351944;
+	answer["LIPZ"].routeAlt = 2;
+
 
 	answer["EIDW"].routeLat = 53.421389000000;
 	answer["EIDW"].routeLon = -6.270000000000;
+	answer["EIDW"].routeAlt = 74;
+
 
 	answer["LOWI"].routeLat = 47.2602005004883;
 	answer["LOWI"].routeLon = 11.3439998626709;
+	answer["LOWI"].routeAlt = 581;
+
 
 	answer["BIKF"].routeLat = 63.985000000000;
 	answer["BIKF"].routeLon = -22.605556000000;
+	answer["BIKF"].routeAlt = 52;
+
 
 	answer["UHKK"].routeLat = 50.409444000000;
 	answer["UHKK"].routeLon = 136.934167000000;
+	answer["UHKK"].routeAlt = 28;
+
 
 	answer["ULLI"].routeLat = 59.800292000000;
 	answer["ULLI"].routeLon = 30.262503000000;
+	answer["ULLI"].routeAlt = 24;
+
 
 	answer["URSS"].routeLat = 43.449928000000;
 	answer["URSS"].routeLon = 39.956589000000;
+	answer["URSS"].routeAlt = 27;
+
 
 	answer["MMTO"].routeLat = 19.337072000000;
 	answer["MMTO"].routeLon = -99.566008000000;
+	answer["MMTO"].routeAlt = -99.566008000000;
+
 
 	answer["EFHK"].routeLat = 60.317222000000;
 	answer["EFHK"].routeLon = 24.963333000000;
+	answer["EFHK"].routeAlt = 24.963333000000;
+
 
 	return answer;
 }

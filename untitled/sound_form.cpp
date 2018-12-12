@@ -27,7 +27,7 @@ void Sound_form::setLimitsToScrolls()
 }
 void Sound_form::on_shutdown_beep_editingFinished()
 {
-      sound_settings.loudness_idle = ui->shutdown_beep->text().toDouble();
+      sound_settings.shutdown_counter = ui->shutdown_beep->text().toUInt();
 }
 
 void Sound_form::on_loudness_idle_editingFinished()
