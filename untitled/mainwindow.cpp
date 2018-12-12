@@ -433,6 +433,7 @@ void MainWindow::readConfig()
 void MainWindow::on_routePushB_clicked()
 {
     //open route window
+    map_data.updateRoute++;
 }
 
 

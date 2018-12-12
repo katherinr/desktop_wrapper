@@ -908,7 +908,7 @@ public:
         label_14->setText(QApplication::translate("MainWindow", "\320\232\320\276\320\276\321\200\320\264\320\270\320\275\320\260\321\202\321\213 \321\203\321\201\321\202\320\260\320\275\320\276\320\262\320\272\320\270 \320\272\320\260\320\274\320\265\321\200\321\213", nullptr));
         label_12->setText(QApplication::translate("MainWindow", "\320\235\320\260\321\207\320\260\320\273\321\214\320\275\320\260\321\217 \321\210\320\270\321\200\320\276\321\202\320\260, [\320\263\321\200\320\260\320\264]", nullptr));
         centerLat->setText(QApplication::translate("MainWindow", "55.564917", nullptr));
-        label_13->setText(QApplication::translate("MainWindow", "\320\235\320\260\321\207\320\273\321\214\320\275\320\260\321\217 \320\264\320\276\320\273\320\263\320\276\321\202\320\260, [\320\263\321\200\320\260\320\264]", nullptr));
+        label_13->setText(QApplication::translate("MainWindow", "\320\235\320\260\321\207\320\260\320\273\321\214\320\275\320\260\321\217 \320\264\320\276\320\273\320\263\320\276\321\202\320\260, [\320\263\321\200\320\260\320\264]", nullptr));
         centerLon->setText(QApplication::translate("MainWindow", "38.137015", nullptr));
         label_15->setText(QApplication::translate("MainWindow", "\320\222\321\213\321\201\320\276\321\202\320\260, \320\274", nullptr));
         SoundGrBox->setTitle(QApplication::translate("MainWindow", "\320\227\320\262\321\203\320\272", nullptr));

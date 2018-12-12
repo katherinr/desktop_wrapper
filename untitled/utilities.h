@@ -220,6 +220,7 @@ inline QMap <QString, route_point> fillRouteByICAO()
 
 	answer["UUDD"].routeLat = 55.410222;
 	answer["UUDD"].routeLon = 37.902443;
+	answer["UUDD"].routeAlt= 178.1;
 
 	answer["UUEE"].routeLat = 55.973607;
 	answer["UUEE"].routeLon = 37.412512;
@@ -228,10 +229,10 @@ inline QMap <QString, route_point> fillRouteByICAO()
 	answer["UUWW"].routeLon = 37.271236;
 
 	answer["UUBW"].routeLat = 55.564917;
-	answer["UUBW"].routeLon = 37.412512;
+	answer["UUBW"].routeLon = 38.137015;
 
 	answer["UUMO"].routeLat = 55.513190;
-	answer["UUMO"].routeLon = 38.137015;
+	answer["UUMO"].routeLon = 37.507440;
 
 	answer["EGLC"].routeLat = 51.505523;
 	answer["EGLC"].routeLon = 0.045733;
@@ -289,17 +290,9 @@ inline void get_coords_by_aeroport_code(const char aeroport_code[4], const QMap 
 	answer.H = 300;//database[city_string].routeLat;
 
 }
-inline void MAP_fill_route(UDP_data_t * map_data_, const _MainVisualData *vis_data, const _AirportData *airp_data)// , camera_part *part)
+inline void MAP_fill_route(UDP_data_t * map_data_, const _MainVisualData *vis_data, const _AirportData *airp_data)
 {
 	// map data
-
-	/*map_data_->isOrientingCamera = part->isOrientingCamera;
-	map_data_->isShowingWindow = part->isShowingWindow;
-	map_data_->showCurTraj = part->showCurTraj;
-	map_data_->showRoute = part->showRoute;
-	map_data_->followMainPlane = part->followMainPlane;
-
-	map_data_->currWPT = part->currWPT;		  */
 	map_data_->curLat = vis_data->p_coord.X;
 	map_data_->curLon = vis_data->p_coord.Z;
 	map_data_->curH = vis_data->p_coord.H;
@@ -307,9 +300,8 @@ inline void MAP_fill_route(UDP_data_t * map_data_, const _MainVisualData *vis_da
 	map_data_->curGamma = vis_data->p_angle.R;
 	map_data_->curPsi = vis_data->p_angle.C;
 	map_data_->curTheta = vis_data->p_angle.P;
-	//map_data_->updateRoute = part->updateRoute;
-	//route
 
+	//route
 	const auto &route_points_by_icao = fillRouteByICAO();
 	
 	char tmp[5] = { '\0' };
@@ -318,7 +310,6 @@ inline void MAP_fill_route(UDP_data_t * map_data_, const _MainVisualData *vis_da
 	tmp[2] = airp_data->ARRIVAL_AIRPORT_CODE[2];
 	tmp[3] = airp_data->ARRIVAL_AIRPORT_CODE[3];
 	QString arrCity = QString::fromUtf8(tmp);
-
 
 	tmp[0] = airp_data->DEPARTURE_AIRPORT_CODE[0];
 	tmp[1] = airp_data->DEPARTURE_AIRPORT_CODE[1];
@@ -334,7 +325,7 @@ inline void MAP_fill_route(UDP_data_t * map_data_, const _MainVisualData *vis_da
 	map_data_->routeLon[1] = route_points_by_icao[arrCity].routeLon;
 	map_data_->routeAlt[1] = route_points_by_icao[arrCity].routeAlt;
 
-	for (size_t i = 2; i < 53; ++i)
+	for (size_t i = 2; i < 54; ++i)
 	{
 		map_data_->routeLat[i] = map_data_->routeLat[1];
 		map_data_->routeLon[i] = map_data_->routeLon[1];
