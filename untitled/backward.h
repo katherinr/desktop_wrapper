@@ -17,7 +17,6 @@ public:
 	void updateBackwardPacket(_MainVisualData data);
 	void readDefault(_DataToModel * _data);
 private slots:
-    void on_simulation_timeLE_editingFinished();
 
     void on_lat_le_editingFinished();
 

@@ -3,6 +3,9 @@
 #include <QDebug>
 #include "utilities.h"
 #include "qtimer.h"
+#include <qsettings.h>
+#include <qhostaddress.h>
+
 #define DATA_FROM_MODEL 0
 #define USER_DATA_CHOICE 1
 
@@ -33,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->AerodromsLightsPB, SIGNAL(clicked()), aerodrom_ui, SLOT(show()));
     connect(ui->CorrectPB, SIGNAL(clicked()), backward_ui, SLOT(show()));
     connect(ui->mainVisPushButton, SIGNAL(clicked()), mainvis_ui, SLOT(show()));
-     connect(ui->soundPB, SIGNAL(clicked()), sound_ui, SLOT(show()));
+    connect(ui->soundPB, SIGNAL(clicked()), sound_ui, SLOT(show()));
 	/*/////////////////////////////////////////////*/
     //receive data from subwindows
     connect(aerodrom_ui, SIGNAL(sendData(_AirportData*)), this, SLOT(receiveData(_AirportData*)));
@@ -49,6 +52,32 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_server, SIGNAL(dataUpdated(_DataToModel*)), this, SLOT(receiveData(_DataToModel*)));
     connect(m_server, SIGNAL(dataUpdated(_MeteoData*)), this, SLOT(receiveDatafromModel(_MeteoData*)));
     connect(m_server, SIGNAL(dataUpdated(_MainVisualData*)), this, SLOT(receiveDatafromModel(_MainVisualData*)));
+
+	connect(this, &MainWindow::mapControlDataUpdated, m_server, &UdpServer::onNewGuiMapSetting);
+
+	//small config
+	ui->startPB->setEnabled(false);
+	ui->stopPB->setEnabled(false);
+
+	// криво
+	m_mapControlData.centerH = 30000;
+	m_mapControlData.centerLat = 53.564917000000001;
+	m_mapControlData.centerLon = 37.96;
+	m_mapControlData.followMainPlane = true;
+	m_mapControlData.isOrientingCamera = true;
+	m_mapControlData.isShowingWindow = true;
+	m_mapControlData.showCurTraj = true;
+	m_mapControlData.showRoute = true;
+	m_mapRoute.updateRoute = 0;
+
+	readSettings();
+
+	m_server->restartListening(ui->receivePortEdit->text().toInt());
+	m_server->setMAPAddress2Send(QHostAddress(ui->mapIPsend->text()));
+	m_server->setMAPSendingPort(ui->portMapSend->text().toUInt());
+	m_server->setSOUNDAddress2Send(QHostAddress(ui->soundIPsend->text()));
+	m_server->setSOUNDSendingPort((ui->soundPortSend->text().toUInt()));
+	m_server->restartBACKWARDListening(ui->receivePortEdit_2->text().toInt());
 
     mainvis_ui->setDataFromDefaut(&visual_data);
     meteo_ui->setDataFromDefaultMeteo();
@@ -71,7 +100,6 @@ MainWindow::MainWindow(QWidget *parent) :
 	meteo_data.packet_id = NPR_PACKET_TYPE_METEO_DATA;
 	visual_data.packet_id = NPR_PACKET_TYPE_VISUAL_DATA;
 	/////////////////////////////////////////////////
-	m_server->restartListening(ui->receivePortEdit->text().toInt());
 
 	/*/////////////////////////////////////////////*/
 	QString timer_text = "T = " + QString::number(visual_data_from_model.model_simulation_time / 1000) + " c";
@@ -79,7 +107,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	//timer connect	
 	QTimer *timer = new QTimer(this);
 
-	connect(timer, SIGNAL(timeout()), this, SLOT(onTimerTimeout()));
+//	connect(timer, SIGNAL(timeout()), this, SLOT(onTimerTimeout()));
 	connect(timer, SIGNAL(timeout()), passed_time_indicator, SLOT(update()));
 
 	QString pass_text = "T = " + QString::number(0) + " c";
@@ -93,12 +121,9 @@ MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow::statusBar()->addPermanentWidget(shift_time_indicator, 1);
 
 	timer->start(1000);
-	//small config
-	ui->startPB->setEnabled(false);
-	ui->stopPB->setEnabled(false);
 
 	ui->mainVisCheckBox->setEnabled(false);
-	ui->send2mapCHb->setEnabled(false);
+	//ui->send2mapCHb->setEnabled(false);
 	ui->meteoCheckBox->setEnabled(false);
 	ui->lightsCheckBox->setEnabled(false);
 
@@ -106,29 +131,20 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->aerodromsIntervalEdit->setEnabled(false);
 	ui->meteoIntervalEdit->setEnabled(false);
 	ui->timeMap->setEnabled(false);
-//	ui->soundTime->setEnabled(checked);
+
 	//map config
-	map_data.isOrientingCamera = ui->isOrientCamchB->isChecked();
-	map_data.isShowingWindow = ui->showWindchB->isChecked();
-	map_data.showCurTraj = ui->showTrajChB->isChecked();
-	map_data.showRoute = ui->showRoutechB->isChecked();
-	map_data.followMainPlane = ui->followMainPlainCHB->isChecked();
+	m_mapControlData.isOrientingCamera = ui->isOrientCamchB->isChecked();
+	m_mapControlData.isShowingWindow = ui->showWindchB->isChecked();
+	m_mapControlData.showCurTraj = ui->showTrajChB->isChecked();
+	m_mapControlData.showRoute = ui->showRoutechB->isChecked();
+	m_mapControlData.followMainPlane = ui->followMainPlainCHB->isChecked();
+	
+	m_mapControlData.centerH = ui->mapHeiihtspinBox->text().toInt();
+	m_mapControlData.centerLat = ui->centerLat->text().toDouble();
+	m_mapControlData.centerLon = ui->centerLat->text().toDouble();
 
-	map_data.currWPT = 0;
-	map_data.curLat = visual_data_from_model.p_coord.X;
-	map_data.curLon = visual_data_from_model.p_coord.Z;
-	map_data.curH = visual_data_from_model.p_coord.H;
-
-	map_data.centerLat = ui->centerLat->text().toDouble();
-	map_data.centerLon = ui->centerLon->text().toDouble();
-	map_data.centerH = ui->mapHeiihtspinBox->value();
-
-	map_data.curGamma = visual_data_from_model.p_angle.R;
-	map_data.curPsi = visual_data_from_model.p_angle.C;
-	map_data.curTheta = visual_data_from_model.p_angle.P;
-	map_data.updateRoute = 1;
-
-	m_server->setSendData_MAP(&map_data, ui->send2mapCHb->isChecked());
+	//m_server->setSendData_MAP(&m_mapControlData, ui->send2mapCHb->isChecked());
+	mapControlDataUpdated(m_mapControlData);
 }
 
 //from this program
@@ -158,6 +174,7 @@ void MainWindow::receiveData(_MainVisualData * _data)
     deepVisualCopy(_data, &visual_data);
     if (ui->mainiComboBox->currentIndex() == USER_DATA_CHOICE)
         mainvis_ui->setDataToShow(_data);
+	
 	QString shift_time = "T late = " + QString::number((visual_data_from_model.model_simulation_time  - backward_data.simulation_time )*.005) + " c";
 	shift_time_indicator->setText(shift_time);
 }
@@ -168,6 +185,7 @@ void MainWindow::receiveDatafromModel(_AirportData *_data)
     deepAeroportcopy(_data, &airoports_lights_data_from_model);
     if (ui->aerodrCB->currentIndex() == DATA_FROM_MODEL)
         aerodrom_ui->writeToFields(_data);
+	update_route_();
 }
 
 void MainWindow::receiveDatafromModel(_MeteoData * _data)
@@ -206,7 +224,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_receivePortEdit_editingFinished()
 {
-    m_server->setReceivingPort(ui->receivePortEdit->text().toInt());
+    //m_server->setReceivingPort(ui->receivePortEdit->text().toInt());
     m_server->restartListening(ui->receivePortEdit->text().toInt());
     qDebug() << "receivePortEdit set to" << ui->receivePortEdit->text().toInt();
 }
@@ -286,7 +304,7 @@ void MainWindow::on_stopPB_clicked()
 	ui->backwardChkBox->setEnabled(true);
 	ui->sendPortEdit->setEnabled(true);
 	ui->stopPB->setEnabled(false);
-	ui->send2mapCHb->setEnabled(true);
+//	ui->send2mapCHb->setEnabled(true);
 	ui->send_from_this->setEnabled(true);
 	ui->mainVisCheckBox->setEnabled(true);
 	ui->lightsCheckBox->setEnabled(true);
@@ -324,7 +342,7 @@ void MainWindow::on_stopPB_clicked()
 void MainWindow::readConfig()
 {
     //interchange with model
-    m_server->setReceivingPort(ui->receivePortEdit->text().toUInt());
+    //m_server->setReceivingPort(ui->receivePortEdit->text().toUInt());
 	//backward edit send
     m_server->setBackwardAddress2Send(QHostAddress(ui->backwIPedit->text().toUInt()));
     m_server->setBackwardSendingPort(ui->backwPortEdit->text().toUInt());
@@ -346,30 +364,16 @@ void MainWindow::readConfig()
     m_server->setMAPSendingPort(ui->portMapSend->text().toUInt());
 
 	m_server->changeTimerInterval("mapTimer", ui->timeMap->text().toUInt() * 1000);
-    m_server->setSendData_MAP(&map_data, ui->send2mapCHb->isChecked());
+    //m_server->setSendData_MAP(&map_data, ui->send2mapCHb->isChecked());
 	
 	// map data
-	map_data.isOrientingCamera = ui->isOrientCamchB->isChecked();
-	map_data.isShowingWindow = ui->showWindchB->isChecked();
-	map_data.showCurTraj = ui->showTrajChB->isChecked();
-	map_data.showRoute = ui->showRoutechB->isChecked();
-	map_data.followMainPlane = ui->followMainPlainCHB->isChecked();
+	m_mapControlData.isOrientingCamera = ui->isOrientCamchB->isChecked();
+	m_mapControlData.isShowingWindow = ui->showWindchB->isChecked();
+	m_mapControlData.showCurTraj = ui->showTrajChB->isChecked();
+	m_mapControlData.showRoute = ui->showRoutechB->isChecked();
+	m_mapControlData.followMainPlane = ui->followMainPlainCHB->isChecked();
 
-    map_data.currWPT = 0;
-	map_data.curLat = visual_data_from_model.p_coord.X;
-	map_data.curLon = visual_data_from_model.p_coord.Z;
-	map_data.curH = visual_data_from_model.p_coord.H;
-
-	map_data.curGamma = visual_data_from_model.p_angle.R;
-	map_data.curPsi = visual_data_from_model.p_angle.C;
-	map_data.curTheta = visual_data_from_model.p_angle.P;
-    map_data.updateRoute = 1;
-	//route
-	map_data.routeLat[0] = visual_data_from_model.p_coord.X;
-	map_data.routeLon[0] = visual_data_from_model.p_coord.Z;
-	map_data.routeAlt[0] = visual_data_from_model.p_coord.H;
-	
-	m_server->setReceivingPort(ui->receivePortEdit->text().toUInt());
+	//m_server->setReceivingPort(ui->receivePortEdit->text().toUInt());
 
 	m_server->setSendData_METEO(&meteo_data, ui->meteoCheckBox->isChecked());
 
@@ -392,53 +396,23 @@ void MainWindow::readConfig()
 		m_server->restartBACKWARDListening(ui->receivePortEdit_2->text().toUInt());
 	}
 	m_server->setBackwReceive(ui->backwReceive->isChecked());
-	//	m_server->setBackwardReceivingPort(ui->receivePortEdit_2->text().toUInt());
-	map_data.currWPT = 0;
 
 	D3_POINT arrival;
 	D3_POINT departure;
 
 //	get_coords_by_aeroport_code(ptr_aero->ARRIVAL_AIRPORT_CODE, aerodrom_ui->getRouteByIcao(), arrival);
 //	get_coords_by_aeroport_code(ptr_aero->DEPARTURE_AIRPORT_CODE, aerodrom_ui->getRouteByIcao(), departure);
-
-	map_data.centerLat = map_data.curLat = map_data.routeLat[0] = departure.X;
-	map_data.centerLon = map_data.curLon = map_data.routeLon[0] = departure.Z;
-	map_data.centerH = map_data.curH = map_data.routeAlt[0] = departure.H;
-
-	map_data.curGamma = ptr_vis->p_angle.R;
-	map_data.curPsi = ptr_vis->p_angle.C;
-	map_data.curTheta = ptr_vis->p_angle.P;
 	//map_data.updateRoute = get_update_route();
 
 	//route
-	map_data.routeLat[1] = arrival.X;
-	map_data.routeLon[1] = arrival.Z;
-	map_data.routeAlt[1] = arrival.H;
-
-	for (size_t i = 2; i < 53; ++i)
-	{
-		map_data.routeLat[i] = map_data.routeLat[1];
-		map_data.routeLon[i] = map_data.routeLon[1];
-		map_data.routeAlt[i] = map_data.routeAlt[1];
-	 }
-	//bots
-	for (auto & bot : map_data.bots)
-	{
-		bot.H = 0;
-		bot.lat = 0;
-		bot.psi = 0;
-		bot.visibility = 0;
-	}	 
 
 	m_server->changeTimerInterval("mapTimer", ui->timeMap->text().toUInt() * 1000);
-	m_server->setSendData_MAP(&map_data, ui->send2mapCHb->isChecked());
-
 }
 
 void MainWindow::on_routePushB_clicked()
 {
     //open route window
-    map_data.updateRoute++;
+    //map_data.updateRoute++;
 }
 
 
@@ -518,7 +492,6 @@ void MainWindow::on_startPB_clicked()
 	ui->sendOnceButton->setEnabled(false);
 	//////////////////////////////////////////////////////
 	//m_server->setSendFromThis(false);
-	ui->startPB->setEnabled(false);
 	ui->stopPB->setEnabled(true);
 	ui->send_from_this->setEnabled(false);
 	ui->mainVisCheckBox->setEnabled(false);
@@ -532,10 +505,6 @@ void MainWindow::on_startPB_clicked()
 	ui->timeMap->setEnabled(false);
 
 	//////////////////////////////////////////////////////
-
-
-    ui->startPB->setEnabled(false);
-
    // if (m_server->keep_recieve == false)
     {
         QString message = "Listening on " + ui->receivePortEdit->text() + " port";
@@ -569,8 +538,8 @@ void MainWindow::on_startPB_clicked()
 void MainWindow::on_backwReceive_toggled(bool checked)
 {
 	m_server->setBackwReceive(checked);
-	m_server->setBackwardReceivingPort(ui->receivePortEdit_2->text().toUInt());
-	//m_server->restartBACKWARDListening(ui->receivePortEdit_2->text().toInt());
+	//m_server->setBackwardReceivingPort(ui->receivePortEdit_2->text().toUInt());
+	m_server->restartBACKWARDListening(ui->receivePortEdit_2->text().toInt());
 }
 
 void MainWindow::on_backwardChkBox_toggled(bool checked)
@@ -584,52 +553,55 @@ void MainWindow::on_backwardChkBox_toggled(bool checked)
 ////map
 void MainWindow::on_showWindchB_toggled(bool checked)
 {
-    map_data.isShowingWindow = checked;
+	m_mapControlData.isShowingWindow = checked;
+	mapControlDataUpdated(m_mapControlData);
 }
 
 void MainWindow::on_showTrajChB_toggled(bool checked)
 {
-    map_data.showCurTraj = checked;
+	m_mapControlData.showCurTraj = checked;
+	mapControlDataUpdated(m_mapControlData);
 }
 
 void MainWindow::on_showRoutechB_toggled(bool checked)
 {
-    map_data.showRoute = checked;
+	m_mapControlData.showRoute = checked;
+	mapControlDataUpdated(m_mapControlData);
 }
 
 void MainWindow::on_followMainPlainCHB_toggled(bool checked)
 {
-    map_data.followMainPlane = checked;
+	m_mapControlData.followMainPlane = checked;
+	mapControlDataUpdated(m_mapControlData);
 }
 
 void MainWindow::on_isOrientCamchB_toggled(bool checked)
 {
-    map_data.isOrientingCamera = checked;
-}
-
-void MainWindow::on_updateRoute_editingFinished()
-{
-    map_data.updateRoute =1;// ui->updateRoute->text().toInt();
+	m_mapControlData.isOrientingCamera = checked;
+	mapControlDataUpdated(m_mapControlData);
 }
 
 void MainWindow::on_centerLat_editingFinished()
 {
-    map_data.centerLat = ui->centerLat->text().toDouble();
+	m_mapControlData.centerLat = ui->centerLat->text().toDouble();
+	mapControlDataUpdated(m_mapControlData);
 }
 
 void MainWindow::on_centerLon_editingFinished()
 {
-    map_data.centerLon = ui->centerLon->text().toDouble();
+	m_mapControlData.centerLon = ui->centerLon->text().toDouble();
+	mapControlDataUpdated(m_mapControlData);
 }
 
 void MainWindow::on_mapHeiihtspinBox_valueChanged(int arg1)
 {
-    map_data.centerH = ui->mapHeiihtspinBox->text().toInt();
+	m_mapControlData.centerH = ui->mapHeiihtspinBox->text().toInt();
+	mapControlDataUpdated(m_mapControlData);
 }
 
 void MainWindow::on_receivePortEdit_2_editingFinished()
 {
-   m_server->setBackwardReceivingPort(ui->receivePortEdit_2->text().toUInt());
+   m_server->restartBACKWARDListening(ui->receivePortEdit_2->text().toUInt());
 }
 
 void MainWindow::on_send2mapCHb_toggled(bool checked)
@@ -637,7 +609,7 @@ void MainWindow::on_send2mapCHb_toggled(bool checked)
     ui->timeMap->setEnabled(checked);
 	m_server->setMAPSendingPort(ui->portMapSend->text().toUInt());
 	m_server->setMAPAddress2Send(QHostAddress(ui->mapIPsend->text()));
-	m_server->setSendData_MAP(&map_data, checked);
+	//m_server->setSendData_MAP(&map_data, checked);
     m_server->changeTimerInterval("mapTimer", ui->timeMap->text().toUInt()*1000);
 }	   
 
@@ -653,7 +625,8 @@ void MainWindow::on_mapIPsend_editingFinished()
 
 void MainWindow::on_mapHeiihtspinBox_editingFinished()
 {
-      map_data.centerH = ui->mapHeiihtspinBox->text().toInt();
+	m_mapControlData.centerH = ui->mapHeiihtspinBox->text().toInt();
+	mapControlDataUpdated(m_mapControlData);
 }
 
 void MainWindow::on_send_from_this_toggled(bool checked)
@@ -677,7 +650,7 @@ void MainWindow::on_send_from_this_toggled(bool checked)
 void MainWindow::on_soundIPsend_editingFinished()
 {
    // sound_settings.
-    m_server->setSOUNDAddress2Send((QHostAddress(ui->soundIPsend->text())));
+    m_server->setSOUNDAddress2Send(QHostAddress(ui->soundIPsend->text()));
 }
 
 void MainWindow::on_soundPortSend_editingFinished()
@@ -686,19 +659,87 @@ void MainWindow::on_soundPortSend_editingFinished()
 
 }
 
-void MainWindow::on_send2SOUNDCHb_toggled(bool checked)
+void MainWindow::closeEvent(QCloseEvent * event)
 {
-    ui->soundTime->setEnabled(checked);
-    m_server->setSOUNDSendingPort((ui->soundPortSend->text().toUInt()));
-    m_server->setSOUNDAddress2Send(QHostAddress(ui->soundIPsend->text()));
-    //m_server->setSendData_MAP(&map_data, checked);
-   // m_server->changeTimerInterval("mapTimer", ui->timeMap->text().toUInt()*1000);
+	writeSettings();
 }
 
-void MainWindow::on_soundTime_editingFinished()
+void MainWindow::readSettings()
 {
-    double Tperiod_sound = ui->soundTime->text().toDouble();
-    //send toserver
-    //m_server->setTperiod(Tperiod_sound);
-    //void setTperiod( double Tperiod) { m_TperiodSound = Tperiod;}
+	QSettings settings("bird_wrapper.ini", QSettings::IniFormat);
+
+	settings.beginGroup("Mainwindow");
+	this->setGeometry(settings.value("geometry", QRect(0, 0, this->sizeHint().width(), this->sizeHint().height())).toRect());
+	settings.endGroup();
+
+	settings.beginGroup("Network");
+	ui->receivePortEdit->setText(settings.value("receivePortEdit", 5103).toString());
+	ui->send_from_this->setChecked(settings.value("send_from_this", false).toBool());
+	
+	QHostAddress mapIpAddr;
+	if (mapIpAddr.setAddress(settings.value("mapIpAddr", "127.0.0.1").toString())) {
+		ui->mapIPsend->setText(mapIpAddr.toString());
+	}
+	else {
+		ui->mapIPsend->setText("127.0.0.1");
+	}
+
+	ui->portMapSend->setText(settings.value("mapIpPort", 3456).toString());
+
+	QHostAddress soundIpAddr;
+	if (soundIpAddr.setAddress(settings.value("soundIpAddr", "127.0.0.1").toString())) {
+		ui->soundIPsend->setText(soundIpAddr.toString());
+	}
+	else {
+		ui->soundIPsend->setText("127.0.0.1");
+	}
+
+	ui->soundPortSend->setText(settings.value("soundIpPort", 4455).toString());
+
+	ui->receivePortEdit_2->setText(settings.value("backwardReceiveIpPort", 5002).toString());
+	settings.endGroup();
+
+	settings.beginGroup("Map");
+	ui->showWindchB->setChecked(settings.value("showWindchB", false).toBool());
+	ui->showTrajChB->setChecked(settings.value("showTrajChB", false).toBool());
+	ui->showRoutechB->setChecked(settings.value("showRoutechB", false).toBool());
+	ui->followMainPlainCHB->setChecked(settings.value("followMainPlainCHB", false).toBool());
+	ui->isOrientCamchB->setChecked(settings.value("isOrientCamchB", false).toBool());
+
+	ui->centerLat->setText(settings.value("centerLat", 55.564917).toString());
+	ui->centerLon->setText(settings.value("centerLon", 38.137015).toString());
+	ui->mapHeiihtspinBox->setValue(settings.value("centerH", 30000).toInt());
+
+	settings.endGroup();
+}
+
+void MainWindow::writeSettings()
+{
+	QSettings settings("bird_wrapper.ini", QSettings::IniFormat);
+
+	settings.beginGroup("Mainwindow");
+	settings.setValue("geometry", this->geometry());
+	settings.endGroup();
+
+	settings.beginGroup("Network");
+	settings.setValue("receivePortEdit", ui->receivePortEdit->text());
+	settings.setValue("send_from_this", ui->send_from_this->isChecked());
+	settings.setValue("mapIpAddr", ui->mapIPsend->text());
+	settings.setValue("mapIpPort", ui->portMapSend->text());
+	settings.setValue("soundIpAddr", ui->soundIPsend->text());
+	settings.setValue("soundIpPort", ui->soundPortSend->text());
+	settings.setValue("backwardReceiveIpPort", ui->receivePortEdit_2->text());
+	settings.endGroup();
+
+	settings.beginGroup("Map");
+	settings.setValue("showWindchB", ui->showWindchB->isChecked());
+	settings.setValue("showTrajChB", ui->showTrajChB->isChecked());
+	settings.setValue("showRoutechB", ui->showRoutechB->isChecked());
+	settings.setValue("followMainPlainCHB", ui->followMainPlainCHB->isChecked());
+	settings.setValue("isOrientCamchB", ui->isOrientCamchB->isChecked());
+
+	settings.setValue("centerLat", ui->centerLat->text());
+	settings.setValue("centerLon", ui->centerLon->text());
+	settings.setValue("centerH", ui->mapHeiihtspinBox->value());
+	settings.endGroup();
 }

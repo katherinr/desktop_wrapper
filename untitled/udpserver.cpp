@@ -27,7 +27,7 @@ UdpServer::UdpServer(QObject *parent) :
 	m_sound_sender_socket = new QUdpSocket(this);
 	//connect(m_sound_sender_socket, SIGNAL(readyRead()), this, SLOT(readDatagram()));
 	m_plots_socket = new QUdpSocket(this);
-
+	
 	// enabled/disable sending for each udp packet
 	m_enabledPackets["VISUAL_DATA"] = false;
 	m_enabledPackets["AERODROMS_DATA"] = false;
@@ -51,17 +51,17 @@ UdpServer::UdpServer(QObject *parent) :
 	meteoTimer->setInterval(1000);
 	connect(meteoTimer, &QTimer::timeout, this, &UdpServer::meteoTimerTimeout);
 
-	QTimer* backwardTimer = new QTimer(this);
-	backwardTimer->setObjectName("backwardTimer");
-	backwardTimer->setInterval(10);
-	connect(backwardTimer, &QTimer::timeout, this, &UdpServer::backwTimerTimeout);
+	  QTimer* backwardTimer = new QTimer(this);
+	  backwardTimer->setObjectName("backwardTimer");
+	  backwardTimer->setInterval(10);
+	  connect(backwardTimer, &QTimer::timeout, this, &UdpServer::backwTimerTimeout);		
 
 	QTimer* mapTimer = new QTimer(this);
 	mapTimer->setObjectName("mapTimer");
 	mapTimer->setInterval(10);
 	connect(mapTimer, &QTimer::timeout, this, &UdpServer::mapTimerTimeout);
 
-	m_timerList << visTimer << aerodromsTimer << meteoTimer << backwardTimer << mapTimer;
+	m_timerList << visTimer << aerodromsTimer << meteoTimer << backwardTimer <<mapTimer;
 
 	m_olegSoundPacker.Initialize(0.01); // шаг моедлирования модели откуда взять
 }
@@ -97,7 +97,7 @@ void UdpServer::meteoTimerTimeout()
 		_MeteoData* meteo_ptr = reinterpret_cast<_MeteoData*>(meteoData_.data());
 
 		meteo_ptr->model_simulation_time = m_time.elapsed();
-		sendUDPOnce(meteoData_);
+		//sendUDPOnce(meteoData_);
 	}
 }
 
@@ -109,7 +109,7 @@ void UdpServer::visTimerTimeout()
 		_MainVisualData* visual_ptr = reinterpret_cast<_MainVisualData*>(visualData.data());
 
 		visual_ptr->model_simulation_time = m_time.elapsed();
-		sendUDPOnce(visualData);
+		//sendUDPOnce(visualData);
 	}
 }
 
@@ -121,8 +121,8 @@ void UdpServer::aerodromsTimerTimeout()
 		QByteArray aerodrome_data = QByteArray::fromRawData(reinterpret_cast<const char*>(m_airoportsData), sizeof(_AirportData));
 		_AirportData* aerodrome_ptr = reinterpret_cast<_AirportData*>(aerodrome_data.data());
 
-		aerodrome_ptr->model_simulation_time = m_time.elapsed();
-		sendUDPOnce(aerodrome_data);
+		aerodrome_ptr->model_simulation_time =  m_time.elapsed();
+		//sendUDPOnce(aerodrome_data);
 	}
 }
 
@@ -142,7 +142,7 @@ void UdpServer::backwTimerTimeout()
 
 		backw_ptr->simulation_time = visual_ptr->model_simulation_time;
 
-		sendBACKWARDUDPOnce(d2m);
+		//sendBACKWARDUDPOnce(d2m);
 	}
 }
 
@@ -156,11 +156,11 @@ void UdpServer::mapTimerTimeout()
 		QByteArray aerodrome_data = QByteArray::fromRawData(reinterpret_cast<const char*>(m_airoportsData), sizeof(_AirportData));
 		_AirportData* aerodrome_ptr = reinterpret_cast<_AirportData*>(aerodrome_data.data());
 
-		m_mapData->seconds = m_time.elapsed();//visual_ptr->model_simulation_time; 
-		MAP_fill_route(m_mapData, visual_ptr, aerodrome_ptr);
-		m_mapPacket = QByteArray::fromRawData(reinterpret_cast<const char*>(m_mapData), sizeof(UDP_data_t));
+		m_mapData.seconds = m_time.elapsed();//visual_ptr->model_simulation_time; 
+		MAP_fill_route(&m_mapData, visual_ptr, aerodrome_ptr);
+		m_mapPacket = QByteArray::fromRawData(reinterpret_cast<const char*>(&m_mapData), sizeof(UDP_data_t));
 
-		sendMAPUDPOnce(m_mapPacket);
+		//sendMAPUDPOnce(m_mapPacket);
 	}
 }
 
@@ -195,7 +195,7 @@ void UdpServer::sendOnce()
 		//  qDebug()<<"m_meteoPacket staff"<<*m_meteoPacket.begin();
 		 // printMeteo(&m_meteo_data);
 		_MeteoData* meteo_ptr = reinterpret_cast<_MeteoData*>(m_meteoPacket.data());
-		//	meteo_ptr->model_simulation_time = m_time.elapsed();
+	//	meteo_ptr->model_simulation_time = m_time.elapsed();
 		sendUDPOnce(m_meteoPacket);
 	}
 
@@ -256,19 +256,27 @@ void UdpServer::setSendData_VISUAL(const _MainVisualData *data, bool check)
 	m_visualData = data;
 }
 
-void UdpServer::setSendData_MAP(UDP_data_t * data, bool check)
+//void UdpServer::setSendData_MAP(MAP_CONTROL_UDP* data, bool check)
+//{
+//	qDebug() << "map set send";
+//	qDebug() << "_Mainvis size: " << sizeof(UDP_data_t) << " and data: " << sizeof(*data);
+//	//printMeteo(data);
+//
+//	m_mapPacket = QByteArray::fromRawData(reinterpret_cast<const char*>(data), sizeof(UDP_data_t));
+//
+//	m_enabledPackets["MAP_DATA"] = check;
+//
+//	m_mapControlData = data;
+//}
+bool aeroports_compare( char d1[4],  char d2[4])
 {
-	qDebug() << "map set send";
-	qDebug() << "_Mainvis size: " << sizeof(UDP_data_t) << " and data: " << sizeof(*data);
-	//printMeteo(data);
-
-	m_mapPacket = QByteArray::fromRawData(reinterpret_cast<const char*>(data), sizeof(UDP_data_t));
-
-	m_enabledPackets["MAP_DATA"] = check;
-
-	m_mapData = data;
+	if (d1[0] == d2[0] &&
+		d1[1] == d2[1] &&
+		d1[2] == d2[2] &&
+		d1[3] ==  d2[3])
+		return true;
+	return false;
 }
-
 void UdpServer::setDataFromReceived(const QByteArray &received)
 {
 	//  qDebug()<<"setting data from received function";
@@ -299,7 +307,25 @@ void UdpServer::setDataFromReceived(const QByteArray &received)
 			qWarning() << "paket with \"_AirportData\" identifier has wrong size.\n";
 			break;
 		}
+
 		m_airoports_lights_data = *(reinterpret_cast<const _AirportData*>(received.data()));
+		if (!aeroports_compare(DEPARTURE_AIRPORT_CODE, m_airoports_lights_data.DEPARTURE_AIRPORT_CODE) &&
+			!aeroports_compare(ARRIVAL_AIRPORT_CODE, m_airoports_lights_data.ARRIVAL_AIRPORT_CODE))
+		{
+			m_mapData.updateRoute++;
+
+			DEPARTURE_AIRPORT_CODE[0] = m_airoports_lights_data.DEPARTURE_AIRPORT_CODE[0];
+			DEPARTURE_AIRPORT_CODE[1] = m_airoports_lights_data.DEPARTURE_AIRPORT_CODE[1];
+			DEPARTURE_AIRPORT_CODE[2] = m_airoports_lights_data.DEPARTURE_AIRPORT_CODE[2];
+			DEPARTURE_AIRPORT_CODE[3] = m_airoports_lights_data.DEPARTURE_AIRPORT_CODE[3];
+
+			ARRIVAL_AIRPORT_CODE[0] = m_airoports_lights_data.ARRIVAL_AIRPORT_CODE[0];
+			ARRIVAL_AIRPORT_CODE[1] = m_airoports_lights_data.ARRIVAL_AIRPORT_CODE[1];
+			ARRIVAL_AIRPORT_CODE[2] = m_airoports_lights_data.ARRIVAL_AIRPORT_CODE[2];
+			ARRIVAL_AIRPORT_CODE[3] = m_airoports_lights_data.ARRIVAL_AIRPORT_CODE[3];
+		}
+
+
 		emit dataUpdated(&m_airoports_lights_data);
 		break;
 	}
@@ -333,7 +359,9 @@ void UdpServer::setDataFromReceived(const QByteArray &received)
 
 void UdpServer::restartListening(quint16 _port)
 {
-	setReceivingPort(_port);
+	if(!setReceivingPort(_port)) {
+		return;
+	}
 	// qDebug()<<"listen port is"<<receiving_port;
 
 	if (m_receiver_socket->state() != QAbstractSocket::UnconnectedState)
@@ -356,7 +384,9 @@ void UdpServer::restartListening(quint16 _port)
 
 void UdpServer::restartBACKWARDListening(quint16 _port)
 {
-	setBackwardReceivingPort(_port);
+	if (!setBackwardReceivingPort(_port)) {
+		return;
+	}
 	//qDebug() << "listen port is" << backward_receive_port;
 
 	if (m_backward_sender_socket->state() != QAbstractSocket::UnconnectedState)
@@ -452,16 +482,22 @@ void UdpServer::readDatagram()
 				//отсылка дальше
 				if (!m_send_from_this)
 				{
-					sendUDPOnce(datagram);
+				//	sendUDPOnce(datagram);
+					  
+					 //send map indication
+					MAP_fill_route(&m_mapData, &m_vis_data, &m_airoports_lights_data);
 
-					//send map indication
-					MAP_fill_route(m_mapData, &m_vis_data, &m_airoports_lights_data);
-					m_mapData->seconds = m_vis_data.model_simulation_time;
 
-					m_mapPacket = QByteArray::fromRawData(reinterpret_cast<const char*>(m_mapData), sizeof(UDP_data_t));
+					m_mapData.seconds = m_vis_data.model_simulation_time;
+					//костыль!!! 	   fixme
+				//	if (m_airoports_lights_data)
+				//	m_mapData.updateRoute++;
+
+					m_mapPacket = QByteArray::fromRawData(reinterpret_cast<const char*>(&m_mapData), sizeof(UDP_data_t));
 					sendMAPUDPOnce(m_mapPacket);
-
+					
 					send_to_sound(m_vis_data, m_guiSoundSettings);
+					send_to_plot(m_vis_data);
 				}
 
 				setDataFromReceived(datagram);
@@ -469,6 +505,19 @@ void UdpServer::readDatagram()
 		}
 	}
 
+}
+
+void UdpServer::onNewGuiMapSetting(const MAP_CONTROL_UDP& mapControl)
+{
+	auto x = sizeof(MAP_CONTROL_UDP);
+
+	if (
+		x = m_map_sender_socket->writeDatagram(reinterpret_cast<const char*>(&mapControl),
+			sizeof(MAP_CONTROL_UDP), map_control_address2send, map_control_sender_port) == -1
+		)
+	{
+		qWarning() << Q_FUNC_INFO << map_control_address2send.toString() << ":" << map_control_sender_port << " " << m_map_sender_socket->errorString();
+	}
 }
 
 void UdpServer::backwardReadDatagram()
@@ -492,8 +541,8 @@ void UdpServer::backwardReadDatagram()
 			}
 			else
 			{
-				setDataFromReceived(datagram);
-				//sendBACKWARDUDPOnce(datagram);
+					setDataFromReceived(datagram);
+					//sendBACKWARDUDPOnce(datagram);
 			}
 		}
 	}
@@ -520,10 +569,45 @@ void UdpServer::send_to_sound(const _MainVisualData & visualData, const SOUND_FU
 
 	if (
 		m_sound_sender_socket->writeDatagram(reinterpret_cast<const char*>(m_olegSoundPacker.getSendPacketPtr()),
-			sizeof(SOUND_FUNC_INPUT), SOUND_address2send, SOUND_sender_port)
+			sizeof(SOUND_FUNC_INPUT), SOUND_address2send, SOUND_sender_port) == -1
 		)
 	{
-		qWarning() << Q_FUNC_INFO << m_map_sender_socket->errorString();
+		qWarning() << Q_FUNC_INFO << SOUND_address2send.toString() <<":" << SOUND_sender_port << " " << m_sound_sender_socket->errorString();
+	}
+}
+
+void UdpServer::send_to_plot(const _MainVisualData & visualData)
+{
+
+	if (visualData.SimulationReset) {
+		// send clear msg 
+		auto clearMsg = m_plotPacker.packClearRequest();
+		if (
+			m_plots_socket->writeDatagram(clearMsg.data(), clearMsg.size(), plot_address2send, plot_sender_port) == -1
+			)
+		{
+			qWarning() << Q_FUNC_INFO << plot_address2send.toString() << ":" << plot_sender_port << " " << m_plots_socket->errorString();
+		}
+
+		// send channel names msg 
+		auto namesMsg = m_plotPacker.packChannelNamesFromFile("plot_channel_names.json");
+		if (namesMsg.size()) {
+			if (
+				m_plots_socket->writeDatagram(namesMsg.data(), namesMsg.size(), plot_address2send, plot_sender_port) == -1
+				)
+			{
+				qWarning() << Q_FUNC_INFO << plot_address2send.toString() << ":" << plot_sender_port << " " << m_plots_socket->errorString();
+			}
+		}
+	}
+
+	// set data msg
+	auto dataMsg = m_plotPacker.packVisualMessage(visualData);
+	if (
+		m_plots_socket->writeDatagram(dataMsg.data(), dataMsg.size(), plot_address2send, plot_sender_port) == -1
+		)
+	{
+		qWarning() << Q_FUNC_INFO << plot_address2send.toString() << ":" << plot_sender_port << " " << m_plots_socket->errorString();
 	}
 }
 

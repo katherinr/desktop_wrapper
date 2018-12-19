@@ -58,12 +58,21 @@ private slots:
 
     void on_loudness_idle_scroll_valueChanged(int value);
 
+	void on_cancel_pb_clicked();
+
     void on_ok_pb_clicked();
 	void setLimitsToLines();
 	void setLimitsToScrolls();
+	void setScrolls();
+	void readSettings();
+	void writeSettings();
+
 private:
     Ui::Sound_form *ui;
     SOUND_FUNC_SETTINGS sound_settings;
+protected:
+	void showEvent(QShowEvent * ev) override;
+	void hideEvent(QHideEvent * ev) override;
 
 signals:
     void sendData(const SOUND_FUNC_SETTINGS &data);

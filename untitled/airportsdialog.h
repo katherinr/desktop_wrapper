@@ -82,10 +82,10 @@ private:
 	//QMap <QString, route_point> fillRouteByICAO();
 	//QMap <QString, QString> fillICAObyRus();
 
-	QMap <QString, route_point>  route_points_by_icao;
-	QMap <QString, QString>  icaoByrus;
+	 QMap <QString, route_point>  route_points_by_icao;
+	 QMap <QString, QString>  icaoByrus;
   
-	QMap<QString,codes>  aeroports_codes;
+	 QMap<QString,codes>  aeroports_codes;
     QMap<QString,std::vector <QString>> flight_strips;
     void setLimitsToScrolls();
 

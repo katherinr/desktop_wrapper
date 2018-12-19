@@ -34,9 +34,7 @@ SOURCES += \
     mainvisual.cpp \
     map_route.cpp\
     sound_read_input.cpp \
-    sound_form.cpp \
-    elbird_sound_send.cpp \
-    C_rate_limiter.cpp
+    sound_form.cpp
 
 HEADERS += \
     meteo_struct.h \
@@ -53,10 +51,7 @@ HEADERS += \
     utilities.h \
     map_route.h \
     elbird_sound_data.h \
-    sound_form.h \
-    elbird_sound_send.h \
-    elbird_sound_data.h \
-    C_rate_limiter.h
+    sound_form.h
 
 FORMS += \
     meteoform.ui \

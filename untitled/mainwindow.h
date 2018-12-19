@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QEvent>
 #include "meteo_form.h"
 #include "ui_meteoform.h"
 #include "airportsdialog.h"
@@ -27,6 +28,8 @@ signals:
     void sendUpdatedData(_AirportData *data);
     void sendUpdatedData(_DataToModel *data);
     void sendUpdatedData(_MainVisualData *data);
+
+	void mapControlDataUpdated(const MAP_CONTROL_UDP&);
 
 private slots:
     //receiving
@@ -76,7 +79,7 @@ private slots:
 
     void on_isOrientCamchB_toggled(bool checked);
 
-    void on_updateRoute_editingFinished();
+   
 
     void on_centerLat_editingFinished();
 
@@ -103,13 +106,14 @@ private slots:
 
     void on_soundPortSend_editingFinished();
 
+protected:
+	void closeEvent(QCloseEvent *event) override;
 
-
-
-    void on_send2SOUNDCHb_toggled(bool checked);
-
-    void on_soundTime_editingFinished();
-
+private:
+	void readSettings();
+	void writeSettings();
+public:
+	void update_route_() { m_mapRoute.updateRoute++; };
 private:
     Ui::MainWindow *ui;
     meteoWindow* meteo_ui;
@@ -134,11 +138,11 @@ private:
 	QLabel * shift_time_indicator;
 	QLabel * passed_time_indicator;
 	int timer_id = 0;
-	public:
-	//	void update_route_() { update_route++; };
+
 //		int get_update_route() { return update_route; }
 
-    UDP_data_t map_data;
+	MAP_CONTROL_UDP m_mapControlData;
+	UDP_data_t m_mapRoute;
     UdpServer *m_server;
 	QTime time_from_start;
 };

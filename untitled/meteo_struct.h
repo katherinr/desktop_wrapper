@@ -244,6 +244,19 @@ struct _CorrectData
 };
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ФЫп ЪРавл:
+
+struct MAP_CONTROL_UDP
+{
+	bool isShowingWindow;	
+	bool showCurTraj;
+	bool showRoute; 
+	bool followMainPlane;	
+	bool isOrientingCamera;
+	double centerLat;
+	double centerLon;
+	float centerH;
+};
+
 struct UDP_data_t
 {
     UDP_data_t()
@@ -251,14 +264,6 @@ struct UDP_data_t
         memset(this, 0, sizeof(*this));
     }
 
-  bool isShowingWindow;	 //
-  bool showCurTraj;	//
-  bool showRoute; //
-  bool followMainPlane;	//	
-  bool isOrientingCamera;	  //
-  double centerLat;
-  double centerLon;
-  float centerH;
   double seconds;
 
   double curLat;

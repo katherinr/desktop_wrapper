@@ -160,7 +160,7 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->setWindowModality(Qt::WindowModal);
-        MainWindow->resize(1403, 830);
+        MainWindow->resize(1250, 593);
         MainWindow->setContextMenuPolicy(Qt::PreventContextMenu);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
@@ -217,6 +217,7 @@ public:
 
         send_from_this = new QCheckBox(groupBox_3);
         send_from_this->setObjectName(QStringLiteral("send_from_this"));
+        send_from_this->setEnabled(false);
         send_from_this->setChecked(false);
 
         verticalLayout_12->addWidget(send_from_this);
@@ -319,8 +320,9 @@ public:
         verticalLayout_10->setObjectName(QStringLiteral("verticalLayout_10"));
         backwardChkBox = new QCheckBox(groupBox_3);
         backwardChkBox->setObjectName(QStringLiteral("backwardChkBox"));
+        backwardChkBox->setEnabled(false);
         backwardChkBox->setMaximumSize(QSize(16777215, 25));
-        backwardChkBox->setChecked(true);
+        backwardChkBox->setChecked(false);
 
         verticalLayout_10->addWidget(backwardChkBox);
 
@@ -330,11 +332,13 @@ public:
         verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
         label_9 = new QLabel(groupBox_3);
         label_9->setObjectName(QStringLiteral("label_9"));
+        label_9->setEnabled(false);
 
         verticalLayout_5->addWidget(label_9);
 
         label_10 = new QLabel(groupBox_3);
         label_10->setObjectName(QStringLiteral("label_10"));
+        label_10->setEnabled(false);
 
         verticalLayout_5->addWidget(label_10);
 
@@ -345,12 +349,14 @@ public:
         verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
         backwIPedit = new QLineEdit(groupBox_3);
         backwIPedit->setObjectName(QStringLiteral("backwIPedit"));
+        backwIPedit->setEnabled(false);
         backwIPedit->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
         verticalLayout_6->addWidget(backwIPedit);
 
         backwPortEdit = new QLineEdit(groupBox_3);
         backwPortEdit->setObjectName(QStringLiteral("backwPortEdit"));
+        backwPortEdit->setEnabled(false);
         backwPortEdit->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
         verticalLayout_6->addWidget(backwPortEdit);
@@ -383,11 +389,13 @@ public:
         verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
         label_3 = new QLabel(CHANgeVisgroupBox);
         label_3->setObjectName(QStringLiteral("label_3"));
+        label_3->setEnabled(false);
 
         verticalLayout_4->addWidget(label_3);
 
         label_2 = new QLabel(CHANgeVisgroupBox);
         label_2->setObjectName(QStringLiteral("label_2"));
+        label_2->setEnabled(false);
 
         verticalLayout_4->addWidget(label_2);
 
@@ -398,12 +406,14 @@ public:
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         sendIPEdit = new QLineEdit(CHANgeVisgroupBox);
         sendIPEdit->setObjectName(QStringLiteral("sendIPEdit"));
+        sendIPEdit->setEnabled(false);
         sendIPEdit->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
         verticalLayout_3->addWidget(sendIPEdit);
 
         sendPortEdit = new QLineEdit(CHANgeVisgroupBox);
         sendPortEdit->setObjectName(QStringLiteral("sendPortEdit"));
+        sendPortEdit->setEnabled(false);
         sendPortEdit->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
         verticalLayout_3->addWidget(sendPortEdit);
@@ -487,6 +497,7 @@ public:
 
         sendOnceButton = new QPushButton(CHANgeVisgroupBox);
         sendOnceButton->setObjectName(QStringLiteral("sendOnceButton"));
+        sendOnceButton->setEnabled(false);
         sendOnceButton->setMinimumSize(QSize(200, 50));
         sendOnceButton->setMaximumSize(QSize(133, 16777215));
         sendOnceButton->setCheckable(false);
@@ -568,6 +579,7 @@ public:
 
         send2mapCHb = new QCheckBox(MapGroupBox);
         send2mapCHb->setObjectName(QStringLiteral("send2mapCHb"));
+        send2mapCHb->setEnabled(false);
         send2mapCHb->setChecked(true);
 
         verticalLayout_17->addWidget(send2mapCHb);
@@ -591,7 +603,7 @@ public:
 
         timeMap = new QLineEdit(MapGroupBox);
         timeMap->setObjectName(QStringLiteral("timeMap"));
-        timeMap->setEnabled(true);
+        timeMap->setEnabled(false);
         timeMap->setContextMenuPolicy(Qt::ActionsContextMenu);
         timeMap->setAcceptDrops(true);
         timeMap->setEchoMode(QLineEdit::NoEcho);
@@ -653,6 +665,7 @@ public:
         horizontalLayout_15->setObjectName(QStringLiteral("horizontalLayout_15"));
         routePushB = new QPushButton(MapGroupBox);
         routePushB->setObjectName(QStringLiteral("routePushB"));
+        routePushB->setEnabled(false);
         routePushB->setMinimumSize(QSize(130, 0));
         routePushB->setMaximumSize(QSize(130, 16777215));
 
@@ -760,6 +773,7 @@ public:
 
         send2SOUNDCHb = new QCheckBox(SoundGrBox);
         send2SOUNDCHb->setObjectName(QStringLiteral("send2SOUNDCHb"));
+        send2SOUNDCHb->setEnabled(false);
         send2SOUNDCHb->setChecked(true);
 
         verticalLayout_19->addWidget(send2SOUNDCHb);
@@ -783,7 +797,7 @@ public:
 
         soundTime = new QLineEdit(SoundGrBox);
         soundTime->setObjectName(QStringLiteral("soundTime"));
-        soundTime->setEnabled(true);
+        soundTime->setEnabled(false);
         soundTime->setContextMenuPolicy(Qt::ActionsContextMenu);
         soundTime->setAcceptDrops(true);
         soundTime->setEchoMode(QLineEdit::NoEcho);
@@ -904,8 +918,7 @@ public:
         showRoutechB->setText(QApplication::translate("MainWindow", "\320\237\320\276\320\272\320\260\320\267 \320\237\320\237\320\234", nullptr));
         followMainPlainCHB->setText(QApplication::translate("MainWindow", "\320\236\321\201\320\275\320\276\320\262\320\275\320\276\320\271 \320\262\321\201\320\265\320\263\320\264\320\260 \320\262 \321\206\320\265\320\275\321\202\321\200\320\265", nullptr));
         isOrientCamchB->setText(QApplication::translate("MainWindow", "\320\236\321\201\320\275\320\276\320\262\320\275\320\276\320\271 \320\262\321\201\320\265\320\263\320\264\320\260 \320\262\320\262\320\265\321\200\321\205 (\320\272\320\276\320\263\320\264\320\260 \320\262 \321\206\320\265\320\275\321\202\321\200\320\265)", nullptr));
-        routePushB->setText(QApplication::translate("MainWindow", "\320\236\320\261\320\275\320\276\320\262\320\270\321\202\321\214 \n"
-"\320\274\320\260\321\200\321\210\321\200\321\203\321\202", nullptr));
+        routePushB->setText(QApplication::translate("MainWindow", "\320\236\320\261\320\275\320\276\320\262\320\270\321\202\321\214 \320\274\320\260\321\200\321\210\321\200\321\203\321\202", nullptr));
         label_14->setText(QApplication::translate("MainWindow", "\320\232\320\276\320\276\321\200\320\264\320\270\320\275\320\260\321\202\321\213 \321\203\321\201\321\202\320\260\320\275\320\276\320\262\320\272\320\270 \320\272\320\260\320\274\320\265\321\200\321\213", nullptr));
         label_12->setText(QApplication::translate("MainWindow", "\320\235\320\260\321\207\320\260\320\273\321\214\320\275\320\260\321\217 \321\210\320\270\321\200\320\276\321\202\320\260, [\320\263\321\200\320\260\320\264]", nullptr));
         centerLat->setText(QApplication::translate("MainWindow", "55.564917", nullptr));
@@ -918,7 +931,7 @@ public:
         send2SOUNDCHb->setText(QApplication::translate("MainWindow", "\320\236\321\202\321\201\321\213\320\273\320\272\320\260 \320\264\320\260\320\275\320\275\321\213\321\205 \320\276 \320\267\320\262\321\203\320\272\320\265", nullptr));
         soundIPsend->setText(QApplication::translate("MainWindow", "127.0.0.1", nullptr));
         soundIPsend->setPlaceholderText(QApplication::translate("MainWindow", "127.0.0.1", nullptr));
-        soundPortSend->setText(QApplication::translate("MainWindow", "3456", nullptr));
+        soundPortSend->setText(QApplication::translate("MainWindow", "4455", nullptr));
         soundTime->setText(QApplication::translate("MainWindow", "0.01", nullptr));
         soundPB->setText(QApplication::translate("MainWindow", "\320\237\320\260\321\200\320\260\320\274\320\265\321\202\321\200\321\213 \320\275\320\260\321\201\321\202\321\200\320\276\320\271\320\272\320\270", nullptr));
     } // retranslateUi

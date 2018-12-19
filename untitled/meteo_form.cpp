@@ -5,7 +5,6 @@
 #include <QDate>
 #include "file_meteo_io.h"
 #include <memory>
-#include <QtScript/qscriptclass.h>
 #include "meteo_struct.h"
 #include "utilities.h"
 meteoWindow::meteoWindow(QWidget *parent) :

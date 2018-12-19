@@ -32,10 +32,7 @@ void backwardW::updateBackwardPacket(_MainVisualData _data)
 	emit sendData(backw_data);
 }
 
-void backwardW::on_simulation_timeLE_editingFinished()
-{
-    backw_data->simulation_time = ui->h_le_2->text().toDouble();
-}
+
 
 void backwardW::on_lat_le_editingFinished()
 {
