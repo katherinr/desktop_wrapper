@@ -106,6 +106,10 @@ private slots:
 
     void on_soundPortSend_editingFinished();
 
+    void on_portPlotSend_textEdited(const QString &arg1);
+
+    void on_plotIPsend_textChanged(const QString &arg1);
+
 protected:
 	void closeEvent(QCloseEvent *event) override;
 

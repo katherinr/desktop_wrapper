@@ -71,7 +71,7 @@ public:
     QLineEdit *backwIPedit;
     QLineEdit *backwPortEdit;
     QGroupBox *CHANgeVisgroupBox;
-    QVBoxLayout *verticalLayout_24;
+    QVBoxLayout *verticalLayout_28;
     QHBoxLayout *horizontalLayout_9;
     QSpacerItem *horizontalSpacer_2;
     QHBoxLayout *horizontalLayout_4;
@@ -95,6 +95,17 @@ public:
     QSpacerItem *horizontalSpacer;
     QPushButton *sendOnceButton;
     QSpacerItem *verticalSpacer_4;
+    QGroupBox *graphicsGroupBox;
+    QVBoxLayout *verticalLayout_27;
+    QHBoxLayout *horizontalLayout_22;
+    QVBoxLayout *verticalLayout_24;
+    QLabel *label_20;
+    QLabel *label_21;
+    QCheckBox *send2plotsCHb;
+    QVBoxLayout *verticalLayout_26;
+    QLineEdit *plotIPsend;
+    QLineEdit *portPlotSend;
+    QLineEdit *timePlots;
     QVBoxLayout *verticalLayout_8;
     QCheckBox *backwReceive;
     QHBoxLayout *horizontalLayout_2;
@@ -160,7 +171,7 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->setWindowModality(Qt::WindowModal);
-        MainWindow->resize(1250, 593);
+        MainWindow->resize(1729, 787);
         MainWindow->setContextMenuPolicy(Qt::PreventContextMenu);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
@@ -375,8 +386,8 @@ public:
 
         CHANgeVisgroupBox = new QGroupBox(centralwidget);
         CHANgeVisgroupBox->setObjectName(QStringLiteral("CHANgeVisgroupBox"));
-        verticalLayout_24 = new QVBoxLayout(CHANgeVisgroupBox);
-        verticalLayout_24->setObjectName(QStringLiteral("verticalLayout_24"));
+        verticalLayout_28 = new QVBoxLayout(CHANgeVisgroupBox);
+        verticalLayout_28->setObjectName(QStringLiteral("verticalLayout_28"));
         horizontalLayout_9 = new QHBoxLayout();
         horizontalLayout_9->setObjectName(QStringLiteral("horizontalLayout_9"));
         horizontalSpacer_2 = new QSpacerItem(158, 58, QSizePolicy::Expanding, QSizePolicy::Minimum);
@@ -425,12 +436,12 @@ public:
         horizontalLayout_9->addLayout(horizontalLayout_4);
 
 
-        verticalLayout_24->addLayout(horizontalLayout_9);
+        verticalLayout_28->addLayout(horizontalLayout_9);
 
         label = new QLabel(CHANgeVisgroupBox);
         label->setObjectName(QStringLiteral("label"));
 
-        verticalLayout_24->addWidget(label);
+        verticalLayout_28->addWidget(label);
 
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
@@ -487,7 +498,7 @@ public:
         horizontalLayout_3->addLayout(verticalLayout);
 
 
-        verticalLayout_24->addLayout(horizontalLayout_3);
+        verticalLayout_28->addLayout(horizontalLayout_3);
 
         horizontalLayout_10 = new QHBoxLayout();
         horizontalLayout_10->setObjectName(QStringLiteral("horizontalLayout_10"));
@@ -505,11 +516,75 @@ public:
         horizontalLayout_10->addWidget(sendOnceButton);
 
 
-        verticalLayout_24->addLayout(horizontalLayout_10);
+        verticalLayout_28->addLayout(horizontalLayout_10);
 
         verticalSpacer_4 = new QSpacerItem(428, 276, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        verticalLayout_24->addItem(verticalSpacer_4);
+        verticalLayout_28->addItem(verticalSpacer_4);
+
+        graphicsGroupBox = new QGroupBox(CHANgeVisgroupBox);
+        graphicsGroupBox->setObjectName(QStringLiteral("graphicsGroupBox"));
+        verticalLayout_27 = new QVBoxLayout(graphicsGroupBox);
+        verticalLayout_27->setObjectName(QStringLiteral("verticalLayout_27"));
+        horizontalLayout_22 = new QHBoxLayout();
+        horizontalLayout_22->setObjectName(QStringLiteral("horizontalLayout_22"));
+        verticalLayout_24 = new QVBoxLayout();
+        verticalLayout_24->setObjectName(QStringLiteral("verticalLayout_24"));
+        label_20 = new QLabel(graphicsGroupBox);
+        label_20->setObjectName(QStringLiteral("label_20"));
+        label_20->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        verticalLayout_24->addWidget(label_20);
+
+        label_21 = new QLabel(graphicsGroupBox);
+        label_21->setObjectName(QStringLiteral("label_21"));
+        label_21->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        verticalLayout_24->addWidget(label_21);
+
+        send2plotsCHb = new QCheckBox(graphicsGroupBox);
+        send2plotsCHb->setObjectName(QStringLiteral("send2plotsCHb"));
+        send2plotsCHb->setEnabled(false);
+        send2plotsCHb->setChecked(true);
+
+        verticalLayout_24->addWidget(send2plotsCHb);
+
+
+        horizontalLayout_22->addLayout(verticalLayout_24);
+
+        verticalLayout_26 = new QVBoxLayout();
+        verticalLayout_26->setObjectName(QStringLiteral("verticalLayout_26"));
+        plotIPsend = new QLineEdit(graphicsGroupBox);
+        plotIPsend->setObjectName(QStringLiteral("plotIPsend"));
+        plotIPsend->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        verticalLayout_26->addWidget(plotIPsend);
+
+        portPlotSend = new QLineEdit(graphicsGroupBox);
+        portPlotSend->setObjectName(QStringLiteral("portPlotSend"));
+        portPlotSend->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        verticalLayout_26->addWidget(portPlotSend);
+
+        timePlots = new QLineEdit(graphicsGroupBox);
+        timePlots->setObjectName(QStringLiteral("timePlots"));
+        timePlots->setEnabled(false);
+        timePlots->setContextMenuPolicy(Qt::ActionsContextMenu);
+        timePlots->setAcceptDrops(true);
+        timePlots->setEchoMode(QLineEdit::NoEcho);
+        timePlots->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        timePlots->setClearButtonEnabled(false);
+
+        verticalLayout_26->addWidget(timePlots);
+
+
+        horizontalLayout_22->addLayout(verticalLayout_26);
+
+
+        verticalLayout_27->addLayout(horizontalLayout_22);
+
+
+        verticalLayout_28->addWidget(graphicsGroupBox);
 
         verticalLayout_8 = new QVBoxLayout();
         verticalLayout_8->setObjectName(QStringLiteral("verticalLayout_8"));
@@ -550,7 +625,7 @@ public:
         verticalLayout_8->addLayout(horizontalLayout_11);
 
 
-        verticalLayout_24->addLayout(verticalLayout_8);
+        verticalLayout_28->addLayout(verticalLayout_8);
 
 
         horizontalLayout_19->addWidget(CHANgeVisgroupBox);
@@ -901,6 +976,14 @@ public:
         meteoIntervalEdit->setText(QApplication::translate("MainWindow", "5", nullptr));
         aerodromsIntervalEdit->setText(QApplication::translate("MainWindow", "5", nullptr));
         sendOnceButton->setText(QApplication::translate("MainWindow", "\320\236\321\202\320\277\321\200\320\260\320\262\320\270\321\202\321\214 \321\200\320\260\320\267\320\276\320\262\321\213\320\271 \320\277\320\260\320\272\320\265\321\202", nullptr));
+        graphicsGroupBox->setTitle(QApplication::translate("MainWindow", "\320\223\321\200\320\260\321\204\320\270\320\272\320\270", nullptr));
+        label_20->setText(QApplication::translate("MainWindow", "IP \320\260\320\264\321\200\320\265\321\201 \320\276\321\202\321\201\321\213\320\273\320\272\320\270", nullptr));
+        label_21->setText(QApplication::translate("MainWindow", "IP \320\277\320\276\321\200\321\202 \320\276\321\202\321\201\321\213\320\273\320\272\320\270", nullptr));
+        send2plotsCHb->setText(QApplication::translate("MainWindow", "\320\236\321\202\321\201\321\213\320\273\320\272\320\260 \320\264\320\260\320\275\320\275\321\213\321\205 \320\275\320\260 \320\263\321\200\320\260\321\204\320\270\320\272\320\270", nullptr));
+        plotIPsend->setText(QApplication::translate("MainWindow", "127.0.0.1", nullptr));
+        plotIPsend->setPlaceholderText(QApplication::translate("MainWindow", "127.0.0.1", nullptr));
+        portPlotSend->setText(QApplication::translate("MainWindow", "3456", nullptr));
+        timePlots->setText(QApplication::translate("MainWindow", "0.01", nullptr));
         backwReceive->setText(QApplication::translate("MainWindow", "\320\222\320\272\320\273\321\216\321\207\320\270\321\202\321\214 \320\277\321\200\320\270\320\265\320\274 \320\276\321\202 \320\262\320\270\320\267\321\203\320\260\320\273\320\270\320\267\320\260\321\206\320\270\320\270", nullptr));
         label_8->setText(QApplication::translate("MainWindow", "\320\237\320\276\321\200\321\202 \320\277\321\200\320\270\320\265\320\274\320\260 \320\264\320\260\320\275\320\275\321\213\321\205 \320\276\321\202 \320\262\320\270\320\267\321\203\320\260\320\273\320\270\320\267\320\260\321\206\320\270\320\270", nullptr));
         receivePortEdit_2->setText(QApplication::translate("MainWindow", "5002", nullptr));

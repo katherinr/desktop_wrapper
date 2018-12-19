@@ -659,6 +659,17 @@ void MainWindow::on_soundPortSend_editingFinished()
 
 }
 
+void MainWindow::on_portPlotSend_textEdited(const QString &arg1)
+{
+	m_server->setPLOTSendingPort(ui->portPlotSend->text().toUInt());
+}
+
+void MainWindow::on_plotIPsend_textChanged(const QString &arg1)
+{
+
+	m_server->setPLOTAddress2Send(QHostAddress(ui->plotIPsend->text()));
+}
+
 void MainWindow::closeEvent(QCloseEvent * event)
 {
 	writeSettings();
@@ -697,6 +708,17 @@ void MainWindow::readSettings()
 	ui->soundPortSend->setText(settings.value("soundIpPort", 4455).toString());
 
 	ui->receivePortEdit_2->setText(settings.value("backwardReceiveIpPort", 5002).toString());
+
+	QHostAddress plotIpAddr;
+	if (plotIpAddr.setAddress(settings.value("plotIpAddr", "127.0.0.1").toString())) {
+		ui->plotIPsend->setText(plotIpAddr.toString());
+	}
+	else {
+		ui->plotIPsend->setText("127.0.0.1");
+	}
+
+	ui->portPlotSend->setText(settings.value("plotIpPort", 432).toString());
+
 	settings.endGroup();
 
 	settings.beginGroup("Map");
@@ -728,6 +750,10 @@ void MainWindow::writeSettings()
 	settings.setValue("mapIpPort", ui->portMapSend->text());
 	settings.setValue("soundIpAddr", ui->soundIPsend->text());
 	settings.setValue("soundIpPort", ui->soundPortSend->text());
+	settings.setValue("plotIpPort", ui->plotIPsend->text());
+	settings.setValue("plotIpAddr", ui->portPlotSend->text());
+
+
 	settings.setValue("backwardReceiveIpPort", ui->receivePortEdit_2->text());
 	settings.endGroup();
 
@@ -743,3 +769,5 @@ void MainWindow::writeSettings()
 	settings.setValue("centerH", ui->mapHeiihtspinBox->value());
 	settings.endGroup();
 }
+
+
